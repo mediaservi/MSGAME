@@ -5,11 +5,11 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v7.2**
+**Versión actual: v7.3**
 
 ## Cómo se juega
 
-- Elige un cartucho y la tele muestra su menú: JUGAR empieza la partida y EXPULSAR saca el cartucho.
+- La home es un videoclub en 3D dibujado como un cómic de los 80. Elige una caja de las estanterías y la tele muestra el menú del juego: JUGAR empieza la partida y EXPULSAR saca el cartucho.
 - **Tu móvil es el mando:**
   - pulsa MANDO en la consola y escanea el código con el móvil, sin instalar nada;
   - juegan hasta 4 personas, cada una con su nombre y su color;
@@ -31,20 +31,25 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **PATOPESCA:** la pesca de patitos de la feria.
 - **ENCESTA:** recreativa 3D con BALLHOP y BASKET.
 
-## Cambios de la versión actual (v7.2)
+## Cambios de la versión actual (v7.3)
 
-- **MSGAME tiene su propia web:** msgame.mediaservi.com. Hasta ahora vivía dentro de VJSHOW, que queda solo para los visuales.
-- **La home ya no es un rack.** Es una sala de juegos retro:
-  - la sala de fondo y una mesa de madera;
-  - los cartuchos y la consola;
-  - arriba, el logo y los botones (Juegos, Ajustes, idioma, micrófono, sonido, ayuda y pantalla completa);
-  - abajo, el eslogan.
-- **Paso desde VJSHOW:** su botón de juegos abre esta web y se trae los jugadores, los récords, los premios y los ajustes de los juegos guardados en ese navegador. Solo se trae lo que aquí aún no hay: nunca pisa lo que ya tengas en MSGAME.
-- El mando del móvil, los enlaces para compartir y los retos llevan la marca y la dirección de MSGAME.
+- **La home es un videoclub en 3D**, inspirado en un videoclub real de los 80 y dibujado como un cómic: luz por bandas, trama de puntos en las sombras y contorno de tinta.
+  - A cada lado, un expositor de madera con las carátulas de frente: una balda por juego, con sus variantes.
+  - Al fondo, la sala retro pasada a viñeta, con el neón de MSGAME y los rótulos colgados.
+  - En el centro, la mesa con la consola, el mando con su cable rizado y la tele SONIA.
+- **Elegir un juego es una escena de cine con varios planos:**
+  - la mano coge la caja del expositor, la deja en la mesa y la abre;
+  - saca el cartucho y lo mete en la consola («¡CLAC!»);
+  - la tele se enciende y abre el menú del juego, ya con la variante elegida.
+- **Saltar la intro:** con el botón, con Esc, OK o la barra espaciadora se va directo al juego.
+- **Volver:** EXPULSAR en la tele devuelve la cámara a la sala y la caja vuelve a su sitio.
+- **Cómo se elige:** con el ratón, con el dedo, con el teclado o con el mando de la tele, que salta de caja en caja. Las teclas de la consola (JUGAR, EXPULSAR, MANDO, JUGADORES y RÉCORDS) también funcionan.
+- **En el móvil**, abajo hay una tira con las 8 carátulas para elegir con el dedo.
+- **Si el navegador no tiene 3D**, se queda la home de siempre.
 
 ## Licencia
 
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v7.2 es un proyecto hecho con 𑣲 by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v7.3 es un proyecto hecho con 𑣲 by [mediaservi.com](https://mediaservi.com)*
