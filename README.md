@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v8.8**
+**Versión actual: v8.9**
 
 ## Cómo se juega
 
@@ -31,7 +31,12 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **PATOPESCA:** la pesca de patitos de la feria.
 - **ENCESTA:** recreativa 3D con BALLHOP y BASKET.
 
-## Cambios de la versión actual (v8.8)
+## Cambios de la versión actual (v8.9)
+
+- **Un brazo de verdad.** En la secuencia de coger el juego, el brazo es rígido y sale siempre del mismo hombro, abajo a la derecha de la imagen: la mano llega a la caja, a la carátula, al cartucho y a la consola desde donde alcanza, sin bajar del cielo ni estirarse.
+- **Sin choques con la lámpara.** La lámpara de lava y la lata se retiran un poco hacia el monitor y la caja se abre en la mesa sin tocarlas.
+
+Sigue de la v8.8:
 
 - **Fondo: el videoclub de verdad.** La capa de fondo es ahora la foto real del videoclub, difuminada, en la escena y en la pantalla de juego. Sustituye a la cafetería dibujada de la v8.7.
 - **La música arranca al primer toque.** Al abrir MSGAME desde otra web, el navegador no deja sonar nada hasta que tocas la pantalla; ahora la música de los menús empieza en ese mismo instante, sin esperar.
@@ -122,4 +127,4 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v8.8 es un proyecto hecho con 𑣲 by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v8.9 es un proyecto hecho con 𑣲 by [mediaservi.com](https://mediaservi.com)*

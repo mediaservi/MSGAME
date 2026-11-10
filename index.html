@@ -3062,7 +3062,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '8.8';
+    const APP_VERSION = '8.9';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       document.getElementById('appVer').innerText = APP_VERSION; document.getElementById('appName').textContent = APP_NAME; document.querySelectorAll('.msver').forEach(e => { e.textContent = APP_VERSION; }); document.querySelectorAll('.msyear').forEach(e => { e.textContent = new Date().getFullYear(); }); document.getElementById('appYear').innerText = new Date().getFullYear();
@@ -7564,10 +7564,18 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
         const th = []; let tp = g; [[.022, -.04, -.01], [.016]].forEach(([l, x2, z2], j) => { const jt = new T.Group(); if (!j) { jt.position.set(x2, -.002, z2); jt.rotation.y = .75; } else jt.position.z = -.022; tp.add(jt); inkm(capsule(.0132, l), glove, 0, 0, 0, jt); th.push(jt); tp = jt; });
         const cg = new T.CylinderGeometry(.044, .031, .034, 26, 1, true); cg.rotateX(Math.PI / 2); inkm(cg, toon({ color: 0x98d800, emissive: 0x98d800, ei: .15, spec: .3, side: T.DoubleSide }), 0, 0, .05, g);
         const tg = new T.TorusGeometry(.044, .008, 10, 30); inkm(tg, glove, 0, 0, .067, g);
-        const sg2 = new T.CylinderGeometry(.054, .04, .72, 24); sg2.rotateX(Math.PI / 2); inkm(sg2, sleeve, 0, 0, .435, g); const st2 = new T.TorusGeometry(.0425, .0045, 8, 30); mesh(st2, stripe, 0, 0, .1, g); mesh(st2, stripe, 0, 0, .115, g);
+        const sg2 = new T.CylinderGeometry(.062, .04, 2.6, 24); sg2.rotateX(Math.PI / 2); inkm(sg2, sleeve, 0, 0, 1.375, g);   // v8.9 · brazo rígido y largo: sale siempre del encuadre por donde está el hombro const st2 = new T.TorusGeometry(.0425, .0045, 8, 30); mesh(st2, stripe, 0, 0, .1, g); mesh(st2, stripe, 0, 0, .115, g);
         // v7.8 · puño de manopla (como el del muñeco): al agarrar, los dedos sueltos se ocultan y el canto de la caja o del cartucho queda dentro del puño
         const fist = new T.Group(); mesh(rbox(.1, .066, .08, .029), glove, 0, -.012, -.036, fist); const ft = mesh(capsule(.0165, .05), glove, .028, -.036, -.064, fist); ft.rotation.y = Math.PI / 2; fist.visible = false; g.add(fist); HAND.fist = fist;
         shadowsOn(g); g.visible = false; S.add(g); HAND.g = g; HAND.F = F; HAND.th = th; }
+      /* v8.9 · sin brazos elásticos ni manos que bajan del cielo: tras cada gesto, el brazo se reorienta hacia el hombro (junto a la cámara, abajo a la derecha)
+         girando lo mínimo y sin mover el puño de donde agarra */
+      const BRZ = { fc: null, z: null, a: null, s: null, q: null };
+      function brazo() { const hg = HAND.g; if (!hg || !hg.visible) return; if (!BRZ.fc) { BRZ.fc = new T.Vector3(0, -.012, -.036); BRZ.z = new T.Vector3(); BRZ.a = new T.Vector3(); BRZ.s = new T.Vector3(); BRZ.q = new T.Quaternion(); BRZ.p = new T.Vector3(); BRZ.t = new T.Vector3(); }
+        const puno0 = BRZ.p.copy(BRZ.fc).applyQuaternion(hg.quaternion).add(hg.position);
+        BRZ.s.set(.2, -.36, .12).applyQuaternion(CAM.quaternion).add(CAM.position);                                      // el hombro: a la derecha, por debajo y algo por detrás del objetivo
+        BRZ.z.set(0, 0, 1).applyQuaternion(hg.quaternion); BRZ.a.copy(BRZ.s).sub(puno0).normalize(); BRZ.q.setFromUnitVectors(BRZ.z, BRZ.a); hg.quaternion.premultiply(BRZ.q);
+        hg.position.copy(puno0).sub(BRZ.t.copy(BRZ.fc).applyQuaternion(hg.quaternion)); }
       function puno(on) { HAND.fist.visible = on; HAND.F.forEach(sg2 => { sg2[0].visible = !on; }); HAND.th[0].visible = !on; }
       /* ---------- v7.6 · Mevi, la mascota que guía al jugador (modelo propio a partir del muñeco de referencia de Josep) ----------
          Muñeco de juguete: melena negra con flequillo recto, ojos de estrella, mejillas sonrosadas, mono morado, guantes y botas verde lima
@@ -7673,13 +7681,13 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
         [[-.64, -.35], [.64, -.35], [-.64, .35], [.64, .35]].forEach(([x, z]) => inkm(legG, M.tableLeg, x, 0, tz + z, null)); inkm(rbox(1.3, .022, .68, .006), M.tableLeg, 0, .16, tz, null);
         const bodyM = M.black; [[-.4, 3, 0], [-.18, 16, .4], [.28, 12, -.3]].forEach(([x, c, rz], i) => { const b2 = inkm(bodG, bodyM, x, .196, tz - .04 + i * .06, null); b2.rotation.set(-Math.PI / 2, 0, rz); plane(BOX.w, BOX.h, MAT.cover[c], 0, 0, BOX.d / 2 + .0006, b2); });
         
-        const canT = ctex(canCanvas()), cm = toon({ map: canT, spec: 1, shin: 40, rim: .4 }), lidM = toon({ color: 0xc9cdd6, spec: 1.1, shin: 50 }); const can = new T.Group(); can.position.set(.57, TY, tz + .02); S.add(can);   // v8.6 · lata con su forma: base, cuerpo impreso, hombro, aro y anilla, y la luz de un cilindro
+        const canT = ctex(canCanvas()), cm = toon({ map: canT, spec: 1, shin: 40, rim: .4 }), lidM = toon({ color: 0xc9cdd6, spec: 1.1, shin: 50 }); const can = new T.Group(); can.position.set(.62, TY, tz - .1); S.add(can);   // v8.6 · lata con su forma: base, cuerpo impreso, hombro, aro y anilla, y la luz de un cilindro
         const canB = inkm(new T.CylinderGeometry(.033, .033, .098, 32, 1, true), cm, 0, .057, 0, can); canB.rotation.y = -Math.PI / 2 - .47;
         const canV = toon({ color: 0x0f8f3a, spec: 1, shin: 40, rim: .4 }); inkm(new T.CylinderGeometry(.033, .0285, .008, 32, 1), canV, 0, .004, 0, can); inkm(new T.CylinderGeometry(.0275, .033, .012, 32, 1), canV, 0, .112, 0, can);
         inkm(new T.CylinderGeometry(.0282, .0275, .004, 32, 1), lidM, 0, .12, 0, can); mesh(new T.CylinderGeometry(.0255, .0255, .001, 28), toon({ color: 0xaeb3bd, spec: 1.2, shin: 60 }), 0, .1205, 0, can, false); const tab = mesh(new T.BoxGeometry(.011, .0012, .017), lidM, 0, .1222, .004, can, false); tab.rotation.y = .5;
         const luzT = ctex(canLuz()), canL = mesh(new T.CylinderGeometry(.0342, .0342, .098, 32, 1, true), new T.MeshBasicMaterial({ map: luzT, transparent: true, depthWrite: false, toneMapped: false, polygonOffset: true, polygonOffsetFactor: -6, polygonOffsetUnits: -6 }), 0, .057, 0, can, false); canL.rotation.y = Math.PI - .31; canL.renderOrder = 2;
         buildTV(new T.Vector3(0, TY, tz - .17)); buildConsole(new T.Vector3(0, TY, tz + .24)); buildPad(new T.Vector3(-.42, TY, tz + .3), .3);
-        buildLava(new T.Vector3(.39, TY, tz + .08), .8); buildWalkman(new T.Vector3(-.54, TY, tz + .13), .42); buildCubo(new T.Vector3(-.2, TY + .587, tz + .01), .5);   // v8.6 · la lámpara, verde, en el hueco de la mesa entre el monitor y la estantería; el cubo, encima del monitor; el walkman, al otro lado
+        buildLava(new T.Vector3(.39, TY, tz - .1), .8); buildWalkman(new T.Vector3(-.54, TY, tz + .13), .42); buildCubo(new T.Vector3(-.2, TY + .587, tz + .01), .5);   // v8.6 · la lámpara, verde, en el hueco de la mesa entre el monitor y la estantería; el cubo, encima del monitor; el walkman, al otro lado
         // luces: principal cálida con sombras duras, fluorescentes, contraluces de neón y relleno frío
         S.add(new T.HemisphereLight(0xfff1e6, 0x3a2752, .36));
         const key = new T.SpotLight(0xfff2de, .8, 8, .72, .35, 1.1); key.position.set(1.0, 2.6, 2.7); key.target.position.set(0, .85, .6); S.add(key); S.add(key.target);
@@ -7799,7 +7807,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       function kick() { if (!raf && built) raf = requestAnimationFrame(loop); }
       function loop(now) { raf = 0; if (ST.paused || (!visible() && !ST.seq)) return; raf = requestAnimationFrame(loop); if (LOW && !ST.seq && now - lastT < 32) return; lastT = now; frameN++;
         const t = now / 1000;
-        if (ST.seq) { const s = (now - ST.seq.t0) / 1000, sh = ST.seq.shots.find(x => s < x.b) || ST.seq.shots[ST.seq.shots.length - 1], k = cl((s - sh.a) / (sh.b - sh.a)); applyPose(sh.cam(k)); if (sh.act) sh.act(Math.min(s, sh.b)); if (s * 1000 >= ST.seq.dur) { ST.last = ST.seq; const e = ST.seq.end; e(); } }
+        if (ST.seq) { const s = (now - ST.seq.t0) / 1000, sh = ST.seq.shots.find(x => s < x.b) || ST.seq.shots[ST.seq.shots.length - 1], k = cl((s - sh.a) / (sh.b - sh.a)); applyPose(sh.cam(k)); if (sh.act) { sh.act(Math.min(s, sh.b)); CAM.updateMatrixWorld(); brazo(); } if (s * 1000 >= ST.seq.dur) { ST.last = ST.seq; const e = ST.seq.end; e(); } }
         else { const p = ST.par || [0, 0], sw = REDUCE ? null : new T.Vector3(Math.sin(t * .23) * .025 + p[0] * .1, Math.sin(t * .31) * .012 - p[1] * .05, 0); applyPose(ST.home, sw); }
         if (TV.mode === 'menu' && frameN % 4 === 0) tvScreen('menu'); TV.light.intensity = .45 + Math.sin(t * 13) * .04; lavaTick(t);
         if (ST.hl.visible) ST.hl.material.opacity = .42 + Math.sin(t * 6) * .12;
