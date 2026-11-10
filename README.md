@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v7.5**
+**Versión actual: v7.6**
 
 ## Cómo se juega
 
@@ -31,9 +31,17 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **PATOPESCA:** la pesca de patitos de la feria.
 - **ENCESTA:** recreativa 3D con BALLHOP y BASKET.
 
-## Cambios de la versión actual (v7.5)
+## Cambios de la versión actual (v7.6)
 
-- **El videoclub 3D ya sale completo en el enlace de pruebas:** las carátulas y el fondo se cargan de forma que funcionan también cuando el servidor entrega las imágenes desde otra dirección (antes, en ese caso, la sala salía sin carátulas ni fondo, o no llegaba a salir).
+- **Llega Mevi, la mascota de MSGAME.** Es quien guía al jugador: un muñeco de melena negra, ojos de estrella, mono morado y guantes y botas verde lima.
+- **Nueva entrada:** al cargar, la sala aparece primero desenfocada y después nítida, con la mesa, la consola y las estanterías. Entonces Mevi salta desde abajo, en el centro, con un «boing», y saluda en un bocadillo: «¡Hola! Soy Mevi. ¿Elegimos a qué jugamos?». Un toque en la pantalla la despide.
+- **El juego se elige con la mano de Mevi:** en la escena de cine, su guante verde coge la caja por arriba, la deja en la mesa, abre la carátula, saca el cartucho y lo mete en la consola. ¡Clac!
+- **Estilo de dibujos animados, no de cómic:** desaparecen el contorno de tinta y la trama de puntos; las luces y las sombras son suaves.
+- Mientras carga ya no se ve la home antigua: se ve el fondo desenfocado.
+
+Sigue de la v7.5:
+
+- **El videoclub 3D sale completo en el enlace de pruebas:** las carátulas y el fondo se cargan de forma que funcionan también cuando el servidor entrega las imágenes desde otra dirección.
 - **Si el dispositivo no puede con el 3D, el motivo se queda 15 segundos a la vista** en la propia pantalla, además de pasar por el LED.
 
 Sigue de la v7.4:
@@ -63,4 +71,4 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v7.5 es un proyecto hecho con 𑣲 by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v7.6 es un proyecto hecho con 𑣲 by [mediaservi.com](https://mediaservi.com)*
