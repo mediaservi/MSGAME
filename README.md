@@ -5,11 +5,11 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v8.0**
+**Versión actual: v8.4**
 
 ## Cómo se juega
 
-- La home es un videoclub en 3D dibujado como un cómic de los 80. Elige una caja de las estanterías y la tele muestra el menú del juego: JUGAR empieza la partida y EXPULSAR saca el cartucho.
+- La home es un videoclub en 3D de los 80: dos estanterías llenas de juegos, y en la mesa el monitor, la consola, una lámpara de lava, un walkman y un cubo de Rubik. Elige una caja y el monitor muestra el menú del juego: JUGAR empieza la partida y EXPULSAR saca el cartucho.
 - **Tu móvil es el mando:**
   - pulsa MANDO en la consola y escanea el código con el móvil, sin instalar nada;
   - juegan hasta 4 personas, cada una con su nombre y su color;
@@ -31,9 +31,19 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **PATOPESCA:** la pesca de patitos de la feria.
 - **ENCESTA:** recreativa 3D con BALLHOP y BASKET.
 
-## Cambios de la versión actual (v8.0)
+## Cambios de la versión actual (v8.4)
 
-- **Nada cambia en MSGAME.** Esta versión añade a VJSHOW los logos de las otras apps de AVHUB (MSGAME entre ellas, enlazado a esta web). Las dos webs comparten código y suben de versión a la vez.
+- **Un solo fondo.** La sala es la foto entera, como pared del fondo: ya no hay suelo, techo, paredes ni esquinas, y desaparecen los rótulos redondos colgados (ARCADE, PARTY…), el neón y los pósters.
+- **Estanterías más grandes y más cerca.** Se salen de la pantalla por los lados y van llenas de cajas de arriba abajo, con cuatro por balda.
+- **El logo oficial, en todas partes.** A color en el rótulo de cada estantería y en el monitor (la calavera arriba y el nombre debajo, con su efecto de tubo). Grabado, sin tinta y solo con el relieve hundido, en la consola, en los cartuchos y en las cajas. El nombre «MSGAME» escrito deja de salir en el resto.
+- **Monitor y consola iguales antes y después de meter el cartucho:** el mismo monitor gris «SONIA» y la misma consola, con el frontal inclinado, la pantalla, el piloto y las cinco teclas.
+- **La consola ya no se corta por abajo.** En la pantalla de juego, el monitor y la consola se ajustan solos a la ventana y dejan margen por abajo.
+- **Cosas de los 80 en la mesa:** una lámpara de lava que se mueve y da luz, un walkman con la cinta «favoritas» escrita a mano y un cubo de Rubik con el logo de cada app en las pegatinas de su color.
+- **El rótulo de arriba, en reposo,** alterna la firma del pie con una invitación a las otras apps de AVHUB («Prueba también VJSHOW: …») y su resumen. Los avisos y la ayuda de cada momento siguen teniendo prioridad.
+
+Sigue de la v8.0 (las versiones v8.1 a v8.3 solo cambiaron VJSHOW, que comparte código):
+
+- Esa versión añadió a VJSHOW los logos de las otras apps de AVHUB (MSGAME entre ellas, enlazado a esta web).
 
 Sigue de la v7.9:
 
@@ -87,4 +97,4 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v8.0 es un proyecto hecho con 𑣲 by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v8.4 es un proyecto hecho con 𑣲 by [mediaservi.com](https://mediaservi.com)*
