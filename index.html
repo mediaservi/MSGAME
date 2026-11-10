@@ -3062,7 +3062,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '8.4';
+    const APP_VERSION = '8.5';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       document.getElementById('appVer').innerText = APP_VERSION; document.getElementById('appName').textContent = APP_NAME; document.querySelectorAll('.msver').forEach(e => { e.textContent = APP_VERSION; }); document.querySelectorAll('.msyear').forEach(e => { e.textContent = new Date().getFullYear(); }); document.getElementById('appYear').innerText = new Date().getFullYear();
@@ -7346,7 +7346,21 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       function grabaTexto(x, txt, X, Y, cara, d) { x.fillStyle = 'rgba(255,255,255,.34)'; x.fillText(txt, X + d, Y + d); x.fillStyle = 'rgba(0,0,0,.6)'; x.fillText(txt, X - d * .8, Y - d * .8); x.fillStyle = cara; x.fillText(txt, X, Y); }
       function logoMs(x, cx, cy, h) { if (!LG.msR) return; const w = h * 444.2 / 120; x.drawImage(LG.msR, cx - w / 2, cy - h / 2, w, h); }
       function glowCanvas() { const [c, x] = canvas(128, 128), g = x.createRadialGradient(64, 64, 0, 64, 64, 64); g.addColorStop(0, 'rgba(255,255,255,1)'); g.addColorStop(.2, 'rgba(255,255,255,.55)'); g.addColorStop(.55, 'rgba(255,255,255,.14)'); g.addColorStop(1, 'rgba(255,255,255,0)'); x.fillStyle = g; x.fillRect(0, 0, 128, 128); return c; }
-      function shelfTag(c) { return decal((x, w, h) => { const col = COL[c.g], g = x.createLinearGradient(0, 0, w, 0); g.addColorStop(0, col.c1); g.addColorStop(1, col.c2); x.fillStyle = '#120a1c'; x.fillRect(0, 0, w, h); x.fillStyle = g; x.fillRect(5, 6, 16, h - 12); x.fillRect(w - 21, 6, 16, h - 12); title(x, GN[c.g], w / 2, h * .8, 46, w - 70); }, 512, 64); }
+      function memphis() { const W = 1024, H = 768, [c, x] = canvas(W, H); x.fillStyle = '#2d1850'; x.fillRect(0, 0, W, H); const P = ['#ff3bd4', '#22d3ee', '#ffd23f', '#7dff6a', '#ff7a3d'];
+        for (let i = 0; i < 78; i++) { const px = 40 + rnd() * (W - 80), py = 40 + rnd() * (H - 80), s = 14 + rnd() * 24, k = i % 5; x.save(); x.translate(px, py); x.rotate(rnd() * 6.283); x.lineWidth = 6; x.strokeStyle = x.fillStyle = P[(i * 3) % 5]; x.lineJoin = x.lineCap = 'round'; x.beginPath();
+          if (k === 0) { x.moveTo(-s, s * .7); x.lineTo(0, -s); x.lineTo(s, s * .7); x.closePath(); x.fill(); x.lineWidth = 4; x.strokeStyle = '#120a1c'; x.stroke(); }
+          else if (k === 1) { x.arc(0, 0, s * .6, 0, 6.283); x.stroke(); }
+          else if (k === 2) { for (let j = 0; j <= 6; j++) x.lineTo(-s * 1.4 + j * s * .47, j % 2 ? -s * .4 : s * .4); x.stroke(); }
+          else if (k === 3) { for (let j = 0; j <= 24; j++) x.lineTo(-s * 1.4 + j * s * .12, Math.sin(j / 24 * 9.42) * s * .45); x.stroke(); }
+          else { for (let a = 0; a < 3; a++) for (let b = 0; b < 3; b++) { x.beginPath(); x.arc(-s * .6 + a * s * .6, -s * .6 + b * s * .6, 3.5, 0, 6.283); x.fill(); } }
+          x.restore(); }
+        x.strokeStyle = '#ffd23f'; x.lineWidth = 12; x.strokeRect(26, 26, W - 52, H - 52); x.strokeStyle = '#120a1c'; x.lineWidth = 6; x.strokeRect(18, 18, W - 36, H - 36); return c; }
+      function damero() { const N = 4, P = 128, [c, x] = canvas(N * P, N * P), TC = [[176, 84, 52], [236, 228, 212]];   // v8.5 · baldosa de 20 × 20 en damero, terracota y blanco roto, con junta fina y algo de desgaste
+        for (let i = 0; i < N; i++) for (let j = 0; j < N; j++) { const t = TC[(i + j) % 2], d = (rnd() - .5) * 16; x.fillStyle = `rgb(${t[0] + d | 0},${t[1] + d * .8 | 0},${t[2] + d * .7 | 0})`; x.fillRect(i * P, j * P, P, P);
+          for (let k = 0; k < 26; k++) { x.fillStyle = `rgba(${rnd() < .5 ? 255 : 60},${rnd() < .5 ? 250 : 40},${rnd() < .5 ? 240 : 30},${rnd() * .06})`; x.fillRect(i * P + rnd() * P, j * P + rnd() * P, 2 + rnd() * 16, 1 + rnd() * 3); }
+          x.fillStyle = 'rgba(255,255,255,.1)'; x.fillRect(i * P + 3, j * P + 3, P - 6, 2); x.fillRect(i * P + 3, j * P + 3, 2, P - 6); }
+        x.fillStyle = '#8f8676'; for (let i = 0; i <= N; i++) { x.fillRect(i * P - 1.5, 0, 3, N * P); x.fillRect(0, i * P - 1.5, N * P, 3); } return c; }
+      function shelfTag(c, cw) { return decal((x, w, h) => { const col = COL[c.g], g = x.createLinearGradient(0, 0, w, 0); g.addColorStop(0, col.c1); g.addColorStop(1, col.c2); x.fillStyle = '#120a1c'; x.fillRect(0, 0, w, h); x.fillStyle = g; x.fillRect(5, 6, 16, h - 12); x.fillRect(w - 21, 6, 16, h - 12); title(x, GN[c.g], w / 2, h * .8, 46, w - 70); }, cw || 512, 64); }
       function manualCanvas(c) { return decal((x, w, h) => { const col = COL[c.g], g = x.createLinearGradient(0, 0, w, 0); g.addColorStop(0, col.c1); g.addColorStop(1, col.c2); x.fillStyle = '#f4efe2'; x.fillRect(0, 0, w, h); x.fillStyle = g; x.fillRect(0, 0, w, 74); title(x, GN[c.g], w / 2, 58, 40, w - 30);
           x.fillStyle = '#2a2236'; x.textAlign = 'center'; x.font = '700 17px "Barlow Semi Condensed",Arial,sans-serif'; x.fillText(TT('Manual de instrucciones').toUpperCase(), w / 2, 102); x.fillStyle = 'rgba(42,34,54,.32)'; for (let i = 0; i < 12; i++) x.fillRect(28, 128 + i * 18, (w - 56) * (.5 + rnd() * .5), 6);
           x.strokeStyle = '#120a1c'; x.lineWidth = 6; x.strokeRect(3, 3, w - 6, h - 6); }, 256, 372); }
@@ -7385,19 +7399,20 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       const capsule = (r, len) => { const g = new T.CapsuleGeometry(r, len, 6, 14); g.rotateX(-Math.PI / 2); g.translate(0, 0, -len / 2); return g; };   // de la articulación hacia -Z
 
       /* ---------- muebles del videoclub (réplica de los de Josep) ---------- */
-      const BOX = { w: .21, h: .3, d: .05 }, slots = [], SH = { k: 1.2, x: 1.42, y: -.64, z: .1, r: .62 };
+      const BOX = { w: .21, h: .3, d: .05 }, slots = [], SH = { k: 1.12, x: 1.37, y: .09, z: .05, r: .75 };
       function frame(g, W, H, D) { const wm = M.wood, t = .028;
         inkm(new T.BoxGeometry(t, H, D), wm, -W / 2 + t / 2, H / 2, D / 2, g); inkm(new T.BoxGeometry(t, H, D), wm, W / 2 - t / 2, H / 2, D / 2, g);
         mesh(new T.BoxGeometry(W, H, .012), M.woodIn, 0, H / 2, .006, g); inkm(new T.BoxGeometry(W + .02, .03, D + .03), wm, 0, H + .015, D / 2 + .005, g);
         inkm(new T.BoxGeometry(W, .13, .02), wm, 0, H - .065, D + .002, g); }
-      function unitF(W, H, D, side, rows) {   // expositor: cada balda es un juego con sus variantes de frente; el rótulo de arriba lleva el logo
+      function unitF(W, H, D, side, rows) {   // expositor: baldas con las cajas de frente y la etiqueta de cada juego; el rótulo de arriba lleva el logo
         const g = new T.Group(); frame(g, W, H, D); const t = .028, IW = W - 2 * t;
         const signT = ctex(decal((x, w, h) => { const gr = x.createLinearGradient(0, 0, 0, h); gr.addColorStop(0, '#2a1250'); gr.addColorStop(1, '#0b0618'); x.fillStyle = gr; x.fillRect(0, 0, w, h); logoMs(x, w / 2, h / 2, h * .82); }, 1024, 112)), sd = toon({ color: 0x1a0d33 });
         inkm(new T.BoxGeometry(W - .04, .11, .016), [sd, sd, sd, sd, toon({ map: signT, emissive: 0xffffff, emissiveMap: signT, ei: .35, ht: .4, spec: .4 }), sd], 0, H - .065, D + .02, g);
-        rows.forEach(([gm, vars], r) => { const y = .06 + (rows.length - 1 - r) * .31; inkm(new T.BoxGeometry(IW, .016, .1), M.wood, 0, y, D - .06, g); inkm(new T.BoxGeometry(IW, .03, .014), M.wood, 0, y + .011, D - .006, g);
-          const n = vars.length, gap = (IW - n * BOX.w) / (n + 1), c0 = CV.find(c2 => c2.g === gm);
-          plane(.3, .0375 * .64, toon({ map: ctex(shelfTag(c0)), ht: .3, spec: .3 }), 0, y + .011, D + .0015, g);
-          vars.forEach((v, k) => { const c = CV.find(c2 => c2.g === gm && (v === null || c2.val === v)); slots.push({ g, row: r, side, c: c.i, x: -IW / 2 + gap + BOX.w / 2 + k * (BOX.w + gap), y: y + .01 + BOX.h / 2 * Math.cos(.16), z: D - .07, rx: -.16 }); }); });
+        rows.forEach((cells, r) => { const y = .06 + (rows.length - 1 - r) * .31; inkm(new T.BoxGeometry(IW, .016, .1), M.wood, 0, y, D - .06, g); inkm(new T.BoxGeometry(IW, .03, .014), M.wood, 0, y + .011, D - .006, g);
+          const n = cells.length, gap = (IW - n * BOX.w) / (n + 1), X = k => -IW / 2 + gap + BOX.w / 2 + k * (BOX.w + gap);
+          for (let a = 0; a < n;) { let b = a; while (b + 1 < n && cells[b + 1][0] === cells[a][0]) b++; const tw = Math.min(.3, (b - a + 1) * (BOX.w + gap) - gap - .012);   // v8.5 · una etiqueta por juego dentro de la balda
+            plane(tw, .0375 * .64, toon({ map: ctex(shelfTag(CV.find(c2 => c2.g === cells[a][0]), Math.round(512 * tw / .3))), ht: .3, spec: .3 }), (X(a) + X(b)) / 2, y + .011, D + .0015, g); a = b + 1; }
+          cells.forEach(([gm, v], k) => { const c = CV.find(c2 => c2.g === gm && (!v || c2.val === v)); slots.push({ g, row: r, side, c: c.i, x: X(k), y: y + .01 + BOX.h / 2 * Math.cos(.16), z: D - .07, rx: -.16 }); }); });
         return g; }
 
       /* ---------- consola mediaservi GAME SYSTEM, mando y tele SONIA ---------- */
@@ -7486,7 +7501,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
 
       /* ---------- v8.4 · cosas de los 80 sobre la mesa: lámpara de lava (se mueve y da luz), walkman con la cinta «favoritas» y cubo de Rubik con los logos de las apps ---------- */
       const LAVA = { b: [] };
-      function buildLava(p) { const g = new T.Group(); g.position.copy(p); S.add(g); const metal = toon({ color: 0xc2c7d1, spec: 1.2, shin: 60, rim: .5 }), lat = pts => new T.LatheGeometry(pts.map(([r, y]) => new T.Vector2(r, y)), 28);
+      function buildLava(p, k) { const g = new T.Group(); g.position.copy(p); if (k) g.scale.setScalar(k); S.add(g); const metal = toon({ color: 0xc2c7d1, spec: 1.2, shin: 60, rim: .5 }), lat = pts => new T.LatheGeometry(pts.map(([r, y]) => new T.Vector2(r, y)), 28);
         inkm(lat([[0, 0], [.058, 0], [.06, .01], [.037, .1], [.035, .112], [0, .112]]), metal, 0, 0, 0, g);
         const PR = [[.034, .112], [.048, .165], [.047, .205], [.031, .33], [.022, .385]], gl = lat(PR); LAVA.r = y => { for (let i = 1; i < PR.length; i++) if (y <= PR[i][1]) { const k = (y - PR[i - 1][1]) / (PR[i][1] - PR[i - 1][1]); return PR[i - 1][0] + (PR[i][0] - PR[i - 1][0]) * Math.max(0, k); } return PR[PR.length - 1][0]; };
         mesh(gl, new T.MeshBasicMaterial({ color: 0x6a12c8, side: T.BackSide, toneMapped: false }), 0, 0, 0, g, false);   // el líquido encendido: se ve la pared del fondo del vidrio
@@ -7593,7 +7608,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
         // bocadillo: sobre su cabeza, sin salirse de la pantalla; el texto se va escribiendo
         const b = MEVI.bub, W = R.domElement.clientWidth || innerWidth, H = R.domElement.clientHeight || innerHeight, bw = b.offsetWidth || 260; b.style.bottom = Math.round(.93 * s / vh * H + 18) + 'px';
         b.style.left = Math.round(Math.min(W - bw / 2 - 10, Math.max(bw / 2 + 10, (.5 + x / vw) * W))) + 'px';
-        if (t > .8) { const l1 = TT('¡Hola! Soy Mevi.'), l2 = TT('¿Elegimos a qué jugamos?'), n = Math.min(l1.length + l2.length, Math.floor((t - .9) * 30)); if (n !== MEVI.n) { MEVI.n = n; b.innerHTML = '<b></b><span></span>'; b.firstChild.textContent = l1.slice(0, Math.max(0, n)) || ' '; b.lastChild.textContent = n > l1.length ? l2.slice(0, n - l1.length) : ''; } b.classList.add('on'); } }
+        if (t > .8) { const l1 = TT('¡Hola! Soy Mevi.'), l2 = TT('¿Elegimos a qué jugamos?'), n = Math.min(l1.length + l2.length, Math.floor((t - .9) * 30)); if (n !== MEVI.n) { MEVI.n = n; b.innerHTML = '<b></b><span></span>'; b.firstChild.textContent = l1.slice(0, Math.max(0, n)) || ' '; b.lastChild.textContent = n > l1.length ? l2.slice(0, n - l1.length) : ''; } b.classList.toggle('on', t < 12); } }   // v8.5 · el bocadillo se retira a los 12 s para no tapar las cajas
       function pose(curl, thumb) { HAND.F.forEach((s, i) => s.forEach((j, k) => { j.rotation.x = -curl * [.9, 1.2, .95][k] * (1 - i * .05); })); HAND.th[0].rotation.x = -thumb * .55; HAND.th[1].rotation.x = -thumb * .9; }
 
       /* ---------- caja que se abre y cartucho ---------- */
@@ -7621,16 +7636,20 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
         M.tvBody = toon({ color: 0x9a9da2, spec: .6, shin: 28, rim: .4 }); M.tvBody2 = toon({ color: 0x8b8e93, spec: .6, shin: 30 }); M.chrome = toon({ color: 0xaab0bd, spec: 1.2, shin: 60, rim: .5 }); M.inkB = new T.MeshBasicMaterial({ color: INK });
         // v8.4 · un solo fondo: la foto de la sala entera, como pared del fondo (sin suelo, techo, paredes ni rótulos colgados). Detrás, la misma foto más grande y oscura, por si un plano de cámara se sale
         const bgImg = await loadImg('juegos/retrogaming.webp'); let bgT = null; if (bgImg) { bgT = new T.CanvasTexture(comicPhoto(bgImg)); bgT.encoding = T.sRGBEncoding; }
-        const BGW = 9.6, BGH = BGW * 9 / 16; ST.bg = plane(BGW, BGH, new T.MeshBasicMaterial({ map: bgT, color: bgT ? 0xcfc6da : 0x2a1f3a, toneMapped: false }), 0, 1.1, -2.2); ST.bg.receiveShadow = false;
+        const BGW = 9.6, BGH = BGW * 9 / 16; ST.bg = plane(BGW, BGH, new T.MeshBasicMaterial({ map: bgT, color: bgT ? 0xcfc6da : 0x2a1f3a, toneMapped: false }), 0, BGH / 2 - .9, -2.2); ST.bg.receiveShadow = false;
+        // v8.5 · suelo de damero y, sobre él, la alfombra arcade bajo la mesa
+        const fl = mesh(new T.PlaneGeometry(14, 9), toon({ map: ctex(damero(), [14 / .8, 9 / .8]), spec: .35, shin: 20 }), 0, 0, 2.3, null); fl.rotation.x = -Math.PI / 2; fl.castShadow = false;
+        const rugS = toon({ color: 0x1a0f2e }), rug = inkm(new T.BoxGeometry(2.1, .008, 1.55), [rugS, rugS, toon({ map: ctex(memphis()), ht: .9 }), rugS, rugS, rugS], 0, .004, .95, null); rug.castShadow = false;
         const bg2 = plane(BGW * 3, BGH * 3, new T.MeshBasicMaterial({ map: bgT, color: bgT ? 0x4a4352 : 0x1a1322, toneMapped: false }), 0, 1.1, -2.6); bg2.receiveShadow = false;
         // carátulas
         const arts = await Promise.all(CV.map(coverArt)); ST.arts = arts;
         for (const c of CV) { const cc = coverCanvas(c, arts[c.i]), tx = ctex(cc); MAT.cover[c.i] = toon({ map: tx, emissive: 0xffffff, emissiveMap: tx, ei: .3, spec: .8, shin: 70, ht: .45 }); ST.thumbs[c.i] = cc; }
         // un solo mueble a cada lado, girado hacia la cámara para ver bien cada carátula
-        const LADO = { '-1': [['hit', ['halloween', 'zombies', 'aliens', 'sports']], ['shoot', ['western', 'galaxy', 'zombieland', 'haunted']], ['race', ['runner', 'dirty', 'runner', 'dirty']], ['paint', [null, null, null, null]], ['hit', ['disco', 'halloween', 'zombies', 'aliens']], ['shoot', ['alpine', 'warfront', 'western', 'galaxy']]],
-          '1': [['wheel', [null, null, null, null]], ['bowl', [null, null, null, null]], ['duck', [null, null, null, null]], ['hoop', ['ballhop', 'basket', 'ballhop', 'basket']], ['race', ['dirty', 'runner', 'dirty', 'runner']], ['paint', [null, null, null, null]]] };
-        // v8.4 · más grandes y más cerca: se salen de la pantalla por los lados y por abajo, llenos de cajas de arriba abajo
-        [-1, 1].forEach(s2 => { const u = unitF(1.16, 2.07, .42, s2, LADO[s2]); u.scale.setScalar(SH.k); u.position.set(s2 * SH.x, SH.y, SH.z); u.rotation.y = -s2 * SH.r; S.add(u); });
+        // v8.5 · las dos baldas de arriba de cada mueble llevan todos los juegos a la vista; las de abajo, que quedan detrás de la mesa, repiten cajas de relleno
+        const F = (gm, vs) => vs.map(v => [gm, v]), LADO = { '-1': [F('hit', ['halloween', 'zombies', 'aliens', 'sports']), F('shoot', ['haunted', 'western', 'galaxy', 'zombieland']), F('hit', ['zombies', 'disco', 'aliens', 'halloween']), F('race', ['runner', 'dirty', 'runner', 'dirty'])],
+          '1': [[['wheel'], ['bowl'], ['duck'], ['paint']], [...F('race', ['runner', 'dirty']), ...F('hoop', ['ballhop', 'basket'])], F('shoot', ['galaxy', 'haunted', 'alpine', 'warfront']), [['paint'], ['duck'], ['bowl'], ['wheel']]] };
+        // v8.5 · girados hacia la cámara y enteros en pantalla, de pie sobre un zócalo
+        [-1, 1].forEach(s2 => { const u = unitF(1.16, 1.47, .42, s2, LADO[s2]); u.scale.setScalar(SH.k); u.position.set(s2 * SH.x, SH.y, SH.z); u.rotation.y = -s2 * SH.r; u.userData.noTap = true; inkm(new T.BoxGeometry(1.08, SH.y / SH.k, .34), toon({ color: 0x2a180f }), 0, -SH.y / SH.k / 2, .2, u); S.add(u); });
         // cajas en el expositor: cada una es un punto para elegir (mando de la tele, teclado, ratón y dedo)
         const covG = new T.PlaneGeometry(BOX.w, BOX.h), bodG = smoothN(new T.BoxGeometry(BOX.w, BOX.h, BOX.d)), dummy = new T.Object3D(); S.updateMatrixWorld(true);
         const byC = CV.map(() => []); slots.forEach(q => byC[q.c].push(q));
@@ -7638,7 +7657,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
         const place = (q, out, k) => { dummy.position.set(q.x, q.y + (k || 0) * .015, q.z + (out || 0)); dummy.rotation.set(q.rx || 0, 0, q.rz || 0); dummy.scale.setScalar(k ? 1.05 : 1); dummy.updateMatrix(); return new T.Matrix4().multiplyMatrices(q.g.matrixWorld, dummy.matrix); };
         byC.forEach((list, c) => { if (!list.length) return; const im = new T.InstancedMesh(covG, MAT.cover[c], list.length); im.frustumCulled = false; im.receiveShadow = true; list.forEach((q, k) => { q.bi = bi++; q.ci = k; q.im = im; const m = place(q); INST.body.setMatrixAt(q.bi, m); im.setMatrixAt(k, m.clone().multiply(new T.Matrix4().makeTranslation(0, 0, BOX.d / 2 + .0006))); });
           im.userData.c = c; im.userData.list = list; S.add(im); INST.cov[c] = im; if (!(c in INST.feat)) INST.feat[c] = list[0]; }); S.add(INST.body); INST.place = place;
-        const hull = new T.InstancedMesh(bodG, FX.inkM, slots.length); hull.instanceMatrix = INST.body.instanceMatrix; hull.frustumCulled = false; hull.raycast = () => {}; S.add(hull);
+        const hull = new T.InstancedMesh(bodG, FX.inkM, slots.length); hull.instanceMatrix = INST.body.instanceMatrix; hull.frustumCulled = false; hull.raycast = () => {}; hull.userData.noTap = true; S.add(hull);
         ST.hl = glow(0xffd23f, .55, 0, 0, 0, .5); ST.hl.visible = false;
         // mesa de madera con patas torneadas, la consola, el mando y la tele
         const tz = .95, TY = .7645; inkm(rbox(1.46, .045, .86, .012), M.table, 0, TY - .0225, tz, null);
@@ -7646,10 +7665,10 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
         const legG = new T.LatheGeometry([[0, 0], [.024, 0], [.027, .014], [.02, .034], [.017, .2], [.023, .36], [.027, .42], [.02, .48], [.018, .6], [.03, .62], [.03, .72], [0, .72]].map(([r, y]) => new T.Vector2(r, y)), 18);
         [[-.64, -.35], [.64, -.35], [-.64, .35], [.64, .35]].forEach(([x, z]) => inkm(legG, M.tableLeg, x, 0, tz + z, null)); inkm(rbox(1.3, .022, .68, .006), M.tableLeg, 0, .16, tz, null);
         const bodyM = M.black; [[-.4, 3, 0], [-.18, 16, .4], [.28, 12, -.3]].forEach(([x, c, rz], i) => { const b2 = inkm(bodG, bodyM, x, .196, tz - .04 + i * .06, null); b2.rotation.set(-Math.PI / 2, 0, rz); plane(BOX.w, BOX.h, MAT.cover[c], 0, 0, BOX.d / 2 + .0006, b2); });
-        [[-.5, .72, 7, .5], [-.5, .72, 14, .62]].forEach(([x, z, c, r], i) => { const b2 = inkm(bodG, bodyM, x, TY + .025 + i * .05, z, null); b2.rotation.set(-Math.PI / 2, 0, r + i * .35); plane(BOX.w, BOX.h, MAT.cover[c], 0, 0, BOX.d / 2 + .0006, b2); });
-        const canT = ctex(canCanvas()), cm = toon({ map: canT, spec: 1, shin: 40, rim: .4 }), lidM = toon({ color: 0xc9cdd6, spec: 1.1, shin: 50 }); const can = inkm(new T.CylinderGeometry(.033, .033, .122, 26, 1), [cm, lidM, lidM], .665, TY + .061, tz - .03, null); can.rotation.y = -.6;
+        
+        const canT = ctex(canCanvas()), cm = toon({ map: canT, spec: 1, shin: 40, rim: .4 }), lidM = toon({ color: 0xc9cdd6, spec: 1.1, shin: 50 }); const can = inkm(new T.CylinderGeometry(.033, .033, .122, 26, 1), [cm, lidM, lidM], .57, TY + .061, tz + .02, null); can.rotation.y = -.6;
         buildTV(new T.Vector3(0, TY, tz - .17)); buildConsole(new T.Vector3(0, TY, tz + .24)); buildPad(new T.Vector3(-.42, TY, tz + .3), .3);
-        buildLava(new T.Vector3(.57, TY, tz - .27)); buildWalkman(new T.Vector3(-.6, TY, tz + .06), .38); buildCubo(new T.Vector3(-.635, TY, tz + .34), .5);
+        buildLava(new T.Vector3(.2, TY + .585, tz + .015), .84); buildWalkman(new T.Vector3(-.47, TY, tz - .1), .3); buildCubo(new T.Vector3(-.2, TY + .587, tz + .01), .5);   // v8.5 · la lámpara y el cubo, encima del monitor; el walkman, a su lado
         // luces: principal cálida con sombras duras, fluorescentes, contraluces de neón y relleno frío
         S.add(new T.HemisphereLight(0xfff1e6, 0x3a2752, .36));
         const key = new T.SpotLight(0xfff2de, .8, 8, .72, .35, 1.1); key.position.set(1.0, 2.6, 2.7); key.target.position.set(0, .85, .6); S.add(key); S.add(key.target);
@@ -7663,7 +7682,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
 
       /* ---------- cámara: plano general según la forma de la pantalla ---------- */
       function homePose() { const a = (R.domElement.clientWidth || innerWidth) / (R.domElement.clientHeight || innerHeight), tgt = new T.Vector3(0, 1.07, .45), dir = new T.Vector3(0, .12, 1).normalize(), fov = a < 1 ? 52 : 46;
-        const need = a < 1 ? 1.15 : 2.6, hf = 2 * Math.atan(Math.tan(fov * Math.PI / 360) * a), d = Math.max(2.35, need / 2 / Math.tan(hf / 2)); return { p: tgt.clone().addScaledVector(dir, Math.min(d, 4.4)), t: tgt, fov }; }
+        const need = a < 1 ? 1.15 : 3.3, hf = 2 * Math.atan(Math.tan(fov * Math.PI / 360) * a), d = Math.max(2.35, need / 2 / Math.tan(hf / 2)); return { p: tgt.clone().addScaledVector(dir, Math.min(d, 4.4)), t: tgt, fov }; }
       function applyPose(P, sway) { CAM.position.copy(P.p); if (sway) CAM.position.add(sway); CAM.fov = P.fov; CAM.updateProjectionMatrix(); CAM.lookAt(P.t); }
       const lerpPose = (A, B, k) => ({ p: A.p.clone().lerp(B.p, k), t: A.t.clone().lerp(B.t, k), fov: lerp(A.fov, B.fov, k) });
 
@@ -7680,8 +7699,19 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
         [[-w / 2, -h / 2], [w / 2, -h / 2], [-w / 2, h / 2], [w / 2, h / 2]].forEach(([x, y]) => { const v = V3().set(x, y, 0).applyMatrix4(m).project(CAM); if (v.z > 1) vis = false; const X = (v.x + 1) / 2 * W, Y = (1 - v.y) / 2 * H; x0 = Math.min(x0, X); y0 = Math.min(y0, Y); x1 = Math.max(x1, X); y1 = Math.max(y1, Y); });
         return vis && x1 > 0 && y1 > 0 && x0 < W && y0 < H ? [x0, y0, x1 - x0, y1 - y0] : null; }
       function placeSpots() { const box = $c('clubHot'); if (!box || !box.firstChild) return; const m4 = new T.Matrix4();
-        box.querySelectorAll('.clubspot').forEach(b => { let r = null; if (b.dataset.q !== undefined) { const q = slots[+b.dataset.q]; q.im.getMatrixAt(q.ci, m4); r = rectOf(m4, BOX.w, BOX.h); } else { const k = CON.keys.find(k2 => k2.userData.id === b.dataset.key); r = rectOf(k.matrixWorld, .072, .054); }
+        box.querySelectorAll('.clubspot').forEach(b => { let r = null; if (b.dataset.q !== undefined) { const q = slots[+b.dataset.q]; if (!q.tap) { q.im.getMatrixAt(q.ci, m4); r = rectOf(m4, BOX.w, BOX.h); } } else { const k = CON.keys.find(k2 => k2.userData.id === b.dataset.key); r = rectOf(k.matrixWorld, .072, .054); }
           if (!r || r[2] < 6) { b.style.display = 'none'; return; } b.style.display = ''; b.style.transform = `translate(${r[0].toFixed(1)}px,${r[1].toFixed(1)}px)`; b.style.width = r[2].toFixed(1) + 'px'; b.style.height = r[3].toFixed(1) + 'px'; }); }
+      /* v8.5 · cajas tapadas: las que quedan detrás de la mesa, de un objeto o de Mevi, o fuera de la pantalla, son decoración y no se pueden elegir.
+         Si un juego se quedara sin ninguna caja a la vista, su caja más visible sigue siendo elegible. */
+      function tapados() { if (!built || !slots.length) return; const p0 = CAM.position.clone(), q0 = CAM.quaternion.clone(), f0 = CAM.fov; applyPose(ST.home); S.updateMatrixWorld(true); CAM.updateMatrixWorld(true);
+        const W = R.domElement.clientWidth || innerWidth, H = R.domElement.clientHeight || innerHeight, rc = new T.Raycaster(), occ = [], o0 = CAM.position.clone(); rc.camera = CAM;
+        const fuera = o => { for (let n = o; n; n = n.parent) if (!n.visible || (n.userData && n.userData.noTap)) return true; return false; };
+        S.traverse(o => { if (!o.isMesh || o === INST.body || o === ST.hl || INST.cov.includes(o) || fuera(o)) return; const m = Array.isArray(o.material) ? o.material[0] : o.material; if (m && (m.blending === T.AdditiveBlending || (m.transparent && m.opacity < .5))) return; occ.push(o); });
+        const mv = .4 * Math.min(H, W * 1.84), mx = mv * .66, my = H - mv * .95, pie = H - 34;   // la esquina donde se queda Mevi y la franja del eslogan
+        slots.forEach(q => { const m = INST.place(q); let v = 0; for (let i = -1; i < 2; i++) for (let j = -1; j < 2; j++) { const P = V3().set(i * BOX.w * .34, j * BOX.h * .34, BOX.d / 2).applyMatrix4(m), n = P.clone().project(CAM), X = (n.x + 1) / 2 * W, Y = (1 - n.y) / 2 * H;
+            if (n.z > 1 || X < 4 || X > W - 4 || Y < 4 || Y > pie || (X < mx && Y > my)) continue; const d = P.distanceTo(o0); rc.set(o0, P.sub(o0).normalize()); rc.far = d - .03; if (!rc.intersectObjects(occ, false).length) v++; } q.vis = v; q.tap = v < 7; });
+        const best = {}; slots.forEach(q => { if (!best[q.c] || q.vis > best[q.c].vis) best[q.c] = q; }); Object.values(best).forEach(q => { if (q.tap && q.vis >= 3) q.tap = false; });
+        CAM.position.copy(p0); CAM.quaternion.copy(q0); CAM.fov = f0; CAM.updateProjectionMatrix(); CAM.updateMatrixWorld(true); }
       function setSlot(q, out, k) { const m = INST.place(q, out, k); q.im.setMatrixAt(q.ci, m.clone().multiply(new T.Matrix4().makeTranslation(0, 0, BOX.d / 2 + .0006))); q.im.instanceMatrix.needsUpdate = true; INST.body.setMatrixAt(q.bi, m); INST.body.instanceMatrix.needsUpdate = true; return m; }
       function highlight(qi) { if (ST.hover === qi) return; const prev = ST.hover; ST.hover = qi; const p = slots[prev]; if (p && !p.hidden) setSlot(p, 0, 0);
         const q = slots[qi]; if (q && !q.hidden) { const m = setSlot(q, .06, 1); ST.hl.position.setFromMatrixPosition(m); ST.hl.visible = true; } else ST.hl.visible = false;
@@ -7689,7 +7719,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       function hideSlot(q, hide) { q.hidden = hide; if (hide && ST.hover === slots.indexOf(q)) { ST.hover = -1; ST.hl.visible = false; } if (!hide) { setSlot(q, 0, 0); return; } const z = new T.Matrix4().makeScale(0, 0, 0); q.im.setMatrixAt(q.ci, z); q.im.instanceMatrix.needsUpdate = true; INST.body.setMatrixAt(q.bi, z); INST.body.instanceMatrix.needsUpdate = true; }
 
       /* ---------- ratón: brillo al pasar y clic en cualquier caja del expositor ---------- */
-      const ray = () => { const r2 = new T.Raycaster(), W = R.domElement.clientWidth, H = R.domElement.clientHeight; r2.setFromCamera({ x: ST.mx / W * 2 - 1, y: -(ST.my / H * 2 - 1) }, CAM); const hits = r2.intersectObjects(INST.cov.filter(Boolean), false); if (!hits.length) return null; const h = hits[0]; return h.object.userData.list[h.instanceId]; };
+      const ray = () => { const r2 = new T.Raycaster(), W = R.domElement.clientWidth, H = R.domElement.clientHeight; r2.setFromCamera({ x: ST.mx / W * 2 - 1, y: -(ST.my / H * 2 - 1) }, CAM); const hits = r2.intersectObjects(INST.cov.filter(Boolean), false); if (!hits.length) return null; const h = hits[0], q = h.object.userData.list[h.instanceId]; return q && !q.tap ? q : null; };
       function onMove(e) { const r = R.domElement.getBoundingClientRect(); ST.mx = e.clientX - r.left; ST.my = e.clientY - r.top; ST.par = [ST.mx / r.width - .5, ST.my / r.height - .5]; if (ST.seq) return; const q = ray(); highlight(q ? slots.indexOf(q) : -1); kick(); }
       function onClick(e) { if (ST.seq) return; const r = R.domElement.getBoundingClientRect(); ST.mx = e.clientX - r.left; ST.my = e.clientY - r.top; const q = ray(); if (q) { pick(q.c, q); return; } const r2 = new T.Raycaster(); r2.setFromCamera({ x: ST.mx / r.width * 2 - 1, y: -(ST.my / r.height * 2 - 1) }, CAM); const k = r2.intersectObjects(CON.keys, true)[0]; if (k) { let o = k.object; while (o && !(o.userData && o.userData.id)) o = o.parent; if (o) key(o.userData.id); } }
 
@@ -7697,7 +7727,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       function setVariant(c) { if (!c.sel) return; const s = $c(c.sel); if (s && s.value !== c.val) { s.value = c.val; s.dispatchEvent(new Event('change', { bubbles: true })); } }
       function key(id) { if (ST.seq) return; if (id === 'play') { pick(FIRST[Object.keys(FIRST)[(Math.random() * 8) | 0]]); return; } if (id === 'eject') { try { GAMES.SFX.play('carto'); } catch (e) {} return; } tvPush(() => { try { window.__gview(id, true); } catch (e) {} }); }
       function tvPush(done) { const A = { p: CAM.position.clone(), t: ST.home.t.clone(), fov: CAM.fov }, B = { p: TV.g.localToWorld(V3().set(0, TV.SY, .78)), t: TV.g.localToWorld(V3().set(0, TV.SY, 0)), fov: 38 }; ST.seq = { t0: performance.now(), dur: 650, shots: [{ a: 0, b: 1, cam: k => lerpPose(A, B, ease(k)) }], end: () => { ST.seq = null; ST.crt = true; done(); } }; document.body.classList.add('club-seq'); kick(); }
-      function pick(ci, q0) { if (ST.seq || !built) return; const c = CV[ci], q = q0 || INST.feat[ci] || INST.cov[ci].userData.list[0]; setVariant(c); unhover();
+      function pick(ci, q0) { if (ST.seq || !built) return; const c = CV[ci], L = INST.cov[ci].userData.list, q = q0 || L.find(z => !z.tap) || INST.feat[ci] || L[0]; setVariant(c); unhover();
         if (REDUCE) { finish(c); return; } startSeq(c, q); }
       function finish(c) { ST.seq = null; document.body.classList.remove('club-seq'); ST.crt = true; ST.burst.visible = false; tvScreen('game'); try { window.__gview(c.g, false); } catch (e) {} }
       function startSeq(c, q) {
@@ -7762,8 +7792,8 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
         else { const p = ST.par || [0, 0], sw = REDUCE ? null : new T.Vector3(Math.sin(t * .23) * .025 + p[0] * .1, Math.sin(t * .31) * .012 - p[1] * .05, 0); applyPose(ST.home, sw); }
         if (TV.mode === 'menu' && frameN % 4 === 0) tvScreen('menu'); TV.light.intensity = .45 + Math.sin(t * 13) * .04; lavaTick(t);
         if (ST.hl.visible) ST.hl.material.opacity = .42 + Math.sin(t * 6) * .12;
-        meviTick(now); R.render(S, CAM); if (MEVI.t0 && MEVI.g.visible) { R.autoClear = false; R.clearDepth(); R.render(MEVI.S, MEVI.C); R.autoClear = true; } if (!ST.seq) placeSpots(); }
-      function resize() { if (!R) return; const w = innerWidth, h = innerHeight; R.setSize(w, h, false); fxSize(); CAM.aspect = w / h; if (built) { ST.home = homePose(); applyPose(ST.home); } CAM.updateProjectionMatrix(); kick(); }
+        meviTick(now); R.render(S, CAM); if (MEVI.t0 && MEVI.g.visible) { R.autoClear = false; R.clearDepth(); R.render(MEVI.S, MEVI.C); R.autoClear = true; } if (!ST.seq) { const tk = R.domElement.clientWidth + 'x' + R.domElement.clientHeight + '/' + CAM.aspect.toFixed(4); if (!ST.crt && ST.tapK !== tk) { ST.tapK = tk; tapados(); } placeSpots(); } }
+      function resize() { if (!R) return; const w = innerWidth, h = innerHeight; R.setSize(w, h, false); fxSize(); CAM.aspect = w / h; if (built) { ST.home = homePose(); applyPose(ST.home); ST.tapK = ''; } CAM.updateProjectionMatrix(); kick(); }
 
       /* ---------- arranque ---------- */
       let started = false;

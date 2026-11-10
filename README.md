@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v8.4**
+**Versión actual: v8.5**
 
 ## Cómo se juega
 
@@ -31,7 +31,15 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **PATOPESCA:** la pesca de patitos de la feria.
 - **ENCESTA:** recreativa 3D con BALLHOP y BASKET.
 
-## Cambios de la versión actual (v8.4)
+## Cambios de la versión actual (v8.5)
+
+- **Suelo de damero.** Baldosa de 20 × 20 en terracota y blanco, y sobre ella vuelve la alfombra arcade, debajo de la mesa.
+- **Todos los juegos, a la vista.** Las dos baldas de arriba de cada estantería llevan todos los juegos, y las estanterías, de pie sobre un zócalo, caben enteras en pantalla. En pantallas más estrechas la cámara se aleja lo justo para que sigan entrando.
+- **Las cajas tapadas son decoración.** Las que quedan detrás de la mesa, de un objeto o de Mevi, o fuera de la pantalla, no se pueden elegir (ni con el ratón, ni con el dedo, ni con el mando): son juegos repetidos de relleno. Se calcula en cada tamaño de pantalla y ningún juego se queda sin caja.
+- **Objetos pegados al monitor.** La lámpara de lava y el cubo, encima del monitor; el walkman, a su lado; la lata, junto a la consola. Ninguno tapa un juego elegible.
+- **El bocadillo de Mevi se retira** a los 12 segundos, para no tapar las cajas de detrás. Mevi se queda.
+
+Sigue de la v8.4:
 
 - **Un solo fondo.** La sala es la foto entera, como pared del fondo: ya no hay suelo, techo, paredes ni esquinas, y desaparecen los rótulos redondos colgados (ARCADE, PARTY…), el neón y los pósters.
 - **Estanterías más grandes y más cerca.** Se salen de la pantalla por los lados y van llenas de cajas de arriba abajo, con cuatro por balda.
@@ -97,4 +105,4 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v8.4 es un proyecto hecho con 𑣲 by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v8.5 es un proyecto hecho con 𑣲 by [mediaservi.com](https://mediaservi.com)*
