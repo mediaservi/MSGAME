@@ -999,13 +999,15 @@
     /* ---- MSGAME v7.3 · home en 3D: el videoclub ---- */
     #clubHome{position:absolute;inset:0;opacity:0;transition:opacity .6s ease;pointer-events:none}
     /* v7.6 · al cargar: primero una imagen desenfocada y después la sala nítida */
-    #clubHome>canvas{transition:filter 1.4s ease,transform 1.4s ease}
-    #clubHome.pre>canvas{filter:blur(20px);transform:scale(1.07)}
+    #clubHome>#clubPre{inset:-7%;width:114%;height:114%;z-index:1;filter:blur(16px);opacity:1;transition:opacity 1.3s ease;pointer-events:none}
+    #clubHome.nit>#clubPre{opacity:0}
     html[data-app=msgame] body.club-carga #hudOverlay::before{filter:blur(16px) brightness(.85);transform:scale(1.1)}
     html[data-app=msgame] body.club-carga #msDesk,html[data-app=msgame] body.club-carga.gm-mode #gmConsole{opacity:0;pointer-events:none}
-    @media (prefers-reduced-motion:reduce){#clubHome>canvas{transition:none}}
+    /* v7.8 · móvil a pantalla completa: la barra de estado y los avisos del teléfono se pintan encima de la franja de arriba */
+    @media (pointer:coarse){html[data-app=msgame]:fullscreen #hudOverlay,html[data-app=msgame] :fullscreen #hudOverlay,html[data-app=msgame] #hudOverlay:fullscreen{padding-top:max(2rem,env(safe-area-inset-top))}}
+    @media (pointer:coarse) and (display-mode:fullscreen){html[data-app=msgame] #hudOverlay{padding-top:max(2rem,env(safe-area-inset-top))}}
     /* v7.6 · bocadillo de Mevi */
-    #clubBub{position:absolute;left:50%;bottom:50%;z-index:3;box-sizing:border-box;width:max-content;max-width:min(calc(100% - 2rem),24rem);padding:.7rem 1.1rem .75rem;border-radius:1.3rem;background:#fff;color:#17141f;border:3px solid #17141f;box-shadow:0 .35rem 0 rgba(0,0,0,.35);font:700 1.12rem/1.25 "Barlow Semi Condensed",Arial,sans-serif;letter-spacing:.01em;text-align:center;pointer-events:none;opacity:0;transform:translate(-50%,12px) scale(.6);transform-origin:50% 100%;transition:opacity .18s,transform .3s cubic-bezier(.3,1.6,.5,1)}
+    #clubBub{position:absolute;left:50%;bottom:50%;z-index:3;box-sizing:border-box;width:max-content;max-width:min(calc(100% - 2rem),24rem);padding:.7rem 1.1rem .75rem;border-radius:1.3rem;background:#fff;color:#17141f;border:3px solid #17141f;box-shadow:0 .35rem 0 rgba(0,0,0,.35);font:700 1.12rem/1.25 "Barlow Semi Condensed",Arial,sans-serif;letter-spacing:.01em;text-align:center;pointer-events:none;opacity:0;transform:translate(-50%,12px) scale(.6);transform-origin:50% 100%;transition:opacity .18s,transform .3s cubic-bezier(.3,1.6,.5,1),left .5s ease,bottom .5s ease}
     #clubBub.on{opacity:1;transform:translate(-50%,0) scale(1)}
     #clubBub::after{content:"";position:absolute;left:50%;bottom:-.72rem;width:1.15rem;height:1.15rem;background:#fff;border-right:3px solid #17141f;border-bottom:3px solid #17141f;transform:translateX(-50%) rotate(45deg)}
     #clubBub b{display:block;font-weight:800;font-size:1.3rem;color:#a81fb8;min-height:1.25em}
@@ -3047,7 +3049,7 @@
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '7.7';
+    const APP_VERSION = '7.8';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       document.getElementById('appVer').innerText = APP_VERSION; document.getElementById('appName').textContent = APP_NAME; document.querySelectorAll('.msver').forEach(e => { e.textContent = APP_VERSION; }); document.querySelectorAll('.msyear').forEach(e => { e.textContent = new Date().getFullYear(); }); document.getElementById('appYear').innerText = new Date().getFullYear();
@@ -7372,7 +7374,8 @@
       const M = {};
       const mesh = (geo, mat, x, y, z, parent, sh) => { const m = new T.Mesh(geo, mat); m.position.set(x, y, z); if (sh !== false) { m.castShadow = true; m.receiveShadow = true; } (parent || S).add(m); return m; };
       const inkm = (geo, mat, x, y, z, parent, sh) => ink(mesh(geo, mat, x, y, z, parent, sh));
-      const plane = (w, h, mat, x, y, z, parent) => { const m = mesh(new T.PlaneGeometry(w, h), mat, x, y, z, parent, false); m.receiveShadow = true; return m; };
+      const plane = (w, h, mat, x, y, z, parent) => { mat.polygonOffset = true; mat.polygonOffsetFactor = -2; mat.polygonOffsetUnits = -3;   // v7.8 · los rótulos pegados a una superficie ya no parpadean con ella
+        const m = mesh(new T.PlaneGeometry(w, h), mat, x, y, z, parent, false); m.receiveShadow = true; return m; };
       const glow = (col, s, x, y, z, op, parent) => { const sp = new T.Sprite(new T.SpriteMaterial({ map: FX.glowT, color: col, transparent: true, blending: T.AdditiveBlending, depthWrite: false, opacity: op || .6, toneMapped: false })); sp.scale.set(s, s, 1); sp.position.set(x, y, z); (parent || S).add(sp); return sp; };
       const capsule = (r, len) => { const g = new T.CapsuleGeometry(r, len, 6, 14); g.rotateX(-Math.PI / 2); g.translate(0, 0, -len / 2); return g; };   // de la articulación hacia -Z
 
@@ -7476,7 +7479,10 @@
         const cg = new T.CylinderGeometry(.044, .031, .034, 26, 1, true); cg.rotateX(Math.PI / 2); inkm(cg, toon({ color: 0x98d800, emissive: 0x98d800, ei: .15, spec: .3, side: T.DoubleSide }), 0, 0, .05, g);
         const tg = new T.TorusGeometry(.044, .008, 10, 30); inkm(tg, glove, 0, 0, .067, g);
         const sg2 = new T.CylinderGeometry(.054, .04, .72, 24); sg2.rotateX(Math.PI / 2); inkm(sg2, sleeve, 0, 0, .435, g); const st2 = new T.TorusGeometry(.0425, .0045, 8, 30); mesh(st2, stripe, 0, 0, .1, g); mesh(st2, stripe, 0, 0, .115, g);
+        // v7.8 · puño de manopla (como el del muñeco): al agarrar, los dedos sueltos se ocultan y el canto de la caja o del cartucho queda dentro del puño
+        const fist = new T.Group(); mesh(rbox(.1, .066, .08, .029), glove, 0, -.012, -.036, fist); const ft = mesh(capsule(.0165, .05), glove, .028, -.036, -.064, fist); ft.rotation.y = Math.PI / 2; fist.visible = false; g.add(fist); HAND.fist = fist;
         shadowsOn(g); g.visible = false; S.add(g); HAND.g = g; HAND.F = F; HAND.th = th; }
+      function puno(on) { HAND.fist.visible = on; HAND.F.forEach(sg2 => { sg2[0].visible = !on; }); HAND.th[0].visible = !on; }
       /* ---------- v7.6 · Mevi, la mascota que guía al jugador (modelo propio a partir del muñeco de referencia de Josep) ----------
          Muñeco de juguete: melena negra con flequillo recto, ojos de estrella, mejillas sonrosadas, mono morado, guantes y botas verde lima
          y cinturón plateado con hebilla «M». Va colgada de la cámara: al cargar salta desde abajo, en el centro, saluda con un bocadillo y se va. */
@@ -7510,20 +7516,21 @@
         const sol = new T.DirectionalLight(0xffffff, .42); sol.position.set(1.6, 2.6, 4); MEVI.S.add(sol); MEVI.g = g; MEVI.body = body; MEVI.head = head;
         const b = document.createElement('div'); b.id = 'clubBub'; b.setAttribute('role', 'status'); $c('clubHome').appendChild(b); MEVI.bub = b; }
       function meviGo() { if (!MEVI.g || ST.seq || ST.crt) return; MEVI.t0 = performance.now(); MEVI.out = 0; MEVI.n = -1; MEVI.g.visible = true; MEVI.bub.innerHTML = ''; try { GAMES.SFX.play('boing'); } catch (e) {} kick(); }
-      function meviFuera(ya) { if (!MEVI.g || !MEVI.t0) return; MEVI.bub.classList.remove('on'); if (ya) { MEVI.g.visible = false; MEVI.t0 = 0; MEVI.out = 0; } else if (!MEVI.out) MEVI.out = performance.now(); }
+      function meviFuera() { if (!MEVI.g || !MEVI.t0) return; MEVI.bub.classList.remove('on'); MEVI.g.visible = false; MEVI.t0 = 0; }   // solo se va cuando se elige un juego
       function meviTick(now) {
-        if (!MEVI.t0) return; const t = (now - MEVI.t0) / 1000, g = MEVI.g, C = MEVI.C, vh = 2 * C.position.z * Math.tan(C.fov * Math.PI / 360), vw = vh * CAM.aspect, s = Math.min(vh * .5, vw * .92), y0 = -vh / 2 - .06 * s, yF = -vh / 2 - 1.15 * s;
-        let y = y0, sq = 1;
-        if (MEVI.out) { const u = (now - MEVI.out) / 1000, k = cl(u / .42); y = lerp(y0, yF, k * k) + Math.sin(Math.min(1, u / .16) * Math.PI) * .05 * s; sq = 1 - .08 * Math.sin(Math.min(1, u / .16) * Math.PI); if (k >= 1) { meviFuera(true); return; } }
-        else if (t < .46) { const k = t / .46; y = lerp(yF, y0 + .2 * s, 1 - Math.pow(1 - k, 3)); sq = 1.12; }                     // salta desde abajo
-        else if (t < .74) { const k = (t - .46) / .28; y = y0 + .2 * s * (1 - k * k); sq = 1.06; }                                // cae
-        else { const k = t - .74; sq = 1 - .11 * Math.exp(-k * 8) * Math.cos(k * 21); if (t > 6.8) meviFuera(); }                 // aterriza con rebote
-        if (C.aspect !== CAM.aspect) { C.aspect = CAM.aspect; C.updateProjectionMatrix(); } g.position.set(0, y, 0); g.scale.set(s / Math.sqrt(sq), s * sq, s / Math.sqrt(sq));
-        MEVI.head.rotation.z = REDUCE ? 0 : Math.sin(t * 2.3) * .05; MEVI.body.rotation.y = REDUCE ? 0 : Math.sin(t * 1.1) * .1; MEVI.brazo[1].el.rotation.z = t > .8 && t < 2.7 && !REDUCE ? 2.05 + Math.sin((t - .8) * 11) * .38 : 2;   // saluda con la mano
+        if (!MEVI.t0) return; const t = (now - MEVI.t0) / 1000, g = MEVI.g, C = MEVI.C, vh = 2 * C.position.z * Math.tan(C.fov * Math.PI / 360), vw = vh * CAM.aspect, s0 = Math.min(vh * .5, vw * .92);
+        const lado = ease(sg(t, 5.2, 5.9)), s = s0 * lerp(1, .8, lado), x = -lado * Math.max(0, vw / 2 - s * .33), y0 = -vh / 2 - .06 * s, yF = -vh / 2 - 1.15 * s; let y = y0, sq = 1;
+        if (t < .46) { const k = t / .46; y = lerp(yF, y0 + .2 * s, 1 - Math.pow(1 - k, 3)); sq = 1.12; }                             // salta desde abajo, en el centro
+        else if (t < .74) { const k = (t - .46) / .28; y = y0 + .2 * s * (1 - k * k); sq = 1.06; }                                   // cae
+        else { const k = t - .74; sq = 1 - .11 * Math.exp(-k * 8) * Math.cos(k * 21); y += Math.sin(lado * Math.PI) * .14 * s; }   // rebota al aterrizar; a los 5 s da un saltito a un lado
+        if (C.aspect !== CAM.aspect) { C.aspect = CAM.aspect; C.updateProjectionMatrix(); } g.position.set(x, y, 0); g.scale.set(s / Math.sqrt(sq), s * sq, s / Math.sqrt(sq));
+        const hola = t > .8 && t < 2.7, cada = (t % 9) > 8.2;   // saluda al llegar y, de vez en cuando, vuelve a saludar
+        MEVI.head.rotation.z = REDUCE ? 0 : Math.sin(t * 2.3) * .05; MEVI.body.rotation.y = REDUCE ? 0 : Math.sin(t * 1.1) * .1 + lado * .28; MEVI.brazo[1].el.rotation.z = (hola || cada) && !REDUCE ? 2.05 + Math.sin(t * 11) * .38 : 2;
         const parp = (t % 3.4) > 3.28 ? .12 : 1; MEVI.ojos.forEach(o => { o.scale.y = parp; });
-        // bocadillo: sale sobre la cabeza y el texto se va escribiendo
-        const b = MEVI.bub, H = R.domElement.clientHeight || innerHeight; b.style.bottom = Math.round(.93 * s / vh * H + 18) + 'px';
-        if (!MEVI.out && t > .8) { const l1 = TT('¡Hola! Soy Mevi.'), l2 = TT('¿Elegimos a qué jugamos?'), n = Math.min(l1.length + l2.length, Math.floor((t - .9) * 30)); if (n !== MEVI.n) { MEVI.n = n; b.innerHTML = '<b></b><span></span>'; b.firstChild.textContent = l1.slice(0, Math.max(0, n)) || ' '; b.lastChild.textContent = n > l1.length ? l2.slice(0, n - l1.length) : ''; } b.classList.add('on'); } }
+        // bocadillo: sobre su cabeza, sin salirse de la pantalla; el texto se va escribiendo
+        const b = MEVI.bub, W = R.domElement.clientWidth || innerWidth, H = R.domElement.clientHeight || innerHeight, bw = b.offsetWidth || 260; b.style.bottom = Math.round(.93 * s / vh * H + 18) + 'px';
+        b.style.left = Math.round(Math.min(W - bw / 2 - 10, Math.max(bw / 2 + 10, (.5 + x / vw) * W))) + 'px';
+        if (t > .8) { const l1 = TT('¡Hola! Soy Mevi.'), l2 = TT('¿Elegimos a qué jugamos?'), n = Math.min(l1.length + l2.length, Math.floor((t - .9) * 30)); if (n !== MEVI.n) { MEVI.n = n; b.innerHTML = '<b></b><span></span>'; b.firstChild.textContent = l1.slice(0, Math.max(0, n)) || ' '; b.lastChild.textContent = n > l1.length ? l2.slice(0, n - l1.length) : ''; } b.classList.add('on'); } }
       function pose(curl, thumb) { HAND.F.forEach((s, i) => s.forEach((j, k) => { j.rotation.x = -curl * [.9, 1.2, .95][k] * (1 - i * .05); })); HAND.th[0].rotation.x = -thumb * .55; HAND.th[1].rotation.x = -thumb * .9; }
 
       /* ---------- caja que se abre y cartucho ---------- */
@@ -7544,7 +7551,7 @@
       /* ---------- escena ---------- */
       const MAT = { cover: [] }, INST = { cov: [], body: null, feat: {} };
       async function build() {
-        S = new T.Scene(); S.background = new T.Color(0x140c1e); S.fog = new T.Fog(0x1c1128, 6.5, 13); CAM = new T.PerspectiveCamera(46, 1, .02, 40); fxInit();
+        S = new T.Scene(); S.background = new T.Color(0x140c1e); S.fog = new T.Fog(0x1c1128, 6.5, 13); CAM = new T.PerspectiveCamera(46, 1, .09, 32); fxInit();
         M.wood = toon({ map: ctex(wood('#dc9150', '#9a5a2a', '#f6c48a')), spec: .22, shin: 14 }); M.woodIn = toon({ map: ctex(wood('#c27a3c', '#84491f', '#e1a466'), [1, 2]), spec: .1, shin: 10 }); M.woodDk = toon({ color: 0x9a5f2e, spec: .15, shin: 14 });
         M.table = toon({ map: ctex(wood('#a9622e', '#5e3214', '#d8964f', 5)), spec: .55, shin: 22 }); M.tableLeg = toon({ map: ctex(wood('#8a4f25', '#4f2a0e', '#b8783f')), spec: .35, shin: 20 });
         M.plastic = toon({ color: 0x4a4e58, spec: .7, shin: 34, rim: .4 }); M.plasticLt = toon({ color: 0x666b78, spec: .7, shin: 34 }); M.plasticDk = toon({ color: 0x1f2027, spec: .7, shin: 40, rim: .3 }); M.black = toon({ color: 0x17161d, spec: .9, shin: 46, rim: .3 });
@@ -7641,7 +7648,7 @@
         if (REDUCE) { finish(c); return; } startSeq(c, q); }
       function finish(c) { ST.seq = null; document.body.classList.remove('club-seq'); ST.crt = true; ST.burst.visible = false; tvScreen('game'); try { window.__gview(c.g, false); } catch (e) {} }
       function startSeq(c, q) {
-        meviFuera(true); buildCase(c); HAND.g.visible = true; hideSlot(q, true); TV.game = c.g; const qm = INST.place(q), boxP = V3().setFromMatrixPosition(qm), boxQ = new T.Quaternion().setFromRotationMatrix(qm), nrm = V3().set(0, 0, 1).applyQuaternion(boxQ).setY(0).normalize();
+        meviFuera(true); buildCase(c); HAND.g.visible = true; puno(false); hideSlot(q, true); TV.game = c.g; const qm = INST.place(q), boxP = V3().setFromMatrixPosition(qm), boxQ = new T.Quaternion().setFromRotationMatrix(qm), nrm = V3().set(0, 0, 1).applyQuaternion(boxQ).setY(0).normalize();
         const TY = .7645, out = boxP.clone().addScaledVector(nrm, .32).add(V3().set(0, .02, 0)), table = V3().set(.5, TY + .025, CON.g.position.z - .06), tableQ = new T.Quaternion().setFromEuler(new T.Euler(-Math.PI / 2, 0, -.15)), cartUpQ = new T.Quaternion();
         const slot = CON.slotW.clone(), cartP0 = CASE.CP.clone().applyQuaternion(tableQ).add(table);
         const shelfT = boxP.clone().lerp(q.g.localToWorld(V3().set(0, boxP.y, .3)), .35).addScaledVector(nrm, .12), shotShelf = { p: shelfT.clone().addScaledVector(nrm, .95).add(V3().set(-Math.sign(boxP.x) * .12, .1, .15)), t: shelfT, fov: 40 };
@@ -7652,29 +7659,42 @@
         const caseFront = new T.Quaternion().setFromRotationMatrix(qm);
         cg.position.copy(boxP); cg.quaternion.copy(caseFront); lid.rotation.y = 0; cart.position.copy(CASE.CP); cart.rotation.set(0, 0, 0); cart.scale.setScalar(CASE.CS); if (cart.parent !== cg) cg.add(cart);
         const side = Math.sign(boxP.x) || 1, ry = Math.atan2(nrm.x, nrm.z), W2 = BOX.w;
-        const tableAct = s => {   // mesa: deja la caja, la abre y saca el cartucho
+        // v7.8 · agarres con el puño: la mano coge siempre por un canto (la caja por abajo, la tapa por su borde libre y el cartucho por su extremo de arriba)
+        const FC = V3().set(0, -.012, -.036), qe = (x, y, z) => new T.Quaternion().setFromEuler(new T.Euler(x, y, z)), punoEn = (P, q) => { hg.quaternion.copy(q); hg.position.copy(P).sub(FC.clone().applyQuaternion(q)); };
+        const qCaja = qe(.5, 0, 0), qTapa = qe(.25, -1.05, 0), qCart = qe(-1.42, .1, 0), mix = (Pa, qa, Pb, qb, k) => punoEn(Pa.clone().lerp(Pb, k), qa.clone().slerp(qb, k));
+        const tableAct = s => {   // mesa: deja la caja, abre la carátula y saca el cartucho
           const l = s - 2.25, k1 = ease(sg(l, 0, .45)); cg.position.copy(table).add(V3().set(-.08 * (1 - k1), .14 * (1 - k1), .05 * (1 - k1))); cg.quaternion.copy(tableQ); const lo = ease(sg(l, .5, 1.15)), a = 2.7 * lo; lid.rotation.y = -a;
-          const lidEdge = V3().set(-W2 / 2 + W2 * Math.cos(a) - .009 * Math.sin(a), 0, CASE.HZ + W2 * Math.sin(a) + .009 * Math.cos(a)).applyQuaternion(cg.quaternion).add(cg.position).add(V3().set(0, .02, 0));
-          const cartP = CASE.CP.clone().applyQuaternion(cg.quaternion).add(cg.position), pinch = cartP.clone().add(V3().set(0, .045, 0)), lift = ease(sg(l, 1.5, 2.1));
-          if (l < .5) { handAt(cg.position.clone().add(V3().set(0, .06, .05)), -1.1, 0, 0); pose(.85, .8); } else if (l < 1.2) { handAt(lidEdge.clone().add(V3().set(0, .03, .01)), -1.3, .35, 0); pose(.6, .45); } else { handAt(pinch.clone().add(V3().set(0, .02 + .2 * lift, .06 * (1 - lift))), -1.45 + .3 * lift, 0, 0); pose(lerp(.3, .8, ease(sg(l, 1.25, 1.5))), lerp(.2, .9, ease(sg(l, 1.25, 1.5)))); }
-          if (l >= 1.5) { if (cart.parent !== S) S.attach(cart); cart.position.copy(cartP.clone().add(V3().set(0, .2 * lift + .005, 0))); cart.quaternion.copy(cg.quaternion).slerp(cartUpQ, lift); cart.scale.setScalar(lerp(CASE.CS, 1, lift)); } };
+          const borde = (an) => V3().set(-W2 / 2 + W2 * Math.cos(an) - .009 * Math.sin(an), 0, CASE.HZ + W2 * Math.sin(an) + .009 * Math.cos(an)).applyQuaternion(cg.quaternion).add(cg.position);
+          const cerca = V3().set(0, -BOX.h / 2 + .012, 0).applyQuaternion(cg.quaternion).add(cg.position), cartP = CASE.CP.clone().applyQuaternion(cg.quaternion).add(cg.position), lift = ease(sg(l, 1.5, 2.1));
+          if (l >= 1.5) { if (cart.parent !== S) S.attach(cart); cart.position.copy(cartP.clone().add(V3().set(0, .2 * lift + .005, 0))); cart.quaternion.copy(cg.quaternion).slerp(cartUpQ, lift); cart.scale.setScalar(lerp(CASE.CS, 1, lift)); }
+          const cq = l >= 1.5 ? cart.quaternion : cg.quaternion, punta = V3().set(0, .046, 0).applyQuaternion(cq).add(l >= 1.5 ? cart.position : cartP), sueltaA = 1.7, suelta = borde(sueltaA);
+          if (l < .46) { puno(true); punoEn(cerca, qCaja); }                                                             // deja la caja cogida por el canto de abajo
+          else if (l < .6) { puno(true); mix(cerca, qCaja, borde(0), qTapa, ease(sg(l, .46, .6))); }                      // pasa al borde libre de la carátula
+          else if (a < sueltaA) { puno(true); punoEn(borde(a), qTapa); }                                                 // la abre como un libro…
+          else if (l < 1.2) { puno(false); pose(.12, .15); const k = ease(sg(a, sueltaA, 2.7)); punoEn(suelta.clone().add(V3().set(.1 * k, .09 * k, .06 * k)), qTapa); }   // …y la suelta: cae abierta
+          else if (l < 1.45) { const k = ease(sg(l, 1.2, 1.45)); puno(k > .82); pose(.2, .2); punoEn(punta.clone().add(V3().set(.03 * (1 - k), .14 * (1 - k), .08 * (1 - k))), qCart); }   // baja a por el cartucho
+          else { puno(true); punoEn(punta, qCart); } };                                                                  // lo saca cogido por su extremo
         ST.seq = { t0: performance.now(), dur: 6900, c, q, shots: [
           { a: 0, b: 2.25, cam: k => lerpPose(H0, shotShelf, ease(sg(k * 2.25, 0, .9))), act: s => {   // estantería: la mano coge la caja y la saca
             const grab = boxP.clone().addScaledVector(nrm, .075).add(V3().set(0, BOX.h / 2 - .012, 0)), from = grab.clone().addScaledVector(nrm, .3).add(V3().set(0, -.38, 0)), k1 = ease(sg(s, .55, 1.2)), k2 = ease(sg(s, 1.25, 1.85)), k3 = ease(sg(s, 1.85, 2.25));
             const hp = from.clone().lerp(grab, k1); if (k2 > 0) { const d = out.clone().sub(boxP).multiplyScalar(k2); hp.copy(grab).add(d); cg.position.copy(boxP).add(d); } if (k3 > 0) { hp.add(V3().set(0, .4 * k3, 0)); cg.position.add(V3().set(0, .4 * k3, 0)); }
-            handAt(hp, .9, ry, side * .2, 'YXZ'); pose(lerp(.1, .85, ease(sg(s, 1.0, 1.25))), lerp(.1, .8, ease(sg(s, 1.0, 1.25)))); hg.visible = s > .5; } },
+            handAt(hp, .9, ry, side * .2, 'YXZ'); pose(lerp(.1, .85, ease(sg(s, 1.0, 1.25))), lerp(.1, .8, ease(sg(s, 1.0, 1.25)))); puno(s > 1.16); hg.visible = s > .5; } },
           { a: 2.25, b: 3.45, cam: k => lerpPose(shotTable, { p: shotTable.p.clone().add(V3().set(-.05, -.04, -.07)), t: shotTable.t, fov: 36 }, ease(k)), act: tableAct },
           { a: 3.45, b: 4.35, cam: k => { const l = 1.2 + k * .9, t = cartP0.clone().add(V3().set(0, lerp(.04, .2, ease(sg(l, 1.5, 2.1))), 0)); return { p: t.clone().add(V3().set(.3 - .04 * k, .13 - .02 * k, .32 - .05 * k)), t, fov: 34 }; }, act: tableAct },
-          { a: 4.35, b: 5.75, cam: k => { const P = lerpPose(shotCon, { p: shotCon.p.clone().add(V3().set(-.05, .03, -.1)), t: shotCon.t, fov: 40 }, ease(k)), ba = k * 1.4 - .95; if (ba > 0 && ba < .3) P.p.add(V3().set(Math.sin(ba * 90) * .005, Math.cos(ba * 77) * .004, 0).multiplyScalar(1 - ba / .3)); return P; }, act: s => {   // consola: mete el cartucho en la ranura
+          { a: 4.35, b: 5.75, cam: k => { const P = lerpPose(shotCon, { p: shotCon.p.clone().add(V3().set(-.05, .03, -.1)), t: shotCon.t, fov: 40 }, ease(k)), ba = k * 1.4 - 1.08; if (ba > 0 && ba < .3) P.p.add(V3().set(Math.sin(ba * 90) * .005, Math.cos(ba * 77) * .004, 0).multiplyScalar(1 - ba / .3)); return P; }, act: s => {   // consola: mete el cartucho en la ranura
             const l = s - 4.35, k1 = ease(sg(l, 0, .55)), k2 = ease(sg(l, .55, .95)); if (cart.parent !== S) S.attach(cart); cart.quaternion.copy(cartUpQ); cart.scale.setScalar(1); const above = slot.clone().add(V3().set(0, .12, 0)), from = slot.clone().add(V3().set(.16, .2, .12));
-            const cp = from.clone().lerp(above, k1).lerp(slot.clone().add(V3().set(0, .025, 0)), k2); cart.position.copy(cp); handAt(cp.clone().add(V3().set(.035, .0575 + .023, 0)), -.18, 1.25, 0); pose(lerp(.55, .15, ease(sg(l, .98, 1.15))), lerp(.4, .1, ease(sg(l, .98, 1.15))));
+            // baja el cartucho cogido por arriba, lo deja apoyado en la ranura, abre la mano y lo termina de meter empujando con la palma: ¡clac!
+            const emp = ease(sg(l, 1.0, 1.1)), cp = from.clone().lerp(above, k1).lerp(slot.clone().add(V3().set(0, .05, 0)), k2).add(V3().set(0, -.025 * emp, 0)); cart.position.copy(cp);
+            if (l < .97) { puno(true); punoEn(cp.clone().add(V3().set(0, .046, 0)), qCart); }
+            else { puno(false); pose(.06, .18); const sube = ease(sg(l, .97, 1.0)) * (1 - emp); hg.rotation.set(-.1, 1.2, 0); hg.position.copy(cp).add(V3().set(.012, .0575 + .024 + .03 * sube, 0)); }
             if (l > 1.15) hg.position.add(V3().set(.1 * (l - 1.15) / .25, .3 * (l - 1.15) / .25, .2 * (l - 1.15) / .25));
-            if (l >= .95 && !ST.seq.ins) { ST.seq.ins = 1; try { GAMES.SFX.play('cartin'); } catch (e) {} CON.led.material.color.set(0x56f700); CON.ledS.material.color.set(0x56f700); CON.glow.material.color.set(0xffd23f); CON.glowS.material.color.set(0xffd23f); lcdDraw('▶ ' + GN[c.g], c.sub || ''); }
-            const ba = l - .95; ST.burst.visible = ba >= 0; if (ba >= 0) { const k = Math.min(1, ba / .14), sc = .27 * (1 + 2.70158 * Math.pow(k - 1, 3) + 1.70158 * Math.pow(k - 1, 2)); ST.burst.position.copy(slot).add(V3().set(.14, .16, .04)); ST.burst.scale.set(sc, sc * .8, 1); ST.burst.material.opacity = 1 - sg(ba, .5, .78); } } },
+            if (l >= 1.08 && !ST.seq.ins) { ST.seq.ins = 1; try { GAMES.SFX.play('cartin'); } catch (e) {} CON.led.material.color.set(0x56f700); CON.ledS.material.color.set(0x56f700); CON.glow.material.color.set(0xffd23f); CON.glowS.material.color.set(0xffd23f); lcdDraw('▶ ' + GN[c.g], c.sub || ''); }
+            const ba = l - 1.08; ST.burst.visible = ba >= 0; if (ba >= 0) { const k = Math.min(1, ba / .14), sc = .27 * (1 + 2.70158 * Math.pow(k - 1, 3) + 1.70158 * Math.pow(k - 1, 2)); ST.burst.position.copy(slot).add(V3().set(.14, .16, .04)); ST.burst.scale.set(sc, sc * .8, 1); ST.burst.material.opacity = 1 - sg(ba, .5, .78); } } },
           { a: 5.75, b: 6.9, cam: k => lerpPose(shotCon, shotTV, ease(k)), act: s => { const l = s - 5.75; hg.visible = false; ST.burst.visible = false; if (l < .35) tvScreen('boot', ease(sg(l, .05, .35))); else if (TV.mode !== 'game') { tvScreen('game'); try { GAMES.SFX.play('crton'); } catch (e) {} } } }],
           end: () => { ST.inserted = cart; finish(c); } };
         document.body.classList.add('club-seq'); kick(); }
-      function back() {   // al expulsar desde la tele: la cámara vuelve, el cartucho sale y la caja vuelve a su sitio
+      function back() {   // al expulsar desde la tele: la cámara vuelve, el cartucho sale y la caja vuelve a su sitio (y Mevi vuelve a salir)
+        setTimeout(meviGo, 1500);
         ST.crt = false; const q = ST.last && ST.last.q, cart = ST.inserted; ST.inserted = null; const A = { p: CAM.position.clone(), t: TV.g.localToWorld(V3().set(0, TV.SY, 0)), fov: CAM.fov };
         ST.seq = { t0: performance.now(), dur: 1100, shots: [{ a: 0, b: 1.1, cam: k => lerpPose(A, ST.home, ease(k / 1.1)), act: s => { if (cart) { cart.position.y += .004; cart.scale.setScalar(Math.max(.01, 1 - s)); } } }],
           end: () => { if (cart && cart.parent) cart.parent.remove(cart); if (CASE.g) CASE.g.visible = false; if (q) hideSlot(q, false); [CON.led, CON.ledS].forEach(o => o.material.color.set(0xff3b30)); [CON.glow, CON.glowS].forEach(o => o.material.color.set(0xff8a2a)); lcdDraw(TT('Inserta un cartucho').toUpperCase(), ''); tvScreen('menu'); ST.seq = null; document.body.classList.remove('club-seq'); placeSpots(); } };
@@ -7717,9 +7737,10 @@
         try { R.render(S, CAM); const k0 = malos(); if (k0) { sencillo(); R.render(S, CAM); if (malos() > k0) throw new Error('shader'); } } catch (e) { falla('sombreado', e); return; }
         on = true; load.remove();
         try { buildMevi(); } catch (e) { console.warn('Mevi', e); }
-        placeSpots(); wrap.classList.add('on', 'pre'); document.body.classList.add('club3d'); document.body.classList.remove('club-carga');
-        setTimeout(() => wrap.classList.remove('pre'), 700); setTimeout(meviGo, 2400);   // primero desenfocada, luego nítida y entonces salta Mevi
-        R.domElement.addEventListener('pointerdown', () => { if (MEVI.t0 && performance.now() - MEVI.t0 > 1200) meviFuera(); });
+        // primero una imagen desenfocada de la propia sala (una copia fija en pequeño, no el 3D en vivo: sin parpadeos) y después, nítida
+        const pre = document.createElement('canvas'); pre.id = 'clubPre'; pre.width = 56; pre.height = Math.max(8, Math.round(56 * innerHeight / innerWidth)); try { pre.getContext('2d').drawImage(R.domElement, 0, 0, pre.width, pre.height); wrap.appendChild(pre); } catch (e) {}
+        placeSpots(); wrap.classList.add('on'); document.body.classList.add('club3d'); document.body.classList.remove('club-carga');
+        setTimeout(() => wrap.classList.add('nit'), 650); setTimeout(() => pre.remove(), 2300); setTimeout(meviGo, 2400);   // primero desenfocada, luego nítida y entonces salta Mevi
         R.domElement.addEventListener('pointermove', onMove); R.domElement.addEventListener('pointerleave', () => { ST.par = [0, 0]; highlight(-1); }); R.domElement.addEventListener('click', onClick);
         skip.addEventListener('click', e => { e.stopPropagation(); if (ST.seq) { const s = ST.seq; if (s.c) { if (s.q) ST.last = s; s.shots.forEach(x => { if (x.act) x.act(x.b); }); HAND.g.visible = false; ST.inserted = CASE.cart; finish(s.c); } else s.end(); } });
         addEventListener('keydown', e => { if (ST.seq && (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); e.stopPropagation(); skip.click(); } }, true);

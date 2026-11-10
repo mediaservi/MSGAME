@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v7.7**
+**Versión actual: v7.8**
 
 ## Cómo se juega
 
@@ -31,9 +31,13 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **PATOPESCA:** la pesca de patitos de la feria.
 - **ENCESTA:** recreativa 3D con BALLHOP y BASKET.
 
-## Cambios de la versión actual (v7.7)
+## Cambios de la versión actual (v7.8)
 
-- **El monitor SONIA ya no lleva antenas:** es un monitor, no una tele.
+- **Mevi se queda en pantalla hasta que se elige un juego.** Saluda en el centro y, a los cinco segundos, da un saltito a un lado para no tapar la consola; de vez en cuando vuelve a saludar. Al volver de un juego, sale otra vez.
+- **La mano de Mevi agarra de verdad:** al coger, la manopla se cierra en un puño y lo que sujeta queda dentro (la caja por un canto, la carátula por su borde libre y el cartucho por su extremo). Ya no hay dedos atravesando la carátula ni el cartucho. Al final abre la mano y termina de meter el cartucho empujando con la palma: ¡clac!
+- **Sin parpadeos al cargar:** los rótulos pegados a la consola y al monitor ya no tiemblan, y el paso de la imagen desenfocada a la nítida se hace con una copia fija de la sala.
+- **En el móvil a pantalla completa**, los menús de arriba bajan un poco para que no los tapen la barra de estado ni los avisos del teléfono.
+- **El monitor SONIA ya no lleva antenas** (v7.7): es un monitor, no una tele.
 
 Sigue de la v7.6:
 
@@ -75,4 +79,4 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v7.7 es un proyecto hecho con 𑣲 by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v7.8 es un proyecto hecho con 𑣲 by [mediaservi.com](https://mediaservi.com)*
