@@ -612,7 +612,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
     body.gm-mode #subNav{visibility:hidden}
     @media (max-width:820px),(max-height:500px),(orientation:portrait) and (max-width:1100px){.joybtn{flex:0 0 auto;width:2.9rem;height:2.9rem;margin:0;padding:.1rem}}
     /* consola de carga superior: la boca de la ranura tiene el ancho exacto del cartucho */
-    .cx{background:linear-gradient(180deg,rgba(10,10,14,.55),rgba(10,10,14,.35) 40%,rgba(10,10,14,.7)),url('juegos/diner.webp') center/cover no-repeat,url('juegos/retrogaming.webp') center/cover no-repeat,#1b1d21!important}
+    .cx{background:linear-gradient(180deg,rgba(10,10,14,.55),rgba(10,10,14,.35) 40%,rgba(10,10,14,.7)),url('juegos/videoclub.webp') center/cover no-repeat,url('juegos/retrogaming.webp') center/cover no-repeat,#1b1d21!important}
     .cx-top{position:relative;display:flex;align-items:flex-end;justify-content:center;gap:.8rem;height:calc(var(--cw) * .7 + 1rem);padding:0 .9rem;overflow:hidden;background:linear-gradient(90deg,rgba(255,255,255,.1),rgba(255,255,255,0) 6%,rgba(0,0,0,0) 94%,rgba(0,0,0,.25)),linear-gradient(180deg,#4a4e57,#5d616a 70%,#53575f)}
     .cx-vent{flex:1;max-width:6rem;height:1.6rem;margin-bottom:1.1rem;border-radius:.2rem;background:repeating-linear-gradient(90deg,rgba(0,0,0,.45) 0 .16rem,rgba(255,255,255,.14) .16rem .3rem,transparent .3rem .55rem)}
     .cx-bay{position:relative;flex:0 0 auto;width:calc(var(--cw) + .7rem);height:100%}
@@ -663,7 +663,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
     /* ===== Monitor CRT con el menú del cartucho (consola delante, teclas mecánicas en pantalla) ===== */
     #gmCrt{position:fixed;inset:0;z-index:75;display:none;overflow:hidden}
     #gmCrt.on{display:block}
-    #gmCrt .crt-bd{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,14,.35),rgba(10,10,14,.15) 40%,rgba(10,10,14,.55)),url('juegos/diner.webp') center/cover no-repeat,url('juegos/retrogaming.webp') center/cover no-repeat,#1b1d21;animation:crtbd .3s ease-out}
+    #gmCrt .crt-bd{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,14,.35),rgba(10,10,14,.15) 40%,rgba(10,10,14,.55)),url('juegos/videoclub.webp') center/cover no-repeat,url('juegos/retrogaming.webp') center/cover no-repeat,#1b1d21;animation:crtbd .3s ease-out}
     @keyframes crtbd{from{opacity:0}}
     #gmCrt.shut .crt-bd{animation:crtbd .3s ease-in .25s reverse forwards}
     body.crt-open #pipCanvasBox{display:none!important}
@@ -3062,7 +3062,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '8.7';
+    const APP_VERSION = '8.8';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       document.getElementById('appVer').innerText = APP_VERSION; document.getElementById('appName').textContent = APP_NAME; document.querySelectorAll('.msver').forEach(e => { e.textContent = APP_VERSION; }); document.querySelectorAll('.msyear').forEach(e => { e.textContent = new Date().getFullYear(); }); document.getElementById('appYear').innerText = new Date().getFullYear();
@@ -4714,6 +4714,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       })();
       // clic de botón para toda la app (sonidos/main_buttonclick.mp3); las teclas y cartuchos ya tienen su propio sonido
       document.addEventListener('pointerdown', () => SFX.warm(), { once: true, capture: true });
+      ['pointerdown', 'keydown', 'touchend'].forEach(ev => document.addEventListener(ev, () => { try { MUS.block = 0; } catch (e) {} }, { capture: true, passive: true }));   // v8.8 · al primer toque la música de menús arranca al momento, sin esperar al reintento
       // humo: sprites suaves teñidos (cacheados) para nubes de zombis y la zona de guerra
       const PUFFS = {}; function puffSpr(rgb) { if (PUFFS[rgb]) return PUFFS[rgb]; const c = document.createElement('canvas'); c.width = c.height = 96; const q = c.getContext('2d'), gr = q.createRadialGradient(48, 48, 0, 48, 48, 48); gr.addColorStop(0, `rgba(${rgb},1)`); gr.addColorStop(.45, `rgba(${rgb},.62)`); gr.addColorStop(1, `rgba(${rgb},0)`); q.fillStyle = gr; q.fillRect(0, 0, 96, 96); return PUFFS[rgb] = c; }
       const BILL = {}; function billSpr(v, gr0) { const key = v + (gr0 ? 'g' : ''); if (BILL[key]) return BILL[key]; const c = document.createElement('canvas'); c.width = c.height = 96; const q = c.getContext('2d'), L = (gr0 ? ['132,122,112', '104,98,92', '150,128,104'] : ['70,120,52', '52,98,42', '84,136,60'])[v], Dk = (gr0 ? ['36,34,32', '28,27,26', '46,40,34'] : ['10,26,12', '8,22,10', '14,34,16'])[v];
@@ -7642,7 +7643,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
         M.plastic = toon({ color: 0x4a4e58, spec: .7, shin: 34, rim: .4 }); M.plasticLt = toon({ color: 0x666b78, spec: .7, shin: 34 }); M.plasticDk = toon({ color: 0x1f2027, spec: .7, shin: 40, rim: .3 }); M.black = toon({ color: 0x17161d, spec: .9, shin: 46, rim: .3 });
         M.tvBody = toon({ color: 0x9a9da2, spec: .6, shin: 28, rim: .4 }); M.tvBody2 = toon({ color: 0x8b8e93, spec: .6, shin: 30 }); M.chrome = toon({ color: 0xaab0bd, spec: 1.2, shin: 60, rim: .5 }); M.inkB = new T.MeshBasicMaterial({ color: INK });
         // v8.4 · un solo fondo: la foto de la sala entera, como pared del fondo (sin suelo, techo, paredes ni rótulos colgados). Detrás, la misma foto más grande y oscura, por si un plano de cámara se sale
-        const bgImg = await loadImg('juegos/diner.webp'); let bgT = null; if (bgImg) { bgT = new T.Texture(bgImg); bgT.needsUpdate = true; bgT.encoding = T.sRGBEncoding; }   // v8.7 · la cafetería con su gramola, difuminada: hace de pared del fondo y de suelo
+        const bgImg = await loadImg('juegos/videoclub.webp'); let bgT = null; if (bgImg) { bgT = new T.Texture(bgImg); bgT.needsUpdate = true; bgT.encoding = T.sRGBEncoding; }   // v8.8 · la foto real del videoclub, difuminada, como capa de fondo
         const BGW = 12, BGH = BGW * 9 / 16; ST.bg = plane(BGW, BGH, new T.MeshBasicMaterial({ map: bgT, color: bgT ? 0xe2dde8 : 0x2a1f3a, toneMapped: false }), 0, BGH / 2 - 1.9, -2.2);   // baja hasta el pie de la pantalla: el damero de la imagen hace de suelo ST.bg.receiveShadow = false;
         // v8.7 · la alfombra arcade bajo la mesa, sobre el suelo de la imagen de fondo
         const rugS = toon({ color: 0x1a0f2e }), rug = inkm(new T.BoxGeometry(2.1, .008, 1.55), [rugS, rugS, toon({ map: ctex(memphis()), ht: .9 }), rugS, rugS, rugS], 0, .004, .95, null); rug.castShadow = false;
