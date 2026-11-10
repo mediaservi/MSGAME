@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v8.9**
+**Versión actual: v9.0**
 
 ## Cómo se juega
 
@@ -31,7 +31,17 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **PATOPESCA:** la pesca de patitos de la feria.
 - **ENCESTA:** recreativa 3D con BALLHOP y BASKET.
 
-## Cambios de la versión actual (v8.9)
+## Cambios de la versión actual (v9.0)
+
+- **El mando conecta también en wifis de hotel, de invitados o de eventos.** Hasta ahora el móvil solo hablaba con la pantalla de forma directa, y en las redes que aíslan los aparatos entre sí se quedaba en «Conectando…». Ahora, si en unos segundos no hay conexión directa, el mando pasa solo a un enlace de reserva por internet y sigue funcionando igual (nombre, color, calibración, botones y puntuación). El móvil avisa con «Sin conexión directa: conectando por internet…» y, la siguiente vez, cambia antes.
+- **El código QR aparece aunque falle el servidor de enlace**, y el mando ya no depende de él para conectar.
+- **Mevi ya no se presenta dos veces.** Al volver de un juego sale directamente a un lado y pregunta otra cosa, distinta cada vez («¿Te gustó? ¿Ahora cuál?», «¿Probamos otro?»…).
+- **Sin mancha amarilla al cargar.** La primera imagen (la desenfocada) ya no muestra la bola amarilla que dejaban las gotas de la lámpara de lava.
+- **La mano coge la caja por un lado**, por el canto que le queda más cerca, y al sacarla la baja hacia la mesa girándola: se ve en perspectiva, no de frente, y el brazo ya no se estira hacia lo alto.
+- **Línea de crédito común** a todas las apps de la familia, con su icono; el texto se cambia desde el panel de administración.
+- **ADPOSTER sustituye a NEWS** en el selector de la familia, en el letrero y en el cubo.
+
+Sigue de la v8.9:
 
 - **Un brazo de verdad.** En la secuencia de coger el juego, el brazo es rígido y sale siempre del mismo hombro, abajo a la derecha de la imagen: la mano llega a la caja, a la carátula, al cartucho y a la consola desde donde alcanza, sin bajar del cielo ni estirarse.
 - **Sin choques con la lámpara.** La lámpara de lava y la lata se retiran un poco hacia el monitor y la caja se abre en la mesa sin tocarlas.
@@ -127,4 +137,4 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v8.9 es un proyecto hecho con 𑣲 by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v9.0 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
