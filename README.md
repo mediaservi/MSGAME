@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v7.9**
+**Versión actual: v8.0**
 
 ## Cómo se juega
 
@@ -31,7 +31,11 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **PATOPESCA:** la pesca de patitos de la feria.
 - **ENCESTA:** recreativa 3D con BALLHOP y BASKET.
 
-## Cambios de la versión actual (v7.9)
+## Cambios de la versión actual (v8.0)
+
+- **Nada cambia en MSGAME.** Esta versión añade a VJSHOW los logos de las otras apps de AVHUB (MSGAME entre ellas, enlazado a esta web). Las dos webs comparten código y suben de versión a la vez.
+
+Sigue de la v7.9:
 
 - **MSGAME estrena logo:** un cartucho con dos estrellas que hacen de ojos y los contactos de dientes, como una calavera, en magenta; y el nombre en la letra común de la familia AVHUB, con «ms» en magenta. Va en la cabecera y en el icono de la app y de la pestaña.
 
@@ -83,4 +87,4 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v7.9 es un proyecto hecho con 𑣲 by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v8.0 es un proyecto hecho con 𑣲 by [mediaservi.com](https://mediaservi.com)*
