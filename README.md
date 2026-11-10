@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v7.3**
+**Versión actual: v7.4**
 
 ## Cómo se juega
 
@@ -31,7 +31,13 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **PATOPESCA:** la pesca de patitos de la feria.
 - **ENCESTA:** recreativa 3D con BALLHOP y BASKET.
 
-## Cambios de la versión actual (v7.3)
+## Cambios de la versión actual (v7.4)
+
+- **El videoclub 3D carga mejor en el móvil:** el motor 3D va incluido en la propia web (antes se descargaba de fuera) y, si una descarga se cuelga, prueba con otra.
+- **Aviso «Cargando el videoclub…»** mientras se monta la sala. Si el dispositivo no puede con el 3D, la pantalla LED dice el motivo y se queda la home de siempre.
+- **Sin botón de micrófono:** los juegos usan su propia música y no lo necesitan.
+
+Sigue de la v7.3:
 
 - **La home es un videoclub en 3D**, inspirado en un videoclub real de los 80 y dibujado como un cómic: luz por bandas, trama de puntos en las sombras y contorno de tinta.
   - A cada lado, un expositor de madera con las carátulas de frente: una balda por juego, con sus variantes.
@@ -52,4 +58,4 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v7.3 es un proyecto hecho con 𑣲 by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v7.4 es un proyecto hecho con 𑣲 by [mediaservi.com](https://mediaservi.com)*
