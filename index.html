@@ -3062,7 +3062,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '8.5';
+    const APP_VERSION = '8.6';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       document.getElementById('appVer').innerText = APP_VERSION; document.getElementById('appName').textContent = APP_NAME; document.querySelectorAll('.msver').forEach(e => { e.textContent = APP_VERSION; }); document.querySelectorAll('.msyear').forEach(e => { e.textContent = new Date().getFullYear(); }); document.getElementById('appYear').innerText = new Date().getFullYear();
@@ -7367,9 +7367,17 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       function cartLabel(c, art) { return decal((x, W, H) => { const col = COL[c.g], g = x.createLinearGradient(0, 0, W, 0); g.addColorStop(0, col.c1); g.addColorStop(1, col.c2); x.fillStyle = '#0d0b14'; x.fillRect(0, 0, W, H);
           if (art) { const k = Math.max(W / art.width, (H - 52) / art.height); x.drawImage(art, (W - art.width * k) / 2, 52 + (H - 52 - art.height * k) / 2, art.width * k, art.height * k); }
           x.fillStyle = g; x.fillRect(0, 0, W, 52); title(x, GN[c.g], W / 2, 40, 34, W - 24); x.strokeStyle = '#120a1c'; x.lineWidth = 7; x.strokeRect(3, 3, W - 6, H - 6); }, 256, 220); }
-      function canCanvas() { return decal((x, w, h) => { const g = x.createLinearGradient(0, 0, 0, h); g.addColorStop(0, '#ff3bd4'); g.addColorStop(1, '#7c3aed'); x.fillStyle = g; x.fillRect(0, 0, w, h);
-          x.fillStyle = '#22d3ee'; x.beginPath(); x.moveTo(0, h); for (let X = 0; X <= w; X += 8) x.lineTo(X, h * .64 + Math.sin(X / w * 12.566) * 12); x.lineTo(w, h); x.fill();
-          [.25, .75].forEach(u => { x.save(); x.translate(w * u, h * .5); x.rotate(-Math.PI / 2); title(x, 'MS COLA', 0, 16, 46, h * .8); x.restore(); }); }, 512, 256); }
+      function canCanvas() { return decal((x, w, h) => { const g = x.createLinearGradient(0, 0, 0, h); g.addColorStop(0, '#22c956'); g.addColorStop(.55, '#12a03f'); g.addColorStop(1, '#0a6e2c'); x.fillStyle = g; x.fillRect(0, 0, w, h);   // v8.6 · refresco de lima-limón inventado, «6GO»: impreso alrededor de la lata, no pegado
+          x.fillStyle = '#e6ff3a'; x.fillRect(0, h * .04, w, h * .03); x.fillRect(0, h * .93, w, h * .03); x.fillStyle = 'rgba(255,255,255,.55)'; x.fillRect(0, h * .085, w, h * .008); x.fillRect(0, h * .905, w, h * .008);
+          x.fillStyle = 'rgba(10,77,32,.55)'; x.beginPath(); x.moveTo(0, h * .7); for (let X = 0; X <= w; X += 8) x.lineTo(X, h * .62 + Math.sin(X / w * 12.566 + 1) * h * .1); x.lineTo(w, h * .9); x.lineTo(0, h * .9); x.fill();   // ola que rodea la lata
+          for (let i = 0; i < 60; i++) { const q = 4 + Math.floor(rnd() * 3) * 4; x.fillStyle = `rgba(${rnd() < .5 ? '230,255,58' : '255,255,255'},${.18 + rnd() * .4})`; x.fillRect(Math.round(rnd() * w / 4) * 4, h * .13 + Math.round(rnd() * h * .74 / 4) * 4, q, q); }   // burbujas de píxel
+          [.25, .75].forEach(u => { const cx = w * u; x.save(); x.translate(cx, h * .5); x.rotate(-.09); x.textBaseline = 'middle'; x.lineJoin = 'round';
+            x.font = 'italic 900 ' + Math.round(h * .74) + 'px "Barlow Semi Condensed","Arial Black",Arial,sans-serif'; x.textAlign = 'right'; x.fillStyle = 'rgba(8,60,26,.75)'; x.fillText('6', 0, 6); x.fillStyle = '#f7fff0'; x.fillText('6', -4, 0);
+            x.font = 'italic 900 ' + Math.round(h * .36) + 'px "Barlow Semi Condensed","Arial Black",Arial,sans-serif'; x.textAlign = 'left'; x.fillStyle = 'rgba(8,60,26,.75)'; x.fillText('GO', 6, h * .13 + 4); x.fillStyle = '#e6ff3a'; x.fillText('GO', 3, h * .13); x.restore();
+            x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = 'rgba(255,255,255,.9)'; x.font = '700 ' + Math.round(h * .058) + 'px "Barlow Semi Condensed",Arial,sans-serif'; x.fillText('LIMA · LIMÓN', cx, h * .165); }); }, 512, 256); }
+      function canLuz() { const [c, x] = canvas(256, 4), g = x.createLinearGradient(0, 0, 256, 0);   // luz de cilindro: bordes en sombra, un brillo vertical y un reflejo suave
+        [[.25, 'rgba(0,0,0,.62)'], [.31, 'rgba(0,0,0,.3)'], [.39, 'rgba(255,255,255,0)'], [.425, 'rgba(255,255,255,.55)'], [.455, 'rgba(255,255,255,.08)'], [.56, 'rgba(0,0,0,0)'], [.63, 'rgba(255,255,255,.12)'], [.68, 'rgba(0,0,0,.22)'], [.75, 'rgba(0,0,0,.66)']].forEach(([u, col]) => g.addColorStop(u, col));
+        x.fillStyle = 'rgba(0,0,0,.64)'; x.fillRect(0, 0, 256, 4); x.clearRect(64, 0, 128, 4); x.fillStyle = g; x.fillRect(64, 0, 128, 4); return c; }
       function burstCanvas(txt) { const [c, x] = canvas(512, 512); x.translate(256, 256); x.beginPath(); for (let i = 0; i < 28; i++) { const a = i / 28 * 6.283, r = i % 2 ? 150 : 236 + (i % 4 ? 0 : 16); x.lineTo(Math.cos(a) * r, Math.sin(a) * r * .8); } x.closePath();
         x.fillStyle = '#ffd23f'; x.fill(); x.lineJoin = 'round'; x.lineWidth = 14; x.strokeStyle = '#120a1c'; x.stroke(); x.rotate(-.12); x.textAlign = 'center'; x.textBaseline = 'middle';
         let s = 122; const f = () => { x.font = `italic 400 ${s}px "Russo One","Arial Black",sans-serif`; }; f(); while (x.measureText(txt).width > 360 && s > 40) { s -= 6; f(); }
@@ -7504,19 +7512,22 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       function buildLava(p, k) { const g = new T.Group(); g.position.copy(p); if (k) g.scale.setScalar(k); S.add(g); const metal = toon({ color: 0xc2c7d1, spec: 1.2, shin: 60, rim: .5 }), lat = pts => new T.LatheGeometry(pts.map(([r, y]) => new T.Vector2(r, y)), 28);
         inkm(lat([[0, 0], [.058, 0], [.06, .01], [.037, .1], [.035, .112], [0, .112]]), metal, 0, 0, 0, g);
         const PR = [[.034, .112], [.048, .165], [.047, .205], [.031, .33], [.022, .385]], gl = lat(PR); LAVA.r = y => { for (let i = 1; i < PR.length; i++) if (y <= PR[i][1]) { const k = (y - PR[i - 1][1]) / (PR[i][1] - PR[i - 1][1]); return PR[i - 1][0] + (PR[i][0] - PR[i - 1][0]) * Math.max(0, k); } return PR[PR.length - 1][0]; };
-        mesh(gl, new T.MeshBasicMaterial({ color: 0x6a12c8, side: T.BackSide, toneMapped: false }), 0, 0, 0, g, false);   // el líquido encendido: se ve la pared del fondo del vidrio
-        const wax = new T.MeshBasicMaterial({ color: 0xb8ff1a, toneMapped: false }), sg = new T.SphereGeometry(1, 18, 14);
-        for (let i = 0; i < (LOW ? 4 : 6); i++) { const m = mesh(sg, wax, 0, .2, 0, g, false); LAVA.b.push({ m, ph: i * 1.7 + rnd() * 2, sp: .22 + rnd() * .2, r: .011 + rnd() * .009, a: rnd() * 6.28 }); }
-        LAVA.pool = mesh(sg, wax, 0, .122, 0, g, false); LAVA.pool.scale.set(.031, .012, .031);
-        const sh = mesh(gl, new T.MeshBasicMaterial({ color: 0xc98bff, transparent: true, opacity: .1, blending: T.AdditiveBlending, depthWrite: false, toneMapped: false }), 0, 0, 0, g, false); sh.renderOrder = 3;
+        LAVA.liq = new T.MeshBasicMaterial({ color: 0x0fa838, side: T.BackSide, toneMapped: false }); mesh(gl, LAVA.liq, 0, 0, 0, g, false);   // el líquido encendido: se ve la pared del fondo del vidrio
+        const wax = LAVA.wax = new T.MeshBasicMaterial({ color: 0xe6ff3a, toneMapped: false }), sg = new T.SphereGeometry(1, 18, 14);
+        for (let i = 0; i < (LOW ? 4 : 6); i++) { const m = mesh(sg, wax, 0, .2, 0, g, false); LAVA.b.push({ m, ph: i / 6 + rnd() * .12, sp: .042 + rnd() * .03, r: [.022, .015, .011, .019, .009, .013][i], a: rnd() * 6.28, d: .25 + rnd() * .6 }); }   // v8.6 · gotas de tres tamaños que suben y bajan despacio
+        LAVA.pool = mesh(sg, wax, 0, .122, 0, g, false); LAVA.pool.scale.set(.031, .012, .031); LAVA.top = mesh(sg, wax, 0, .379, 0, g, false); LAVA.top.scale.set(.02, .009, .02);   // cera posada abajo y pegada arriba
+        const sh = mesh(gl, LAVA.sh = new T.MeshBasicMaterial({ color: 0x9dffb0, transparent: true, opacity: .1, blending: T.AdditiveBlending, depthWrite: false, toneMapped: false }), 0, 0, 0, g, false); sh.renderOrder = 3;
         inkm(lat([[.023, .385], [.022, .43], [.013, .446], [0, .446]]), metal, 0, 0, 0, g);
-        LAVA.light = new T.PointLight(0xb45cff, .8, 1.7, 1.7); LAVA.light.position.set(0, .24, .03); g.add(LAVA.light); LAVA.glow = glow(0x8f3dff, .5, 0, .25, 0, .16, g); }
-      function lavaTick(t) { if (!LAVA.light) return;   // la cera sube y baja, se estira a medio camino y se achata arriba y abajo
-        LAVA.b.forEach(b => { const u = .5 + .5 * Math.sin(t * b.sp + b.ph), y = .135 + u * .225, rg = LAVA.r(y) - .005, r = Math.min(b.r, rg * .8), st = 1 + .35 * Math.cos(t * b.sp + b.ph) * Math.sin(u * Math.PI), d = Math.max(0, rg - r) * .6;
-          b.m.position.set(Math.cos(b.a + t * .11) * d, y, Math.sin(b.a + t * .11) * d); b.m.scale.set(r / Math.sqrt(st), r * st, r / Math.sqrt(st)); });
-        LAVA.pool.scale.y = .012 + .004 * Math.sin(t * .7); LAVA.light.intensity = .75 + .12 * Math.sin(t * 1.3) + .05 * Math.sin(t * 3.1); LAVA.glow.material.opacity = .14 + .04 * Math.sin(t * 1.3); }
+        LAVA.light = new T.PointLight(0x4dff6a, .8, 1.7, 1.7); LAVA.light.position.set(0, .24, .03); g.add(LAVA.light); LAVA.glow = glow(0x2dff5a, .5, 0, .25, 0, .16, g); }
+      let LC = null, lcT = null, LW = null;
+      function lavaTick(t) { if (!LAVA.light) return; if (!LC) { LC = [0xd4ff00, 0x00b4ff, 0xffb000, 0x00ff04, 0xe100ff, 0x9900ff].map(c => new T.Color(c)); lcT = new T.Color(); LW = new T.Color(1, 1, 1); }   // v8.6 · un solo color luminiscente que va pasando por los corporativos; las gotas se despegan de la cera de abajo, se estiran al subir y se funden con la de arriba
+        const cu = (t / 9) % LC.length, ci = Math.floor(cu), ck = cu - ci; lcT.copy(LC[ci]).lerp(LC[(ci + 1) % LC.length], ck * ck * (3 - 2 * ck));
+        LAVA.wax.color.copy(lcT).lerp(LW, .12); LAVA.liq.color.copy(lcT).multiplyScalar(.34); LAVA.sh.color.copy(lcT); LAVA.light.color.copy(lcT); LAVA.glow.material.color.copy(lcT);
+        LAVA.b.forEach(b => { const p = (t * b.sp + b.ph) % 1, tri = p < .5 ? p * 2 : 2 - p * 2, u = tri * tri * (3 - 2 * tri), y = .128 + u * .25, rg = LAVA.r(y) - .004, borde = Math.min(1, Math.min(u, 1 - u) * 7), r = Math.min(b.r, rg * .82) * (.35 + .65 * borde), st = 1 + .4 * Math.sin(tri * Math.PI), d = Math.max(0, rg - r) * b.d;
+          b.m.position.set(Math.cos(b.a + t * .07) * d, y, Math.sin(b.a + t * .07) * d * .5); b.m.scale.set(r / Math.sqrt(st), r * st, r / Math.sqrt(st)); });
+        LAVA.pool.scale.y = .012 + .004 * Math.sin(t * .7); LAVA.top.scale.y = .009 + .003 * Math.sin(t * .5 + 1); LAVA.light.intensity = .85 + .12 * Math.sin(t * 1.3) + .05 * Math.sin(t * 3.1); LAVA.glow.material.opacity = .24 + .05 * Math.sin(t * 1.3); }
       function buildWalkman(p, ry) { const g = new T.Group(); g.position.copy(p); g.rotation.y = ry; g.scale.setScalar(1.5); S.add(g); const W = .092, Dp = .128, Th = .032, blue = toon({ color: 0x2b5fcf, spec: 1, shin: 44, rim: .4 }), sil = toon({ color: 0xc9cdd6, spec: 1.1, shin: 50 });
-        const up = new T.Group(); up.position.set(0, .001, 0); up.rotation.x = -.16; g.add(up); inkm(rbox(W, Dp, Th, .007), blue, 0, Dp / 2, 0, up);   // de pie, algo recostado
+        const up = new T.Group(); up.position.set(0, Th / 2 + .001, 0); up.rotation.x = -Math.PI / 2; g.add(up); inkm(rbox(W, Dp, Th, .007), blue, 0, Dp / 2, 0, up);   // v8.6 · tumbado en la mesa, con la tapa hacia arriba
         const art = decal((x, w, h) => { const rr = (a, b, c, d, r) => { x.beginPath(); x.roundRect ? x.roundRect(a, b, c, d, r) : x.rect(a, b, c, d); };
           const gr = x.createLinearGradient(0, 0, w, h); gr.addColorStop(0, '#3f77e6'); gr.addColorStop(.5, '#2a59c4'); gr.addColorStop(1, '#1d3f95'); x.fillStyle = gr; x.fillRect(0, 0, w, h);
           x.textBaseline = 'middle'; x.fillStyle = '#e8ecf5'; x.font = '900 ' + Math.round(w * .085) + 'px "Times New Roman",Georgia,serif'; x.textAlign = 'left'; x.fillText('SONIA', w * .09, h * .075); x.font = '700 ' + Math.round(w * .042) + 'px "Barlow Semi Condensed",Arial,sans-serif'; x.textAlign = 'right'; x.fillText('STEREO CASSETTE PLAYER', w * .91, h * .078);
@@ -7537,14 +7548,14 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
         // auriculares de diadema con almohadillas naranjas, apoyados al lado, y su cable
         const hp = new T.Group(); hp.position.set(.085, 0, .03); hp.rotation.y = -.7; g.add(hp); const band = inkm(new T.TorusGeometry(.05, .0028, 8, 30, Math.PI), sil, 0, .004, 0, hp); band.rotation.x = -Math.PI / 2;
         [-1, 1].forEach(sd => { const pad = inkm(new T.SphereGeometry(.019, 18, 12), toon({ color: 0xff8a1f, spec: .2 }), sd * .05, .012, .004, hp); pad.scale.set(.55, 1, 1); inkm(new T.CylinderGeometry(.012, .012, .006, 14), toon({ color: 0x1b1d24, spec: .6 }), sd * .058, .012, .004, hp).rotation.z = Math.PI / 2; });
-        const cab = new T.CatmullRomCurve3([new T.Vector3(.046, .1, -.01), new T.Vector3(.07, .06, .0), new T.Vector3(.075, .004, .02), new T.Vector3(.06, .003, .05), new T.Vector3(.05, .008, .045)]); mesh(new T.TubeGeometry(cab, 30, .0012, 5, false), toon({ color: 0x1b1d24, spec: .6 }), 0, 0, 0, g, false);
+        const cab = new T.CatmullRomCurve3([new T.Vector3(.046, .016, -.1), new T.Vector3(.078, .02, -.07), new T.Vector3(.085, .004, -.01), new T.Vector3(.066, .003, .045), new T.Vector3(.05, .008, .045)]); mesh(new T.TubeGeometry(cab, 30, .0012, 5, false), toon({ color: 0x1b1d24, spec: .6 }), 0, 0, 0, g, false);
         shadowsOn(g); }
       function buildCubo(p, ry) { const s = .1, COLS = ['#d4ff00', '#00b4ff', '#ffb000', '#00ff04', '#e100ff', '#9900ff'], IC = ['screens', 'systems', 'news', 'vjshow', 'msgame', null];   // cada pegatina, del color de una app y con su logo (la violeta, el «play» de AVHUB)
         const cara = idx => ctex(decal((x, w) => { x.fillStyle = '#0c0c10'; x.fillRect(0, 0, w, w); const c = w / 3, rr = (a, b, c2, d, r) => { x.beginPath(); x.roundRect ? x.roundRect(a, b, c2, d, r) : x.rect(a, b, c2, d); };
           idx.forEach((k, i) => { const X = (i % 3) * c + c * .06, Y = Math.floor(i / 3) * c + c * .06, q = c * .88, m = q * .66; x.fillStyle = COLS[k]; rr(X, Y, q, q, q * .16); x.fill(); x.fillStyle = 'rgba(255,255,255,.2)'; rr(X + q * .08, Y + q * .06, q * .84, q * .18, q * .09); x.fill();
             if (IC[k]) { if (LG[IC[k]]) x.drawImage(tinta(LG[IC[k]], m, m, 'rgba(14,16,22,.92)'), X + (q - m) / 2, Y + (q - m) / 2); }
             else { x.fillStyle = x.strokeStyle = 'rgba(14,16,22,.92)'; x.lineJoin = 'round'; x.lineWidth = q * .1; x.beginPath(); x.moveTo(X + q * .38, Y + q * .28); x.lineTo(X + q * .72, Y + q * .5); x.lineTo(X + q * .38, Y + q * .72); x.closePath(); x.fill(); x.stroke(); } }); }, 384, 384));
-        const F = [[1, 1, 1, 1, 1, 0, 3, 1, 1], [2, 2, 4, 2, 2, 2, 2, 5, 2], [4, 4, 3, 4, 4, 4, 2, 4, 4], [5, 5, 5, 5, 5, 5, 5, 5, 5], [0, 0, 0, 5, 0, 0, 0, 0, 1], [3, 3, 3, 1, 3, 3, 3, 3, 0]];
+        const F = [[1, 4, 0, 2, 5, 3, 0, 3, 1], [2, 0, 5, 4, 1, 3, 3, 5, 2], [4, 2, 3, 0, 4, 1, 5, 1, 0], [5, 3, 1, 2, 0, 4, 4, 2, 5], [0, 1, 2, 3, 4, 5, 2, 0, 3], [3, 5, 0, 1, 2, 4, 1, 4, 5]];   // v8.6 · revuelto: los seis colores en cada cara que se ve
         const m = inkm(new T.BoxGeometry(s, s, s), F.map(f => toon({ map: cara(f), spec: .7, shin: 40, ht: .4 })), p.x, p.y + s / 2, p.z, null); m.rotation.y = ry; return m; }
 
       /* ---------- la mano: guante blanco de dibujo animado ---------- */
@@ -7666,9 +7677,13 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
         [[-.64, -.35], [.64, -.35], [-.64, .35], [.64, .35]].forEach(([x, z]) => inkm(legG, M.tableLeg, x, 0, tz + z, null)); inkm(rbox(1.3, .022, .68, .006), M.tableLeg, 0, .16, tz, null);
         const bodyM = M.black; [[-.4, 3, 0], [-.18, 16, .4], [.28, 12, -.3]].forEach(([x, c, rz], i) => { const b2 = inkm(bodG, bodyM, x, .196, tz - .04 + i * .06, null); b2.rotation.set(-Math.PI / 2, 0, rz); plane(BOX.w, BOX.h, MAT.cover[c], 0, 0, BOX.d / 2 + .0006, b2); });
         
-        const canT = ctex(canCanvas()), cm = toon({ map: canT, spec: 1, shin: 40, rim: .4 }), lidM = toon({ color: 0xc9cdd6, spec: 1.1, shin: 50 }); const can = inkm(new T.CylinderGeometry(.033, .033, .122, 26, 1), [cm, lidM, lidM], .57, TY + .061, tz + .02, null); can.rotation.y = -.6;
+        const canT = ctex(canCanvas()), cm = toon({ map: canT, spec: 1, shin: 40, rim: .4 }), lidM = toon({ color: 0xc9cdd6, spec: 1.1, shin: 50 }); const can = new T.Group(); can.position.set(.57, TY, tz + .02); S.add(can);   // v8.6 · lata con su forma: base, cuerpo impreso, hombro, aro y anilla, y la luz de un cilindro
+        const canB = inkm(new T.CylinderGeometry(.033, .033, .098, 32, 1, true), cm, 0, .057, 0, can); canB.rotation.y = -Math.PI / 2 - .47;
+        const canV = toon({ color: 0x0f8f3a, spec: 1, shin: 40, rim: .4 }); inkm(new T.CylinderGeometry(.033, .0285, .008, 32, 1), canV, 0, .004, 0, can); inkm(new T.CylinderGeometry(.0275, .033, .012, 32, 1), canV, 0, .112, 0, can);
+        inkm(new T.CylinderGeometry(.0282, .0275, .004, 32, 1), lidM, 0, .12, 0, can); mesh(new T.CylinderGeometry(.0255, .0255, .001, 28), toon({ color: 0xaeb3bd, spec: 1.2, shin: 60 }), 0, .1205, 0, can, false); const tab = mesh(new T.BoxGeometry(.011, .0012, .017), lidM, 0, .1222, .004, can, false); tab.rotation.y = .5;
+        const luzT = ctex(canLuz()), canL = mesh(new T.CylinderGeometry(.0342, .0342, .098, 32, 1, true), new T.MeshBasicMaterial({ map: luzT, transparent: true, depthWrite: false, toneMapped: false, polygonOffset: true, polygonOffsetFactor: -6, polygonOffsetUnits: -6 }), 0, .057, 0, can, false); canL.rotation.y = Math.PI - .31; canL.renderOrder = 2;
         buildTV(new T.Vector3(0, TY, tz - .17)); buildConsole(new T.Vector3(0, TY, tz + .24)); buildPad(new T.Vector3(-.42, TY, tz + .3), .3);
-        buildLava(new T.Vector3(.2, TY + .585, tz + .015), .84); buildWalkman(new T.Vector3(-.47, TY, tz - .1), .3); buildCubo(new T.Vector3(-.2, TY + .587, tz + .01), .5);   // v8.5 · la lámpara y el cubo, encima del monitor; el walkman, a su lado
+        buildLava(new T.Vector3(.39, TY, tz + .08), .8); buildWalkman(new T.Vector3(-.54, TY, tz + .13), .42); buildCubo(new T.Vector3(-.2, TY + .587, tz + .01), .5);   // v8.6 · la lámpara, verde, en el hueco de la mesa entre el monitor y la estantería; el cubo, encima del monitor; el walkman, al otro lado
         // luces: principal cálida con sombras duras, fluorescentes, contraluces de neón y relleno frío
         S.add(new T.HemisphereLight(0xfff1e6, 0x3a2752, .36));
         const key = new T.SpotLight(0xfff2de, .8, 8, .72, .35, 1.1); key.position.set(1.0, 2.6, 2.7); key.target.position.set(0, .85, .6); S.add(key); S.add(key.target);
