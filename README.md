@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v7.6**
+**Versión actual: v7.7**
 
 ## Cómo se juega
 
@@ -31,7 +31,11 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **PATOPESCA:** la pesca de patitos de la feria.
 - **ENCESTA:** recreativa 3D con BALLHOP y BASKET.
 
-## Cambios de la versión actual (v7.6)
+## Cambios de la versión actual (v7.7)
+
+- **El monitor SONIA ya no lleva antenas:** es un monitor, no una tele.
+
+Sigue de la v7.6:
 
 - **Llega Mevi, la mascota de MSGAME.** Es quien guía al jugador: un muñeco de melena negra, ojos de estrella, mono morado y guantes y botas verde lima.
 - **Nueva entrada:** al cargar, la sala aparece primero desenfocada y después nítida, con la mesa, la consola y las estanterías. Entonces Mevi salta desde abajo, en el centro, con un «boing», y saluda en un bocadillo: «¡Hola! Soy Mevi. ¿Elegimos a qué jugamos?». Un toque en la pantalla la despide.
@@ -71,4 +75,4 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v7.6 es un proyecto hecho con 𑣲 by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v7.7 es un proyecto hecho con 𑣲 by [mediaservi.com](https://mediaservi.com)*

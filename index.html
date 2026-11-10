@@ -3047,7 +3047,7 @@
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '7.6';
+    const APP_VERSION = '7.7';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       document.getElementById('appVer').innerText = APP_VERSION; document.getElementById('appName').textContent = APP_NAME; document.querySelectorAll('.msver').forEach(e => { e.textContent = APP_VERSION; }); document.querySelectorAll('.msyear').forEach(e => { e.textContent = new Date().getFullYear(); }); document.getElementById('appYear').innerText = new Date().getFullYear();
@@ -7463,9 +7463,7 @@
         plane(.03, .3, toon({ map: ctex(grill), ht: .5 }), -.278, SY, D / 2 + .0005, g);
         [.24, .18].forEach(y => { const kn = inkm(new T.CylinderGeometry(.016, .018, .016, 22), M.tvBody2, .278, y, D / 2 + .006, g); kn.rotation.x = Math.PI / 2; mesh(new T.BoxGeometry(.003, .002, .013), M.inkB, 0, .0085, .004, kn, false); });
         TV.led = mesh(new T.SphereGeometry(.0055, 12, 8), new T.MeshBasicMaterial({ color: 0xffb020, toneMapped: false }), .278, .132, D / 2 + .004, g, false);
-        const ant = new T.Group(); ant.position.set(0, .497, 0); ant.rotation.x = -.25; g.add(ant); inkm(new T.SphereGeometry(.045, 22, 10, 0, 6.283, 0, Math.PI / 2), M.plasticDk, 0, 0, 0, ant);
-        [-1, 1].forEach(s => { const rod = new T.Group(); rod.rotation.set(.06, 0, -s * .62); rod.position.set(s * .012, .03, 0); ant.add(rod); let y = 0;
-          [[.0045, .1], [.0036, .09], [.0028, .08]].forEach(([r, l]) => { inkm(new T.CylinderGeometry(r, r, l, 8), M.chrome, 0, y + l / 2, 0, rod); y += l - .006; }); inkm(new T.SphereGeometry(.008, 12, 8), M.chrome, 0, y + .004, 0, rod); });
+        // v7.7 · es un monitor, no una tele: sin antenas (Josep)
         TV.light = new T.PointLight(0x7aa8ff, .55, 1.9, 2); TV.light.position.set(0, SY, D / 2 + .25); g.add(TV.light); tvScreen('menu'); }
 
       /* ---------- la mano: guante blanco de dibujo animado ---------- */
