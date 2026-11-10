@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v7.4**
+**Versión actual: v7.5**
 
 ## Cómo se juega
 
@@ -31,10 +31,15 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **PATOPESCA:** la pesca de patitos de la feria.
 - **ENCESTA:** recreativa 3D con BALLHOP y BASKET.
 
-## Cambios de la versión actual (v7.4)
+## Cambios de la versión actual (v7.5)
 
-- **El videoclub 3D carga mejor en el móvil:** el motor 3D va incluido en la propia web (antes se descargaba de fuera) y, si una descarga se cuelga, prueba con otra.
-- **Aviso «Cargando el videoclub…»** mientras se monta la sala. Si el dispositivo no puede con el 3D, la pantalla LED dice el motivo y se queda la home de siempre.
+- **El videoclub 3D ya sale completo en el enlace de pruebas:** las carátulas y el fondo se cargan de forma que funcionan también cuando el servidor entrega las imágenes desde otra dirección (antes, en ese caso, la sala salía sin carátulas ni fondo, o no llegaba a salir).
+- **Si el dispositivo no puede con el 3D, el motivo se queda 15 segundos a la vista** en la propia pantalla, además de pasar por el LED.
+
+Sigue de la v7.4:
+
+- **El motor 3D va incluido en la propia web** (antes se descargaba de fuera) y, si una descarga se cuelga, prueba con otra.
+- **Aviso «Cargando el videoclub…»** mientras se monta la sala.
 - **Sin botón de micrófono:** los juegos usan su propia música y no lo necesitan.
 
 Sigue de la v7.3:
@@ -58,4 +63,4 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v7.4 es un proyecto hecho con 𑣲 by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v7.5 es un proyecto hecho con 𑣲 by [mediaservi.com](https://mediaservi.com)*
