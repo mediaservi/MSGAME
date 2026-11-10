@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v7.8**
+**Versión actual: v7.9**
 
 ## Cómo se juega
 
@@ -31,7 +31,11 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **PATOPESCA:** la pesca de patitos de la feria.
 - **ENCESTA:** recreativa 3D con BALLHOP y BASKET.
 
-## Cambios de la versión actual (v7.8)
+## Cambios de la versión actual (v7.9)
+
+- **MSGAME estrena logo:** un cartucho con dos estrellas que hacen de ojos y los contactos de dientes, como una calavera, en magenta; y el nombre en la letra común de la familia AVHUB, con «ms» en magenta. Va en la cabecera y en el icono de la app y de la pestaña.
+
+Sigue de la v7.8:
 
 - **Mevi se queda en pantalla hasta que se elige un juego.** Saluda en el centro y, a los cinco segundos, da un saltito a un lado para no tapar la consola; de vez en cuando vuelve a saludar. Al volver de un juego, sale otra vez.
 - **La mano de Mevi agarra de verdad:** al coger, la manopla se cierra en un puño y lo que sujeta queda dentro (la caja por un canto, la carátula por su borde libre y el cartucho por su extremo). Ya no hay dedos atravesando la carátula ni el cartucho. Al final abre la mano y termina de meter el cartucho empujando con la palma: ¡clac!
@@ -79,4 +83,4 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v7.8 es un proyecto hecho con 𑣲 by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v7.9 es un proyecto hecho con 𑣲 by [mediaservi.com](https://mediaservi.com)*
