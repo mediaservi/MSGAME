@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v10.0**
+**Versión actual: v10.1**
 
 ## Cómo se juega
 
@@ -31,7 +31,12 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **PATOPESCA:** la pesca de patitos de la feria.
 - **ENCESTA:** recreativa 3D con BALLHOP y BASKET.
 
-## Cambios de la versión actual (v10.0)
+## Cambios de la versión actual (v10.1)
+
+- **Calibrar el mando, en un solo paso:** se apunta al centro de la pantalla y se pulsa Calibrar. Vale igual para un portátil que para una pantalla gigante. El calibrado fino de tres pasos (centro y dos esquinas) sigue disponible con Mayús+C en el teclado de la pantalla.
+- **Corregido:** la segunda pulsación seguida de un mismo botón del mando (Calibrar, Centrar, Play, Stop) se descartaba como repetida. Era la causa de que calibrar pareciera errático.
+
+### Sigue de la v10.0
 
 - Se acompasa con VJSHOW v10.0: los tipos de letra del módulo de textos también se sirven desde `fuentes/txt/`. La app ya no pide nada a Google Fonts en ningún momento.
 - No cambia nada del aspecto ni del funcionamiento.
@@ -191,7 +196,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v10.0 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v10.1 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
