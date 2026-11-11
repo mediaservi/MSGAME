@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v10.3**
+**Versión actual: v10.4**
 
 ## Cómo se juega
 
@@ -31,7 +31,15 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **PATOPESCA:** la pesca de patitos de la feria.
 - **ENCESTA:** recreativa 3D con BALLHOP y BASKET.
 
-## Cambios de la versión actual (v10.3)
+## Cambios de la versión actual (v10.4)
+
+- **Teléfono rojo en la mesa.** Para configurar el móvil como mando ya no hay una tecla en la consola: se pulsa el teléfono rojo de la mesa (delante, a la derecha). En pantallas estrechas, donde el teléfono queda fuera de la imagen, hay un botón rojo con un teléfono en el borde derecho. La consola se queda con cuatro teclas mejor repartidas: JUGAR, EXPULSAR, JUGADORES y RÉCORDS.
+- **El brazo ya no tapa el cartucho.** Al sacarlo de la caja y al meterlo en la consola, el brazo entra por un lado y el cartucho se ve entero todo el rato.
+- **Moqueta en los planos de la mesa.** Al mirar hacia abajo durante la secuencia ya no se ve negro fuera de la alfombra.
+- **Espadas, sables y bates más finos (PALOTERAPIA).** La hoja sigue al móvil con menos de la mitad de retraso y responde igual en una tele lenta que en un ordenador rápido. Ahora cuenta la velocidad de la hoja y no solo la del puño: un giro de muñeca también corta (antes no cortaba nada). El barrido entre una imagen y la siguiente ya no se salta objetos, y el margen de corte es algo más generoso. Quieto, sigue sin cortar.
+- **Sin latigazos al girar la muñeca.** Si el móvil se tumbaba más de 90°, la espada saltaba de golpe al lado contrario; ahora se queda tumbada de ese lado.
+
+### Sigue de la v10.3
 
 - **Calibrar el mando, sin pulsar nada.** Se apunta el borde superior del móvil al centro de la pantalla; sale una cuenta atrás de 3 segundos y el mando se calibra solo en cuanto el móvil está quieto. Después, la bola verde sigue al móvil unos segundos para comprobar que ha quedado bien. Antes había que pulsar un botón, y al pulsarlo (y al mirar el móvil para encontrarlo) se movía justo lo que se estaba midiendo; además, durante el calibrado se veía una bola con el ajuste anterior, que despistaba.
 - **El calibrado sale solo** cada vez que un móvil se conecta, si no hay una partida en marcha. Durante el juego, ⊙ Centrar corrige el centro al momento.
@@ -213,7 +221,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v10.3 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v10.4 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
