@@ -3311,7 +3311,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '9.9';
+    const APP_VERSION = '10.0';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -3498,7 +3498,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       ['starjedi', 'stranger', 'pricedown', 'akira', 'scary', 'nextups', 'astronaut'].forEach(k => ['woff2', 'woff', 'ttf', 'otf'].forEach(e => U.add(new URL('fuentes/' + k + '.' + e, location.href).href)));
       try { GAMES.SNDS.forEach(f => U.add(new URL(f, location.href).href)); } catch (e) {}
       document.querySelectorAll('link[rel=stylesheet]').forEach(l => { if (/fonts\.googleapis/.test(l.href)) U.add(l.href); });
-      try { U.add(TXTF.gurl()); } catch (e) {} ['bangers', 'black-ops-one', 'racing-sans-one', 'lobster', 'bowlby-one', 'chewy', 'bungee', 'barlow-semi-condensed-500', 'barlow-semi-condensed-600', 'barlow-semi-condensed-700', 'press-start-2p', 'audiowide', 'russo-one', 'sedgwick-ave-display', 'luckiest-guy', 'lilita-one'].forEach(k => U.add(new URL('fuentes/' + k + '.woff2', location.href).href)); ['peerjs.min.js', 'qrcode.min.js', 'three.min.js'].forEach(k => U.add(new URL('lib/' + k, location.href).href));   // v9.9 · tipos de letra y librerías propios
+      try { TXTF.gurl().forEach(u => U.add(u)); } catch (e) {} ['bangers', 'black-ops-one', 'racing-sans-one', 'lobster', 'bowlby-one', 'chewy', 'bungee', 'barlow-semi-condensed-500', 'barlow-semi-condensed-600', 'barlow-semi-condensed-700', 'press-start-2p', 'audiowide', 'russo-one', 'sedgwick-ave-display', 'luckiest-guy', 'lilita-one'].forEach(k => U.add(new URL('fuentes/' + k + '.woff2', location.href).href)); ['peerjs.min.js', 'qrcode.min.js', 'three.min.js'].forEach(k => U.add(new URL('lib/' + k, location.href).href));   // v9.9 · tipos de letra y librerías propios
       const b = $('btnFair'); b.disabled = true; showToast('Guardando la app para usarla sin internet…');
       const ch = new MessageChannel(); ch.port1.onmessage = e => { const d = e.data || {}; if (d.t === 'prog') b.querySelector('span').textContent = `📶 ${Math.round(d.done / d.n * 100)} %`; else if (d.t === 'fin') { b.disabled = false; b.querySelector('span').textContent = '📶 Preparar modo feria (sin internet)'; showToast(`Listo: ${d.ok} archivos guardados. Ya puedes usarla sin internet en este equipo`); try { localStorage.setItem('VJSHOW_FAIR', String(Date.now())); } catch (x) {} } };
       reg.active.postMessage({ t: 'pre', urls: [...U] }, [ch.port2]);
@@ -4041,7 +4041,12 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       const all = () => L.concat(U), get = id => all().find(f => f[0] === id) || L[0];
       const NET = { starjedi: 'Star Jedi', stranger: 'Stranger Things', pricedown: 'Pricedown', akira: 'Akira Expanded', scary: 'Scary Halloween', nextups: 'Next Ups' };
       function loadNet() { if (typeof FontFace !== 'function') return; Object.entries(NET).forEach(([k, fam]) => { const tryExt = i => { const ex = ['woff2', 'woff', 'ttf', 'otf'][i]; if (!ex) return; new FontFace(fam, `url(fuentes/${k}.${ex})`).load().then(ff => { document.fonts.add(ff); }).catch(() => tryExt(i + 1)); }; tryExt(0); }); }
-      function loadGoogle() { if (loaded) return; loaded = true; try { loadNet(); } catch (e) {} const fam = [...new Set(L.map(f => f[4]).filter(Boolean))].map(f => 'family=' + f).join('&'); const l = document.createElement('link'); l.rel = 'stylesheet'; l.href = 'https://fonts.googleapis.com/css2?' + fam + '&display=swap'; document.head.appendChild(l); }
+      /* v10.0 · los tipos equivalentes libres van en fuentes/txt (OFL): el módulo de textos ya no pide nada a Google Fonts.
+         Los que la app ya declara arriba (fuentes/) no se repiten. */
+      const YA = ['Audiowide', 'Luckiest Guy', 'Chewy', 'Black Ops One', 'Bungee', 'Bangers', 'Russo One'];
+      const FT = [...new Set(L.map(f => f[4]).filter(Boolean))].map(x => { const q = x.split(':wght@'), w = +q[1] || 400; return { fam: q[0].replace(/\+/g, ' '), w, file: 'fuentes/txt/' + q[0].toLowerCase().replace(/\+/g, '-') + '-' + w + '.woff2' }; }).filter(f => !YA.includes(f.fam));
+      function loadGoogle() { if (loaded) return; loaded = true; try { loadNet(); } catch (e) {} const st = document.createElement('style'); st.id = 'txtFonts'; st.textContent = FT.map(f => '@font-face{font-family:"' + f.fam + '";font-weight:' + f.w + ';font-display:swap;src:url(' + f.file + ') format("woff2")}').join(''); document.head.appendChild(st); }
+      const gurl = () => FT.map(f => new URL(f.file, location.href).href);   // para la precarga del modo sin conexión
       async function addFile(file) {
         const name = file.name.replace(/\.(ttf|otf|woff2?)$/i, '').replace(/[^\w\- ]/g, '').slice(0, 40) || 'Mi fuente', fam = 'UF ' + name;
         const buf = await file.arrayBuffer(); const ff = new FontFace(fam, buf); await ff.load(); document.fonts.add(ff);
@@ -4073,7 +4078,6 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
         $('txtFontRand').addEventListener('change', () => { if ($('txtFontRand').checked) loadGoogle(); });
         ui(); restore();
       }
-      const gurl = () => 'https://fonts.googleapis.com/css2?' + [...new Set(L.map(f => f[4]).filter(Boolean))].map(f => 'family=' + f).join('&') + '&display=swap';
       return { init, pickFor, get, ui, all, gurl };
     })();
     TXTF.init();

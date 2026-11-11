@@ -28,4 +28,6 @@ También bajo **SIL Open Font License 1.1**, del mismo origen (subconjunto latin
 | `luckiest-guy.woff2` | Luckiest Guy |
 | `lilita-one.woff2` | Lilita One |
 
-Los tipos del módulo de textos de VJSHOW (unas cuarenta familias) se siguen pidiendo a Google Fonts, y solo cuando se abre ese módulo.
+## Tipos del módulo de textos de VJSHOW (v10.0)
+
+En `fuentes/txt/`, también bajo **SIL Open Font License 1.1** y del mismo origen (subconjunto latino, WOFF2): Abril Fatface, Alfa Slab One, Anton, Archivo Black, Arimo, Barlow Condensed, Bebas Neue, Big Shoulders Display, Cabin, Cinzel, Courier Prime, Creepster, Eater, Exo 2, Fjalla One, Fredoka, Jost, Krona One, League Gothic, Libre Caslon Display, Marcellus, Monoton, Montserrat, Montserrat Alternates, News Cycle, Nosifer, Orbitron, Oswald, Playfair Display, Poppins, Potta One, Rajdhani, Rampart One, Righteous, Silkscreen, Staatliches, Teko.
