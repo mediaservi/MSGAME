@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v9.0**
+**Versión actual: v9.1**
 
 ## Cómo se juega
 
@@ -31,7 +31,17 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **PATOPESCA:** la pesca de patitos de la feria.
 - **ENCESTA:** recreativa 3D con BALLHOP y BASKET.
 
-## Cambios de la versión actual (v9.0)
+## Cambios de la versión actual (v9.1)
+
+- **Menú del cartucho sin botones en pantalla.** JUGAR, EXPULSAR, MANDO, JUGADORES y RÉCORDS son solo las teclas físicas de la consola; la de JUGAR lleva un halo verde para que se vea qué hay que pulsar. En el monitor queda más sitio: casi todo cabe en una sola página y, si hace falta pasar página, hay dos flechas pequeñas abajo. RESTABLECER sigue, en pequeño.
+- **Solo el juego que has cogido.** Si eliges la caja de HIT HERO · ZOMBIES, el menú ya no vuelve a preguntar el escenario: su tarjeta sube a la cabecera, junto al título, y la cabecera enseña el fondo de ese juego. Las armas (o lo que tenga cada juego) se siguen eligiendo.
+- **Móvil vertical: el monitor no se deforma.** Conserva su forma y la explicación del juego sale fuera, encima del monitor.
+- **Mesa en caoba oscuro**, para que contraste con los expositores; el mismo tono en la sala y en la pantalla de juego.
+- **Cajas de las baldas bajas:** al cogerlas, la cámara las mira de cerca y desde arriba, sin que la mesa ni la lata las tapen.
+- **Mando:** el calibrado vale ahora para cualquier tamaño de pantalla, del portátil a la pantalla gigante (antes ignoraba las pantallas pequeñas y el puntero casi no se movía), y el puntero tiembla menos; en el móvil ya no suena la música (solo los efectos), aparece el logo oficial y, al hacer récord, el recuadro para escribir tus tres letras sale arriba y bien visible.
+- **Seta roja de aviso de fallos** en la barra de botones: al pasar el cursor explica para qué es; al pulsarla puedes contarnos el fallo y adjuntar capturas.
+
+Sigue de la v9.0:
 
 - **El mando conecta también en wifis de hotel, de invitados o de eventos.** Hasta ahora el móvil solo hablaba con la pantalla de forma directa, y en las redes que aíslan los aparatos entre sí se quedaba en «Conectando…». Ahora, si en unos segundos no hay conexión directa, el mando pasa solo a un enlace de reserva por internet y sigue funcionando igual (nombre, color, calibración, botones y puntuación). El móvil avisa con «Sin conexión directa: conectando por internet…» y, la siguiente vez, cambia antes.
 - **El código QR aparece aunque falle el servidor de enlace**, y el mando ya no depende de él para conectar.
@@ -137,4 +147,4 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v9.0 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v9.1 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
