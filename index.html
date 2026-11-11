@@ -3465,7 +3465,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '10.7';
+    const APP_VERSION = '10.8';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -7914,8 +7914,9 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
           tr(R * .17, 'rgba(10,4,24,.9)'); x.shadowColor = col; x.shadowBlur = R * .32; tr(R * .075, col); x.shadowBlur = 0; x.fillStyle = 'rgba(10,4,24,.9)'; x.beginPath(); x.arc(0, 0, R * .12, 0, TAU); x.fill(); x.fillStyle = col; x.beginPath(); x.arc(0, 0, R * .07, 0, TAU); x.fill(); x.restore(); }
         function bombillas(x, t, X, Y, s, f, mw) {   // rótulo de feria: letra roja con borde dorado y una fila de bombillas siguiendo el canto de cada letra
           s = cabe(x, t, f, s, mw); x.save(); x.translate(X, Y); x.textAlign = 'center'; x.textBaseline = 'alphabetic'; x.lineJoin = 'round'; x.font = `400 ${s}px ${fam(f)}`;
-          x.strokeStyle = '#12091f'; x.lineWidth = s * .33; x.strokeText(t, 0, 0); x.strokeStyle = '#8a5a0a'; x.lineWidth = s * .25; x.strokeText(t, 0, 0); x.strokeStyle = '#e8a81e'; x.lineWidth = s * .21; x.strokeText(t, 0, 0); x.strokeStyle = '#c4161f'; x.lineWidth = s * .07; x.strokeText(t, 0, 0);
-          const g = x.createLinearGradient(0, -s * .8, 0, 0); g.addColorStop(0, '#ff5546'); g.addColorStop(1, '#b3121d'); x.fillStyle = g; x.fillText(t, 0, 0);
+          /* v10.8 · terciopelo rojo: el canto donde van las bombillas ya no es dorado sino granate, para que el amarillo contraste; el dorado queda en un filete fino por fuera */
+          x.strokeStyle = '#12091f'; x.lineWidth = s * .35; x.strokeText(t, 0, 0); x.strokeStyle = '#f0b62a'; x.lineWidth = s * .285; x.strokeText(t, 0, 0); x.strokeStyle = '#3d0410'; x.lineWidth = s * .245; x.strokeText(t, 0, 0); x.strokeStyle = '#6e0a1c'; x.lineWidth = s * .2; x.strokeText(t, 0, 0);
+          const g = x.createLinearGradient(0, -s * .8, 0, 0); g.addColorStop(0, '#d21f3c'); g.addColorStop(.55, '#a3122a'); g.addColorStop(1, '#6e0a1c'); x.fillStyle = g; x.fillText(t, 0, 0);
           /* v10.7 · bombillas de feria bien marcadas: casquillo oscuro, bombilla amarilla con mucho resplandor y el filamento casi blanco en el centro */
           const paso = [.01, s * .125]; x.lineCap = 'round'; x.setLineDash(paso); x.strokeStyle = '#3a1c02'; x.lineWidth = s * .098; x.strokeText(t, 0, 0);
           x.shadowColor = '#ffb300'; x.shadowBlur = s * .2; x.strokeStyle = '#ffd21f'; x.lineWidth = s * .074; x.strokeText(t, 0, 0); x.strokeText(t, 0, 0); x.shadowColor = '#fff3a0'; x.shadowBlur = s * .08; x.strokeText(t, 0, 0);
