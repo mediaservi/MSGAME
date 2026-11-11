@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v10.5**
+**Versión actual: v10.6**
 
 ## Cómo se juega
 
@@ -31,7 +31,20 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **PATOPESCA:** la pesca de patitos de la feria.
 - **ENCESTA:** recreativa 3D con BALLHOP y BASKET.
 
-## Cambios de la versión actual (v10.5)
+## Cambios de la versión actual (v10.6)
+
+- **Las 19 carátulas, cerradas** tras la revisión una a una:
+  - **PALOTERAPIA:** en el centro, las tres armas cruzadas (el bate en medio y, en aspa, la espada y el sable de luz).
+  - **PUNTERÍA:** dos puntos de mira de distinto tamaño y color, y un ¡BANG! en uno de ellos.
+  - **BEAT RACER:** las dos palabras con la misma letra de carreras, ancha y tumbada; BEAT va delante y pisa un poco a RACER, que conserva sus estelas.
+  - **GRAFFER:** el muro de ladrillo con las tres manchas y la letra de grafiti.
+  - **LA FORTUNA:** rótulo de bombillas arriba y la ruleta del juego, con sus premios.
+  - **BOLERA:** el momento del pleno: bolos grandes saltando, la bola a la vista y líneas de golpe; sin las luces de arriba.
+  - **PATOPESCA:** la caña con su sedal y su anzuelo entra por arriba.
+  - **ENCESTA:** BALLHOP (con su pista y sus anillas) y BASKET (con una cancha de fondo y la canasta a la vista) llevan el nombre en arco e inclinado; ENCESTA queda en una placa abajo.
+- **Continuidad:** la consola de la pantalla del juego es la misma que la de la sala (cuatro teclas, sin tecla de mando ni emblema), y el rótulo de cada juego en el monitor lleva la letra y el color de su carátula.
+
+### Sigue de la v10.5
 
 - **Carátulas nuevas**, elegidas una a una entre tres propuestas:
   - **PALOTERAPIA:** el título, inclinado, arriba a la izquierda; abajo, la variante (Halloween, Zombies, Aliens, Sports, Disco) con su propia letra y los colores de su tema.
@@ -39,7 +52,6 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
   - **BEAT RACER:** la corredora (Runner) y el todoterreno (Dirty) salen en la carátula; RACER lleva estelas de velocidad, y la variante va sin cinta, con su propia letra y color.
   - **BOLERA** y **PATOPESCA:** escena dibujada propia, con el título en diagonal y su lema.
   - **ENCESTA:** BALLHOP ya no lleva una carátula de baloncesto: enseña sus pistas y sus anillas; BASKET, el tablero y la canasta.
-  - GRAFFER y LA FORTUNA siguen con la carátula anterior, pendientes de elegir.
 - **Fotos con más vida:** todas las carátulas con foto llevan un tratamiento de contraste, color y resplandor para que no queden oscuras.
 - **La marca «msgame» de las carátulas**, a su color (antes salía grabada en oscuro y casi no se veía).
 
@@ -233,7 +245,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v10.5 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v10.6 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
