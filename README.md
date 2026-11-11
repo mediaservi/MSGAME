@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v9.4**
+**Versión actual: v9.5**
 
 ## Cómo se juega
 
@@ -22,16 +22,20 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 ## Juegos
 
-- **HIT HERO:** al estilo Beat Saber, con sable láser, espada o bate y 5 temáticas.
-- **SHOOT HERO:** galería de tiro con el móvil como pistola y 6 escenarios.
+- **SLICE BEAT:** corta al ritmo con sable láser, espada o bate; 5 temáticas.
+- **PUNTERÍA:** galería de tiro con el móvil como pistola y 6 escenarios.
 - **BEAT RACER:** carrera al ritmo, a pie (RUNNER) o en todoterreno (DIRTY).
-- **GRAFFITI:** pinta las formas sin salirte y cuidado con la policía.
+- **GRAFFER:** pinta las formas sin salirte y cuidado con la policía.
 - **LA FORTUNA:** ruleta de premios para eventos, con existencias reales.
 - **BOLERA:** bolos con física real y pantallas con visuales.
 - **PATOPESCA:** la pesca de patitos de la feria.
 - **ENCESTA:** recreativa 3D con BALLHOP y BASKET.
 
-## Cambios de la versión actual (v9.4)
+## Cambios de la versión actual (v9.5)
+
+- **Nombres propios para tres juegos:** **SLICE BEAT** (antes HIT HERO), **PUNTERÍA** (antes SHOOT HERO) y **GRAFFER** (antes GRAFFITI). Cambian en las cajas, los cartuchos, el menú, el mando y los textos; los juegos son los mismos.
+
+Sigue de la v9.4:
 
 - **Sin nombres ni marcas de otros.** La descripción del juego de cortar al ritmo ya no menciona otro juego; el mensaje de compartir de LA FORTUNA habla de «prize wheel» en inglés; el efecto de texto de VJSHOW se llama «Créditos en perspectiva».
 - **Rótulo SONIA con letra propia** (palo seco en cursiva, muy espaciada), grabado y hundido en el plástico del monitor.
@@ -162,7 +166,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v9.4 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v9.5 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
