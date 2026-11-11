@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v9.7**
+**Versión actual: v9.8**
 
 ## Cómo se juega
 
@@ -31,7 +31,11 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **PATOPESCA:** la pesca de patitos de la feria.
 - **ENCESTA:** recreativa 3D con BALLHOP y BASKET.
 
-## Cambios de la versión actual (v9.7)
+## Cambios de la versión actual (v9.8)
+
+- **Aviso legal:** se añade que es un proyecto personal del autor, ajeno a su empleador, que no lo encarga, financia ni respalda.
+
+Sigue de la v9.7:
 
 - **Cada juego, su logo.** Los títulos de las carátulas, los cartuchos y la pantalla ya no usan todos la misma letra: cada juego tiene su tipo de letra, sus colores y su inclinación, con contorno oscuro y filete claro para que se lean en el móvil. Las sagas (PALOTERAPIA, PUNTERÍA) repiten el título y cambian el subtítulo, en otra letra y otro color. Los tipos de letra son libres (OFL) y van en la carpeta `fuentes/`.
 - **El cartucho tiene la forma del isotipo de MSGAME:** cuerpo de esquinas redondeadas y pestaña estrecha abajo con sus tres muescas.
@@ -176,7 +180,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v9.7 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v9.8 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
