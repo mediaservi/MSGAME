@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v9.8**
+**Versión actual: v9.9**
 
 ## Cómo se juega
 
@@ -31,7 +31,13 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **PATOPESCA:** la pesca de patitos de la feria.
 - **ENCESTA:** recreativa 3D con BALLHOP y BASKET.
 
-## Cambios de la versión actual (v9.8)
+## Cambios de la versión actual (v9.9)
+
+- **Librerías y tipos de letra en casa.** three.js, PeerJS y QRCode.js se sirven desde `lib/`, y los tipos de letra de la interfaz y de los juegos desde `fuentes/` (todos con licencia libre: ver `lib/LICENCIAS.md` y `fuentes/LICENCIAS.md`). Al abrir la app, también en el móvil que hace de mando, ya no se pide nada a Google Fonts, unpkg ni cdnjs.
+- El enlace del mando sigue necesitando sus servidores (PeerJS y repetidores), como hasta ahora.
+- No cambia nada del aspecto ni del funcionamiento.
+
+### Sigue de la v9.8
 
 - **Aviso legal:** se añade que es un proyecto personal del autor, ajeno a su empleador, que no lo encarga, financia ni respalda.
 
@@ -180,7 +186,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v9.8 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v9.9 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 

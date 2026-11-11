@@ -427,6 +427,16 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
     @font-face{font-family:"Bowlby One";src:url(fuentes/bowlby-one.woff2) format("woff2");font-display:swap}
     @font-face{font-family:"Chewy";src:url(fuentes/chewy.woff2) format("woff2");font-display:swap}
     @font-face{font-family:"Bungee";src:url(fuentes/bungee.woff2) format("woff2");font-display:swap}
+    /* v9.9 · los tipos de letra fijos de la interfaz y de los juegos también van en el repositorio (OFL): al abrir la app no se pide nada a Google Fonts */
+    @font-face{font-family:"Barlow Semi Condensed";font-weight:500;src:url(fuentes/barlow-semi-condensed-500.woff2) format("woff2");font-display:swap}
+    @font-face{font-family:"Barlow Semi Condensed";font-weight:600;src:url(fuentes/barlow-semi-condensed-600.woff2) format("woff2");font-display:swap}
+    @font-face{font-family:"Barlow Semi Condensed";font-weight:700;src:url(fuentes/barlow-semi-condensed-700.woff2) format("woff2");font-display:swap}
+    @font-face{font-family:"Press Start 2P";src:url(fuentes/press-start-2p.woff2) format("woff2");font-display:swap}
+    @font-face{font-family:"Audiowide";src:url(fuentes/audiowide.woff2) format("woff2");font-display:swap}
+    @font-face{font-family:"Russo One";src:url(fuentes/russo-one.woff2) format("woff2");font-display:swap}
+    @font-face{font-family:"Sedgwick Ave Display";src:url(fuentes/sedgwick-ave-display.woff2) format("woff2");font-display:swap}
+    @font-face{font-family:"Luckiest Guy";src:url(fuentes/luckiest-guy.woff2) format("woff2");font-display:swap}
+    @font-face{font-family:"Lilita One";src:url(fuentes/lilita-one.woff2) format("woff2");font-display:swap}
     #padUI .ptl{display:block;height:2.7rem;width:auto;max-width:82%;margin:0 auto .15rem}
     #padUI .pt{font:900 2.4rem/1 system-ui,sans-serif;letter-spacing:.08em;background:linear-gradient(90deg,#e879f9,#22d3ee);-webkit-background-clip:text;background-clip:text;color:transparent}
     #padUI .psub{font:700 .9rem var(--f);letter-spacing:.2em;text-transform:uppercase;color:#ffd36b}
@@ -1104,7 +1114,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
 
 
 
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=Press+Start+2P&family=Audiowide&family=Russo+One&family=Sedgwick+Ave+Display&display=swap"><script>
+<script>
 /* AVHUB · línea de crédito común a todas las apps (SCREENS, SYSTEMS, ADPOSTER, VJSHOW y MSGAME).
    El texto se edita en AVHUB ADMIN → Ajustes y cada app lo recoge al abrirse; mientras no llega, usa el último que vio o el de fábrica.
    {APP}, {VERSION} y {AÑO} los pone cada app · * es el icono · [texto](https://…) es un enlace.
@@ -3301,7 +3311,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '9.8';
+    const APP_VERSION = '9.9';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -3488,7 +3498,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       ['starjedi', 'stranger', 'pricedown', 'akira', 'scary', 'nextups', 'astronaut'].forEach(k => ['woff2', 'woff', 'ttf', 'otf'].forEach(e => U.add(new URL('fuentes/' + k + '.' + e, location.href).href)));
       try { GAMES.SNDS.forEach(f => U.add(new URL(f, location.href).href)); } catch (e) {}
       document.querySelectorAll('link[rel=stylesheet]').forEach(l => { if (/fonts\.googleapis/.test(l.href)) U.add(l.href); });
-      try { U.add(TXTF.gurl()); } catch (e) {} U.add('https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Lilita+One&display=swap'); try { GAMES.LIBS.forEach(u => U.add(u)); } catch (e) {}
+      try { U.add(TXTF.gurl()); } catch (e) {} ['bangers', 'black-ops-one', 'racing-sans-one', 'lobster', 'bowlby-one', 'chewy', 'bungee', 'barlow-semi-condensed-500', 'barlow-semi-condensed-600', 'barlow-semi-condensed-700', 'press-start-2p', 'audiowide', 'russo-one', 'sedgwick-ave-display', 'luckiest-guy', 'lilita-one'].forEach(k => U.add(new URL('fuentes/' + k + '.woff2', location.href).href)); ['peerjs.min.js', 'qrcode.min.js', 'three.min.js'].forEach(k => U.add(new URL('lib/' + k, location.href).href));   // v9.9 · tipos de letra y librerías propios
       const b = $('btnFair'); b.disabled = true; showToast('Guardando la app para usarla sin internet…');
       const ch = new MessageChannel(); ch.port1.onmessage = e => { const d = e.data || {}; if (d.t === 'prog') b.querySelector('span').textContent = `📶 ${Math.round(d.done / d.n * 100)} %`; else if (d.t === 'fin') { b.disabled = false; b.querySelector('span').textContent = '📶 Preparar modo feria (sin internet)'; showToast(`Listo: ${d.ok} archivos guardados. Ya puedes usarla sin internet en este equipo`); try { localStorage.setItem('VJSHOW_FAIR', String(Date.now())); } catch (x) {} } };
       reg.active.postMessage({ t: 'pre', urls: [...U] }, [ch.port2]);
@@ -3719,7 +3729,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       g('imCam').onclick = cam; devs();
       g('camQR').addEventListener('click', async () => {
         try { if (location.protocol === 'file:') showToast('Para vincular un móvil abre la app desde su dirección web (https)');
-          await loadScript('https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js'); await loadScript('https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js');
+          await loadScript('lib/peerjs.min.js'); await loadScript('lib/qrcode.min.js');
           if (peer) peer.destroy(); peer = new Peer();
           peer.on('open', id => { const url = location.origin + location.pathname + '?cam=' + id; g('camQRbox').innerHTML = ''; qrLogo(g('camQRbox'), url, 180); g('camQRurl').textContent = url; });
           peer.on('call', call => { call.answer(); call.on('stream', s => useStream(s, 'Móvil / tablet')); });
@@ -4559,7 +4569,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       const ov = document.createElement('div'); ov.id = 'camSender'; ov.style.cssText = 'position:fixed;inset:0;z-index:9999;background:#14171a;color:#f1f4f6;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;font:600 1rem var(--f);text-align:center;padding:1rem';
       ov.innerHTML = '<div style="font:800 2rem system-ui;letter-spacing:.1em" data-noi18n>VJSHOW</div><video id="csv" autoplay muted playsinline style="width:min(92vw,520px);border-radius:.6rem;background:#000"></video><div id="css">Conectando…</div><div style="display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center"><button id="csf" class="btn">Cámara frontal</button><button id="csb" class="btn">Cámara trasera</button></div>';
       document.body.appendChild(ov); $('canvasWrapper').style.display = 'none'; $('hudOverlay').style.display = 'none';
-      const sc = document.createElement('script'); sc.src = 'https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js'; let pr = null, call = null;
+      const sc = document.createElement('script'); sc.src = 'lib/peerjs.min.js'; let pr = null, call = null;
       const go = async face => { try { const s = await navigator.mediaDevices.getUserMedia({ video: { facingMode: face, width: { ideal: 1920 }, height: { ideal: 1080 } }, audio: false }); $('csv').srcObject = s; if (call) call.close();
           if (!pr) pr = new Peer(); const doCall = () => { call = pr.call(id, s); $('css').textContent = 'Enviando vídeo a VJSHOW'; }; if (pr.open) doCall(); else pr.on('open', doCall); } catch (e) { $('css').textContent = e.message; } };
       sc.onload = () => { go('user'); $('csf').onclick = () => go('user'); $('csb').onclick = () => go({ ideal: 'environment' }); }; document.head.appendChild(sc);
@@ -4579,7 +4589,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       function gsSync() { const k = gsEdit(), m = document.getElementById('gmMusic'), f = document.getElementById('gmSfx'); if (m) m.checked = gsVal(k, 'm'); if (f) f.checked = gsVal(k, 's'); }
       const $g = id => document.getElementById(id), TT = k => { try { return I18N.T(k); } catch (e) { return k; } };
       const ldS = u => new Promise((res, rej) => { if (document.querySelector(`script[src="${u}"]`)) { if (u.includes('peerjs') ? window.Peer : window.QRCode) return res(); } const s = document.createElement('script'); s.src = u; s.onload = res; s.onerror = () => rej(new Error('No se pudo cargar ' + u.split('/')[2])); document.head.appendChild(s); });
-      const PEER_JS = 'https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js', QR_JS = 'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';
+      const PEER_JS = 'lib/peerjs.min.js', QR_JS = 'lib/qrcode.min.js';
       const LS = (k, v) => { try { if (v === undefined) return JSON.parse(localStorage.getItem(k) || 'null'); localStorage.setItem(k, JSON.stringify(v)); } catch (e) { return null; } };
       const R = (a, b) => a + Math.random() * (b - a), clamp = (v, a, b) => Math.max(a, Math.min(b, v)), pick = a => a[Math.floor(Math.random() * a.length)];
 
@@ -5571,7 +5581,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
         return g;
       }
       /* ================= ENCESTA en 3D (three.js): BALLHOP y BASKET de recreativa ================= */
-      const T3URL = (ES_MSG ? ['lib/three.min.js'] : []).concat(['https://unpkg.com/three@0.149.0/build/three.min.js', 'https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js']);
+      const T3URL = ['lib/three.min.js', 'https://unpkg.com/three@0.149.0/build/three.min.js', 'https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js'];   // v9.9 · primero la copia del repositorio; las redes externas solo de reserva
       const T3 = { p: null, r: null, c: null, env: null, last: null };
       function loadThree() { if (window.THREE && THREE.WebGLRenderer) return Promise.resolve(); if (T3.p) return T3.p;
         const one = u => new Promise((res, rej) => { if (window.THREE && THREE.WebGLRenderer) { res(); return; } const s = document.createElement('script'); let fin = false; const end = ok => { if (fin) return; fin = true; clearTimeout(tm); if (ok && window.THREE) res(); else { if (!ok) s.remove(); rej(new Error('three')); } }, tm = setTimeout(() => end(false), 15000);
@@ -6566,7 +6576,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
         const COLS = ['#e53935', '#fb8c00', '#fdd835', '#43a047', '#00acc1', '#1e88e5', '#5e35b1', '#d81b60', '#7cb342', '#f4511e', '#3949ab', '#00897b'];
         const tick = v => SFX.play('tick', v);
         const FT_T = '"Luckiest Guy","Lilita One","Arial Black",sans-serif', FT_B = '"Barlow Semi Condensed","Arial Narrow","Segoe UI",sans-serif';   // letra de feria: títulos y listas
-        if (!document.getElementById('ftFonts')) { const l = document.createElement('link'); l.id = 'ftFonts'; l.rel = 'stylesheet'; l.href = 'https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Lilita+One&display=swap'; document.head.appendChild(l); }
+        /* v9.9 · Luckiest Guy y Lilita One ya van declaradas con @font-face (fuentes/) */
         try { if ($g('ftQR') && $g('ftQR').checked && location.protocol !== 'file:' && !document.querySelector('#padQR canvas, #padQR img')) link(); } catch (e) {}
         function ft(s, X, Y, sz, col, al, glow, fam, mw) { const wt = fam ? '' : '700 '; x.save(); x.font = `${wt}${sz}px ${fam || FT_B}`; if (mw) { let k = sz; while (x.measureText(s).width > mw && k > 8) { k *= .92; x.font = `${wt}${k}px ${fam || FT_B}`; } } x.textAlign = al || 'left'; x.textBaseline = 'top'; x.lineJoin = 'round'; x.lineWidth = Math.max(2, sz * .14); x.strokeStyle = 'rgba(0,0,0,.75)'; x.strokeText(s, X, Y); if (glow) { x.shadowColor = glow; x.shadowBlur = sz * .5; } x.fillStyle = col; x.fillText(s, X, Y); x.restore(); }
         g.glit = [];
@@ -7338,7 +7348,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
         if (d.kind === 'prize') return `🎉 ${T('¡Me ha tocado')} ${d.v} ${TV('en La Fortuna de VJSHOW!')} 👉 ${u}\n${TAGS} #sorteo`;
         return `🎮 ${TV('Fiesta con VJSHOW: visuales al ritmo de la música y juegos con el móvil como mando. ¡Pruébala gratis!')} 👉 ${u}\n${TAGS}`; }
       function qr(text, size) { try { if (!window.QRCode) return null; const d = document.createElement('div'); new QRCode(d, { text, width: size, height: size, correctLevel: QRCode.CorrectLevel.M }); return d.querySelector('canvas'); } catch (e) { return null; } }
-      const needQR = () => window.QRCode ? Promise.resolve() : new Promise(r => { let sc = document.querySelector('script[src*="qrcode"]'); if (!sc) { sc = document.createElement('script'); sc.src = 'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js'; document.head.appendChild(sc); } sc.addEventListener('load', r); sc.addEventListener('error', r); setTimeout(r, 2500); });
+      const needQR = () => window.QRCode ? Promise.resolve() : new Promise(r => { let sc = document.querySelector('script[src*="qrcode"]'); if (!sc) { sc = document.createElement('script'); sc.src = 'lib/qrcode.min.js'; document.head.appendChild(sc); } sc.addEventListener('load', r); sc.addEventListener('error', r); setTimeout(r, 2500); });
       const img = src => new Promise(r => { if (!src) return r(null); const i = new Image(); i.onload = () => r(i); i.onerror = () => r(null); i.src = src; });
       async function card(d) {   // tarjeta 1080×1350 con la marca
         const W = 1080, H = 1350, c = document.createElement('canvas'); c.width = W; c.height = H; const x = c.getContext('2d'), F = (w, s, f) => `${w} ${s}px ${f || '"Russo One","Arial Black",sans-serif'}`;
@@ -8245,7 +8255,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
         else if (m.t === 'st') { if (m.mu !== undefined) $('pmute').textContent = m.mu ? '🔇 ' + T3('Sonido OFF') : '🔊 ' + T3('Sonido ON'); last.g = m.g; last.s = m.sc; last.ph = m.ph; if (m.g !== 'wheel') { last.prize = ''; $('pshr').hidden = !(m.ph === 'over' && m.g && m.g !== 'paint'); $('pshare').textContent = '📤 ' + T3('Compartir y retar'); }
           $('pgame').textContent = m.cal >= 0 ? 'Calibrando ' + (m.cal + 1) + '/3: pulsa Calibrar' : m.g ? ({ hit: 'PALOTERAPIA', race: 'BEAT RACER', paint: 'GRAFFER', shoot: 'PUNTERÍA', wheel: 'LA FORTUNA', bowl: 'BOLERA', duck: 'PATOPESCA', ballhop: 'BALLHOP', basket: 'BASKET' }[m.g] + ' · ' + m.ph) : m.ctx ? T3('En la pantalla') + ': ' + ({ hit: 'PALOTERAPIA', race: 'BEAT RACER', paint: 'GRAFFER', shoot: 'PUNTERÍA', wheel: 'LA FORTUNA', bowl: 'BOLERA', duck: 'PATOPESCA', hoop: 'ENCESTA' }[m.ctx] || m.ctx) + ' · ' + T3('pulsa ▶ Jugar') : T3('Elige un juego');
           $('pmodes').hidden = m.g && m.g !== 'hit'; $('ppaint').hidden = m.g !== 'paint'; $('pfire').hidden = !['shoot', 'race', 'duck', 'ballhop', 'basket'].includes(m.g) && m.cal < 0; { const T2 = k => { try { return I18N.T(k); } catch (x2) { return k; } }; $('pfire').textContent = m.cal >= 0 ? '🔫 ' + T2('Disparar') : m.g === 'race' ? '⬆️ ' + T2('Saltar') : m.g === 'duck' ? '🎣 ' + T2('Pescar') : m.g === 'ballhop' || m.g === 'basket' ? '🏀 ' + T2('Lanzar') : '🔫 ' + T2('Disparar'); } $('preload').hidden = m.g !== 'shoot'; $('pwheel').hidden = m.g !== 'wheel'; $('pbowl').hidden = m.g !== 'bowl'; $('pscore').hidden = m.g === 'wheel'; { const pi = $('pini'), antes = pi.hidden; pi.hidden = !m.ini; if (m.ini && antes) { try { $('pinit').value = ''; pi.scrollIntoView({ block: 'center', behavior: 'smooth' }); $('pinit').focus({ preventScroll: true }); navigator.vibrate && navigator.vibrate([60, 40, 60]); } catch (x3) {} st('🏆 ' + T3('¡Récord! Escribe tus 3 letras y pulsa OK')); } } if (m.mode) { mode = m.mode; ui.querySelectorAll('[data-m]').forEach(x => x.classList.toggle('on', x.dataset.m === mode)); } } }
-      const sc = document.createElement('script'); sc.src = 'https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js';
+      const sc = document.createElement('script'); sc.src = 'lib/peerjs.min.js';
       let pr = null, tries = 0, rcT = 0;
       function hello() { clearInterval(hiT); let k = 0; const h = () => { if (joined || ++k > 20) { clearInterval(hiT); if (!joined) st('⚠ ' + T3('La pantalla no responde: abre Juegos en la tele y vuelve a escanear el código')); return; } raw({ t: 'hi', cid, n: me.n || '', c: me.c || '' }); }; h(); hiT = setInterval(h, 700); }
       /* v9.0 · si en unos segundos no hay conexión directa (wifi con los aparatos aislados, o sin servidor de enlace), el mando pasa a hablar con la pantalla por el repetidor */
