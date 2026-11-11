@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v10.2**
+**Versión actual: v10.3**
 
 ## Cómo se juega
 
@@ -31,7 +31,16 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **PATOPESCA:** la pesca de patitos de la feria.
 - **ENCESTA:** recreativa 3D con BALLHOP y BASKET.
 
-## Cambios de la versión actual (v10.2)
+## Cambios de la versión actual (v10.3)
+
+- **Calibrar el mando, sin pulsar nada.** Se apunta el borde superior del móvil al centro de la pantalla; sale una cuenta atrás de 3 segundos y el mando se calibra solo en cuanto el móvil está quieto. Después, la bola verde sigue al móvil unos segundos para comprobar que ha quedado bien. Antes había que pulsar un botón, y al pulsarlo (y al mirar el móvil para encontrarlo) se movía justo lo que se estaba midiendo; además, durante el calibrado se veía una bola con el ajuste anterior, que despistaba.
+- **El calibrado sale solo** cada vez que un móvil se conecta, si no hay una partida en marcha. Durante el juego, ⊙ Centrar corrige el centro al momento.
+- **El mando del móvil, en una pantalla fija.** Ya no se desplaza: arriba, el estado; en el centro, solo los botones del momento; abajo, tres páginas (MANDO, JUEGOS y AJUSTES). Cabe en cualquier móvil, de pie o tumbado, y ningún texto se corta.
+- **Cruceta con OK.** Sin partida, el móvil es el mando a distancia de la pantalla: las flechas mueven la selección y OK la pulsa (cartuchos, menús, las iniciales del récord). Con partida, solo salen los mandos de ese juego, más Pausa, Centrar y Salir.
+- **Teclas con relieve y clic.** Los botones del móvil se hunden al tocarlos y suenan en el propio móvil (se puede quitar en AJUSTES).
+- **Corregido:** al calibrar ya no se hereda un eje invertido de un calibrado fino anterior.
+
+### Sigue de la v10.2
 
 - **Botón «Instalar».** En la cabecera, junto al aviso de fallos, hay un botón nuevo para instalar MSGAME en el dispositivo como una aplicación más: se abre en su propia ventana, con su icono, y funciona sin conexión con lo que ya se haya usado. Es el mismo botón en toda la familia AVHUB. Donde el navegador no ofrece la instalación directa, el botón explica cómo hacerlo a mano («Añadir a pantalla de inicio»).
 - **«Guardar todo para usarla sin internet»**, en esa misma ventana: guarda de una vez toda la app (es el «modo feria» de siempre, ahora más a mano). Y desde la primera visita se guarda ya todo lo que se ha cargado.
@@ -204,7 +213,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v10.2 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v10.3 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
