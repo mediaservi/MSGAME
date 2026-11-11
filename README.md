@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v9.5**
+**Versión actual: v9.6**
 
 ## Cómo se juega
 
@@ -22,7 +22,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 ## Juegos
 
-- **SLICE BEAT:** corta al ritmo con sable láser, espada o bate; 5 temáticas.
+- **PALOTERAPIA:** corta y golpea al ritmo con sable láser, espada o bate; 5 temáticas.
 - **PUNTERÍA:** galería de tiro con el móvil como pistola y 6 escenarios.
 - **BEAT RACER:** carrera al ritmo, a pie (RUNNER) o en todoterreno (DIRTY).
 - **GRAFFER:** pinta las formas sin salirte y cuidado con la policía.
@@ -31,9 +31,13 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **PATOPESCA:** la pesca de patitos de la feria.
 - **ENCESTA:** recreativa 3D con BALLHOP y BASKET.
 
-## Cambios de la versión actual (v9.5)
+## Cambios de la versión actual (v9.6)
 
-- **Nombres propios para tres juegos:** **SLICE BEAT** (antes HIT HERO), **PUNTERÍA** (antes SHOOT HERO) y **GRAFFER** (antes GRAFFITI). Cambian en las cajas, los cartuchos, el menú, el mando y los textos; los juegos son los mismos.
+- **PALOTERAPIA** es el nombre definitivo del juego de cortar y golpear al ritmo (antes HIT HERO).
+
+Sigue de la v9.5:
+
+- **Nombres propios para tres juegos:** **PALOTERAPIA** (antes HIT HERO), **PUNTERÍA** (antes SHOOT HERO) y **GRAFFER** (antes GRAFFITI). Cambian en las cajas, los cartuchos, el menú, el mando y los textos; los juegos son los mismos.
 
 Sigue de la v9.4:
 
@@ -166,7 +170,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v9.5 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v9.6 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
