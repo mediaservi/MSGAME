@@ -743,6 +743,13 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
     /* ===== Monitor CRT con el menú del cartucho (consola delante, teclas mecánicas en pantalla) ===== */
     #gmCrt{position:fixed;inset:0;z-index:75;display:none;overflow:hidden}
     #gmCrt.on{display:block}
+    #gmCrt.sala .crt-desk{display:none}
+    /* v11.3 · cabecera del menú con el rótulo de la carátula: grande, centrado y sin el texto genérico */
+    #gmCrt .cart-label.rot{display:flex;align-items:center;justify-content:center;min-height:clamp(4.6rem,15vh,7.4rem);padding:.5rem .9rem}
+    #gmCrt .cart-label.rot > :not(.cv-rot){display:none}
+    #gmCrt .cv-rot{display:flex;align-items:center;justify-content:center;gap:clamp(.8rem,3vw,2.2rem);width:100%;height:100%;min-width:0}
+    #gmCrt .cv-rot img{display:block;min-width:0;max-width:48%;max-height:clamp(4rem,13vh,6.6rem);object-fit:contain;filter:drop-shadow(0 .2rem .5rem rgba(0,0,0,.6))}
+    #gmCrt .cv-rot img:only-child{max-width:92%}   /* v11.2 · la mesa ya viene en la foto de la sala */
     #gmCrt .crt-bd{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,14,.35),rgba(10,10,14,.15) 40%,rgba(10,10,14,.55)),url('juegos/videoclub.webp') center/cover no-repeat,url('juegos/retrogaming.webp') center/cover no-repeat,#1b1d21;animation:crtbd .3s ease-out}
     @keyframes crtbd{from{opacity:0}}
     #gmCrt.shut .crt-bd{animation:crtbd .3s ease-in .25s reverse forwards}
@@ -3465,7 +3472,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '11.1';
+    const APP_VERSION = '11.3';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -7281,7 +7288,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
             shoot: [{ western: 'western', galaxy: 'galaxy', zombieland: 'zombies', haunted: 'haunted', alpine: 'alpine', warfront: 'warfront' }[o.scene] || 'western'],
             race: [o.veh === 'dirty' ? 'racer_dirty' : 'racer_runner'], paint: ['graffiti'], wheel: ['fortuna'], bowl: ['bolera'], duck: ['patopesca'], ballhop: ['encesta_ballhop'], basket: ['encesta_basket'] }[id] || [];
           const alt = { galaxy: 'aliens', aliens: 'galaxy', haunted: 'halloween', halloween: 'haunted', zombies: 'halloween', racer_dirty: 'racer_runner', racer_runner: 'racer_dirty', encesta_basket: 'encesta_ballhop', encesta_ballhop: 'encesta_basket' }[L[0]]; if (alt) L.push(alt);
-          const R = L.map(n => 'ingame_' + n); if (id === 'shoot' && o.scene === 'zombieland') R.unshift('packs/zombieland/musica_bucle'); return R; },   /* v11.1 · ZOMBIELAND con su banda sonora propia; si falta, la de siempre */
+          const R = L.map(n => 'ingame_' + n); if (id === 'shoot' && o.scene === 'zombieland') { MUS.zk = !MUS.zk; if (MUS.zk) R.unshift('packs/zombieland/musica_bucle'); else R.push('packs/zombieland/musica_bucle'); } return R; },   /* v11.1 · ZOMBIELAND alterna su banda sonora nueva con la de siempre (ingame_zombies), una partida con cada una */
         busy() { return !!(typeof audioSrcName !== 'undefined' && audioSrcName); },
         play(id, o) { MUS.want = id ? MUS.cands(id, o) : MUS.want; if (!MUS.on() || MUS.busy() || !MUS.want.length) { MUS.stop(); return; } MUS.playList(MUS.want, .42); },
         playList(L, lv) { if (PADMODE) return; const list = L.filter(n => !MUS.miss.has(n)); if (!list.length || performance.now() < (MUS.block || 0)) return;
@@ -7448,6 +7455,10 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
             fix(card) {   // v9.1 · variante fijada desde la estantería: se oculta su selector y su tarjeta pasa a la cabecera, con el fondo de ese juego
               const lb = card.querySelector('.cart-label'); if (!lb || !card.classList.contains('cart')) return; const f = window.__gmFix; card.querySelectorAll('.crt-var.fixd').forEach(w => w.classList.remove('fixd')); let chip = lb.querySelector('.cv-chip');
               if (lb.dataset.bg0 === undefined) lb.dataset.bg0 = lb.style.backgroundImage || '';
+              { /* v11.3 · continuidad de marca: la cabecera del menú lleva el mismo rótulo que la carátula del cartucho */
+                const rt = window.CLUB && CLUB.rotulo ? CLUB.rotulo(card.dataset.cart, f && f.cart === card.dataset.cart ? f.val : '') : null; let hl = lb.querySelector('.cv-rot');
+                if (rt) { if (!hl) { hl = document.createElement('div'); hl.className = 'cv-rot'; lb.appendChild(hl); } const k = rt.join('|').length + ':' + rt[0].slice(-24); if (hl.dataset.k !== k) { hl.dataset.k = k; hl.replaceChildren(...rt.map(u => { const im = new Image(); im.src = u; im.alt = ''; im.draggable = false; return im; })); } lb.classList.add('rot'); lb.setAttribute('aria-label', (lb.querySelector('b') || lb).textContent.trim()); }
+                else { if (hl) hl.remove(); lb.classList.remove('rot'); } }
               const w = f && f.cart === card.dataset.cart ? card.querySelector('.crt-var[data-for="' + f.sel + '"]') : null, b = w && w.querySelector('.cv[data-v="' + f.val + '"]');
               if (!b) { if (chip) chip.remove(); lb.classList.remove('fx'); lb.style.backgroundImage = lb.dataset.bg0; return; }
               w.classList.add('fixd'); lb.classList.add('fx'); const bg = CRT.VARS[f.sel] && CRT.VARS[f.sel](f.val);
@@ -8115,7 +8126,15 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
           else if (vt === 'K') ruleta(x, W / 2, TOP + 290, 102);
           x.restore();
           cabecera(x, c, R); x.save(); x.beginPath(); x.rect(0, TOP + 7, W, H - TOP - 7); x.clip(); titulo(x, c, vt); x.restore(); pie(x); return cv; }
-        return { cover, vivo, W, H, GN, F, FV };
+        /* v11.3 · el rótulo de la carátula solo (título y variante, con su letra y sus colores, sobre transparente): para que el menú del juego lleve EL MISMO logo que la caja.
+           Se pinta con el mismo código que la carátula, sin los velos oscuros de fondo (que son rectángulos). Devuelve una o dos piezas recortadas: [título] o [título, variante]. */
+        function rotulo(c, vt) { const [cv, x] = mk(W, H), fr = x.fillRect; x.fillRect = () => {}; try { titulo(x, c, vt); } finally { x.fillRect = fr; }
+          const d = x.getImageData(0, 0, W, H).data, fila = y => { for (let i = 3 + y * W * 4, e = i + W * 4; i < e; i += 4) if (d[i] > 40) return true; return false; }, ys = []; for (let y = 0; y < H; y++) ys.push(fila(y));
+          let y0 = ys.indexOf(true), y1 = ys.lastIndexOf(true); if (y0 < 0) return [];
+          let g0 = -1, gl = 0, k = -1; for (let y = y0; y <= y1; y++) { if (!ys[y]) { if (k < 0) k = y; if (y - k + 1 > gl) { gl = y - k + 1; g0 = k; } } else k = -1; }
+          const corta = (a, b) => { let x0 = W, x1 = -1; for (let y = a; y <= b; y++) for (let q = 0; q < W; q++) if (d[3 + (y * W + q) * 4] > 40) { if (q < x0) x0 = q; if (q > x1) x1 = q; } if (x1 < 0) return null; const m = 4; x0 = Math.max(0, x0 - m); x1 = Math.min(W - 1, x1 + m); a = Math.max(0, a - m); b = Math.min(H - 1, b + m); const [o, ox] = mk(x1 - x0 + 1, b - a + 1); ox.drawImage(cv, x0, a, x1 - x0 + 1, b - a + 1, 0, 0, x1 - x0 + 1, b - a + 1); return o; };
+          return (gl >= 34 ? [corta(y0, g0 - 1), corta(g0 + gl, y1)] : [corta(y0, y1)]).filter(Boolean); }
+        return { cover, vivo, rotulo, W, H, GN, F, FV };
       })();
       /* v10.6 · qué fondo y qué título lleva cada juego (elegidos por Josep; ENCESTA depende de la variante) */
       const CVN = { hit: ['A', 'D'], shoot: ['A', 'G'], race: ['A', 'J'], paint: ['A', 'A'], wheel: ['A', 'K'], bowl: ['A', 'A'], duck: ['A', 'A'], hoop: { ballhop: ['A', 'L'], basket: ['C', 'L'] } }, CVR = { figs: null, arts: {} };
@@ -8582,12 +8601,21 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       function setVariant(c) { if (!c.sel) return; const s = $c(c.sel); if (s && s.value !== c.val) { s.value = c.val; s.dispatchEvent(new Event('change', { bubbles: true })); } }
       function key(id) { if (ST.seq) return; if (id === 'play') { pick(FIRST[Object.keys(FIRST)[(Math.random() * 8) | 0]]); return; } if (id === 'eject') { try { GAMES.SFX.play('carto'); } catch (e) {} return; } tvPush(() => { try { window.__gview(id, true); } catch (e) {} }); }
       function tvPush(done) { const A = { p: CAM.position.clone(), t: ST.home.t.clone(), fov: CAM.fov }, B = { p: TV.g.localToWorld(V3().set(0, TV.SY, .78)), t: TV.g.localToWorld(V3().set(0, TV.SY, 0)), fov: 38 }; ST.seq = { t0: performance.now(), dur: 650, shots: [{ a: 0, b: 1, cam: k => lerpPose(A, B, ease(k)) }], end: () => { ST.seq = null; ST.crt = true; done(); } }; document.body.classList.add('club-seq'); kick(); }
-      function pick(ci, q0) { if (ST.seq || !built) return; const c = CV[ci], L = INST.cov[ci].userData.list, q = q0 || L.find(z => !z.tap) || INST.feat[ci] || L[0]; setVariant(c); window.__gmFix = q0 && c.sel ? { cart: c.g, sel: c.sel, val: c.val } : null; unhover();
+      function pick(ci, q0) { if (ST.seq || !built) return; const c = CV[ci], L = INST.cov[ci].userData.list, q = q0 || L.find(z => !z.tap) || INST.feat[ci] || L[0]; setVariant(c); window.__gmFix = c.sel ? { cart: c.g, sel: c.sel, val: c.val } : null;   /* v11.2 · cada cartucho es UNA variante: se abra como se abra, la pantalla no ofrece las demás */ unhover();
         if (REDUCE) { finish(c); return; } startSeq(c, q); }
-      function finish(c) { ST.seq = null; BRZ.o = null; TEL.ver(true); document.body.classList.remove('club-seq'); ST.crt = true; ST.burst.visible = false; tvScreen('game'); try { window.__gview(c.g, false); } catch (e) {} }
+      function finish(c) { ST.seq = null; BRZ.o = null; TEL.ver(true); document.body.classList.remove('club-seq'); ST.crt = true; ST.burst.visible = false; tvScreen('game'); try { window.__gview(c.g, false); } catch (e) {} fondoCrt(); }
+      /* v11.2 · continuidad: el fondo de la pantalla del cartucho es una foto de ESTA sala tomada en el momento, con la misma mesa y todo lo que hay encima
+         (lámpara de lava, teléfono, casete, mando, cubo, lata). La tele y la consola se quitan de la foto porque van dibujadas delante. */
+      function fondoCrt() { try { const el = document.getElementById('gmCrt'), bd = el && el.querySelector('.crt-bd'); if (!bd || !R || !TV.g || !CON.g) return;
+          const p0 = CAM.position.clone(), q0 = CAM.quaternion.clone(), f0 = CAM.fov, vt = TV.g.visible, vc = CON.g.visible, ret = innerWidth < innerHeight;
+          const cc = CASE.cart, vk = cc ? cc.visible : false; if (cc) cc.visible = false;   /* el cartucho ya está en la consola: en la caja abierta no puede seguir */
+          TV.g.visible = false; CON.g.visible = false; CAM.position.copy(TV.g.localToWorld(V3().set(ret ? 0 : -.26, TV.SY + (ret ? .5 : .36), ret ? 2.9 : 1.0)));   /* un poco a la izquierda: así la lámpara de lava asoma junto a la tele en vez de quedar tapada */ CAM.fov = ret ? 46 : 48; CAM.lookAt(TV.g.localToWorld(V3().set(0, TV.SY + (ret ? .1 : -.06), 0))); CAM.updateProjectionMatrix();
+          R.render(S, CAM); const u = R.domElement.toDataURL('image/jpeg', .88);
+          TV.g.visible = vt; CON.g.visible = vc; if (cc) cc.visible = vk; CAM.position.copy(p0); CAM.quaternion.copy(q0); CAM.fov = f0; CAM.updateProjectionMatrix();
+          if (u.length > 20000) { bd.style.background = `linear-gradient(180deg,rgba(10,10,14,.28),rgba(10,10,14,.08) 45%,rgba(10,10,14,.32)),url(${u}) center/cover no-repeat,#1b1d21`; el.classList.add('sala'); } } catch (e) {} }
       function startSeq(c, q) {
         meviFuera(true); buildCase(c); HAND.g.visible = true; puno(false); hideSlot(q, true); TV.game = c.g; const qm = INST.place(q), boxP = V3().setFromMatrixPosition(qm), boxQ = new T.Quaternion().setFromRotationMatrix(qm), nrm = V3().set(0, 0, 1).applyQuaternion(boxQ).setY(0).normalize();
-        const TY = .7645, out = boxP.clone().addScaledVector(nrm, .32).add(V3().set(0, .02, 0)), table = V3().set(.4, TY + .025, CON.g.position.z - .12), tableQ = new T.Quaternion().setFromEuler(new T.Euler(-Math.PI / 2, 0, -.15)), cartUpQ = new T.Quaternion();
+        const TY = .7645, out = boxP.clone().addScaledVector(nrm, .32).add(V3().set(0, .02, 0)), table = V3().set(.43, TY + .025, CON.g.position.z - .1), tableQ = new T.Quaternion().setFromEuler(new T.Euler(-Math.PI / 2, 0, -.15)), cartUpQ = new T.Quaternion();
         const slot = CON.slotW.clone(), cartP0 = CASE.CP.clone().applyQuaternion(tableQ).add(table);
         const bajo = boxP.y < TY + .14, shelfT = boxP.clone().lerp(q.g.localToWorld(V3().set(0, boxP.y, .3)), .35).addScaledVector(nrm, .12), shotShelf = { p: shelfT.clone().addScaledVector(nrm, bajo ? .6 : .95).add(V3().set(-Math.sign(boxP.x) * .12, bajo ? TY + .52 - shelfT.y : .1, .15)), t: shelfT, fov: bajo ? 46 : 40 };   // v9.1 · las cajas de las baldas bajas se miran de cerca y desde arriba: la mesa y lo que hay en ella ya no las tapan
         const shotTable = { p: table.clone().add(V3().set(.32, .6, .5)), t: table.clone().add(V3().set(-.04, .08, -.02)), fov: 40 };
@@ -8601,7 +8629,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
         const FC = V3().set(0, -.012, -.036), qe = (x, y, z) => new T.Quaternion().setFromEuler(new T.Euler(x, y, z)), punoEn = (P, q) => { hg.quaternion.copy(q); hg.position.copy(P).sub(FC.clone().applyQuaternion(q)); };
         const qCaja = qe(.5, 0, 0), qTapa = qe(.25, -1.05, 0), qCart = qe(-1.42, .1, 0), mix = (Pa, qa, Pb, qb, k) => punoEn(Pa.clone().lerp(Pb, k), qa.clone().slerp(qb, k));
         const tableAct = s => {   // mesa: deja la caja, abre la carátula y saca el cartucho
-          const l = s - 2.25, k1 = ease(sg(l, 0, .45)); cg.position.copy(table).add(V3().set(-.08 * (1 - k1), .14 * (1 - k1), .05 * (1 - k1))); cg.quaternion.copy(tableQ); const lo = ease(sg(l, .5, 1.15)), a = 2.7 * lo; lid.rotation.y = -a;
+          const l = s - 2.25, k1 = ease(sg(l, 0, .45)); cg.position.copy(table).add(V3().set(-.08 * (1 - k1), .14 * (1 - k1), .05 * (1 - k1))); cg.quaternion.copy(tableQ); const lo = ease(sg(l, .5, 1.15)), a = 1.72 * lo; lid.rotation.y = -a;   /* v11.2 · la tapa queda levantada (unos 100°) en vez de tumbada: abierta del todo se metía en la consola y en la tele */
           const borde = (an) => V3().set(-W2 / 2 + W2 * Math.cos(an) - .009 * Math.sin(an), 0, CASE.HZ + W2 * Math.sin(an) + .009 * Math.cos(an)).applyQuaternion(cg.quaternion).add(cg.position);
           const cerca = V3().set(0, -BOX.h / 2 + .012, 0).applyQuaternion(cg.quaternion).add(cg.position), cartP = CASE.CP.clone().applyQuaternion(cg.quaternion).add(cg.position), lift = ease(sg(l, 1.5, 2.1));
           if (l >= 1.5) { if (cart.parent !== S) S.attach(cart); cart.position.copy(cartP.clone().add(V3().set(0, .2 * lift + .005, 0))); cart.quaternion.copy(cg.quaternion).slerp(cartUpQ, lift); cart.scale.setScalar(lerp(CASE.CS, 1, lift)); }
@@ -8697,7 +8725,10 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       // la sala se monta justo después de arrancar la app (que arranca con la página cargada)
       if (document.readyState === 'complete') setTimeout(init, 300); else addEventListener('load', () => setTimeout(init, 300), { once: true });
       const dbg = { get slots() { return slots; }, pause(v) { ST.paused = !!v; if (!v) kick(); }, frame(s) { if (ST.seq && s !== undefined) ST.seq.t0 = performance.now() - s * 1000; ST.paused = false; lastT = 0; loop(performance.now()); ST.paused = true; if (raf) { cancelAnimationFrame(raf); raf = 0; } }, get fx() { return FX; }, get r() { return R; }, get cam() { return CAM; }, get scene() { return S; }, get mevi() { return MEVI; }, meviGo, get brz() { return BRZ; }, get tel() { return TEL; }, get st() { return ST; }, get thumbs() { return ST.thumbs; } };
-      return { init, pick, back, dbg, get on() { return on; } };
+      /* v11.3 · el rótulo de la carátula de un cartucho (misma letra y colores), para la cabecera del menú del juego */
+      const ROT = {}; function rotulo(g, val) { try { const c0 = CV.find(z => z.g === g); if (!c0) return null; if (!val && c0.sel) { const e = document.getElementById(c0.sel); val = e ? e.value : c0.val; } const c = CV.find(z => z.g === g && (z.val || '') === (val || '')) || c0, k = c.i; if (ROT[k]) return ROT[k];
+          let nv = CVN[c.g]; if (nv && !Array.isArray(nv)) nv = nv[c.val]; if (!nv) return null; const r = CAR.rotulo(c, nv[1]).map(cv => cv.toDataURL()); return r.length ? (ROT[k] = r) : null; } catch (e) { return null; } }
+      return { init, pick, back, dbg, rotulo, get on() { return on; } };
     })();
 
     /* ---------- v9.0 · enlace de reserva del mando ----------
@@ -8901,7 +8932,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       const idb = []; try { const db = await IDB.open(); await new Promise(r => { const q = db.transaction('files').objectStore('files').openCursor(); q.onsuccess = () => { const c = q.result; if (!c) return r(); if (typeof c.key === 'string' && JUEGO_IDB.test(c.key) && c.value instanceof Blob) idb.push([c.key, c.value]); c.continue(); }; q.onerror = () => r(); }); } catch (x) {}
       try { e.source.postMessage({ t: 'msgame-datos', ls, idb }, e.origin); } catch (x) {}
     });
-    if (ES_MSG) { const qs = new URLSearchParams(location.search); { const jg = { zombieland: 7 }[qs.get('juego')]; if (jg !== undefined) { const tj = setInterval(() => { if (window.CLUB && CLUB.pick && document.body.classList.contains('club3d')) { clearInterval(tj); setTimeout(() => { try { CLUB.pick(jg); } catch (e) {} }, 2500); } }, 400); } }   /* v11.1 · ?juego=zombieland abre ese cartucho directamente */
+    if (ES_MSG) { const qs = new URLSearchParams(location.search); { const jg = { halloween: 0, zombies: 1, aliens: 2, sports: 3, disco: 4, western: 5, galaxy: 6, zombieland: 7, haunted: 8, alpine: 9, warfront: 10, runner: 11, dirty: 12, graffer: 13, fortuna: 14, bolera: 15, patopesca: 16, ballhop: 17, basket: 18 }[qs.get('juego')]; if (jg !== undefined) { const tj = setInterval(() => { if (window.CLUB && CLUB.pick && document.body.classList.contains('club3d')) { clearInterval(tj); setTimeout(() => { try { CLUB.pick(jg); } catch (e) {} }, 2500); } }, 400); } }   /* v11.1 · ?juego=zombieland (o cualquier otro cartucho) lo abre directamente */
       const limpia = () => { try { history.replaceState(null, '', location.pathname + location.hash); } catch (x) {} };
       if (qs.get('desde') === 'vjshow') { let hecho = false, k = 0;
         addEventListener('message', async e => { const d = e.data; if (hecho || !d || d.t !== 'msgame-datos' || !origenOK(e.origin, 'vjshow')) return; hecho = true; let n = 0;
