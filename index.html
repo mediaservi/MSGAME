@@ -3465,7 +3465,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '10.6';
+    const APP_VERSION = '10.7';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -7914,9 +7914,12 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
           tr(R * .17, 'rgba(10,4,24,.9)'); x.shadowColor = col; x.shadowBlur = R * .32; tr(R * .075, col); x.shadowBlur = 0; x.fillStyle = 'rgba(10,4,24,.9)'; x.beginPath(); x.arc(0, 0, R * .12, 0, TAU); x.fill(); x.fillStyle = col; x.beginPath(); x.arc(0, 0, R * .07, 0, TAU); x.fill(); x.restore(); }
         function bombillas(x, t, X, Y, s, f, mw) {   // rótulo de feria: letra roja con borde dorado y una fila de bombillas siguiendo el canto de cada letra
           s = cabe(x, t, f, s, mw); x.save(); x.translate(X, Y); x.textAlign = 'center'; x.textBaseline = 'alphabetic'; x.lineJoin = 'round'; x.font = `400 ${s}px ${fam(f)}`;
-          x.strokeStyle = '#12091f'; x.lineWidth = s * .3; x.strokeText(t, 0, 0); x.strokeStyle = '#ffc93a'; x.lineWidth = s * .2; x.strokeText(t, 0, 0); x.strokeStyle = '#c4161f'; x.lineWidth = s * .12; x.strokeText(t, 0, 0);
+          x.strokeStyle = '#12091f'; x.lineWidth = s * .33; x.strokeText(t, 0, 0); x.strokeStyle = '#8a5a0a'; x.lineWidth = s * .25; x.strokeText(t, 0, 0); x.strokeStyle = '#e8a81e'; x.lineWidth = s * .21; x.strokeText(t, 0, 0); x.strokeStyle = '#c4161f'; x.lineWidth = s * .07; x.strokeText(t, 0, 0);
           const g = x.createLinearGradient(0, -s * .8, 0, 0); g.addColorStop(0, '#ff5546'); g.addColorStop(1, '#b3121d'); x.fillStyle = g; x.fillText(t, 0, 0);
-          x.setLineDash([.01, s * .105]); x.lineCap = 'round'; x.shadowColor = '#ffd23f'; x.shadowBlur = s * .12; x.strokeStyle = '#fffbe0'; x.lineWidth = s * .056; x.strokeText(t, 0, 0); x.strokeText(t, 0, 0); x.setLineDash([]); x.restore(); return s; }
+          /* v10.7 · bombillas de feria bien marcadas: casquillo oscuro, bombilla amarilla con mucho resplandor y el filamento casi blanco en el centro */
+          const paso = [.01, s * .125]; x.lineCap = 'round'; x.setLineDash(paso); x.strokeStyle = '#3a1c02'; x.lineWidth = s * .098; x.strokeText(t, 0, 0);
+          x.shadowColor = '#ffb300'; x.shadowBlur = s * .2; x.strokeStyle = '#ffd21f'; x.lineWidth = s * .074; x.strokeText(t, 0, 0); x.strokeText(t, 0, 0); x.shadowColor = '#fff3a0'; x.shadowBlur = s * .08; x.strokeText(t, 0, 0);
+          x.shadowBlur = 0; x.strokeStyle = '#fffbe6'; x.lineWidth = s * .036; x.strokeText(t, 0, 0); x.setLineDash([]); x.restore(); return s; }
         function ruleta(x, X, Y, R) {   // la ruleta del juego: aro dorado con bombillas, gajos de colores con premios, clavos, eje rojo y lengüeta
           const COLS = ['#e53935', '#fb8c00', '#fdd835', '#43a047', '#00acc1', '#1e88e5', '#5e35b1', '#d81b60'], PR = [['🍢', 'SNACK'], ['🎁', 'SORPRESA'], ['🍬', 'CARAMELO'], ['🥤', 'BEBIDA'], ['🏷️', 'OFERTA'], ['🔁', 'OTRA VEZ'], ['🍢', 'SNACK'], ['🙃', '¡CASI!']], n = PR.length, a0 = -Math.PI / 2 - Math.PI / n;
           x.save(); x.translate(X, Y); x.fillStyle = 'rgba(0,0,0,.45)'; x.beginPath(); x.ellipse(0, R * 1.16, R * .9, R * .1, 0, 0, TAU); x.fill();
@@ -8088,7 +8091,11 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
             if (sub) { placa(x, n, W / 2, H - 196, { f: F[g][2], s: 26, mw: W - 90, bg: '#12091f', c: c1, bd: c1, tr: .06 }); const f = FV[c.val] || F[g][2], neon = /Monoton|Rampart/.test(f);
               logo(x, sub, W / 2, H - 78, neon ? { f, s: 96, mw: W - 30, c: '#fff', glow: c1, k: KO[g], kw: .06, brillo: 0 } : { f, s: 108, mw: W - 34, c: [...gr].reverse().slice(1).concat('#fff').reverse(), k, fil: '#fff', kw: .15, inc: -.08 }); }
             else { x.save(); x.translate(W / 2, H - 150); x.fillStyle = 'rgba(0,0,0,.35)'; x.beginPath(); x.ellipse(0, 26, 170, 96, 0, 0, TAU); x.fill(); x.restore(); arco(x, n, W / 2, H - 208, 300, { f: F[g][2], s: 76, mw: W - 64, c: gr, k, fil: '#fff', tr: .02 }); cinta(x, LEMA[g] || '', W / 2, H - 92, { f: 'Bungee', s: 21, mw: W - 100, bg: c2, c: '#fff', bd: '#12091f' }); x.fillStyle = c1; [[-1], [1]].forEach(([d]) => { x.save(); x.translate(W / 2 + d * 150, H - 150); x.font = `400 26px ${fam('Bungee')}`; x.textAlign = 'center'; x.fillText('★', 0, 0); x.restore(); }); } } }
-        function cover(c, vf, vt, R) { const [cv, x] = mk(W, H); x.fillStyle = '#140a26'; x.fillRect(0, 0, W, H); x.save(); x.beginPath(); x.rect(0, TOP, W, H - TOP); x.clip();
+        function cover(c, vf, vt, R) { const K = R && R.K > 1 ? R.K : 1, [cv, x] = mk(Math.round(W * K), Math.round(H * K));
+          if (K > 1) {   /* a más resolución (para cartel): se escala el dibujo y, con él, sombras y desenfoques, que el lienzo no escala solo */
+            const P = CanvasRenderingContext2D.prototype; ['shadowBlur', 'shadowOffsetX', 'shadowOffsetY'].forEach(k => { const d = Object.getOwnPropertyDescriptor(P, k); Object.defineProperty(x, k, { set: v => d.set.call(x, v * K), get: () => d.get.call(x) / K }); });
+            const f = Object.getOwnPropertyDescriptor(P, 'filter'); if (f) Object.defineProperty(x, 'filter', { set: v => f.set.call(x, String(v).replace(/(-?[\d.]+)px/g, (m, n) => n * K + 'px')), get: () => f.get.call(x) });
+            x.scale(K, K); } x.fillStyle = '#140a26'; x.fillRect(0, 0, W, H); x.save(); x.beginPath(); x.rect(0, TOP, W, H - TOP); x.clip();
           if (c.img && R.art) fondoFoto(x, R.art, vf, c); else if (ESC[c.g]) { try { ESC[c.g](x, vf, R, c); } catch (e) { console.error(e); } } x.restore();
           if (vt === 'J' && R.figs && R.figs[c.val]) { const im = R.figs[c.val], S = c.val === 'dirty' ? 300 : 262, Y = c.val === 'dirty' ? TOP + 262 : TOP + 250; x.save(); x.beginPath(); x.rect(0, TOP + 7, W, H - TOP - 7); x.clip(); x.shadowColor = c.val === 'dirty' ? 'rgba(255,200,120,.75)' : 'rgba(59,243,255,.85)'; x.shadowBlur = 22; x.drawImage(im, W / 2 - S / 2, Y - S, S, S); x.shadowBlur = 0; x.drawImage(im, W / 2 - S / 2, Y - S, S, S); x.restore(); }
           x.save(); x.beginPath(); x.rect(0, TOP + 7, W, H - TOP - 7); x.clip();

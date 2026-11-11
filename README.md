@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v10.6**
+**Versión actual: v10.7**
 
 ## Cómo se juega
 
@@ -31,7 +31,11 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **PATOPESCA:** la pesca de patitos de la feria.
 - **ENCESTA:** recreativa 3D con BALLHOP y BASKET.
 
-## Cambios de la versión actual (v10.6)
+## Cambios de la versión actual (v10.7)
+
+- **MSGAME · carátula de LA FORTUNA**: las bombillas del rótulo, más marcadas y con más brillo amarillo, de feria (casquillo oscuro, resplandor y filamento claro), sin tapar el rojo de la letra.
+
+### v10.6
 
 - **Las 19 carátulas, cerradas** tras la revisión una a una:
   - **PALOTERAPIA:** en el centro, las tres armas cruzadas (el bate en medio y, en aspa, la espada y el sable de luz).
@@ -245,7 +249,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v10.6 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v10.7 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
