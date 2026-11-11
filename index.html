@@ -3465,7 +3465,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '11.0';
+    const APP_VERSION = '11.1';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -5157,9 +5157,13 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
           if (sprayN) return; try { A(); const s = ac.createBufferSource(), f = ac.createBiquadFilter(), g = ac.createGain(); s.buffer = nb; s.loop = true; f.type = 'highpass'; f.frequency.value = 2600; g.gain.value = 0.0001; g.gain.setTargetAtTime(.2, ac.currentTime, .03); s.connect(f); f.connect(g); g.connect(bus); s.start(); sprayN = { s, g }; } catch (e) {}
         }
         let MUTE = false;
-        return { files: FILES, fx: fxList, fxf: FXF, loaded: n => BUF[n] ? 'buffer' : ELM[n] ? 'audio' : '', warm() { try { A(); } catch (e) {} }, dur(n) { return BUF[n] ? BUF[n].d : 0; }, mute(v) { MUTE = !!v; }, play(n, a, gap) { if (MUTE || window.APP_MUTED || (!UIS.has(n) && !enabled()) || (!S[n] && !BUF[n] && !ELM[n])) return;   // los de interfaz dependen de «Sonidos de interfaz» (Audio), los del juego de 🔊 Sonidos
+        /* v11.1 · paquete de sonidos del juego en marcha (packs/<juego>/): varias tomas por efecto, se elige una al azar; sin paquete, todo suena como siempre */
+        const PKB = {}; function pack(dir, map) { Object.keys(PKB).forEach(k => delete PKB[k]); if (!dir || !map) return; try { A(); } catch (e) { return; }
+          Object.keys(map).forEach(n => { const L = PKB[n] = []; map[n].forEach(f => fetch(dir + f + '.mp3').then(r => r.ok ? r.arrayBuffer() : Promise.reject(0)).then(ab => new Promise((ok, ko) => ac.decodeAudioData(ab, ok, ko))).then(b => { if (PKB[n] === L) L.push(b); }).catch(() => {})); }); }
+        const pkOn = n => !!(PKB[n] && PKB[n].length);
+        return { pack, packed: n => n ? pkOn(n) : Object.keys(PKB).length > 0, files: FILES, fx: fxList, fxf: FXF, loaded: n => BUF[n] ? 'buffer' : ELM[n] ? 'audio' : '', warm() { try { A(); } catch (e) {} }, dur(n) { return BUF[n] ? BUF[n].d : 0; }, mute(v) { MUTE = !!v; }, play(n, a, gap) { if (MUTE || window.APP_MUTED || (!UIS.has(n) && !enabled()) || (!S[n] && !BUF[n] && !ELM[n] && !pkOn(n))) return;   // los de interfaz dependen de «Sonidos de interfaz» (Audio), los del juego de 🔊 Sonidos
            const r = UIS.has(n) && window.UISND ? UISND.route() : 'main'; if (r === 'none') return; const now = performance.now(); if (gap && now - (last[n] || 0) < gap) return; last[n] = now;
-          try { A(); if (!BUF[n] && FXF[n] && !TRY[n]) loadF(n, FXF[n]); const sv = [ac, bus]; if (r === 'cue') { UA(UISND.id()); ac = uac; bus = ubus; } try { if (BUF[n]) { const B = BUF[n], src = ac.createBufferSource(); src.buffer = B.b; src.connect(bus); src.start(0, B.o, B.d); } else if (ELM[n]) elPlay(n, r === 'cue' ? UISND.id() : ''); else S[n](a); } finally { ac = sv[0]; bus = sv[1]; } } catch (e) {} }, route: n => UIS.has(n) && window.UISND ? UISND.route() : 'main', spray, test() { return Object.keys(S); } };
+          try { A(); if (pkOn(n) && r !== 'cue') { const src = ac.createBufferSource(); src.buffer = PKB[n][Math.floor(Math.random() * PKB[n].length)]; src.connect(bus); src.start(); return; } if (!BUF[n] && FXF[n] && !TRY[n]) loadF(n, FXF[n]); const sv = [ac, bus]; if (r === 'cue') { UA(UISND.id()); ac = uac; bus = ubus; } try { if (BUF[n]) { const B = BUF[n], src = ac.createBufferSource(); src.buffer = B.b; src.connect(bus); src.start(0, B.o, B.d); } else if (ELM[n]) elPlay(n, r === 'cue' ? UISND.id() : ''); else S[n](a); } finally { ac = sv[0]; bus = sv[1]; } } catch (e) {} }, route: n => UIS.has(n) && window.UISND ? UISND.route() : 'main', spray, test() { return Object.keys(S); } };
       })();
       // clic de botón para toda la app (sonidos/main_buttonclick.mp3); las teclas y cartuchos ya tienen su propio sonido
       document.addEventListener('pointerdown', () => SFX.warm(), { once: true, capture: true });
@@ -6462,15 +6466,18 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
           western: [['🤠', 'e', 150, .1, 'pop', 5, '💥'], ['🤠', 'e', 150, .16, 'run', 1.1, '💥'], ['🐓', 'e', 200, .08, 'run', 1, '🪶'], ['🦅', 'e', 250, .08, 'fly', 1.2, '🪶'], ['🍾', 'b', 300, .06, 'perch', 1.2, '💥'], ['🥫', 'b', 250, .05, 'perch', .7, '💥'], ['👩‍🌾', 'f', -500, .1, 'pop', 1.2, '💥'], ['🐎', 'f', -500, .2, 'run', .6, '💥']],
           alpine: [['🦆', 'e', 150, .09, 'run', 3, '🪶'], ['🪿', 'e', 180, .1, 'run', 2, '🪶'], ['🐓', 'e', 200, .09, 'run', 1.5, '🪶'], ['🦅', 'e', 250, .09, 'fly', 1.5, '🪶'], ['🐝', 'e', 300, .05, 'fly', 1.2, '🫟'], ['🥏', 'c', 250, .05, 'clay', 1.2, '💥'], ['🐕', 'f', -500, .12, 'run', 1, '💥'], ['🧑‍🌾', 'f', -500, .1, 'pop', .6, '💥']],
           galaxy: [['🛸', 'e', 200, .1, 'fly', 2, '💥'], ['👾', 'e', 150, .08, 'drop', 2, '💥'], ['☄️', 'e', 100, .09, 'fly', 1, '💥'], ['👽', 'e', 250, .08, 'pop', 1.5, '🫟'], ['🤖', 'e', 200, .1, 'run', 1, '💥'], ['💎', 'b', 300, .06, 'fly', .7, '✨'], ['🧑‍🚀', 'f', -500, .09, 'fly', 1, '💥']],
-          zombieland: [['🧟', 'z', 150, .07, 'zomb', 3, '🫟'], ['🧟‍♀️', 'z', 150, .07, 'zomb', 2, '🫟'], ['🧟‍♂️', 'z', 200, .07, 'zomb', 2, '🫟'], ['🧟', 'e', 180, .1, 'pop', 1, '🫟'], ['🦇', 'e', 150, .06, 'fly', 1, '💥'], ['🐀', 'e', 200, .06, 'run', 1, '💥'], ['🧠', 'b', 300, .05, 'perch', 1, '🫟'], ['🐕', 'f', -500, .1, 'run', 1, '💥']],
+          zombieland: [['🧟', 'z', 150, .07, 'zomb', 3, '🫟'], ['🧟‍♀️', 'z', 150, .07, 'zomb', 2, '🫟'], ['🧟‍♂️', 'z', 200, .07, 'zomb', 2, '🫟'], ['🧟', 'e', 180, .1, 'pop', 1, '🫟'], ['🦇', 'e', 150, .06, 'fly', 1, '💥'], ['🐀', 'e', 200, .06, 'run', 1, '💥'], ['🧠', 'b', 300, .05, 'perch', 1, '🫟'], ['🐺', 'e', 250, .11, 'run', 1.1, '💥'], ['💀', 'e', 200, .09, 'pop', 1, '💥'], ['🐕', 'f', -500, .1, 'run', 1, '💥']],
           haunted: [['👻', 'g', 200, .1, 'ghost', 2.5, '✨'], ['👻', 'e', 200, .1, 'pop', 2, '✨'], ['💀', 'e', 180, .09, 'pop', 1.5, '💥'], ['🦇', 'e', 150, .06, 'fly', 1.5, '💥'], ['🕷️', 'e', 200, .06, 'run', 1, '🫟'], ['🎃', 'b', 250, .07, 'perch', 1, '💥'], ['🐈‍⬛', 'f', -500, .1, 'run', 1, '💥']],
           warfront: [['🪖', 'e', 150, .1, 'pop', 3, '💥'], ['🚁', 'e', 250, .1, 'fly', 2, '🔥'], ['✈️', 'e', 200, .09, 'fly', 1.5, '🔥'], ['🛩️', 'e', 200, .08, 'fly', 1, '🔥'], ['🚘', 'v', 250, .07, 'charge', 1.1, '🔥'], ['💣', 'b', 300, .06, 'drop', .6, '💥'], ['🏳️', 'f', -500, .1, 'pop', 1, '💥'], ['🕊️', 'f', -500, .07, 'fly', .7, '🪶']]
         }[sid];
         const FACE_R = new Set(['✈️']), busy = new Set(), rnd = R;
+        /* v11.1 · paquete propio de ZOMBIELAND (packs/zombieland/): personajes dibujados en vez de emojis y sus sonidos. Cada tira lleva 3 fotogramas; mientras no carga (o si falta) se ve el emoji */
+        const PKS = {}; if (sid === 'zombieland') { const dir = 'packs/zombieland/'; Object.entries({ '🧟': 'zombi1', '🧟‍♀️': 'zombi2', '🧟‍♂️': 'zombi1', '🦇': 'murcielago', '🐀': 'rata', '🐕': 'perro', '🐺': 'hombrelobo', '💀': 'esqueleto' }).forEach(([e, f]) => { const im = new Image(); im.src = dir + f + '.webp'; PKS[e] = im; });
+          SFX.pack(dir, { shot: ['disparo1', 'disparo2'], reload: ['recarga1', 'recarga2'], zgrowl: ['grunido1', 'grunido2', 'grunido3', 'grunido4', 'grunido5'], zdie: ['muerte1', 'muerte2', 'muerte3', 'muerte4'], howl: ['aullido1', 'aullido2'], over: ['musica_final'], record: ['musica_record'] }); }
         const mk = (e, k, pts, D) => ({ e, k, pts, D, r: D / 1.81, x: 0, y: 0, vx: 0, vy: 0, t: 0, life: 99, alpha: 1, a: 0, dead: false });
         function spawn() {
           const tot = SP.reduce((a, s) => a + s[5], 0); let q = Math.random() * tot, d = SP[0]; for (const s of SP) { q -= s[5]; if (q <= 0) { d = s; break; } }
-          const sp = df[0] * (1 + g.t / 90); let mode = d[4], o = mk(emo(d[0], { '🪿': '🦢' }[d[0]] || '🎯'), d[1], d[2], H * d[3] * 1.45); o.fx = d[6] || '💥';
+          const sp = df[0] * (1 + g.t / 90); let mode = d[4], o = mk(emo(d[0], { '🪿': '🦢' }[d[0]] || '🎯'), d[1], d[2], H * d[3] * 1.45); o.fx = d[6] || '💥'; o.e0 = d[0];
           const free = L.win.map((w, i) => i).filter(i => !busy.has('w' + i)), sides = L.side.map((s, i) => i).filter(i => !busy.has('s' + i));
           if (mode === 'pop' && !free.length && !sides.length) mode = L.ground ? 'run' : 'fly';
           if (mode === 'perch' && !L.perch.length) mode = 'fly';
@@ -6489,7 +6496,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
           else if (mode === 'zomb') { const L0 = L.ground; o.k = 'z'; o.x = rnd(W * .12, W * .88); o.y0 = L0[0]; o.y1 = H * .96; o.z = 1; o.vz = .085 * sp; o.D0 = o.D * 2.4; }
           else if (mode === 'ghost') { o.k = 'g'; o.x = rnd(W * .1, W * .9); o.y = rnd(H * .15, H * .6); o.vx = rnd(-1, 1) * W * .06 * sp; o.ph = rnd(0, 6); }
           else if (mode === 'drop') { o.x = rnd(W * .1, W * .9); o.y = -o.D; o.vy = H * .12 * sp; o.zig = rnd(.6, 1.4); o.drop = 1; }
-          if (isZomb(o.e)) { o.zin = 1; FX.zp.push({ o, t: 0, s: Math.random() * 6, x: o.x, y: o.pop && !o.side ? o.y1 : o.y }); }
+          if (isZomb(o.e)) { SFX.play('zgrowl', 0, 1500); o.zin = 1; FX.zp.push({ o, t: 0, s: Math.random() * 6, x: o.x, y: o.pop && !o.side ? o.y1 : o.y }); }
           g.T.push(o);
         }
         function visible(o) { if (o.zin && o.t < .16) return false; if ((o.y + (o.dy || 0)) < hudS() * 3.6 + (o.r || 0) * .2) return false; if (o.k === 'g' && o.alpha < .35) return false; if (o.fade && o.alpha < .3) return false; if (o.clip) { const c2 = o.clip, m = H * .01; if (pad.x < c2[0] - m || pad.x > c2[2] + m || pad.y < c2[1] - m || pad.y > c2[3] + m) return false; } return true; }
@@ -6501,7 +6508,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
           if (!best) { g.combo = 0; burst(pad.x, pad.y, ['#d8c8a8', '#8a7a62'], 8, H * .15); return; }
           best.dead = true; g.hits++; if (best.slot) busy.delete(best.slot); hitFx(best.x, best.y + (best.dy || 0), best.fx, best.r);
           if (best.k === 'f') { SFX.play('bad'); g.combo = 0; g.score = Math.max(0, g.score + best.pts); pop(TT('¡NO!') + ' ' + best.pts, best.x, best.y, '#ff4a4a', 22); shakeT = .25; burst(best.x, best.y, ['#ff4a4a', '#fff'], 20, H * .4); send({ t: 'hit', s: 1 }); return; }
-          SFX.play(best.k === 'b' || best.k === 'c' ? 'coin' : 'ding'); g.combo++; g.maxc = Math.max(g.maxc, g.combo); const mul = Math.min(8, 1 + Math.floor(g.combo / 5)), v = best.pts * mul; g.score += v;
+          SFX.play(best.k === 'b' || best.k === 'c' ? 'coin' : 'ding'); if (isZomb(best.e)) SFX.play('zdie'); else if (best.e0 === '🐺') SFX.play('howl'); g.combo++; g.maxc = Math.max(g.maxc, g.combo); const mul = Math.min(8, 1 + Math.floor(g.combo / 5)), v = best.pts * mul; g.score += v;
           pop('+' + v, best.x, best.y - best.r * .5, best.k === 'b' || best.k === 'c' ? '#ffd23f' : '#fff', best.k === 'b' ? 20 : 16);
           burst(best.x, best.y, [sc.ink, '#fff', '#ffd23f'], best.k === 'c' ? 30 : 22, H * .55, best.k === 'c'); send({ t: 'hit', s: .8 });
         }
@@ -6584,7 +6591,8 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
             x.translate(o.x, o.y + (o.dy || 0)); x.rotate(o.a || 0); const s2 = o.D, flip = (o.vx > 0 && !FACE_R.has(o.e)) || (o.vx < 0 && FACE_R.has(o.e)) || (o.side && o.x1 < o.x0);
             if (flip) x.scale(-1, 1); if (o.e === '✈️') x.rotate(Math.PI / 4);
             if (o.k === 'b' || o.k === 'c') { x.shadowColor = '#ffd23f'; x.shadowBlur = 16; }
-            x.drawImage(tspr(o.e, o.mil ? 'mil' : o.k === 'b' || o.k === 'c' ? '' : sc.tint), -s2 / 2, -s2 / 2 - s2 * .04, s2, s2); x.restore(); });
+            const pi = PKS[o.e0]; if (pi && pi.complete && pi.naturalWidth) { const fw = pi.naturalWidth / 3, fh = pi.naturalHeight, k2 = Math.min(s2 * 1.2 / fw, s2 * 1.02 / fh), ww = fw * k2, hh = fh * k2; x.drawImage(pi, [0, 1, 2, 1][Math.floor(o.t * 5) % 4] * fw, 0, fw, fh, -ww / 2, -hh / 2 - s2 * .04, ww, hh); }
+            else x.drawImage(tspr(o.e, o.mil ? 'mil' : o.k === 'b' || o.k === 'c' ? '' : sc.tint), -s2 / 2, -s2 / 2 - s2 * .04, s2, s2); x.restore(); });
           FX.zp.forEach(p => zsmoke(x, p.x, p.y, Math.max(p.o.D * .8, H * .04), p.t / 1.1, p.s));
           drawFxFront();
           // punto de mira de cada jugador
@@ -7131,7 +7139,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
           if (M.sim || M.own) { (g.ps || []).forEach(q => { M.sc[q.i] = q.score || 0; }); return finishMatch(g); }
           M.sc[M.ids[M.k]] = g.score || 0; if (M.k < M.ids.length - 1) { G.phase = 'next'; G.nextT = 0; SFX.play('turn'); send({ t: 'hit', s: 1 }, 'all'); stateToPad(); return; } return finishMatch(g); }
         G.phase = 'over'; const list = SC()[g.id] || [], isRec = g.id !== 'paint' && (list.length < 10 || g.score > list[list.length - 1].s) && g.score > 0;
-        G.over = { g, t: 0, ini: isRec ? { chars: ['A', 'A', 'A'], i: 0 } : null, done: !isRec }; SFX.play(isRec ? 'record' : 'over'); send({ t: 'hit', s: 1 }); stateToPad(); }
+        G.over = { g, t: 0, ini: isRec ? { chars: ['A', 'A', 'A'], i: 0 } : null, done: !isRec }; if (SFX.packed(isRec ? 'record' : 'over')) { MUS.hold = true; MUS.stop(); } SFX.play(isRec ? 'record' : 'over'); send({ t: 'hit', s: 1 }); stateToPad(); }
       function finishMatch(g) { const M = G.match; M.done = true; G.phase = 'over'; const rk = M.ids.map(i => ({ i, n: PLS[i].n, c: PLS[i].c, s: M.sc[i] || 0 })).sort((a, b) => b.s - a.s);
         if (g.id !== 'paint' && g.id !== 'wheel') { const all = SC(), l = all[g.id] || []; rk.forEach(r2 => { if (r2.s > 0) l.push({ n: r2.n.slice(0, 12), s: r2.s, d: Date.now() }); }); l.sort((a, b) => b.s - a.s); all[g.id] = l.slice(0, 10); LS('VJSHOW_SCORES', all);
           const gh = LS('VJSHOW_GROUPS') || []; gh.unshift({ g: g.id, d: Date.now(), r: rk.map(r2 => [r2.n, r2.s, r2.c]) }); LS('VJSHOW_GROUPS', gh.slice(0, 20)); }
@@ -7267,18 +7275,19 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
           catch (e) { SFX.mute(false); try { x.clearRect(0, 0, W, H); } catch (x2) {} done(null); } };
         const o2 = Object.assign(opts(), { hhTheme: { theme: it.v }, shScene: { scene: it.v }, rcVeh: { veh: it.v } }[it.sid] || {}), keys = it.cart === 'hit' ? ['hit_' + o2.theme] : it.cart === 'shoot' ? ['shoot_' + o2.scene] : it.cart === 'race' ? [o2.veh === 'dirty' ? 'racer_dirty' : 'racer_runner', 'racer'] : it.cart === 'hoop' ? [it.v] : [], t0 = performance.now();
         const wait = () => { if (keys.some(k => JBG.state(k) === 'loading') && performance.now() - t0 < 5000) { setTimeout(wait, 120); return; } if (it.cart === 'hoop') loadThree().then(go, go); else go(); }; wait(); }
-      const MUS = { a: null, cur: '', miss: new Set(), want: '', on: () => !PADMODE && !window.APP_MUTED && gsVal(gsPlay(), 'm'),   // v9.1 · en el móvil que hace de mando no suena música: solo la réplica de los efectos
+      const MUS = { a: null, cur: '', miss: new Set(), want: '', intro: { 'packs/zombieland/musica_bucle': 'packs/zombieland/musica_entrada' }, hold: false, on: () => !PADMODE && !window.APP_MUTED && gsVal(gsPlay(), 'm'),   // v9.1 · en el móvil que hace de mando no suena música: solo la réplica de los efectos
         cands(id, o) {   // sonidos/ingame_<nombre>.mp3: música propia de cada juego y variante (y alternativas si falta)
           const L = { hit: [{ halloween: 'halloween', zombies: 'zombies', aliens: 'aliens', sports: 'sports', disco: 'disco' }[o.theme] || 'sports'],
             shoot: [{ western: 'western', galaxy: 'galaxy', zombieland: 'zombies', haunted: 'haunted', alpine: 'alpine', warfront: 'warfront' }[o.scene] || 'western'],
             race: [o.veh === 'dirty' ? 'racer_dirty' : 'racer_runner'], paint: ['graffiti'], wheel: ['fortuna'], bowl: ['bolera'], duck: ['patopesca'], ballhop: ['encesta_ballhop'], basket: ['encesta_basket'] }[id] || [];
           const alt = { galaxy: 'aliens', aliens: 'galaxy', haunted: 'halloween', halloween: 'haunted', zombies: 'halloween', racer_dirty: 'racer_runner', racer_runner: 'racer_dirty', encesta_basket: 'encesta_ballhop', encesta_ballhop: 'encesta_basket' }[L[0]]; if (alt) L.push(alt);
-          return L.map(n => 'ingame_' + n); },
+          const R = L.map(n => 'ingame_' + n); if (id === 'shoot' && o.scene === 'zombieland') R.unshift('packs/zombieland/musica_bucle'); return R; },   /* v11.1 · ZOMBIELAND con su banda sonora propia; si falta, la de siempre */
         busy() { return !!(typeof audioSrcName !== 'undefined' && audioSrcName); },
         play(id, o) { MUS.want = id ? MUS.cands(id, o) : MUS.want; if (!MUS.on() || MUS.busy() || !MUS.want.length) { MUS.stop(); return; } MUS.playList(MUS.want, .42); },
         playList(L, lv) { if (PADMODE) return; const list = L.filter(n => !MUS.miss.has(n)); if (!list.length || performance.now() < (MUS.block || 0)) return;
           if (MUS.a && MUS.cur === list[0] && !MUS.a.paused) return; const old = MUS.a; MUS.a = null; MUS.cur = ''; if (old) MUS.fade(old, 0, () => { try { old.pause(); old.src = ''; } catch (e) {} }, true);
-          const n = list[0], a = new Audio('sonidos/' + n + '.mp3'); if (n === 'menu_gamesystem') MUS.sink(a); a.loop = true; a.preload = 'auto'; a.volume = 0; MUS.a = a; MUS.cur = n;
+          const U = q => (q.indexOf('/') >= 0 ? q : 'sonidos/' + q) + '.mp3', n = list[0], ia = MUS.intro[n], a = new Audio(U(ia || n)); if (n === 'menu_gamesystem') MUS.sink(a); a.loop = !ia;
+          if (ia) a.addEventListener('ended', () => { if (MUS.a !== a) return; const b = new Audio(U(n)); b.loop = true; b.preload = 'auto'; b.volume = a.volume; MUS.a = b; b.play().catch(() => {}); }, { once: true });   /* v11.1 · la entrada suena una vez y enlaza con el bucle */ a.preload = 'auto'; a.volume = 0; MUS.a = a; MUS.cur = n;
           a.addEventListener('error', () => { if (MUS.a !== a) return; MUS.miss.add(n); MUS.a = null; MUS.cur = ''; MUS.playList(L, lv); }, { once: true });
           a.play().then(() => MUS.fade(a, lv * +((($g('gmSfxVol') || {}).value) || .7))).catch(() => { if (MUS.a === a) { MUS.a = null; MUS.cur = ''; MUS.block = performance.now() + 4000; } }); },
         fade(a, to, done, out) { const v0 = a.volume, t0 = performance.now(), d = 700; const st = () => { if (MUS.a !== a && !out && to > 0) return; const k = Math.min(1, (performance.now() - t0) / d); a.volume = Math.max(0, Math.min(1, v0 + (to - v0) * k)); if (k < 1) requestAnimationFrame(st); else if (done) done(); }; st(); },
@@ -7287,7 +7296,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       const musTick = () => {   // música: la del juego mientras se juega; menu_gamesystem en los menús de la consola; nada si el equipo ya suena otro audio
         const ok = MUS.on() && !MUS.busy(), playing = G.cur && G.phase !== 'idle', inMenu = !playing && typeof isHUDVisible !== 'undefined' && isHUDVisible && (window.CRT_ON || ($g('tabContent14') && !$g('tabContent14').classList.contains('hidden')));
         if (!ok) { if (MUS.a) MUS.stop(); return; }
-        if (playing) { if (MUS.cur === 'menu_gamesystem' || (!MUS.a && MUS.want.length)) MUS.play(null); }
+        if (playing) { if (!MUS.hold && (MUS.cur === 'menu_gamesystem' || (!MUS.a && MUS.want.length))) MUS.play(null); }
         else if (inMenu) { const r = window.UISND ? UISND.route() : 'main'; if (r === 'none') { if (MUS.a) MUS.stop(true); } else { if (MUS.cur !== 'menu_gamesystem') MUS.playList(['menu_gamesystem'], .3); else MUS.sink(MUS.a); } }
         else if (MUS.a) MUS.stop(MUS.cur === 'menu_gamesystem' && window.UISND && UISND.live()); };
       let TAP = null;
@@ -7297,6 +7306,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
         try { if (!audioCtx || !analyser) { ensureAudio().catch(() => {}); return; } const st = MUS.a.captureStream ? MUS.a.captureStream() : null; if (!st || !st.getAudioTracks().length) return; const src = audioCtx.createMediaStreamSource(st); src.connect(analyser); TAP = { el: MUS.a, src }; isMicActive = true; } catch (e) {} }
       setInterval(() => { musTick(); tapMusic(); }, 1000); window.__musTick = () => { try { musTick(); } catch (e) {} };
       function start(id, cont) {
+        SFX.pack(); MUS.hold = false;
         const o = opts(); id = id || 'hit'; if (id === 'hoop') id = o.hmode === 'basket' ? 'basket' : 'ballhop'; G.lastGame = id; window.GAME3D = false; P.length = 0; POP.length = 0; TRAIL.length = 0; G.over = null;
         if (!cont) { const mm = ($g('gmMode') || {}).value || 'auto', ids = players(); G.match = null;
           if (mm !== 'solo' && ids.length > 1) { const sim = id === 'paint' || (id === 'shoot' && mm !== 'turns'); G.match = { id, ids, k: 0, sim, own: id === 'bowl' || id === 'wheel', sc: {} }; use(ids[0]); }
@@ -7312,7 +7322,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       const SOLO = ['layerFondos', 'layerGente', 'layerObjetos', 'chkLoops', 'chkLive', 'chkTexto']; let soloSaved = null;
       function soloOn() { if (soloSaved || !($g('gmSolo') || {}).checked) return; soloSaved = {}; SOLO.forEach(id => { const e = document.getElementById(id); if (e) { soloSaved[id] = e.checked; if (e.checked) setVal(id, false); } }); }
       function soloOff() { if (!soloSaved) return; const sv = soloSaved; soloSaved = null; Object.entries(sv).forEach(([id, v]) => { if (v) setVal(id, true); }); }
-      function stop() { G.cartK = ''; MUS.stop(); MUS.want = ''; SFX.spray(false); window.VJTV_ON = false; window.GAME3D = false; G.cur = null; G.phase = 'idle'; G.over = null; calStep = -1; show(false); soloOff(); gsSync(); stateToPad(); if (!isHUDVisible) toggleHUD(); }
+      function stop() { SFX.pack(); MUS.hold = false; G.cartK = ''; MUS.stop(); MUS.want = ''; SFX.spray(false); window.VJTV_ON = false; window.GAME3D = false; G.cur = null; G.phase = 'idle'; G.over = null; calStep = -1; show(false); soloOff(); gsSync(); stateToPad(); if (!isHUDVisible) toggleHUD(); }
       function togglePause() { if (!G.cur) return; if (G.phase === 'play') G.phase = 'pause'; else if (G.phase === 'pause') G.phase = 'play'; else if (G.phase === 'over' && G.over && G.over.done) start(G.cur.id); stateToPad(); }
       cv.addEventListener('click', () => { if (G.phase === 'over' && G.over && G.over.done) start(G.cur.id); });
       cv.addEventListener('contextmenu', e => { e.preventDefault(); if (G.cur && G.cur.reload) G.cur.reload(); });
@@ -8891,7 +8901,8 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       const idb = []; try { const db = await IDB.open(); await new Promise(r => { const q = db.transaction('files').objectStore('files').openCursor(); q.onsuccess = () => { const c = q.result; if (!c) return r(); if (typeof c.key === 'string' && JUEGO_IDB.test(c.key) && c.value instanceof Blob) idb.push([c.key, c.value]); c.continue(); }; q.onerror = () => r(); }); } catch (x) {}
       try { e.source.postMessage({ t: 'msgame-datos', ls, idb }, e.origin); } catch (x) {}
     });
-    if (ES_MSG) { const qs = new URLSearchParams(location.search), limpia = () => { try { history.replaceState(null, '', location.pathname + location.hash); } catch (x) {} };
+    if (ES_MSG) { const qs = new URLSearchParams(location.search); { const jg = { zombieland: 7 }[qs.get('juego')]; if (jg !== undefined) { const tj = setInterval(() => { if (window.CLUB && CLUB.pick && document.body.classList.contains('club3d')) { clearInterval(tj); setTimeout(() => { try { CLUB.pick(jg); } catch (e) {} }, 2500); } }, 400); } }   /* v11.1 · ?juego=zombieland abre ese cartucho directamente */
+      const limpia = () => { try { history.replaceState(null, '', location.pathname + location.hash); } catch (x) {} };
       if (qs.get('desde') === 'vjshow') { let hecho = false, k = 0;
         addEventListener('message', async e => { const d = e.data; if (hecho || !d || d.t !== 'msgame-datos' || !origenOK(e.origin, 'vjshow')) return; hecho = true; let n = 0;
           for (const [kk, v] of Object.entries(d.ls || {})) { if (!JUEGO_LS.test(kk) || typeof v !== 'string') continue; try { if (MS_VIRGEN || localStorage.getItem(kk) === null) { localStorage.setItem(kk, v); n++; } } catch (x) {} }
