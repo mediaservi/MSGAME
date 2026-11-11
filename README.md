@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v10.1**
+**Versión actual: v10.2**
 
 ## Cómo se juega
 
@@ -31,7 +31,15 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **PATOPESCA:** la pesca de patitos de la feria.
 - **ENCESTA:** recreativa 3D con BALLHOP y BASKET.
 
-## Cambios de la versión actual (v10.1)
+## Cambios de la versión actual (v10.2)
+
+- **Botón «Instalar».** En la cabecera, junto al aviso de fallos, hay un botón nuevo para instalar MSGAME en el dispositivo como una aplicación más: se abre en su propia ventana, con su icono, y funciona sin conexión con lo que ya se haya usado. Es el mismo botón en toda la familia AVHUB. Donde el navegador no ofrece la instalación directa, el botón explica cómo hacerlo a mano («Añadir a pantalla de inicio»).
+- **«Guardar todo para usarla sin internet»**, en esa misma ventana: guarda de una vez toda la app (es el «modo feria» de siempre, ahora más a mano). Y desde la primera visita se guarda ya todo lo que se ha cargado.
+- La ventana de instalar se maneja también con el teclado y con el mando de la tele (flechas, OK y atrás), sin que se muevan los controles de debajo.
+- La copia sin conexión es la de siempre: la app, las imágenes, los sonidos, los tipos y las librerías. El enlace entre el móvil y la pantalla sigue necesitando internet.
+- No cambia nada más del aspecto ni del funcionamiento.
+
+### Sigue de la v10.1
 
 - **Calibrar el mando, en un solo paso:** se apunta al centro de la pantalla y se pulsa Calibrar. Vale igual para un portátil que para una pantalla gigante. El calibrado fino de tres pasos (centro y dos esquinas) sigue disponible con Mayús+C en el teclado de la pantalla.
 - **Corregido:** la segunda pulsación seguida de un mismo botón del mando (Calibrar, Centrar, Play, Stop) se descartaba como repetida. Era la causa de que calibrar pareciera errático.
@@ -196,7 +204,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v10.1 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v10.2 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
