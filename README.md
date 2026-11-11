@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v10.4**
+**Versión actual: v10.5**
 
 ## Cómo se juega
 
@@ -31,7 +31,19 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **PATOPESCA:** la pesca de patitos de la feria.
 - **ENCESTA:** recreativa 3D con BALLHOP y BASKET.
 
-## Cambios de la versión actual (v10.4)
+## Cambios de la versión actual (v10.5)
+
+- **Carátulas nuevas**, elegidas una a una entre tres propuestas:
+  - **PALOTERAPIA:** el título, inclinado, arriba a la izquierda; abajo, la variante (Halloween, Zombies, Aliens, Sports, Disco) con su propia letra y los colores de su tema.
+  - **PUNTERÍA:** título en naranja fuego, inclinado y pegado a la derecha; abajo a la izquierda, cada escenario con sus colores y un filete claro (Western en amarillos y rojos, Galaxy en azules, Zombieland en verdes y en dos líneas, Haunted en violetas, Alpine en verde montaña y Warfront en camuflaje de nieve).
+  - **BEAT RACER:** la corredora (Runner) y el todoterreno (Dirty) salen en la carátula; RACER lleva estelas de velocidad, y la variante va sin cinta, con su propia letra y color.
+  - **BOLERA** y **PATOPESCA:** escena dibujada propia, con el título en diagonal y su lema.
+  - **ENCESTA:** BALLHOP ya no lleva una carátula de baloncesto: enseña sus pistas y sus anillas; BASKET, el tablero y la canasta.
+  - GRAFFER y LA FORTUNA siguen con la carátula anterior, pendientes de elegir.
+- **Fotos con más vida:** todas las carátulas con foto llevan un tratamiento de contraste, color y resplandor para que no queden oscuras.
+- **La marca «msgame» de las carátulas**, a su color (antes salía grabada en oscuro y casi no se veía).
+
+### Sigue de la v10.4
 
 - **Teléfono rojo en la mesa.** Para configurar el móvil como mando ya no hay una tecla en la consola: se pulsa el teléfono rojo de la mesa (delante, a la derecha). En pantallas estrechas, donde el teléfono queda fuera de la imagen, hay un botón rojo con un teléfono en el borde derecho. La consola se queda con cuatro teclas mejor repartidas: JUGAR, EXPULSAR, JUGADORES y RÉCORDS.
 - **El brazo ya no tapa el cartucho.** Al sacarlo de la caja y al meterlo en la consola, el brazo entra por un lado y el cartucho se ve entero todo el rato.
@@ -221,7 +233,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v10.4 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v10.5 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
