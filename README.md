@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v9.1**
+**Versión actual: v9.2**
 
 ## Cómo se juega
 
@@ -31,7 +31,11 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **PATOPESCA:** la pesca de patitos de la feria.
 - **ENCESTA:** recreativa 3D con BALLHOP y BASKET.
 
-## Cambios de la versión actual (v9.1)
+## Cambios de la versión actual (v9.2)
+
+- **Aviso legal.** Al final de la ventana de ayuda, y enlazado detrás de la línea de crédito, hay un aviso en lenguaje llano (es/en/ca): software gratuito hecho por afición, sin garantías y de uso bajo la responsabilidad de cada cual.
+
+Sigue de la v9.1:
 
 - **Menú del cartucho sin botones en pantalla.** JUGAR, EXPULSAR, MANDO, JUGADORES y RÉCORDS son solo las teclas físicas de la consola; la de JUGAR lleva un halo verde para que se vea qué hay que pulsar. En el monitor queda más sitio: casi todo cabe en una sola página y, si hace falta pasar página, hay dos flechas pequeñas abajo. RESTABLECER sigue, en pequeño.
 - **Solo el juego que has cogido.** Si eliges la caja de HIT HERO · ZOMBIES, el menú ya no vuelve a preguntar el escenario: su tarjeta sube a la cabecera, junto al título, y la cabecera enseña el fondo de ese juego. Las armas (o lo que tenga cada juego) se siguen eligiendo.
@@ -147,4 +151,8 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v9.1 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v9.2 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+
+## Aviso
+
+Software gratuito y de código abierto, hecho con pasión por un aficionado en su tiempo libre. No es un producto profesional. Se ofrece «tal cual», sin garantías de ningún tipo; los resultados son orientativos y hay que comprobarlos siempre; se usa bajo la responsabilidad de cada cual, hasta donde lo permita la ley aplicable. El aviso completo (es/en/ca) está en la propia app, en el enlace «Aviso legal» que acompaña a la línea de crédito. Licencia GPL-3.0.
