@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v11.5**
+**Versión actual: v11.6**
 
 ## Cómo se juega
 
@@ -30,10 +30,18 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **BOLERA:** bolos con física real y pantallas con visuales.
 - **PATOPESCA:** la pesca de patitos de la feria.
 - **ENCESTA:** recreativa 3D con BALLHOP y BASKET.
+- **SHATEKI:** galería de tiro japonesa en 3D con rifle de corchos; solo te llevas lo que cae del estante.
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v11.5)
+## Cambios de la versión actual (v11.6)
+
+- **Juego nuevo: SHATEKI · galería de tiro de Osaka**, con su cartucho y su carátula. Caseta de feria japonesa en 3D: gradas rojas llenas de premios (cajas con las marcas de mediaservi, dulces, latas, gatos de la suerte y los tres dorados del altarcillo), rótulos de caligrafía y bombillas.
+  - Se dispara con un **rifle de corchos visto por sus miras, sin cruceta**: el alza es una pletina con muesca y el punto de mira se ve dentro. El pulso tiembla un poco y, si el punto de mira se va a un lado de la muesca, el corcho se va hacia ese lado.
+  - **7 corchos por ronda. El premio solo cuenta si cae del estante**: las cajas pequeñas vuelcan con un corcho bien dado arriba; las grandes, las latas y los gatos hay que empujarlos a base de impactos hasta el borde. El corcho cae un poco por el camino.
+  - Se juega con el **móvil como rifle** (igual que PUNTERÍA), con el ratón, o con el dedo (un toque apunta y otro dispara). `?juego=shateki` lo abre directamente.
+
+### v11.5
 
 - **Dos cartuchos nuevos en la estantería, con su carátula**: **WONDERWALK** (el camino al castillo) y **KRAZYGOLF** (minigolf gamberro). Siguen en desarrollo: se abren a pantalla completa desde su cartucho y se juegan con el dedo o el ratón; aún no usan el móvil como mando. `?juego=wonderwalk` y `?juego=krazygolf` los abren directamente.
 - **WONDERWALK**: el camino ya no es recto, serpentea por prado, bosque y colinas con río y puente; los objetos de la lista están escondidos detrás de piedras, arbustos y troncos (hay que tocar el escondite para mirar), hay zarzas que cortan el paso y ladrones que te roban un objeto si no los espantas.
@@ -290,7 +298,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v11.5 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v11.6 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
