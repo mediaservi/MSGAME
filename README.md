@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v11.4**
+**Versión actual: v11.5**
 
 ## Cómo se juega
 
@@ -30,8 +30,16 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **BOLERA:** bolos con física real y pantallas con visuales.
 - **PATOPESCA:** la pesca de patitos de la feria.
 - **ENCESTA:** recreativa 3D con BALLHOP y BASKET.
+- **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
+- **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v11.4)
+## Cambios de la versión actual (v11.5)
+
+- **Dos cartuchos nuevos en la estantería, con su carátula**: **WONDERWALK** (el camino al castillo) y **KRAZYGOLF** (minigolf gamberro). Siguen en desarrollo: se abren a pantalla completa desde su cartucho y se juegan con el dedo o el ratón; aún no usan el móvil como mando. `?juego=wonderwalk` y `?juego=krazygolf` los abren directamente.
+- **WONDERWALK**: el camino ya no es recto, serpentea por prado, bosque y colinas con río y puente; los objetos de la lista están escondidos detrás de piedras, arbustos y troncos (hay que tocar el escondite para mirar), hay zarzas que cortan el paso y ladrones que te roban un objeto si no los espantas.
+- **KRAZYGOLF**: la línea de apuntado es gruesa, a rayas en movimiento y acaba en punta de flecha hacia donde saldrá la bola; el modo CLÁSICO se juega en un campo de minigolf en 3D con su jardín (pinos, setos, estanque, valla, farolas y molino).
+
+### v11.4
 
 - **La caja del juego, de pie y con dos manos**: una mano la sujeta y la otra abre la carátula como un libro y saca el cartucho. La caja queda de pie en la mesa, entreabierta y con la carátula a la vista, sin tocar el teléfono ni la consola.
 - **Logo nuevo a color** en la consola (sala y menú) y en la etiqueta del cartucho, donde antes iba grabado a una tinta y no se reconocía.
@@ -282,7 +290,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v11.4 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v11.5 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
