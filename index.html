@@ -706,7 +706,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
     .cx-front{position:relative;display:flex;flex-direction:column;gap:.7rem;padding:.8rem .9rem 1rem;background:linear-gradient(90deg,rgba(255,255,255,.1),rgba(255,255,255,0) 6%,rgba(0,0,0,0) 94%,rgba(0,0,0,.25)),linear-gradient(180deg,#6b6f78,#565a63 45%,#474a52);box-shadow:inset 0 1px 0 rgba(255,255,255,.3),inset 0 -1px 0 rgba(0,0,0,.45)}
     .cx-front::after{content:'';position:absolute;left:0;right:0;bottom:0;height:.28rem;background:linear-gradient(90deg,#8bff2a,#3bd16a 50%,#00b4ff);opacity:.85}
     .cx-row{display:flex;align-items:center;gap:.6rem .8rem;flex-wrap:wrap}
-    .cx-brand{flex:0 0 auto;line-height:0}.cx-brand img{display:block;height:2rem;width:auto;opacity:.95;filter:brightness(0) invert(.17) drop-shadow(0 1px 0 rgba(255,255,255,.32)) drop-shadow(0 -1px 0 rgba(0,0,0,.6))}   /* v8.4 · el logo oficial grabado: sin tinta, solo el relieve hundido */
+    .cx-brand{flex:0 0 auto;line-height:0}.cx-brand img{display:block;height:2.3rem;width:auto;filter:drop-shadow(0 1px 1px rgba(0,0,0,.55))}   /* v11.4 · el logo nuevo, a color (antes iba grabado a una tinta y no se reconocía) */   /* v8.4 · el logo oficial grabado: sin tinta, solo el relieve hundido */
     .cx-lcd{flex:1 1 9rem;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:.1rem;min-height:2.6rem;padding:.3rem .6rem;border-radius:.3rem;background:linear-gradient(180deg,#071207,#0c1e0c);box-shadow:inset 0 2px 5px rgba(0,0,0,.9),0 1px 0 rgba(255,255,255,.25);color:#86ff4a;text-shadow:0 0 6px rgba(134,255,74,.6);overflow:hidden}
     .cx-lcd b{font:400 .82rem/1.15 "Audiowide","Russo One",sans-serif;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .cx-lcd span{font:600 .6rem/1.2 var(--f);letter-spacing:.08em;text-transform:uppercase;color:#5fc236;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.cx-lcd span:empty{display:none}
@@ -3472,7 +3472,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '11.3';
+    const APP_VERSION = '11.4';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -6480,7 +6480,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
         const FACE_R = new Set(['✈️']), busy = new Set(), rnd = R;
         /* v11.1 · paquete propio de ZOMBIELAND (packs/zombieland/): personajes dibujados en vez de emojis y sus sonidos. Cada tira lleva 3 fotogramas; mientras no carga (o si falta) se ve el emoji */
         const PKS = {}; if (sid === 'zombieland') { const dir = 'packs/zombieland/'; Object.entries({ '🧟': 'zombi1', '🧟‍♀️': 'zombi2', '🧟‍♂️': 'zombi1', '🦇': 'murcielago', '🐀': 'rata', '🐕': 'perro', '🐺': 'hombrelobo', '💀': 'esqueleto' }).forEach(([e, f]) => { const im = new Image(); im.src = dir + f + '.webp'; PKS[e] = im; });
-          SFX.pack(dir, { shot: ['disparo1', 'disparo2'], reload: ['recarga1', 'recarga2'], zgrowl: ['grunido1', 'grunido2', 'grunido3', 'grunido4', 'grunido5'], zdie: ['muerte1', 'muerte2', 'muerte3', 'muerte4'], howl: ['aullido1', 'aullido2'], over: ['musica_final'], record: ['musica_record'] }); }
+          SFX.pack(dir, { shot: ['disparo1', 'disparo2'], reload: ['recarga1', 'recarga2'], zgrowl: ['grunido1', 'grunido2', 'grunido3', 'grunido4', 'grunido5'], zdie: ['muerte1', 'muerte2', 'muerte3', 'muerte4'], howl: ['aullido1', 'aullido2'] }); }
         const mk = (e, k, pts, D) => ({ e, k, pts, D, r: D / 1.81, x: 0, y: 0, vx: 0, vy: 0, t: 0, life: 99, alpha: 1, a: 0, dead: false });
         function spawn() {
           const tot = SP.reduce((a, s) => a + s[5], 0); let q = Math.random() * tot, d = SP[0]; for (const s of SP) { q -= s[5]; if (q <= 0) { d = s; break; } }
@@ -6503,7 +6503,8 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
           else if (mode === 'zomb') { const L0 = L.ground; o.k = 'z'; o.x = rnd(W * .12, W * .88); o.y0 = L0[0]; o.y1 = H * .96; o.z = 1; o.vz = .085 * sp; o.D0 = o.D * 2.4; }
           else if (mode === 'ghost') { o.k = 'g'; o.x = rnd(W * .1, W * .9); o.y = rnd(H * .15, H * .6); o.vx = rnd(-1, 1) * W * .06 * sp; o.ph = rnd(0, 6); }
           else if (mode === 'drop') { o.x = rnd(W * .1, W * .9); o.y = -o.D; o.vy = H * .12 * sp; o.zig = rnd(.6, 1.4); o.drop = 1; }
-          if (isZomb(o.e)) { SFX.play('zgrowl', 0, 1500); o.zin = 1; FX.zp.push({ o, t: 0, s: Math.random() * 6, x: o.x, y: o.pop && !o.side ? o.y1 : o.y }); }
+          if (isZomb(o.e)) { if (Math.random() < .45) SFX.play('zgrowl', 0, 6500);   /* v11.4 · gruñidos de vez en cuando, no en cada zombi */
+             o.zin = 1; FX.zp.push({ o, t: 0, s: Math.random() * 6, x: o.x, y: o.pop && !o.side ? o.y1 : o.y }); }
           g.T.push(o);
         }
         function visible(o) { if (o.zin && o.t < .16) return false; if ((o.y + (o.dy || 0)) < hudS() * 3.6 + (o.r || 0) * .2) return false; if (o.k === 'g' && o.alpha < .35) return false; if (o.fade && o.alpha < .3) return false; if (o.clip) { const c2 = o.clip, m = H * .01; if (pad.x < c2[0] - m || pad.x > c2[2] + m || pad.y < c2[1] - m || pad.y > c2[3] + m) return false; } return true; }
@@ -6569,6 +6570,8 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
           if (f.neon) { x.save(); x.globalCompositeOperation = 'lighter'; f.neon.forEach(([nx, ny, nw, nh, col], i) => { const on = (Math.sin(g.t * 2 + i * 1.7) > -.92) ? 1 : .2; x.globalAlpha = (.25 + bass * .6) * on; x.shadowColor = col; x.shadowBlur = 24; x.strokeStyle = col; x.lineWidth = 3; x.strokeRect(nx + 3, ny + 3, nw - 6, nh - 6); }); x.restore(); }
           if (f.beams) { x.save(); x.globalCompositeOperation = 'lighter'; [[.36, .62], [.7, .6]].forEach(([bx2, by2], i) => { const a = -Math.PI / 2 + Math.sin(g.t * (.3 + i * .13) + i * 2) * .55; x.save(); x.translate(W * bx2, H * by2); x.rotate(a + Math.PI / 2); const gg = x.createLinearGradient(0, 0, 0, -H); gg.addColorStop(0, `rgba(255,240,200,${.18 + bass * .15})`); gg.addColorStop(1, 'rgba(255,240,200,0)'); x.fillStyle = gg; x.beginPath(); x.moveTo(-3, 0); x.lineTo(3, 0); x.lineTo(H * .07, -H); x.lineTo(-H * .07, -H); x.fill(); x.restore(); }); x.restore(); }
           if (FX.bolt > 0 && f.interior) { x.save(); x.globalCompositeOperation = 'lighter'; const [wx2, wy2, wr] = f.window; const gg = x.createRadialGradient(wx2, wy2, 0, wx2, wy2, wr * 2.5); gg.addColorStop(0, `rgba(200,220,255,${FX.bolt * 1.4})`); gg.addColorStop(1, 'rgba(200,220,255,0)'); x.fillStyle = gg; x.fillRect(0, 0, W, H); x.restore(); }
+          if (sid === 'zombieland') { x.save(); const t = g.t;   /* v11.4 · bancos de humo verde y lila a la deriva por el fondo: sutil, solo para dar movimiento */
+            for (let i = 0; i < 8; i++) { const px = (((i * .17 + t * (.011 + i * .0026)) % 1.3) - .15) * W, py = H * (.5 + .1 * Math.sin(i * 2.1) + .025 * Math.sin(t * .35 + i)), r = H * (.2 + .06 * (i % 3)), gr = x.createRadialGradient(px, py, 0, px, py, r), c = i % 2 ? '170,110,255' : '110,255,150'; gr.addColorStop(0, `rgba(${c},.14)`); gr.addColorStop(1, `rgba(${c},0)`); x.fillStyle = gr; x.fillRect(px - r, py - r, r * 2, r * 2); } x.restore(); }
           if (sid === 'warfront') { x.save(); const t = g.t, wind = W * .07;   // columnas de humo de los incendios y bancos de humo a la deriva
             [[.12, .52, 0], [.36, .56, 2.1], [.62, .48, 4.3], [.88, .54, 1.2]].forEach(([px0, py0, sd], j) => { const bx = W * px0, by = H * py0, fl = .55 + .45 * Math.sin(t * 9 + sd * 3) * Math.sin(t * 5.3 + sd);
               const gg = x.createRadialGradient(bx, by, 0, bx, by, H * .09); gg.addColorStop(0, `rgba(255,130,40,${.32 * fl + bass * .15})`); gg.addColorStop(1, 'rgba(255,90,20,0)'); x.globalCompositeOperation = 'lighter'; x.globalAlpha = 1; x.fillStyle = gg; x.fillRect(bx - H * .09, by - H * .09, H * .18, H * .18); x.globalCompositeOperation = 'source-over';
@@ -7288,7 +7291,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
             shoot: [{ western: 'western', galaxy: 'galaxy', zombieland: 'zombies', haunted: 'haunted', alpine: 'alpine', warfront: 'warfront' }[o.scene] || 'western'],
             race: [o.veh === 'dirty' ? 'racer_dirty' : 'racer_runner'], paint: ['graffiti'], wheel: ['fortuna'], bowl: ['bolera'], duck: ['patopesca'], ballhop: ['encesta_ballhop'], basket: ['encesta_basket'] }[id] || [];
           const alt = { galaxy: 'aliens', aliens: 'galaxy', haunted: 'halloween', halloween: 'haunted', zombies: 'halloween', racer_dirty: 'racer_runner', racer_runner: 'racer_dirty', encesta_basket: 'encesta_ballhop', encesta_ballhop: 'encesta_basket' }[L[0]]; if (alt) L.push(alt);
-          const R = L.map(n => 'ingame_' + n); if (id === 'shoot' && o.scene === 'zombieland') { MUS.zk = !MUS.zk; if (MUS.zk) R.unshift('packs/zombieland/musica_bucle'); else R.push('packs/zombieland/musica_bucle'); } return R; },   /* v11.1 · ZOMBIELAND alterna su banda sonora nueva con la de siempre (ingame_zombies), una partida con cada una */
+          const R = L.map(n => 'ingame_' + n); return R; },   /* v11.1 · ZOMBIELAND suena con su música de siempre (ingame_zombies): la del paquete nuevo no gustó y se ha quitado */
         busy() { return !!(typeof audioSrcName !== 'undefined' && audioSrcName); },
         play(id, o) { MUS.want = id ? MUS.cands(id, o) : MUS.want; if (!MUS.on() || MUS.busy() || !MUS.want.length) { MUS.stop(); return; } MUS.playList(MUS.want, .42); },
         playList(L, lv) { if (PADMODE) return; const list = L.filter(n => !MUS.miss.has(n)); if (!list.length || performance.now() < (MUS.block || 0)) return;
@@ -8265,7 +8268,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
         const al = Math.atan2(H - HF, ZF - ZA), LS = Math.hypot(ZF - ZA, H - HF), pn = new T.Group(); pn.position.set(0, (H + HF) / 2, (ZA + ZF) / 2); pn.rotation.x = -(Math.PI / 2 - al); g.add(pn);
         const PW = W - .03, PH = LS - .006, R1 = .05, R2 = -.03, front = decal((x, w, h) => { const gr = x.createLinearGradient(0, 0, 0, h); gr.addColorStop(0, '#6b6f78'); gr.addColorStop(.4, '#585c65'); gr.addColorStop(.88, '#4a4d55'); gr.addColorStop(1, '#3c3f46'); x.fillStyle = gr; x.fillRect(0, 0, w, h);
           const Y = v => (PH / 2 - v) / PH * h, X = u => (u + PW / 2) / PW * w, S2 = v => v / PW * w, rr = (a, b2, c, d, r) => { x.beginPath(); x.roundRect ? x.roundRect(a, b2, c, d, r) : x.rect(a, b2, c, d); };
-          const lh = S2(.04), lw = lh * 444.2 / 120; grabado(x, LG.msR, X(-.238), Y(R1) - lh / 2, lw, lh, 'rgba(38,40,46,.92)');                                  // el logo oficial, grabado
+          const lh = S2(.04), lw = lh * 444.2 / 120; x.drawImage(LG.msR, X(-.238), Y(R1) - lh * .62, lw * 1.24, lh * 1.24);   /* v11.4 · logo nuevo a color */                                  // el logo oficial, grabado
           x.fillStyle = '#0d0e10'; rr(X(.075 - .106), Y(R1) - S2(.0265), S2(.212), S2(.053), S2(.006)); x.fill(); x.fillStyle = 'rgba(255,255,255,.2)'; x.fillRect(X(.075 - .104), Y(R1) + S2(.0265), S2(.208), 2);   // hueco de la pantalla
           x.fillStyle = '#0d0e10'; rr(X(-.205), Y(R2) - S2(.032), S2(.41), S2(.064), S2(.008)); x.fill(); x.fillStyle = 'rgba(255,255,255,.22)'; x.fillRect(X(-.2), Y(R2) + S2(.032), S2(.4), 2); }, 1024, Math.round(1024 * PH / PW));   // hueco de las teclas
         plane(PW, PH, toon({ map: ctex(front), spec: .3, ht: .4 }), 0, 0, .0052, pn);
@@ -8479,7 +8482,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
           sh.moveTo(-x1 + r, yT); sh.lineTo(x1 - r, yT); sh.quadraticCurveTo(x1, yT, x1, yT - r); sh.lineTo(x1, yM); sh.lineTo(xt, yM); sh.lineTo(xt, yB); sh.lineTo(-xt, yB); sh.lineTo(-xt, yM); sh.lineTo(-x1, yM); sh.lineTo(-x1, yT - r); sh.quadraticCurveTo(-x1, yT, -x1 + r, yT);
           const eg = new T.ExtrudeGeometry(sh, { depth: .02 - 2 * bz, bevelEnabled: true, bevelThickness: bz, bevelSize: bz, bevelSegments: 3, curveSegments: 6 }); eg.translate(0, 0, -(.02 - 2 * bz) / 2); eg.computeVertexNormals(); inkm(eg, body, 0, 0, 0, g);
           [-.0167, 0, .0167].forEach(mx => mesh(new T.BoxGeometry(.0028, .012, .002), dark, mx, -.0385, .0098, g, false)); }
-        plane(.082, .03, toon({ map: ctex(decal((x, w, h) => { x.fillStyle = col.b2; x.fillRect(0, 0, w, h); const lh = h * .66, lw = lh * 444.2 / 120; grabado(x, LG.msR, (w - lw) / 2, (h - lh) / 2, lw, lh, 'rgba(0,0,0,.3)'); }, 328, 120)), spec: .6, shin: 36 }), 0, .0405, .0104, g);
+        plane(.082, .03, toon({ map: ctex(decal((x, w, h) => { x.fillStyle = col.b2; x.fillRect(0, 0, w, h); const lh = h * .66, lw = lh * 444.2 / 120; x.drawImage(LG.msR, (w - lw * 1.2) / 2, (h - lh * 1.2) / 2, lw * 1.2, lh * 1.2);   /* v11.4 · logo nuevo a color */ }, 328, 120)), spec: .6, shin: 36 }), 0, .0405, .0104, g);
         plane(.08, .0495, toon({ map: ctex(cartLabel(c, ST.arts[c.i])), spec: .5, shin: 50, ht: .5 }), 0, -.0012, .0104, g);
         const pins = decal((x, w, h) => { x.fillStyle = '#1a1208'; x.fillRect(0, 0, w, h); for (let i = 0; i < 22; i++) { x.fillStyle = '#e9b949'; x.fillRect(4 + i * 11.4, 3, 7, h - 6); } }, 256, 32);
         plane(.058, .0075, new T.MeshBasicMaterial({ map: ctex(pins) }), 0, -.0505, .0104, g); shadowsOn(g); return g; }
@@ -8603,7 +8606,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       function tvPush(done) { const A = { p: CAM.position.clone(), t: ST.home.t.clone(), fov: CAM.fov }, B = { p: TV.g.localToWorld(V3().set(0, TV.SY, .78)), t: TV.g.localToWorld(V3().set(0, TV.SY, 0)), fov: 38 }; ST.seq = { t0: performance.now(), dur: 650, shots: [{ a: 0, b: 1, cam: k => lerpPose(A, B, ease(k)) }], end: () => { ST.seq = null; ST.crt = true; done(); } }; document.body.classList.add('club-seq'); kick(); }
       function pick(ci, q0) { if (ST.seq || !built) return; const c = CV[ci], L = INST.cov[ci].userData.list, q = q0 || L.find(z => !z.tap) || INST.feat[ci] || L[0]; setVariant(c); window.__gmFix = c.sel ? { cart: c.g, sel: c.sel, val: c.val } : null;   /* v11.2 · cada cartucho es UNA variante: se abra como se abra, la pantalla no ofrece las demás */ unhover();
         if (REDUCE) { finish(c); return; } startSeq(c, q); }
-      function finish(c) { ST.seq = null; BRZ.o = null; TEL.ver(true); document.body.classList.remove('club-seq'); ST.crt = true; ST.burst.visible = false; tvScreen('game'); try { window.__gview(c.g, false); } catch (e) {} fondoCrt(); }
+      function finish(c) { ST.seq = null; BRZ.o = null; TEL.ver(true); document.body.classList.remove('club-seq'); ST.crt = true; ST.burst.visible = false; if (HAND.g2) HAND.g2.visible = false; tvScreen('game'); try { window.__gview(c.g, false); } catch (e) {} fondoCrt(); }
       /* v11.2 · continuidad: el fondo de la pantalla del cartucho es una foto de ESTA sala tomada en el momento, con la misma mesa y todo lo que hay encima
          (lámpara de lava, teléfono, casete, mando, cubo, lata). La tele y la consola se quitan de la foto porque van dibujadas delante. */
       function fondoCrt() { try { const el = document.getElementById('gmCrt'), bd = el && el.querySelector('.crt-bd'); if (!bd || !R || !TV.g || !CON.g) return;
@@ -8615,10 +8618,10 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
           if (u.length > 20000) { bd.style.background = `linear-gradient(180deg,rgba(10,10,14,.28),rgba(10,10,14,.08) 45%,rgba(10,10,14,.32)),url(${u}) center/cover no-repeat,#1b1d21`; el.classList.add('sala'); } } catch (e) {} }
       function startSeq(c, q) {
         meviFuera(true); buildCase(c); HAND.g.visible = true; puno(false); hideSlot(q, true); TV.game = c.g; const qm = INST.place(q), boxP = V3().setFromMatrixPosition(qm), boxQ = new T.Quaternion().setFromRotationMatrix(qm), nrm = V3().set(0, 0, 1).applyQuaternion(boxQ).setY(0).normalize();
-        const TY = .7645, out = boxP.clone().addScaledVector(nrm, .32).add(V3().set(0, .02, 0)), table = V3().set(.43, TY + .025, CON.g.position.z - .1), tableQ = new T.Quaternion().setFromEuler(new T.Euler(-Math.PI / 2, 0, -.15)), cartUpQ = new T.Quaternion();
+        const TY = .7645, out = boxP.clone().addScaledVector(nrm, .32).add(V3().set(0, .02, 0)), table = V3().set(.47, TY + BOX.h / 2 + .002, CON.g.position.z - .2), tableQ = new T.Quaternion().setFromEuler(new T.Euler(0, .34, 0)), tableQ0 = new T.Quaternion().setFromEuler(new T.Euler(-Math.PI / 2, 0, -.15)), cartUpQ = new T.Quaternion();
         const slot = CON.slotW.clone(), cartP0 = CASE.CP.clone().applyQuaternion(tableQ).add(table);
         const bajo = boxP.y < TY + .14, shelfT = boxP.clone().lerp(q.g.localToWorld(V3().set(0, boxP.y, .3)), .35).addScaledVector(nrm, .12), shotShelf = { p: shelfT.clone().addScaledVector(nrm, bajo ? .6 : .95).add(V3().set(-Math.sign(boxP.x) * .12, bajo ? TY + .52 - shelfT.y : .1, .15)), t: shelfT, fov: bajo ? 46 : 40 };   // v9.1 · las cajas de las baldas bajas se miran de cerca y desde arriba: la mesa y lo que hay en ella ya no las tapan
-        const shotTable = { p: table.clone().add(V3().set(.32, .6, .5)), t: table.clone().add(V3().set(-.04, .08, -.02)), fov: 40 };
+        const shotTable = { p: table.clone().add(V3().set(.36, .34, 1.02)), t: table.clone().add(V3().set(-.06, .03, 0)), fov: 40 };
                 const shotCon = { p: slot.clone().add(V3().set(.36, .15, .5)), t: slot.clone().add(V3().set(0, .1, 0)), fov: 40 };
         const shotTV = { p: TV.g.localToWorld(V3().set(0, TV.SY + .06, .78)), t: TV.g.localToWorld(V3().set(0, TV.SY - .01, 0)), fov: 38 };
         const H0 = ST.home, hg = HAND.g, cg = CASE.g, lid = CASE.lid, cart = CASE.cart, handAt = (p, rx, ry, rz, o) => { hg.position.copy(p); hg.rotation.set(rx, ry, rz, o || 'XYZ'); };
@@ -8627,17 +8630,21 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
         const side = Math.sign(boxP.x) || 1, ry = Math.atan2(nrm.x, nrm.z), W2 = BOX.w;
         // v7.8 · agarres con el puño: la mano coge siempre por un canto (la caja por abajo, la tapa por su borde libre y el cartucho por su extremo de arriba)
         const FC = V3().set(0, -.012, -.036), qe = (x, y, z) => new T.Quaternion().setFromEuler(new T.Euler(x, y, z)), punoEn = (P, q) => { hg.quaternion.copy(q); hg.position.copy(P).sub(FC.clone().applyQuaternion(q)); };
-        const qCaja = qe(.5, 0, 0), qTapa = qe(.25, -1.05, 0), qCart = qe(-1.42, .1, 0), mix = (Pa, qa, Pb, qb, k) => punoEn(Pa.clone().lerp(Pb, k), qa.clone().slerp(qb, k));
+        const relC = tableQ0.clone().invert().multiply(qe(.5, 0, 0)), qCaja = tableQ.clone().multiply(qe(0, 0, Math.PI)).multiply(relC), qIzq = tableQ.clone().multiply(qe(0, 0, -Math.PI / 2)).multiply(relC), qTapa = qe(.25, -1.05, 0), qCart = qe(-1.42, .1, 0), mix = (Pa, qa, Pb, qb, k) => punoEn(Pa.clone().lerp(Pb, k), qa.clone().slerp(qb, k));
+        /* la segunda mano: sujeta la caja por el canto del lomo mientras la otra abre la carátula y saca el cartucho; luego se retira */
+        if (!HAND.g2) { puno(true); HAND.g2 = hg.clone(true); HAND.g2.visible = false; S.add(HAND.g2); puno(false); }
+        const mano2 = l => { const g2 = HAND.g2, en = ease(sg(l, .3, .55)), sal = ease(sg(l, 1.7, 2.05)); g2.visible = l > .3 && sal < 1; if (!g2.visible) return; const P = V3().set(-W2 / 2 + .012, BOX.h * .12, 0).applyQuaternion(cg.quaternion).add(cg.position).add(V3().set(-.22 * (1 - en) - .25 * sal, .1 * (1 - en) + .06 * sal, .12 * (1 - en) + .1 * sal)); g2.quaternion.copy(qIzq); g2.position.copy(P).sub(FC.clone().applyQuaternion(qIzq)); };
         const tableAct = s => {   // mesa: deja la caja, abre la carátula y saca el cartucho
-          const l = s - 2.25, k1 = ease(sg(l, 0, .45)); cg.position.copy(table).add(V3().set(-.08 * (1 - k1), .14 * (1 - k1), .05 * (1 - k1))); cg.quaternion.copy(tableQ); const lo = ease(sg(l, .5, 1.15)), a = 1.72 * lo; lid.rotation.y = -a;   /* v11.2 · la tapa queda levantada (unos 100°) en vez de tumbada: abierta del todo se metía en la consola y en la tele */
+          const l = s - 2.25, k1 = ease(sg(l, 0, .45)); cg.position.copy(table).add(V3().set(-.08 * (1 - k1), .14 * (1 - k1), .05 * (1 - k1))); cg.quaternion.copy(tableQ); const lo = ease(sg(l, .5, 1.15)), a = .98 * lo; lid.rotation.y = -a;   /* v11.4 · la caja se deja DE PIE en la mesa y la carátula queda entreabierta (unos 55°), a la vista; una mano la sujeta y la otra la abre y saca el cartucho */
           const borde = (an) => V3().set(-W2 / 2 + W2 * Math.cos(an) - .009 * Math.sin(an), 0, CASE.HZ + W2 * Math.sin(an) + .009 * Math.cos(an)).applyQuaternion(cg.quaternion).add(cg.position);
-          const cerca = V3().set(0, -BOX.h / 2 + .012, 0).applyQuaternion(cg.quaternion).add(cg.position), cartP = CASE.CP.clone().applyQuaternion(cg.quaternion).add(cg.position), lift = ease(sg(l, 1.5, 2.1));
-          if (l >= 1.5) { if (cart.parent !== S) S.attach(cart); cart.position.copy(cartP.clone().add(V3().set(0, .2 * lift + .005, 0))); cart.quaternion.copy(cg.quaternion).slerp(cartUpQ, lift); cart.scale.setScalar(lerp(CASE.CS, 1, lift)); }
-          const cq = l >= 1.5 ? cart.quaternion : cg.quaternion, punta = V3().set(0, .046, 0).applyQuaternion(cq).add(l >= 1.5 ? cart.position : cartP), sueltaA = 1.7, suelta = borde(sueltaA);
+          const cerca = V3().set(0, BOX.h / 2 - .012, 0).applyQuaternion(cg.quaternion).add(cg.position), cartP = CASE.CP.clone().applyQuaternion(cg.quaternion).add(cg.position), lift = ease(sg(l, 1.5, 2.1)), nz = V3().set(0, 0, 1).applyQuaternion(cg.quaternion);
+          mano2(l);
+          if (l >= 1.5) { if (cart.parent !== S) S.attach(cart); cart.position.copy(cartP.clone().addScaledVector(nz, .12 * ease(sg(l, 1.5, 1.8))).add(V3().set(0, .2 * lift + .005, 0))); cart.quaternion.copy(cg.quaternion).slerp(cartUpQ, lift); cart.scale.setScalar(lerp(CASE.CS, 1, lift)); }
+          const cq = l >= 1.5 ? cart.quaternion : cg.quaternion, punta = V3().set(0, .046, 0).applyQuaternion(cq).add(l >= 1.5 ? cart.position : cartP), sueltaA = .93, suelta = borde(sueltaA);
           if (l < .46) { puno(true); punoEn(cerca, qCaja); }                                                             // deja la caja cogida por el canto de abajo
           else if (l < .6) { puno(true); mix(cerca, qCaja, borde(0), qTapa, ease(sg(l, .46, .6))); }                      // pasa al borde libre de la carátula
           else if (a < sueltaA) { puno(true); punoEn(borde(a), qTapa); }                                                 // la abre como un libro…
-          else if (l < 1.2) { puno(false); pose(.12, .15); const k = ease(sg(a, sueltaA, 2.7)); punoEn(suelta.clone().add(V3().set(.1 * k, .09 * k, .06 * k)), qTapa); }   // …y la suelta: cae abierta
+          else if (l < 1.2) { puno(false); pose(.12, .15); const k = ease(sg(l, 1.05, 1.2)); punoEn(suelta.clone().add(V3().set(.1 * k, .09 * k, .06 * k)), qTapa); }   // …y la suelta: cae abierta
           else if (l < 1.45) { const k = ease(sg(l, 1.2, 1.45)); puno(k > .82); pose(.2, .2); punoEn(punta.clone().add(V3().set(.03 * (1 - k), .14 * (1 - k), .08 * (1 - k))), qCart); }   // baja a por el cartucho
           else { puno(true); punoEn(punta, qCart); } };                                                                  // lo saca cogido por su extremo
         ST.seq = { t0: performance.now(), dur: 6900, c, q, shots: [
@@ -8649,7 +8656,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
             if (k2 > 0) { const GL = grab.clone().sub(boxP).applyQuaternion(caseFront.clone().invert()), kg = ease(sg(s, 1.3, 2.1)); cg.quaternion.copy(caseFront).multiply(qe(-.16 * kg, -ld * .62 * kg, -ld * .1 * kg)); cg.position.copy(hp).sub(GL.applyQuaternion(cg.quaternion)); } else cg.quaternion.copy(caseFront);   // v9.0 · al sacarla, la caja gira en la mano (se ve en perspectiva, no de frente), sujeta siempre por el mismo canto
             handAt(hp, .25, ry, ld * 1.5, 'YXZ'); pose(lerp(.1, .85, ease(sg(s, 1.0, 1.25))), lerp(.1, .8, ease(sg(s, 1.0, 1.25)))); puno(s > 1.16); hg.visible = s > .5; } },
           { a: 2.25, b: 3.45, cam: k => lerpPose(shotTable, { p: shotTable.p.clone().add(V3().set(-.05, -.04, -.07)), t: shotTable.t, fov: 36 }, ease(k)), act: tableAct, sinTel: 1, brz: [.5, -.15, .1] },
-          { a: 3.45, b: 4.35, cam: k => { const l = 1.2 + k * .9, t = cartP0.clone().add(V3().set(0, lerp(.04, .2, ease(sg(l, 1.5, 2.1))), 0)); return { p: t.clone().add(V3().set(.3 - .04 * k, .13 - .02 * k, .32 - .05 * k)), t, fov: 34 }; }, act: tableAct, sinTel: 1, brz: [.5, -.1, .08] },
+          { a: 3.45, b: 4.35, cam: k => { const l = 1.2 + k * .9, t = cartP0.clone().add(V3().set(0, lerp(.04, .2, ease(sg(l, 1.5, 2.1))), 0)); return { p: t.clone().add(V3().set(.46 - .05 * k, .2 - .02 * k, .78 - .08 * k)), t, fov: 36 }; }, act: tableAct, sinTel: 1, brz: [.5, -.1, .08] },
           { a: 4.35, b: 5.75, cam: k => { const P = lerpPose(shotCon, { p: shotCon.p.clone().add(V3().set(-.05, .03, -.1)), t: shotCon.t, fov: 40 }, ease(k)), ba = k * 1.4 - 1.08; if (ba > 0 && ba < .3) P.p.add(V3().set(Math.sin(ba * 90) * .005, Math.cos(ba * 77) * .004, 0).multiplyScalar(1 - ba / .3)); return P; }, act: s => {   // consola: mete el cartucho en la ranura
             const l = s - 4.35, k1 = ease(sg(l, 0, .55)), k2 = ease(sg(l, .55, .95)); if (cart.parent !== S) S.attach(cart); cart.quaternion.copy(cartUpQ); cart.scale.setScalar(1); const above = slot.clone().add(V3().set(0, .12, 0)), from = slot.clone().add(V3().set(.16, .2, .12));
             // baja el cartucho cogido por arriba, lo deja apoyado en la ranura, abre la mano y lo termina de meter empujando con la palma: ¡clac!
