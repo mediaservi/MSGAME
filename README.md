@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v11.6**
+**Versión actual: v11.7**
 
 ## Cómo se juega
 
@@ -34,7 +34,20 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v11.6)
+## Cambios de la versión actual (v11.7)
+
+- **Continuidad del equipo**: el menú del juego ya no usa una tele, una consola y un cartucho dibujados. Se muestra sobre **los mismos de la sala 3D** (la cámara solo se acerca), con la lámpara de lava, la caja del juego en la mesa y el cartucho metido en la consola. En móvil se ve la tele en primer plano para que la letra no quede pequeña.
+- **Menú nuevo dentro de la pantalla**: la carátula original a la izquierda; a la derecha el logo de MSGAME y las opciones en lista; y al pie **dos filas fijas de botones de servicio**: JUGAR, EXPULSAR, RESTABLECER, VOLVER / JUGADORES, RÉCORDS, MÚSICA, SONIDOS (los dos últimos con piloto de encendido).
+- **La caja se abre en primer plano**: Mevi la sostiene delante, centrada y de frente, con una mano a cada lado, simétricas; la abre como un libro y saca el cartucho. Manos, caja y cartucho se pintan en una capa por delante de la sala, así que los brazos no pueden mezclarse con la tele ni con nada de la mesa. El cartucho se mete en la consola en un plano de frente.
+- **La caja queda en la mesa de una forma distinta cada vez** (cerrada, entreabierta, de par en par, de lado…), siempre en el hueco libre.
+- **Al expulsar, el cartucho y la caja se evaporan en píxeles** con los colores de su carátula, de arriba abajo.
+- **SHATEKI con premios de verdad**, como LA FORTUNA: en la ficha del juego se escriben los premios y cuántos hay de cada uno (0 = sin límite); cada unidad sale en las gradas como una **caja dorada con lazo** y quien la tira del estante se la lleva (se descuenta de las existencias y queda apuntado a su nombre). En pantalla: lista de premios, entregados y QR para unirse con el móvil. Varios jugadores juegan por turnos de 7 corchos.
+  - Las cajas de los productos de AVHUB van todas en **gris antracita**; los dulces de colores, las latas y los gatos son relleno.
+  - Miras a tamaño real: alza con muesca y punto de mira en cuña del mismo metal.
+- Si el aparato va lento y se salta planos de la secuencia, el final es siempre el mismo: cartucho en la ranura y caja en la mesa.
+- El logo de MSGAME se pide con una dirección nueva para que nadie siga viendo el antiguo desde la copia guardada.
+
+### v11.6
 
 - **Juego nuevo: SHATEKI · galería de tiro de Osaka**, con su cartucho y su carátula. Caseta de feria japonesa en 3D: gradas rojas llenas de premios (cajas con las marcas de mediaservi, dulces, latas, gatos de la suerte y los tres dorados del altarcillo), rótulos de caligrafía y bombillas.
   - Se dispara con un **rifle de corchos visto por sus miras, sin cruceta**: el alza es una pletina con muesca y el punto de mira se ve dentro. El pulso tiembla un poco y, si el punto de mira se va a un lado de la muesca, el corcho se va hacia ese lado.
@@ -298,7 +311,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v11.6 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v11.7 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
