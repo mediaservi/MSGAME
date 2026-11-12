@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v11.7**
+**Versión actual: v11.8**
 
 ## Cómo se juega
 
@@ -34,7 +34,21 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v11.7)
+## Cambios de la versión actual (v11.8)
+
+- **KRAZYGOLF · modo KRAZY en 3D**, a la altura del clásico: cada hoyo es un rincón de casa modelado entero. La encimera (mantel de cuadros, terrones de azúcar, tostadora con sus tostadas, harina derramada, taza, aceitera, frutero, salero), el despacho (vade, libros, teclado con teclas, ventilador de sobremesa que gira, monitor, flexo, lápices) y el salón (alfombra con flecos, piezas de construcción, puf, robot aspirador, sofá, lámpara y planta). Las pelotas absurdas también son 3D: huevo, cubito de hielo translúcido, albóndiga, saltarina que bota y pelota de playa.
+- **KRAZYGOLF · modo nuevo SIMULATOR**: simulador de golf como los de sala, visto desde detrás de la bola. Campo propio e inventado, **AVHUB Golf Links & Park**, de 9 hoyos con trazado de ida y vuelta: sale de la casa club por el parque (arbolado, lagos, un río con puente), llega a la costa (dunas, búnkeres de olla, hierba alta, viento, faro y mar) y vuelve a la casa club. Recorrido corto de 3 hoyos o completo de 9 (par 36).
+  - Terreno con relieve, calles segadas a franjas, greens, antegreens, rough, arena y agua; cada suelo frena y penaliza distinto. Nueve palos (del driver al putter) con recomendación automática, viento, efecto, bote y rodadura, agua y fuera de límites con penalización, putt dado a menos de un metro.
+  - Pantalla de simulador: panel de datos (distancia al hoyo, palo, alcance, lie, viento), plano del hoyo, marca de caída, traza del vuelo y datos del golpe (vuelo, total, velocidad de bola, altura, desvío).
+  - **Logo de AVHUB** en la casa club, las banderas, las vallas de detrás de cada green, el cartel de cada salida, la caseta y el faro.
+- **WONDERWALK en 3D**: el paseo ya no es un dibujo plano. Sendero con relieve, árboles, flores, farolas, río con puente de madera y castillo; luz que pasa del atardecer a la noche con estrellas, luna y la punta de la varita iluminando; bosque con niebla; sombras. Piedras, arbustos, troncos, zarzas, ladrones y caminantes son modelos 3D. La lista, la mochila y las fichas siguen encima, más grandes en móvil vertical.
+- **Funciones de móvil en los dos juegos**: ya son juegos de MSGAME como los demás (turnos, marcador final y récords).
+  - WONDERWALK: el móvil es la varita; se apunta y se pulsa «Tocar».
+  - KRAZYGOLF (KRAZY y CLÁSICO): se mantiene el botón, se apunta hacia donde se quiere tirar (más lejos, más fuerte) y se suelta.
+  - SIMULATOR: el móvil es el palo. Se apunta, se mantiene el botón, se balancea y se suelta; el giro de muñeca da efecto y ◀ ▶ cambian de palo. Sin móvil: mantener pulsado y soltar en la marca, o deslizar hacia arriba.
+- Dejan de llevar el rótulo de «borrador».
+
+### v11.7
 
 - **Continuidad del equipo**: el menú del juego ya no usa una tele, una consola y un cartucho dibujados. Se muestra sobre **los mismos de la sala 3D** (la cámara solo se acerca), con la lámpara de lava, la caja del juego en la mesa y el cartucho metido en la consola. En móvil se ve la tele en primer plano para que la letra no quede pequeña.
 - **Menú nuevo dentro de la pantalla**: la carátula original a la izquierda; a la derecha el logo de MSGAME y las opciones en lista; y al pie **dos filas fijas de botones de servicio**: JUGAR, EXPULSAR, RESTABLECER, VOLVER / JUGADORES, RÉCORDS, MÚSICA, SONIDOS (los dos últimos con piloto de encendido).
@@ -311,7 +325,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v11.7 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v11.8 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
