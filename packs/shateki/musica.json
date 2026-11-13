@@ -1,20 +1,28 @@
 {
- "bpm": 137.9,
- "tiempo": 0.435,
- "fase": 1.815,
+ "bpm": 138.0,
+ "tiempo": 0.4348,
+ "fase": 1.807,
  "entrada": [
   0,
-  3.55515
+  14.4158
  ],
  "juego": [
-  3.55515,
-  24.43336
+  14.4158,
+  42.24299
+ ],
+ "calma": [
+  42.24299,
+  56.15678
+ ],
+ "tension": [
+  123.98517,
+  151.81079
  ],
  "final": [
-  24.43336,
-  31.992
+  172.68338,
+  181.104
  ],
  "fundido": 0.25,
- "nota": "Tema de 32 s: el empalme del bucle no es limpio por sí solo; se repite con un fundido cruzado de 0,25 s.",
- "fuente": "«The Rising Sun (30 sec edit) · Japanese style music», kaazoom, Pixabay (id 470319), licencia de contenido de Pixabay"
+ "nota": "Versión completa (3:01). Bucles de 64 tiempos (juego y tensión) y de 32 (calma); se repiten con un fundido cruzado de 0,25 s.",
+ "fuente": "«The Rising Sun (full version) · Japanese style music», kaazoom, Pixabay (id 470323), licencia de contenido de Pixabay"
 }
