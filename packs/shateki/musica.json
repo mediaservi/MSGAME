@@ -1,0 +1,20 @@
+{
+ "bpm": 137.9,
+ "tiempo": 0.435,
+ "fase": 1.815,
+ "entrada": [
+  0,
+  3.55515
+ ],
+ "juego": [
+  3.55515,
+  24.43336
+ ],
+ "final": [
+  24.43336,
+  31.992
+ ],
+ "fundido": 0.25,
+ "nota": "Tema de 32 s: el empalme del bucle no es limpio por sí solo; se repite con un fundido cruzado de 0,25 s.",
+ "fuente": "«The Rising Sun (30 sec edit) · Japanese style music», kaazoom, Pixabay (id 470319), licencia de contenido de Pixabay"
+}
