@@ -6,7 +6,7 @@ Recursos de terceros que usa el juego (carpeta `packs/wonderwalk/`). Lo demás �
 |---|---|---|---|
 | `naturaleza.json`, `naturaleza.bin`, `tex/` | Árboles, pinos, arbustos, hierba, helechos, flores, setas y rocas (19 modelos del *Stylized Nature MegaKit*, versión estándar gratuita), convertidos a un formato propio compacto y con las texturas reducidas | Quaternius · quaternius.com | CC0 1.0 (dominio público) |
 | `fx/` | Partículas del rayo de la varita, las chispas y los fuegos de la fiesta (*Particle Pack 1.1*), reducidas de tamaño | Kenney · kenney.nl | CC0 1.0 (dominio público) |
-| `sfx/rayo1-3.mp3`, `hielo.mp3`, `fuego.mp3` | Impactos de hechizo (*Basic Spell Impacts*), recortados a 1,5 s | lentikula (itch.io) | Gratuito según su página de itch.io; el paquete no trae archivo de licencia: conviene guardar una captura de las condiciones de la página |
+| `sfx/rayo1-3.mp3`, `hielo.mp3`, `fuego.mp3` | Impactos de hechizo (*Basic Spell Impacts*), recortados a 1,5 s | lentikula · [itch.io](https://lentikula.itch.io/freecc0-basic-spell-impacts-sfx) | CC0 1.0 (dominio público), según su página: «I release this pack under a CC0 license, so you can use it in whatever project without attribution» (el zip no trae archivo de licencia; comprobado el 13-11-2026) |
 | `sfx/musica.mp3` | Banda sonora del paseo: «Journey Preparation» | BrutalDesign (Pixabay) | Licencia de contenido de Pixabay (uso libre, también comercial, sin atribución obligatoria) |
 | `sfx/varita.mp3`, `sfx/magia.mp3` | Sonido de la varita y de la fiesta: «Healing Magic 2» (entero y recortado) | Yodguard (Pixabay) | Licencia de contenido de Pixabay |
 
