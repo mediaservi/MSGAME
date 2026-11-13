@@ -1,0 +1,193 @@
+{
+ "ambiente-pajaros": {
+  "archivo": "ambiente-pajaros.mp3",
+  "dur": 60.0,
+  "autor": "freesound_community",
+  "titulo": "morning-birdsong-spain",
+  "id": "49895",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "ambiente",
+   "pájaros",
+   "exterior",
+   "bucle"
+  ],
+  "juegos": [
+   "KRAZYGOLF CLÁSICO y SIMULATOR",
+   "WONDERWALK",
+   "PUNTERÍA Alpine"
+  ],
+  "bucle": true
+ },
+ "burbuja": {
+  "archivo": "burbuja.mp3",
+  "dur": 1.21,
+  "autor": "soundreality",
+  "titulo": "bubble-pop-reverb",
+  "id": "424582",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "pop",
+   "burbuja",
+   "recoger",
+   "interfaz"
+  ],
+  "juegos": [
+   "PATOPESCA",
+   "WONDERWALK (objeto a la mochila)",
+   "ENCESTA BallHop",
+   "botones y menús"
+  ]
+ },
+ "fallo": {
+  "archivo": "fallo.mp3",
+  "dur": 3.17,
+  "autor": "11325622",
+  "titulo": "cartoon-trombone-sound-effect",
+  "id": "241387",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "fallo",
+   "cómico",
+   "trombón"
+  ],
+  "juegos": [
+   "todos: fallo cómico"
+  ]
+ },
+ "laser": {
+  "archivo": "laser.mp3",
+  "dur": 2.38,
+  "autor": "freesound_community",
+  "titulo": "laser",
+  "id": "90052",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "disparo",
+   "ciencia ficción",
+   "rayo"
+  ],
+  "juegos": [
+   "PUNTERÍA Galaxy",
+   "PALOTERAPIA Aliens",
+   "PUNTERÍA Warfront (armas futuristas)"
+  ]
+ },
+ "ooh": {
+  "archivo": "ooh.mp3",
+  "dur": 1.92,
+  "autor": "universfield",
+  "titulo": "crowd-shocked-reaction",
+  "id": "352766",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "público",
+   "reacción"
+  ],
+  "juegos": [
+   "KRAZYGOLF",
+   "BOLERA",
+   "ENCESTA",
+   "PUNTERÍA"
+  ]
+ },
+ "parpadeo": {
+  "archivo": "parpadeo.mp3",
+  "dur": 0.56,
+  "autor": "dragon-studio",
+  "titulo": "cartoon-blinking",
+  "id": "372481",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "destello",
+   "potenciador",
+   "interfaz"
+  ],
+  "juegos": [
+   "todos: potenciadores y menús"
+  ]
+ },
+ "pop": {
+  "archivo": "pop.mp3",
+  "dur": 0.1,
+  "autor": "creatorshome",
+  "titulo": "pop-cartoon",
+  "id": "328167",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "pop",
+   "rebote"
+  ],
+  "juegos": [
+   "todos"
+  ]
+ },
+ "pop-grave": {
+  "archivo": "pop-grave.mp3",
+  "dur": 0.66,
+  "autor": "soundreality",
+  "titulo": "battle-pop",
+  "id": "424581",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "pop",
+   "impacto",
+   "desaparecer"
+  ],
+  "juegos": [
+   "PALOTERAPIA (enemigo que estalla)",
+   "PUNTERÍA (blanco abatido)",
+   "SHATEKI (premio que cae)",
+   "LA FORTUNA"
+  ]
+ },
+ "sorpresa": {
+  "archivo": "sorpresa.mp3",
+  "dur": 0.56,
+  "autor": "universfield",
+  "titulo": "shock-gasp-female",
+  "id": "383751",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "voz",
+   "reacción"
+  ],
+  "juegos": [
+   "KRAZYGOLF",
+   "WONDERWALK (ladrón)",
+   "LA FORTUNA"
+  ]
+ },
+ "splat": {
+  "archivo": "splat.mp3",
+  "dur": 0.81,
+  "autor": "universfield",
+  "titulo": "cartoon-splat",
+  "id": "310479",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "impacto",
+   "cómico"
+  ],
+  "juegos": [
+   "KRAZYGOLF",
+   "PALOTERAPIA",
+   "GRAFFER"
+  ]
+ },
+ "victoria": {
+  "archivo": "victoria.mp3",
+  "dur": 4.51,
+  "autor": "pw23check",
+  "titulo": "winning",
+  "id": "218995",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "victoria",
+   "fanfarria"
+  ],
+  "juegos": [
+   "todos: fin de partida ganada"
+  ]
+ }
+}

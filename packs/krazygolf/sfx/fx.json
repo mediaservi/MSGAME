@@ -16,54 +16,5 @@
   "autor": "freesound_community",
   "id": "96699",
   "titulo": "minigolf-putt-right-into-the-hole"
- },
- "victoria": {
-  "dur": 4.51,
-  "autor": "pw23check",
-  "id": "218995",
-  "titulo": "winning"
- },
- "fallo": {
-  "dur": 3.17,
-  "autor": "11325622",
-  "id": "241387",
-  "titulo": "cartoon-trombone-sound-effect"
- },
- "ooh": {
-  "dur": 1.92,
-  "autor": "universfield",
-  "id": "352766",
-  "titulo": "crowd-shocked-reaction"
- },
- "sorpresa": {
-  "dur": 0.56,
-  "autor": "universfield",
-  "id": "383751",
-  "titulo": "shock-gasp-female"
- },
- "splat": {
-  "dur": 0.81,
-  "autor": "universfield",
-  "id": "310479",
-  "titulo": "cartoon-splat"
- },
- "pop": {
-  "dur": 0.1,
-  "autor": "creatorshome",
-  "id": "328167",
-  "titulo": "pop-cartoon"
- },
- "parpadeo": {
-  "dur": 0.56,
-  "autor": "dragon-studio",
-  "id": "372481",
-  "titulo": "cartoon-blinking"
- },
- "ambiente": {
-  "dur": 60.0,
-  "autor": "freesound_community",
-  "id": "49895",
-  "titulo": "morning-birdsong-spain",
-  "bucle": true
  }
 }
