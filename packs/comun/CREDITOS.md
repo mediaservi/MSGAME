@@ -6,6 +6,11 @@ Efectos que comparten todos los juegos (`packs/comun/fx/`). Recortados (sin sile
 |---|---|---|---|
 | `ambiente-pajaros.mp3` | ambiente, pájaros, exterior, bucle | KRAZYGOLF CLÁSICO y SIMULATOR; WONDERWALK; PUNTERÍA Alpine | freesound_community · morning-birdsong-spain · 49895 |
 | `burbuja.mp3` | pop, burbuja, recoger, interfaz | PATOPESCA; WONDERWALK (objeto a la mochila); ENCESTA BallHop; botones y menús | soundreality · bubble-pop-reverb · 424582 |
+| `cae-plastico.mp3` | caída, rebotes, objeto | SHATEKI (premio que cae del estante); BOLERA (bolos); PALOTERAPIA (objeto derribado); KRAZYGOLF (cosas que se caen) | freesound_community · item-falling-plastic · 90719 |
+| `caja-1.mp3` | caja, golpe, cartón | SHATEKI (caja de premio); KRAZYGOLF (bola contra una caja); WONDERWALK (cofres y fardos); LA FORTUNA | freesound_community · box (toma 1) · 29610 |
+| `caja-2.mp3` | caja, golpe, cartón | SHATEKI (caja de premio); KRAZYGOLF (bola contra una caja); WONDERWALK (cofres y fardos); LA FORTUNA | freesound_community · box (toma 2) · 29610 |
+| `caja-3.mp3` | caja, golpe, cartón | SHATEKI (caja de premio); KRAZYGOLF (bola contra una caja); WONDERWALK (cofres y fardos); LA FORTUNA | freesound_community · box (toma 3) · 29610 |
+| `derrota.mp3` | derrota, fin de partida, jingle | todos: partida perdida o tiempo agotado; WONDERWALK (te falta un objeto) | alexis_gaming_cam · echec · 370391 |
 | `fallo.mp3` | fallo, cómico, trombón | todos: fallo cómico | 11325622 · cartoon-trombone-sound-effect · 241387 |
 | `laser.mp3` | disparo, ciencia ficción, rayo | PUNTERÍA Galaxy; PALOTERAPIA Aliens; PUNTERÍA Warfront (armas futuristas) | freesound_community · laser · 90052 |
 | `ooh.mp3` | público, reacción | KRAZYGOLF; BOLERA; ENCESTA; PUNTERÍA | universfield · crowd-shocked-reaction · 352766 |

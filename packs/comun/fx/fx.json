@@ -39,6 +39,99 @@
    "botones y menús"
   ]
  },
+ "cae-plastico": {
+  "archivo": "cae-plastico.mp3",
+  "dur": 2.5,
+  "autor": "freesound_community",
+  "titulo": "item-falling-plastic",
+  "id": "90719",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "caída",
+   "rebotes",
+   "objeto"
+  ],
+  "juegos": [
+   "SHATEKI (premio que cae del estante)",
+   "BOLERA (bolos)",
+   "PALOTERAPIA (objeto derribado)",
+   "KRAZYGOLF (cosas que se caen)"
+  ]
+ },
+ "caja-1": {
+  "archivo": "caja-1.mp3",
+  "dur": 0.54,
+  "autor": "freesound_community",
+  "titulo": "box (toma 1)",
+  "id": "29610",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "caja",
+   "golpe",
+   "cartón"
+  ],
+  "juegos": [
+   "SHATEKI (caja de premio)",
+   "KRAZYGOLF (bola contra una caja)",
+   "WONDERWALK (cofres y fardos)",
+   "LA FORTUNA"
+  ]
+ },
+ "caja-2": {
+  "archivo": "caja-2.mp3",
+  "dur": 0.7,
+  "autor": "freesound_community",
+  "titulo": "box (toma 2)",
+  "id": "29610",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "caja",
+   "golpe",
+   "cartón"
+  ],
+  "juegos": [
+   "SHATEKI (caja de premio)",
+   "KRAZYGOLF (bola contra una caja)",
+   "WONDERWALK (cofres y fardos)",
+   "LA FORTUNA"
+  ]
+ },
+ "caja-3": {
+  "archivo": "caja-3.mp3",
+  "dur": 0.59,
+  "autor": "freesound_community",
+  "titulo": "box (toma 3)",
+  "id": "29610",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "caja",
+   "golpe",
+   "cartón"
+  ],
+  "juegos": [
+   "SHATEKI (caja de premio)",
+   "KRAZYGOLF (bola contra una caja)",
+   "WONDERWALK (cofres y fardos)",
+   "LA FORTUNA"
+  ]
+ },
+ "derrota": {
+  "archivo": "derrota.mp3",
+  "dur": 3.46,
+  "autor": "alexis_gaming_cam",
+  "titulo": "echec",
+  "id": "370391",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "derrota",
+   "fin de partida",
+   "jingle"
+  ],
+  "juegos": [
+   "todos: partida perdida o tiempo agotado",
+   "WONDERWALK (te falta un objeto)"
+  ]
+ },
  "fallo": {
   "archivo": "fallo.mp3",
   "dur": 3.17,
