@@ -11,6 +11,7 @@ Todos se distribuyen bajo la **SIL Open Font License 1.1** (uso, incrustación y
 | `bowlby-one.woff2` | Bowlby One | BOLERA |
 | `chewy.woff2` | Chewy | PATOPESCA |
 | `bungee.woff2` | Bungee | ENCESTA |
+| `berkshire-swash.woff2` | Berkshire Swash | WONDERWALK |
 
 GRAFFER usa Sedgwick Ave Display, también bajo OFL 1.1.
 

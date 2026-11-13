@@ -1582,7 +1582,8 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
 
   <script>
     /* ---- v7.2 · Dos webs con el mismo motor: VJSHOW (visuales) y MSGAME (juegos), cada una en su dirección ---- */
-    const SECTOR = document.documentElement.dataset.app === 'msgame' ? 'msgame' : 'vjshow', ES_MSG = SECTOR === 'msgame', APP_NAME = ES_MSG ? 'MSGAME' : 'VJSHOW';
+    /* v12.0 · MSGAME es ya una app independiente, con su propio código fuente en este repositorio (antes se generaba a partir del de VJSHOW) */
+    const SECTOR = 'msgame', ES_MSG = true, APP_NAME = ES_MSG ? 'MSGAME' : 'VJSHOW';
     const URL_VJSHOW = 'https://vjshow.mediaservi.com/', URL_MSGAME = 'https://msgame.mediaservi.com/';
     const MS_ACT = ['menu', 'fullscreen', 'mute', 'help'];   // teclas que usa MSGAME (el resto son de los visuales)
     const LED_INICIO = ES_MSG ? 'Elige un cartucho y juega con el móvil como mando' : "Presiona 'H' para ocultar el cuadro de mandos";
@@ -3511,7 +3512,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '11.8';
+    const APP_VERSION = '12.0';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);

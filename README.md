@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v11.8**
+**Versión actual: v12.0**
 
 ## Cómo se juega
 
@@ -34,7 +34,20 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v11.8)
+## Cambios de la versión actual (v12.0)
+
+- **MSGAME es una app independiente.** Hasta la v11.8 su `index.html` se generaba a partir del de VJSHOW; desde esta versión el código fuente de MSGAME vive en este repositorio y se desarrolla aquí. Los juegos, sus imágenes, sonidos, paquetes y borradores están solo en MSGAME; VJSHOW ya no los lleva y su botón de juegos abre esta web.
+- **WONDERWALK, borrador 3:**
+  - **Mevi es la única caminante** (ya no se elige personaje): melena negra, ojos de estrella, mono morado, cinturón con la «M», guantes y botas lima, y la varita en la mano derecha. Camina, mueve los brazos, levanta la varita al disparar y salta en la fiesta.
+  - **Rayo mágico:** al tocar, de la punta de la varita sale un rayo hasta el punto exacto donde se apuntó, con destello, anillo de impacto y chispas; Mevi gira la cabeza y el brazo hacia ese lado y la escena se ilumina un instante.
+  - **El castillo es una réplica del de Cardona**, modelada por código a partir de las fotos de Josep: baluartes en talud con la puerta al final del sendero, segundo recinto con la rampa en diagonal y la escalinata, torre de la Minyona (tronco de cono con su antepecho y la torrecilla de chapitel), el cuerpo de la entrada con el gran arco de celosía, el bloque alto del parador con sus ventanas, la colegiata de Sant Vicenç con el campanario de tejado a cuatro aguas, tejados de teja, cipreses, pinos y la bandera. Sillares con tono variable, ventanas que se encienden al anochecer y focos cálidos que lo iluminan de noche. Al llegar, la cámara levanta la vista para enseñarlo.
+  - **Gráficos y sombras:** árboles, pinos, arbustos, hierba, helechos, flores, setas y rocas de verdad (modelos de Quaternius, CC0); sombras más finas y largas (mapa de 2048), suelo con grano, río con reflejos que corren, sol bajo con resplandor, nubes, luciérnagas, charcos de luz bajo las farolas y cielo en tres franjas. Los escondites de piedra y arbusto usan también esos modelos.
+  - **Calidad automática:** si el equipo no llega a unos 22 fotogramas por segundo, el juego baja solo un escalón (menos sombras, menos distancia de plantas y menos resolución). Se puede fijar con `?cal=0`, `1` o `2`.
+  - **Sonido:** banda sonora («Journey Preparation») durante el paseo, sonido mágico al disparar la varita mezclado con un impacto de rayo, y sonidos propios al apartar la zarza, espantar al ladrón y en la fiesta. Respeta el silencio de MSGAME.
+  - **Título con la letra de la carátula** (Berkshire Swash), blanca y con volumen.
+  - Créditos y licencias de los recursos en `packs/wonderwalk/CREDITOS.md`.
+
+### v11.8
 
 - **KRAZYGOLF · modo KRAZY en 3D**, a la altura del clásico: cada hoyo es un rincón de casa modelado entero. La encimera (mantel de cuadros, terrones de azúcar, tostadora con sus tostadas, harina derramada, taza, aceitera, frutero, salero), el despacho (vade, libros, teclado con teclas, ventilador de sobremesa que gira, monitor, flexo, lápices) y el salón (alfombra con flecos, piezas de construcción, puf, robot aspirador, sofá, lámpara y planta). Las pelotas absurdas también son 3D: huevo, cubito de hielo translúcido, albóndiga, saltarina que bota y pelota de playa.
 - **KRAZYGOLF · modo nuevo SIMULATOR**: simulador de golf como los de sala, visto desde detrás de la bola. Campo propio e inventado, **AVHUB Golf Links & Park**, de 9 hoyos con trazado de ida y vuelta: sale de la casa club por el parque (arbolado, lagos, un río con puente), llega a la costa (dunas, búnkeres de olla, hierba alta, viento, faro y mar) y vuelve a la casa club. Recorrido corto de 3 hoyos o completo de 9 (par 36).
@@ -325,7 +338,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v11.8 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.0 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
