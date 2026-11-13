@@ -115,6 +115,44 @@
    "LA FORTUNA"
   ]
  },
+ "cuervo-1": {
+  "archivo": "cuervo-1.mp3",
+  "dur": 1.77,
+  "autor": "u_a4gfvwagf1",
+  "titulo": "crow-sound-effect-hd (graznido 1)",
+  "id": "336784",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "animal",
+   "cuervo",
+   "ambiente",
+   "miedo"
+  ],
+  "juegos": [
+   "PUNTERÍA Haunted y Zombieland",
+   "PALOTERAPIA Halloween y Zombies",
+   "WONDERWALK (bosque al anochecer)"
+  ]
+ },
+ "cuervo-2": {
+  "archivo": "cuervo-2.mp3",
+  "dur": 1.67,
+  "autor": "u_a4gfvwagf1",
+  "titulo": "crow-sound-effect-hd (graznido 2)",
+  "id": "336784",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "animal",
+   "cuervo",
+   "ambiente",
+   "miedo"
+  ],
+  "juegos": [
+   "PUNTERÍA Haunted y Zombieland",
+   "PALOTERAPIA Halloween y Zombies",
+   "WONDERWALK (bosque al anochecer)"
+  ]
+ },
  "derrota": {
   "archivo": "derrota.mp3",
   "dur": 3.46,
@@ -130,6 +168,23 @@
   "juegos": [
    "todos: partida perdida o tiempo agotado",
    "WONDERWALK (te falta un objeto)"
+  ]
+ },
+ "error": {
+  "archivo": "error.mp3",
+  "dur": 1.37,
+  "autor": "freesound_community",
+  "titulo": "failure-1",
+  "id": "89170",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "fallo",
+   "error",
+   "corto"
+  ],
+  "juegos": [
+   "todos: objeto equivocado o acción que no vale",
+   "WONDERWALK («no era ese»)"
   ]
  },
  "fallo": {
@@ -166,6 +221,43 @@
    "PUNTERÍA Warfront (armas futuristas)"
   ]
  },
+ "moneda": {
+  "archivo": "moneda.mp3",
+  "dur": 1.43,
+  "autor": "yodguard",
+  "titulo": "coin-collect-3",
+  "id": "540190",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "moneda",
+   "premio",
+   "recoger"
+  ],
+  "juegos": [
+   "LA FORTUNA",
+   "WONDERWALK (monedas)",
+   "SHATEKI (premio)",
+   "KRAZYGOLF (bonificación)"
+  ]
+ },
+ "nivel": {
+  "archivo": "nivel.mp3",
+  "dur": 1.09,
+  "autor": "floraphonic",
+  "titulo": "cute-level-up-3",
+  "id": "189853",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "nivel",
+   "subida",
+   "logro"
+  ],
+  "juegos": [
+   "todos: ronda o nivel superado",
+   "KRAZYGOLF (hoyo terminado bajo par)",
+   "PATOPESCA"
+  ]
+ },
  "ooh": {
   "archivo": "ooh.mp3",
   "dur": 1.92,
@@ -182,6 +274,60 @@
    "BOLERA",
    "ENCESTA",
    "PUNTERÍA"
+  ]
+ },
+ "oveja-1": {
+  "archivo": "oveja-1.mp3",
+  "dur": 0.83,
+  "autor": "freesound_community",
+  "titulo": "sheep-bleating (balido 1)",
+  "id": "31117",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "animal",
+   "oveja",
+   "ambiente"
+  ],
+  "juegos": [
+   "PUNTERÍA Alpine (las ovejas del prado)",
+   "WONDERWALK (prados del camino)",
+   "KRAZYGOLF SIMULATOR"
+  ]
+ },
+ "oveja-2": {
+  "archivo": "oveja-2.mp3",
+  "dur": 1.82,
+  "autor": "freesound_community",
+  "titulo": "sheep-bleating (balido 2)",
+  "id": "31117",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "animal",
+   "oveja",
+   "ambiente"
+  ],
+  "juegos": [
+   "PUNTERÍA Alpine (las ovejas del prado)",
+   "WONDERWALK (prados del camino)",
+   "KRAZYGOLF SIMULATOR"
+  ]
+ },
+ "oveja-3": {
+  "archivo": "oveja-3.mp3",
+  "dur": 0.61,
+  "autor": "freesound_community",
+  "titulo": "sheep-bleating (balido 3)",
+  "id": "31117",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "animal",
+   "oveja",
+   "ambiente"
+  ],
+  "juegos": [
+   "PUNTERÍA Alpine (las ovejas del prado)",
+   "WONDERWALK (prados del camino)",
+   "KRAZYGOLF SIMULATOR"
   ]
  },
  "parpadeo": {
@@ -232,6 +378,24 @@
    "PUNTERÍA (blanco abatido)",
    "SHATEKI (premio que cae)",
    "LA FORTUNA"
+  ]
+ },
+ "puntos": {
+  "archivo": "puntos.mp3",
+  "dur": 0.6,
+  "autor": "liecio",
+  "titulo": "collect-points",
+  "id": "190037",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "puntos",
+   "acierto",
+   "recoger"
+  ],
+  "juegos": [
+   "todos: sumar puntos",
+   "PUNTERÍA y PALOTERAPIA (acierto)",
+   "ENCESTA"
   ]
  },
  "sorpresa": {

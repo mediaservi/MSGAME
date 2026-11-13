@@ -10,13 +10,22 @@ Efectos que comparten todos los juegos (`packs/comun/fx/`). Recortados (sin sile
 | `caja-1.mp3` | caja, golpe, cartón | SHATEKI (caja de premio); KRAZYGOLF (bola contra una caja); WONDERWALK (cofres y fardos); LA FORTUNA | freesound_community · box (toma 1) · 29610 |
 | `caja-2.mp3` | caja, golpe, cartón | SHATEKI (caja de premio); KRAZYGOLF (bola contra una caja); WONDERWALK (cofres y fardos); LA FORTUNA | freesound_community · box (toma 2) · 29610 |
 | `caja-3.mp3` | caja, golpe, cartón | SHATEKI (caja de premio); KRAZYGOLF (bola contra una caja); WONDERWALK (cofres y fardos); LA FORTUNA | freesound_community · box (toma 3) · 29610 |
+| `cuervo-1.mp3` | animal, cuervo, ambiente, miedo | PUNTERÍA Haunted y Zombieland; PALOTERAPIA Halloween y Zombies; WONDERWALK (bosque al anochecer) | u_a4gfvwagf1 · crow-sound-effect-hd (graznido 1) · 336784 |
+| `cuervo-2.mp3` | animal, cuervo, ambiente, miedo | PUNTERÍA Haunted y Zombieland; PALOTERAPIA Halloween y Zombies; WONDERWALK (bosque al anochecer) | u_a4gfvwagf1 · crow-sound-effect-hd (graznido 2) · 336784 |
 | `derrota.mp3` | derrota, fin de partida, jingle | todos: partida perdida o tiempo agotado; WONDERWALK (te falta un objeto) | alexis_gaming_cam · echec · 370391 |
+| `error.mp3` | fallo, error, corto | todos: objeto equivocado o acción que no vale; WONDERWALK («no era ese») | freesound_community · failure-1 · 89170 |
 | `fallo.mp3` | fallo, cómico, trombón | todos: fallo cómico | 11325622 · cartoon-trombone-sound-effect · 241387 |
 | `laser.mp3` | disparo, ciencia ficción, rayo | PUNTERÍA Galaxy; PALOTERAPIA Aliens; PUNTERÍA Warfront (armas futuristas) | freesound_community · laser · 90052 |
+| `moneda.mp3` | moneda, premio, recoger | LA FORTUNA; WONDERWALK (monedas); SHATEKI (premio); KRAZYGOLF (bonificación) | yodguard · coin-collect-3 · 540190 |
+| `nivel.mp3` | nivel, subida, logro | todos: ronda o nivel superado; KRAZYGOLF (hoyo terminado bajo par); PATOPESCA | floraphonic · cute-level-up-3 · 189853 |
 | `ooh.mp3` | público, reacción | KRAZYGOLF; BOLERA; ENCESTA; PUNTERÍA | universfield · crowd-shocked-reaction · 352766 |
+| `oveja-1.mp3` | animal, oveja, ambiente | PUNTERÍA Alpine (las ovejas del prado); WONDERWALK (prados del camino); KRAZYGOLF SIMULATOR | freesound_community · sheep-bleating (balido 1) · 31117 |
+| `oveja-2.mp3` | animal, oveja, ambiente | PUNTERÍA Alpine (las ovejas del prado); WONDERWALK (prados del camino); KRAZYGOLF SIMULATOR | freesound_community · sheep-bleating (balido 2) · 31117 |
+| `oveja-3.mp3` | animal, oveja, ambiente | PUNTERÍA Alpine (las ovejas del prado); WONDERWALK (prados del camino); KRAZYGOLF SIMULATOR | freesound_community · sheep-bleating (balido 3) · 31117 |
 | `parpadeo.mp3` | destello, potenciador, interfaz | todos: potenciadores y menús | dragon-studio · cartoon-blinking · 372481 |
 | `pop.mp3` | pop, rebote | todos | creatorshome · pop-cartoon · 328167 |
 | `pop-grave.mp3` | pop, impacto, desaparecer | PALOTERAPIA (enemigo que estalla); PUNTERÍA (blanco abatido); SHATEKI (premio que cae); LA FORTUNA | soundreality · battle-pop · 424581 |
+| `puntos.mp3` | puntos, acierto, recoger | todos: sumar puntos; PUNTERÍA y PALOTERAPIA (acierto); ENCESTA | liecio · collect-points · 190037 |
 | `sorpresa.mp3` | voz, reacción | KRAZYGOLF; WONDERWALK (ladrón); LA FORTUNA | universfield · shock-gasp-female · 383751 |
 | `splat.mp3` | impacto, cómico | KRAZYGOLF; PALOTERAPIA; GRAFFER | universfield · cartoon-splat · 310479 |
 | `victoria.mp3` | victoria, fanfarria | todos: fin de partida ganada | pw23check · winning · 218995 |
