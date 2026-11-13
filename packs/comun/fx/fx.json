@@ -115,6 +115,105 @@
    "LA FORTUNA"
   ]
  },
+ "carta-1": {
+  "archivo": "carta-1.mp3",
+  "dur": 0.27,
+  "autor": "Kenney",
+  "titulo": "Casino Audio · card-slide-1",
+  "id": "kenney-casino-audio",
+  "origen": "Kenney (CC0)",
+  "etiquetas": [
+   "carta",
+   "deslizar",
+   "interfaz"
+  ],
+  "juegos": [
+   "cambiar de pantalla o de jugador",
+   "fichas de diseño y menús"
+  ]
+ },
+ "carta-2": {
+  "archivo": "carta-2.mp3",
+  "dur": 0.58,
+  "autor": "Kenney",
+  "titulo": "Casino Audio · card-slide-2",
+  "id": "kenney-casino-audio",
+  "origen": "Kenney (CC0)",
+  "etiquetas": [
+   "carta",
+   "deslizar",
+   "interfaz"
+  ],
+  "juegos": [
+   "cambiar de pantalla o de jugador",
+   "fichas de diseño y menús"
+  ]
+ },
+ "carta-pon-1": {
+  "archivo": "carta-pon-1.mp3",
+  "dur": 0.53,
+  "autor": "Kenney",
+  "titulo": "Casino Audio · card-place-1",
+  "id": "kenney-casino-audio",
+  "origen": "Kenney (CC0)",
+  "etiquetas": [
+   "carta",
+   "poner",
+   "interfaz"
+  ],
+  "juegos": [
+   "confirmar",
+   "tarjeta de puntos de KRAZYGOLF"
+  ]
+ },
+ "carta-pon-2": {
+  "archivo": "carta-pon-2.mp3",
+  "dur": 0.3,
+  "autor": "Kenney",
+  "titulo": "Casino Audio · card-place-2",
+  "id": "kenney-casino-audio",
+  "origen": "Kenney (CC0)",
+  "etiquetas": [
+   "carta",
+   "poner",
+   "interfaz"
+  ],
+  "juegos": [
+   "confirmar",
+   "tarjeta de puntos de KRAZYGOLF"
+  ]
+ },
+ "cartas-abanico": {
+  "archivo": "cartas-abanico.mp3",
+  "dur": 0.72,
+  "autor": "Kenney",
+  "titulo": "Casino Audio · card-fan-1",
+  "id": "kenney-casino-audio",
+  "origen": "Kenney (CC0)",
+  "etiquetas": [
+   "cartas",
+   "abanico"
+  ],
+  "juegos": [
+   "mostrar la tarjeta o el ranking"
+  ]
+ },
+ "cartas-baraja": {
+  "archivo": "cartas-baraja.mp3",
+  "dur": 3.06,
+  "autor": "Kenney",
+  "titulo": "Casino Audio · card-shuffle",
+  "id": "kenney-casino-audio",
+  "origen": "Kenney (CC0)",
+  "etiquetas": [
+   "cartas",
+   "barajar"
+  ],
+  "juegos": [
+   "repartir turnos",
+   "LA FORTUNA (preparar la ruleta)"
+  ]
+ },
  "cuervo-1": {
   "archivo": "cuervo-1.mp3",
   "dur": 1.77,
@@ -151,6 +250,106 @@
    "PUNTERÍA Haunted y Zombieland",
    "PALOTERAPIA Halloween y Zombies",
    "WONDERWALK (bosque al anochecer)"
+  ]
+ },
+ "dado-1": {
+  "archivo": "dado-1.mp3",
+  "dur": 0.33,
+  "autor": "Kenney",
+  "titulo": "Casino Audio · die-throw-1",
+  "id": "kenney-casino-audio",
+  "origen": "Kenney (CC0)",
+  "etiquetas": [
+   "dado",
+   "tirar"
+  ],
+  "juegos": [
+   "sorteo",
+   "KRAZYGOLF (bola contra objetos pequeños)"
+  ]
+ },
+ "dado-2": {
+  "archivo": "dado-2.mp3",
+  "dur": 0.65,
+  "autor": "Kenney",
+  "titulo": "Casino Audio · die-throw-2",
+  "id": "kenney-casino-audio",
+  "origen": "Kenney (CC0)",
+  "etiquetas": [
+   "dado",
+   "tirar"
+  ],
+  "juegos": [
+   "sorteo",
+   "KRAZYGOLF (bola contra objetos pequeños)"
+  ]
+ },
+ "dados-agita-1": {
+  "archivo": "dados-agita-1.mp3",
+  "dur": 1.36,
+  "autor": "Kenney",
+  "titulo": "Casino Audio · dice-shake-1",
+  "id": "kenney-casino-audio",
+  "origen": "Kenney (CC0)",
+  "etiquetas": [
+   "dados",
+   "agitar",
+   "azar"
+  ],
+  "juegos": [
+   "sorteo de turnos",
+   "LA FORTUNA (modo retos)"
+  ]
+ },
+ "dados-agita-2": {
+  "archivo": "dados-agita-2.mp3",
+  "dur": 1.25,
+  "autor": "Kenney",
+  "titulo": "Casino Audio · dice-shake-2",
+  "id": "kenney-casino-audio",
+  "origen": "Kenney (CC0)",
+  "etiquetas": [
+   "dados",
+   "agitar",
+   "azar"
+  ],
+  "juegos": [
+   "sorteo de turnos",
+   "LA FORTUNA (modo retos)"
+  ]
+ },
+ "dados-tira-1": {
+  "archivo": "dados-tira-1.mp3",
+  "dur": 0.56,
+  "autor": "Kenney",
+  "titulo": "Casino Audio · dice-throw-1",
+  "id": "kenney-casino-audio",
+  "origen": "Kenney (CC0)",
+  "etiquetas": [
+   "dados",
+   "tirar",
+   "azar"
+  ],
+  "juegos": [
+   "sorteo de turnos",
+   "PUNTERÍA Western (saloon)"
+  ]
+ },
+ "dados-tira-2": {
+  "archivo": "dados-tira-2.mp3",
+  "dur": 0.37,
+  "autor": "Kenney",
+  "titulo": "Casino Audio · dice-throw-2",
+  "id": "kenney-casino-audio",
+  "origen": "Kenney (CC0)",
+  "etiquetas": [
+   "dados",
+   "tirar",
+   "azar"
+  ],
+  "juegos": [
+   "sorteo de turnos",
+   "PUNTERÍA Western (saloon)"
   ]
  },
  "derrota": {
@@ -201,6 +400,130 @@
   ],
   "juegos": [
    "todos: fallo cómico"
+  ]
+ },
+ "ficha-1": {
+  "archivo": "ficha-1.mp3",
+  "dur": 0.13,
+  "autor": "Kenney",
+  "titulo": "Casino Audio · chip-lay-1",
+  "id": "kenney-casino-audio",
+  "origen": "Kenney (CC0)",
+  "etiquetas": [
+   "ficha",
+   "casino",
+   "corto",
+   "interfaz"
+  ],
+  "juegos": [
+   "botones y menús",
+   "LA FORTUNA (apuntarse)"
+  ]
+ },
+ "ficha-2": {
+  "archivo": "ficha-2.mp3",
+  "dur": 0.23,
+  "autor": "Kenney",
+  "titulo": "Casino Audio · chip-lay-2",
+  "id": "kenney-casino-audio",
+  "origen": "Kenney (CC0)",
+  "etiquetas": [
+   "ficha",
+   "casino",
+   "corto",
+   "interfaz"
+  ],
+  "juegos": [
+   "botones y menús",
+   "LA FORTUNA (apuntarse)"
+  ]
+ },
+ "fichas-1": {
+  "archivo": "fichas-1.mp3",
+  "dur": 0.14,
+  "autor": "Kenney",
+  "titulo": "Casino Audio · chips-stack-1",
+  "id": "kenney-casino-audio",
+  "origen": "Kenney (CC0)",
+  "etiquetas": [
+   "fichas",
+   "casino",
+   "apostar"
+  ],
+  "juegos": [
+   "LA FORTUNA (premio)",
+   "SHATEKI (contador de corchos)",
+   "marcadores"
+  ]
+ },
+ "fichas-2": {
+  "archivo": "fichas-2.mp3",
+  "dur": 0.16,
+  "autor": "Kenney",
+  "titulo": "Casino Audio · chips-stack-2",
+  "id": "kenney-casino-audio",
+  "origen": "Kenney (CC0)",
+  "etiquetas": [
+   "fichas",
+   "casino",
+   "apostar"
+  ],
+  "juegos": [
+   "LA FORTUNA (premio)",
+   "SHATEKI (contador de corchos)",
+   "marcadores"
+  ]
+ },
+ "fichas-3": {
+  "archivo": "fichas-3.mp3",
+  "dur": 0.36,
+  "autor": "Kenney",
+  "titulo": "Casino Audio · chips-stack-3",
+  "id": "kenney-casino-audio",
+  "origen": "Kenney (CC0)",
+  "etiquetas": [
+   "fichas",
+   "casino",
+   "apostar"
+  ],
+  "juegos": [
+   "LA FORTUNA (premio)",
+   "SHATEKI (contador de corchos)",
+   "marcadores"
+  ]
+ },
+ "fichas-choque-1": {
+  "archivo": "fichas-choque-1.mp3",
+  "dur": 0.14,
+  "autor": "Kenney",
+  "titulo": "Casino Audio · chips-collide-1",
+  "id": "kenney-casino-audio",
+  "origen": "Kenney (CC0)",
+  "etiquetas": [
+   "fichas",
+   "casino",
+   "choque"
+  ],
+  "juegos": [
+   "LA FORTUNA",
+   "BOLERA (bolos chocando, suave)"
+  ]
+ },
+ "fichas-choque-2": {
+  "archivo": "fichas-choque-2.mp3",
+  "dur": 0.16,
+  "autor": "Kenney",
+  "titulo": "Casino Audio · chips-collide-2",
+  "id": "kenney-casino-audio",
+  "origen": "Kenney (CC0)",
+  "etiquetas": [
+   "fichas",
+   "casino",
+   "choque"
+  ],
+  "juegos": [
+   "LA FORTUNA",
+   "BOLERA (bolos chocando, suave)"
   ]
  },
  "laser": {
@@ -396,6 +719,58 @@
    "todos: sumar puntos",
    "PUNTERÍA y PALOTERAPIA (acierto)",
    "ENCESTA"
+  ]
+ },
+ "ruleta-clic": {
+  "archivo": "ruleta-clic.mp3",
+  "dur": 0.06,
+  "autor": "freesound_community",
+  "titulo": "wheel-spin-click-slow-down (un clic)",
+  "id": "101152",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "ruleta",
+   "clic",
+   "clavija"
+  ],
+  "juegos": [
+   "LA FORTUNA (un clic por clavija, sincronizado con el giro)",
+   "interfaz"
+  ]
+ },
+ "ruleta-frena": {
+  "archivo": "ruleta-frena.mp3",
+  "dur": 2.38,
+  "autor": "freesound_community",
+  "titulo": "wheel-spin-click-slow-down",
+  "id": "101152",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "ruleta",
+   "clics",
+   "frenada"
+  ],
+  "juegos": [
+   "LA FORTUNA (la ruleta se para)",
+   "KRAZYGOLF SIMULATOR (rueda de selección)"
+  ]
+ },
+ "ruleta-frena-corta": {
+  "archivo": "ruleta-frena-corta.mp3",
+  "dur": 1.09,
+  "autor": "freesound_community",
+  "titulo": "wheel-spin-click-slow-down-fast",
+  "id": "101154",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "ruleta",
+   "clics",
+   "frenada",
+   "corto"
+  ],
+  "juegos": [
+   "LA FORTUNA (giro corto)",
+   "menús de selección"
   ]
  },
  "sorpresa": {
