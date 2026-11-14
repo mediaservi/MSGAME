@@ -17,6 +17,7 @@
 <script>
 'use strict';
 const cv = document.getElementById('c'), x = cv.getContext('2d'); let W = 0, H = 0, K = 1, OX = 0, OY = 0;
+const TIT = new Image(); TIT.src = '../packs/krazygolf/titulo.webp?v=12.30';
 const FW = 1000, FH = 560, HR = 22, HP = 40, TAU = Math.PI * 2, rnd = (a, b) => a + Math.random() * (b - a), elige = a => a[Math.floor(Math.random() * a.length)], lim = (v, a, b) => Math.max(a, Math.min(b, v));
 function talla() { const d = Math.min(2, devicePixelRatio || 1); W = innerWidth; H = innerHeight; cv.width = W * d; cv.height = H * d; x.setTransform(d, 0, 0, d, 0, 0); const top = 96, bot = 100; K = Math.min((W - 16) / FW, (H - top - bot) / FH); OX = (W - FW * K) / 2; OY = top + (H - top - bot - FH * K) / 2; }
 addEventListener('resize', () => { talla(); if (typeof talla3d === 'function') talla3d(); }); talla();
@@ -291,7 +292,11 @@ function cursor() { if (!PH.on) return; const cx = PH.x * W, cy = PH.y * H, r = 
 let t0 = performance.now();
 function tick(now) { const dt = E.pausa ? 0 : Math.min(.033, (now - t0) / 1000); t0 = now; E.t += dt; E.fraseT -= dt; G3.dt = dt; const sim = E.modo === 'sim', menu = E.fase === 'titulo' || E.fase === 'tarjeta' || E.fase === 'simsel', en3d = G3.on && !menu; document.getElementById('g3').style.display = en3d ? 'block' : 'none'; if (en3d) x.clearRect(0, 0, W, H); else { x.fillStyle = '#0d0a1a'; x.fillRect(0, 0, W, H); } BOT.length = 0; if (sim) simRep();
   const port = W < 700 && H > W;
-  if (E.fase === 'titulo') { cabe('KRAZYGOLF', W / 2, H * (port ? .14 : .2), Math.min(84, W * .13), '#ffd23f', 900, W - 20); cabe('Tres maneras de jugar al golf sin salir del salón', W / 2, H * (port ? .23 : .32), 18, '#fff', 600, W - 24);
+  if (E.fase === 'titulo') {   /* v12.30 · el título elegido (C1: cielo y césped, letras hinchadas, la O es una pelota y la K lleva la banderita) */
+    const tw = Math.min(W * (port ? .94 : .8), (port ? H * .23 : H * .41) / .4333), th = tw * .4333, ty = H * .025;
+    if (TIT.complete && TIT.naturalWidth) { x.save(); x.shadowColor = 'rgba(0,0,0,.45)'; x.shadowBlur = 24; x.shadowOffsetY = 8; x.beginPath(); x.roundRect(W / 2 - tw / 2, ty, tw, th, Math.min(26, tw * .03)); x.fillStyle = '#4fc3ff'; x.fill(); x.shadowColor = 'transparent'; x.clip(); x.drawImage(TIT, W / 2 - tw / 2, ty, tw, th); x.restore(); }
+    else cabe('KRAZYGOLF', W / 2, H * (port ? .14 : .2), Math.min(84, W * .13), '#ffd23f', 900, W - 20);
+    cabe('Tres maneras de jugar al golf sin salir del salón', W / 2, ty + th + (port ? 22 : 24), port ? 15 : 17, '#fff', 600, W - 24);
     const MD = [['MODO KRAZY', '#e100ff', 'krazy', 'En casa, con una pelota absurda en cada hoyo. El narrador opina.'], ['MODO CLÁSICO', '#2f8fd8', 'clasico', 'Minigolf de jardín en 3D, con pelota normal.'], ['SIMULATOR', '#1f9d55', 'sim', 'Simulador de golf en 3D: campo completo, palos, viento y swing.']];
     if (port) { const bw = Math.min(330, W * .84); MD.forEach((m, i) => { boton(m[0], W / 2, H * (.34 + i * .155), bw, m[1], m[2]); cabe(m[3], W / 2, H * (.34 + i * .155) + Math.min(56, H * .09) * .5 + 15, 12.5, '#cfc6e6', 500, W - 20); }); }
     else { const bw = Math.min(290, W * .29); MD.forEach((m, i) => { const X = W / 2 + (i - 1) * bw * 1.08; boton(m[0], X, H * .52, bw, m[1], m[2]); const pal = m[3].split(' '), lin = ['']; x.font = '500 13px system-ui'; pal.forEach(p => { if (x.measureText(lin[lin.length - 1] + ' ' + p).width > bw - 10) lin.push(p); else lin[lin.length - 1] += (lin[lin.length - 1] ? ' ' : '') + p; }); lin.forEach((l, k) => texto(l, X, H * .52 + Math.min(56, H * .09) * .5 + 20 + k * 17, 13, '#cfc6e6', 500)); }); }

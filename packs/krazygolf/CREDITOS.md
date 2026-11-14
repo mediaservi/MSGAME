@@ -25,3 +25,5 @@ Convertidos con el conversor propio de MSGAME (`modelos.json` + `modelos.bin`, t
 | `palo` | Palo de golf que se ve apuntar y golpear | Kenney · Minigolf Kit · `club-red` |
 | `castillo`, `puerta` | Decorado del jardín del modo CLÁSICO | Kenney · Minigolf Kit · `castle`, `structure-gate` |
 | `sillon`, `cactus`, `cactus2`, `libros`, `marco`, `marco2`, `lampara`, `estante`, `taburete` | Muebles y objetos de casa del modo KRAZY | Kay Lousberg · KayKit Furniture Bits 1.0 |
+
+`titulo.webp`: título del juego diseñado para MSGAME (estilo inflable C1, elegido el 14-11-2026), dibujado con las fuentes **Lilita One** (Juan Montoreano) y **Fredericka the Great** (Tart Workshop), las dos con licencia SIL Open Font License 1.1.
