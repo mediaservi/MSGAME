@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.31**
+**Versión actual: v12.32**
 
 ## Cómo se juega
 
@@ -34,7 +34,12 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.31)
+## Cambios de la versión actual (v12.32)
+
+- **Mevi recomienda con magia:** cuando Mevi te sugiere un juego, su carátula desprende un aura morada en degradado (rosa, morado y violeta), con destellos de cuatro puntas que la rodean y un sonido de campanillas. Así sabes de qué juego habla. Si recomienda ENCESTA, brillan BALLHOP y BASKET.
+- **Avance en la tele:** a la vez, la tele pasa por un fundido de ruido estático (con su chisporroteo) y enseña el avance de ese juego, con el cartel de «ELIGE UN JUEGO» arriba. Al acabar, ruido otra vez y vuelve el menú. De momento el avance es la carátula del juego en movimiento; los vídeos de partida se añadirán juego a juego.
+
+### v12.31
 
 - **Usa tu móvil como mando:** si no hay ningún móvil enlazado, en el menú del cartucho aparece junto a JUGAR la tecla «Usa tu móvil como mando». Abre una pantalla con un código QR por cada jugador activo, con su color y su nombre: cada móvil que lo escanea entra en ese puesto y conserva su color. Al enlazarse, su código cambia por un móvil verde y «Conectado», y cuando están todos la tele vuelve sola al cartucho. Los códigos se ajustan para que quepa todo sin desplazar en cualquier pantalla.
 - **Móvil verde en el menú:** el jugador que ya tiene el móvil enlazado lleva un icono de móvil verde junto a su puesto. Al pulsar JUGAR se juega con el móvil.
@@ -514,7 +519,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.31 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.32 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
