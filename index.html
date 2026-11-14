@@ -3607,7 +3607,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '12.19';
+    const APP_VERSION = '12.20';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -8592,7 +8592,22 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
           else { for (let a = 0; a < 3; a++) for (let b = 0; b < 3; b++) { x.beginPath(); x.arc(-s * .6 + a * s * .6, -s * .6 + b * s * .6, 3.5, 0, 6.283); x.fill(); } }
           x.restore(); }
         x.strokeStyle = '#ffd23f'; x.lineWidth = 12; x.strokeRect(26, 26, W - 52, H - 52); x.strokeStyle = '#120a1c'; x.lineWidth = 6; x.strokeRect(18, 18, W - 36, H - 36); return c; }
-      function shelfTag(c, cw) { return decal((x, w, h) => { const col = COL[c.g], g = x.createLinearGradient(0, 0, w, 0); g.addColorStop(0, col.c1); g.addColorStop(1, col.c2); x.fillStyle = '#120a1c'; x.fillRect(0, 0, w, h); x.fillStyle = g; x.fillRect(5, 6, 16, h - 12); x.fillRect(w - 21, 6, 16, h - 12); title(x, GN[c.g], w / 2, h * .8, 46, w - 70); }, cw || 512, 64); }
+      /* v12.20 · el nombre del juego en la balda, como una cinta DYMO: plástico de color con las letras en relieve blancas, un poco torcidas cada una */
+      function shelfTag(c, cw) { const W = Math.max(256, Math.round(cw * 2)), H = 82; return decal((x, w, h) => { const col = COL[c.g], mix = (hx, k) => { const n = parseInt(String(hx).slice(1), 16) || 0, f = v => Math.round(v * k); return `rgb(${f(n >> 16)},${f((n >> 8) & 255)},${f(n & 255)})`; };
+          x.fillStyle = '#2a1a10'; x.fillRect(0, 0, w, h);   // la madera asoma por los bordes
+          const tx = 5, ty = 4, tw = w - 10, th = h - 8, tg = x.createLinearGradient(0, ty, 0, ty + th); tg.addColorStop(0, mix(col.c1, .62)); tg.addColorStop(.18, mix(col.c1, .78)); tg.addColorStop(.55, mix(col.c1, .55)); tg.addColorStop(1, mix(col.c1, .38));
+          x.fillStyle = tg; x.beginPath(); x.moveTo(tx + 6, ty); x.lineTo(tx + tw - 6, ty); x.lineTo(tx + tw, ty + th / 2); x.lineTo(tx + tw - 6, ty + th); x.lineTo(tx + 6, ty + th); x.lineTo(tx, ty + th / 2); x.closePath(); x.fill();   // puntas cortadas en pico, como la cinta
+          x.save(); x.clip(); x.globalAlpha = .07; x.fillStyle = '#fff'; for (let i = tx; i < tx + tw; i += 3) x.fillRect(i, ty, 1, th); x.globalAlpha = 1;   // estrías del plástico
+          const gl = x.createLinearGradient(0, ty, 0, ty + th * .45); gl.addColorStop(0, 'rgba(255,255,255,.28)'); gl.addColorStop(1, 'rgba(255,255,255,0)'); x.fillStyle = gl; x.fillRect(tx, ty, tw, th * .45); x.restore();
+          const txt = String(GN[c.g] || '').toUpperCase(); let z = th * .8; const f = () => { x.font = `800 ${z}px "Barlow Semi Condensed","Arial Narrow",Arial,sans-serif`; }; f();
+          const esp = () => z * .16, ancho = () => [...txt].reduce((a, ch) => a + x.measureText(ch).width + esp(), -esp()); while (ancho() > tw - 34 && z > 10) { z -= .5; f(); }
+          let X = w / 2 - ancho() / 2; const base = ty + th / 2 + z * .36; x.textBaseline = 'alphabetic'; x.textAlign = 'left';
+          [...txt].forEach((ch, i) => { const cwid = x.measureText(ch).width, r = Math.sin(i * 12.9898 + txt.length * 78.233) * 43758.5453, j = r - Math.floor(r), j2 = (Math.sin(i * 4.1 + 1.7) + 1) / 2;
+            x.save(); x.translate(X + cwid / 2, base + (j - .5) * z * .07); x.rotate((j2 - .5) * .07);
+            x.fillStyle = 'rgba(0,0,0,.45)'; x.fillText(ch, -cwid / 2 + 1.4, 2);   // sombra del relieve
+            x.fillStyle = '#f5f4ee'; x.fillText(ch, -cwid / 2, 0);                  // la letra levantada, blanca
+            x.globalAlpha = .55; x.fillStyle = '#ffffff'; x.fillText(ch, -cwid / 2 - .6, -.8); x.globalAlpha = 1; x.restore(); X += cwid + esp(); });
+        }, W, H); }
       function manualCanvas(c) { return decal((x, w, h) => { const col = COL[c.g], g = x.createLinearGradient(0, 0, w, 0); g.addColorStop(0, col.c1); g.addColorStop(1, col.c2); x.fillStyle = '#f4efe2'; x.fillRect(0, 0, w, h); x.fillStyle = g; x.fillRect(0, 0, w, 74); title(x, GN[c.g], w / 2, 58, 40, w - 30);
           x.fillStyle = '#2a2236'; x.textAlign = 'center'; x.font = '700 17px "Barlow Semi Condensed",Arial,sans-serif'; x.fillText(TT('Manual de instrucciones').toUpperCase(), w / 2, 102); x.fillStyle = 'rgba(42,34,54,.32)'; for (let i = 0; i < 12; i++) x.fillRect(28, 128 + i * 18, (w - 56) * (.5 + rnd() * .5), 6);
           x.strokeStyle = '#120a1c'; x.lineWidth = 6; x.strokeRect(3, 3, w - 6, h - 6); }, 256, 372); }
@@ -8652,7 +8667,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
         rows.forEach((cells, r) => { const y = .06 + (rows.length - 1 - r) * .31; inkm(new T.BoxGeometry(IW, .016, .1), M.wood, 0, y, D - .06, g); inkm(new T.BoxGeometry(IW, .03, .014), M.wood, 0, y + .011, D - .006, g);
           const n = cells.length, gap = (IW - n * BOX.w) / (n + 1), X = k => -IW / 2 + gap + BOX.w / 2 + k * (BOX.w + gap);
           for (let a = 0; a < n;) { let b = a; while (b + 1 < n && cells[b + 1][0] === cells[a][0]) b++; const tw = Math.min(.3, (b - a + 1) * (BOX.w + gap) - gap - .012);   // v8.5 · una etiqueta por juego dentro de la balda
-            plane(tw, .0375 * .64, toon({ map: ctex(shelfTag(CV.find(c2 => c2.g === cells[a][0]), Math.round(512 * tw / .3))), ht: .3, spec: .3 }), (X(a) + X(b)) / 2, y + .011, D + .0015, g); a = b + 1; }
+            plane(tw, .028, toon({ map: ctex(shelfTag(CV.find(c2 => c2.g === cells[a][0]), Math.round(512 * tw / .3))), ht: .3, spec: .3 }), (X(a) + X(b)) / 2, y + .011, D + .0015, g); a = b + 1; }
           cells.forEach(([gm, v], k) => { const c = CV.find(c2 => c2.g === gm && (!v || c2.val === v)); slots.push({ g, row: r, side, c: c.i, x: X(k), y: y + .01 + BOX.h / 2 * Math.cos(.16), z: D - .07, rx: -.16 }); }); });
         return g; }
 
@@ -8929,7 +8944,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
         cadera: { r: [.67, 0, -.75, 0, .7, .7, .7, .5, .4], l: LMANO, hy: .1, hz: -.05 },
         mira: { r: [.35, -1.25, .4, -1.7, .1, .1, .1, .2, .5], l: [-.28, 0, .1, 0, .4, .4, .4, .3, .5], hy: .5, hz: .04, mira: 1 },
         balanceo: { r: [.26, 0, -.08, 0, .45, .45, .45, .3, .5], l: [-.26, 0, .08, 0, .45, .45, .45, .3, .5], hy: -.15, hz: 0, swing: 1 },
-        senala: { r: [2.05, -.35, .08, 0, 0, 1.1, 1.1, .9, .2], l: LMANO, hy: .55, hz: .08 },
+        senala: { r: [2.05, -.35, .08, 0, 1.1, 0, 0, 1, .1],   /* v12.20 · señala con dos dedos juntos (índice y corazón), como en los dibujos animados */ l: LMANO, hy: .55, hz: .08 },
         camina: { r: [.33, 0, -.2, 0, .5, .5, .5, .3, .5], l: [-.33, 0, .2, 0, .5, .5, .5, .3, .5], hy: 0, hz: 0, anda: 1 } };
       const MCICLO = ['pulgar', 'mira', 'cadera', 'balanceo'];
       function mPose(nom, t, dt) { const P = MPOSE[nom], k = Math.min(1, dt * 7), cur = MEVI.cur || (MEVI.cur = {}), mv = (key, v) => { const c = cur[key] === undefined ? v : cur[key]; return (cur[key] = c + (v - c) * k); };

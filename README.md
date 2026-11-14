@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.19**
+**Versión actual: v12.20**
 
 ## Cómo se juega
 
@@ -34,7 +34,13 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.19)
+## Cambios de la versión actual (v12.20)
+
+- **Mevi señala con dos dedos**, como en los dibujos animados: índice y corazón juntos y extendidos, el meñique recogido y el pulgar doblado sobre la palma. Comprobado con la prueba de choques: ningún dedo se mete en el cuerpo.
+- **Rótulos de las estanterías en cinta DYMO:** cada juego lleva su nombre en una cinta de plástico de su color, con las puntas cortadas en pico y letras blancas en relieve, grandes y fáciles de leer.
+- **WONDERWALK (en desarrollo):** los ladrones son personajes 3D animados de KayKit que se acercan a escondidas, golpean o roban un objeto y salen corriendo.
+
+### v12.19
 
 - **Mevi sin dedos dentro del cuerpo:** el pulgar va hacia fuera y se han recolocado los brazos de todas las posturas (saludo, pulgar arriba, visera, manos en la cintura, balanceo, señalar y andar) comprobándolas con una prueba de choques; ningún dedo, pulgar ni palma se mete en el cuerpo, la cabeza o las piernas.
 - **Teclas de la consola con iconos dibujados, grandes y claros:** JUGAR es la tecla más grande (triángulo y rótulo), EXPULSAR es cuadrada (su símbolo de expulsar), y JUGADORES y RÉCORDS llevan dos siluetas y un trofeo dorado en vez de emojis.
@@ -449,7 +455,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.19 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.20 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
