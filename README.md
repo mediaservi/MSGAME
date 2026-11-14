@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.39**
+**Versión actual: v12.40**
 
 ## Cómo se juega
 
@@ -35,7 +35,17 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.39)
+## Cambios de la versión actual (v12.40)
+
+- **Guía de mandos antes de cada partida**, como la tarjeta de seguridad de un avión: tarjetas con dibujos que se mueven explican cómo se juega **con el móvil**, **con la mano** o **con el cuerpo**, según los mandos que haya en la partida:
+  - con el móvil: apuntar, pulsar el botón del juego (DISPARAR, SALTAR, PESCAR, LANZAR o GOLPEAR), agitar para recargar en PUNTERÍA, el golpe rápido en PALOTERAPIA y el balanceo de la BOLERA;
+  - con la mano: enseñar la palma a la cámara, moverla y juntar pulgar e índice; en «Lo más cercano», empujar hacia la pantalla;
+  - sale la primera vez que un grupo de mandos juega a cada juego (y otra vez si entra alguien nuevo), dura 11 segundos y se salta disparando, tocando la pantalla o con OK.
+- **Jugar con el cuerpo entero (BEAT RACER).** Tercer modo en AJUSTES › Cámara: con MediaPipe Pose, en el propio equipo, un paso al lado mueve el coche o el corredor por la pista y un salto de verdad salta los muros. Mueve al jugador que tiene el turno, como el ratón. Funciona con la imagen de color, también en el Mac.
+- **AJUSTES dentro del menú del cartucho**, para cambiarlos sin sacar el cartucho. Al cerrarlos se vuelve al mismo menú. JUGAR pasa a ocupar las dos filas.
+- En la lista de jugadores, quien juega con la mano lleva el icono de una mano, no el de un móvil.
+
+### v12.39
 
 - **AJUSTES se cierra a la vista.** Un botón **CERRAR** a la derecha de las pestañas de AJUSTES vuelve a los juegos; en el móvil se queda en la ✕. Escape, o el botón «atrás» del mando de la tele, también los cierra, aunque la sala esté detrás.
 - **RealSense en un Mac.** macOS no le pasa al navegador la profundidad de la RealSense, porque no maneja su formato de 16 bits; solo llega la imagen de color. En un Mac, la vista de profundidad de la pestaña Cámara ya no se queda vacía: dice «En Mac no hay profundidad» y propone jugar con «La mano» o conectar la cámara a un PC con Windows o Linux. Lo mismo sale en la línea de información si se elige la profundidad o el modo «Lo más cercano».
@@ -565,7 +575,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.39 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.40 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
