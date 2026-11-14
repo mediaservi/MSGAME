@@ -1,0 +1,20 @@
+{
+ "bpm": 126,
+ "tiempo": 0.47619,
+ "fase": 0.0315,
+ "entrada": [
+  0,
+  7.6505
+ ],
+ "juego": [
+  22.8886,
+  53.3648
+ ],
+ "final": [
+  72.4125,
+  78.13
+ ],
+ "fundido": 0.25,
+ "nota": "Música de la secuencia del cartucho: suena desde que Mevi coge el cartucho hasta que empieza el juego. Entrada = intro y los dos primeros compases del tema (cubre la animación de 6,9 s); juego = bucle de 16 compases para el menú del juego (enlaza como los compases 11→12 del original); final = cierre. 126 bpm, cortes en el primer tiempo del compás.",
+ "fuente": "«Retro Arcade Game Music», mondamusic (Pixabay, n.º 512837)"
+}

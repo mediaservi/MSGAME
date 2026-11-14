@@ -1658,7 +1658,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
   </div>
 
   <script src="lib/ambiente.js?v=12.12"></script>
-  <script src="lib/msaudio.js?v=12.12"></script>
+  <script src="lib/msaudio.js?v=12.21"></script>
   <script>
     /* ---- v7.2 · Dos webs con el mismo motor: VJSHOW (visuales) y MSGAME (juegos), cada una en su dirección ---- */
     /* v12.0 · MSGAME es ya una app independiente, con su propio código fuente en este repositorio (antes se generaba a partir del de VJSHOW) */
@@ -3607,7 +3607,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '12.20';
+    const APP_VERSION = '12.21';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -7619,13 +7619,16 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       function menuParte() { try { const c = window.__CRT && window.__CRT.cur, gv = c && c.dataset ? c.dataset.gview : '';
           if (curStep === 1) return 'calma';   // AJUSTES
           if (window.CRT_ON && gv) return ['players', 'records', 'pad', 'help'].indexOf(gv) >= 0 ? 'calma' : 'menu';   // jugadores y récords · menú del juego
-          if (window.CLUB && CLUB.dbg && CLUB.dbg.st && CLUB.dbg.st.seq) return 'tension';   // Mevi mete el cartucho
+          if (window.CLUB && CLUB.dbg && CLUB.dbg.st && CLUB.dbg.st.seq && CLUB.dbg.st.seq.c) return 'tension';   // Mevi mete el cartucho
+          if (window.CLUB && CLUB.dbg && CLUB.dbg.st && CLUB.dbg.st.inserted) return 'menu';   // el cartucho está puesto: sigue su música hasta que sale el menú del juego
         } catch (e) {} return 'juego'; }   // la sala
       function menuSink() { const c = window.MSAudio && MSAudio.ctx; if (!c || !c.setSinkId) return; const k = window.UISND && UISND.route() === 'cue' ? UISND.id() || '' : ''; if (MM.sk === k) return; MM.sk = k; c.setSinkId(k).catch(() => {}); }
-      function menuPlay() { if (PADMODE || !window.MSAudio) return; MSAudio.mudo = () => !!window.APP_MUTED; if (!MM.m) { MSAudio.nivel.musica = .3; MM.m = MSAudio.musica('packs/menu/'); }
-        if (MSAudio.bm) MSAudio.bm.gain.value = .3 * +((($g('gmSfxVol') || {}).value) || .7); menuSink(); const pt = menuParte(); if (MM.m.suena()) MM.m.cambia(pt, { ya: true }); else MM.m.empieza(pt); }
-      window.__menuMus = () => MM.m ? { parte: MM.m.parte, vivo: MM.m.suena(), quiere: menuParte() } : null;
-      function menuStop(now) { if (MM.m && MM.m.suena()) MM.m.para(now ? .15 : 1.2); }
+      function menuPlay() { if (PADMODE || !window.MSAudio) return; MSAudio.mudo = () => !!window.APP_MUTED; if (!MM.m) { MSAudio.nivel.musica = .3; MM.m = MSAudio.musica('packs/menu/'); MM.c = MSAudio.musica('packs/cartucho/'); }
+        if (MSAudio.bm) MSAudio.bm.gain.value = .3 * +((($g('gmSfxVol') || {}).value) || .7); menuSink(); const pt = menuParte();
+        if (pt === 'tension' || pt === 'menu') { if (MM.m.suena()) MM.m.para(.8); if (!MM.c.suena()) MM.c.empieza('juego', { ya: pt === 'menu' }); return; }   // v12.21 · el cartucho tiene su música: desde que Mevi lo coge hasta que empieza el juego
+        if (MM.c.suena()) MM.c.para(.8); if (MM.m.suena()) MM.m.cambia(pt, { ya: true }); else { MM.m.empieza(pt, { ya: !!MM.ya }); MM.ya = 1; } }   // al volver a la sala, sin repetir la entrada
+      window.__menuMus = () => MM.m ? { parte: MM.m.parte, vivo: MM.m.suena(), cart: MM.c.suena() ? MM.c.parte : '', quiere: menuParte() } : null;
+      function menuStop(now) { [MM.m, MM.c].forEach(m => { if (m && m.suena()) m.para(now ? .15 : 1.2); }); }
       window.__menuOff = () => { menuStop(true); MUS.stop(true); };
       const musTick = () => {   // música: la del juego mientras se juega; la de los menús (dinámica) en la sala, el menú del juego y AJUSTES; nada si el equipo ya suena otro audio
         const ok = MUS.on() && !MUS.busy(), playing = G.cur && G.phase !== 'idle', inMenu = !playing && typeof isHUDVisible !== 'undefined' && isHUDVisible && (window.CRT_ON || ($g('tabContent14') && !$g('tabContent14').classList.contains('hidden')) || (ES_MSG && curStep === 1));
@@ -7915,7 +7918,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
           MKT.share({ kind: 'score', g: k, s: r.s, n: r.n, v: TT('Récord de la fiesta'), art: CARTART.art(k === 'ballhop' || k === 'basket' ? 'hoop' : k), medium: 'records' }); }); $g('grSnap').addEventListener('click', () => { if (G.paint) G.paint.snap(); else showToast(TT('Pinta algo primero')); });
       }
       try { initTab(); } catch (e) { console.warn(e); }
-      const SNDS = [...Object.values(SFX.files).flat(), ...SFX.fx(), ...['halloween', 'zombies', 'aliens', 'sports', 'disco', 'western', 'galaxy', 'haunted', 'alpine', 'warfront', 'racer_runner', 'racer_dirty', 'graffiti', 'fortuna', 'bolera', 'patopesca', 'encesta_ballhop', 'encesta_basket'].map(n => 'ingame_' + n)].map(n => 'sonidos/' + n + '.mp3').concat(['packs/menu/musica.mp3', 'packs/menu/musica.json']);
+      const SNDS = [...Object.values(SFX.files).flat(), ...SFX.fx(), ...['halloween', 'zombies', 'aliens', 'sports', 'disco', 'western', 'galaxy', 'haunted', 'alpine', 'warfront', 'racer_runner', 'racer_dirty', 'graffiti', 'fortuna', 'bolera', 'patopesca', 'encesta_ballhop', 'encesta_basket'].map(n => 'ingame_' + n)].map(n => 'sonidos/' + n + '.mp3').concat(['packs/menu/musica.mp3', 'packs/cartucho/musica.mp3', 'packs/cartucho/musica.json', 'packs/menu/musica.json']);
       return { three: () => loadThree(), art: k => CARTART.art(k), figura, pushState: () => stateToPad(), shareScore, padURL: () => padURL(), room: () => { const M = G.match, cur = G.cur; return { g: cur ? cur.id : null, ph: G.phase, sc: cur ? cur.score || 0 : 0, pn: (PLS[act] || {}).n, scores: SC(), match: M && !M.sim ? { now: PLS[M.ids[M.k]], next: M.ids[M.k + 1] !== undefined ? PLS[M.ids[M.k + 1]] : null } : M ? { now: { n: M.ids.map(i => PLS[i].n).join(' · '), c: '#ffd23f' }, next: null } : null }; }, MUS, SNDS, LIBS: [PEER_JS, QR_JS, T3URL[0]], _plate: () => plateCanvas(), _bib: () => bibCanvas(), SFX, FT, PLS, _join: (c, m) => joinSlot(c, m), use, start, stop, link, calStart, pad, get state() { return G; }, _cal: () => cal, _raw: raw, onPad };
     })();
 
@@ -8676,13 +8679,11 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       function lcdDraw(a, b) { const c = CON.lcdC, x = c.getContext('2d'), W = c.width, H = c.height; x.fillStyle = '#140802'; x.fillRect(0, 0, W, H); x.fillStyle = 'rgba(255,140,40,.08)'; for (let i = 0; i < W; i += 4) x.fillRect(i, 0, 1, H);
         x.font = '400 30px "Audiowide","Russo One",sans-serif'; x.textBaseline = 'middle'; x.fillStyle = '#ff9a2e'; x.shadowColor = '#ff7a1a'; x.shadowBlur = 10; x.fillText(a, 14, H * .38); x.font = '600 20px "Barlow Semi Condensed",sans-serif'; x.fillStyle = '#7ddc4a'; x.shadowColor = '#5fc236'; x.fillText(b || '', 14, H * .76); x.shadowBlur = 0; CON.lcdA = a; CON.lcd.needsUpdate = true; }
       /* v12.19 · teclas con iconos dibujados (no emojis): grandes, claros y con su forma de siempre */
+      const ICO = { players: new Path2D('M20.5,16.5q-0.63,0-1.06-0.44T19,15V12.5q0-0.63 0.44-1.06T20.5,11t1.06,0.44T22,12.5V15q0,0.63-0.44,1.06T20.5,16.5ZM20,20V18.45q-1.27-0.2-2.14-1.16T17,15h1q0,1.05 0.73,1.77T20.5,17.5t1.78-0.73T23,15h1q0,1.32-0.86,2.29T21,18.45V20H20ZM9,12q-1.65,0-2.82-1.18T5,8T6.18,5.18T9,4Q9.35,4 9.69,4.05t0.66,0.18Q9.7,5 9.35,5.96Q9,6.93 9,8t0.35,2.04t1,1.74q-0.33,0.13-0.66,0.18T9,12ZM1,20V17.23q0-0.85 0.43-1.58t1.18-1.1q0.95-0.5 2.06-0.86T7.1,13.13q-1,0.7-1.55,1.78T5,17.23V20H1Zm11.18-9.18Q11,9.65 11,8t1.18-2.82T15,4t2.82,1.18T19,8t-1.18,2.82T15,12t-2.82-1.18ZM15,10q0.83,0 1.41-0.59T17,8T16.41,6.59T15,6T13.59,6.59Q13,7.18 13,8t0.59,1.41T15,10ZM7,20V17.23q0-0.85 0.43-1.58t1.17-1.1q1.28-0.65 2.89-1.1T15,13q0.3,0 0.59,0.01t0.56,0.04q-0.25,0.45-0.41,0.94Q15.58,14.48 15.53,15q-0.13,0-0.26,0T15,15q-1.8,0-3.19,0.45t-2.29,0.9q-0.25,0.13-0.39,0.36T9,17.23V18h7.18q0.38,0.65 0.93,1.15T18.33,20H7ZM15,8Zm0,10Z'), records: new Path2D('M7,21V19h4V15.9q-1.22-0.28-2.19-1.04T7.4,12.95q-1.88-0.22-3.14-1.64T3,8V7Q3,6.18 3.59,5.59T5,5H7V3H17V5h2q0.83,0 1.41,0.59Q21,6.18 21,7V8q0,1.9-1.26,3.31T16.6,12.95q-0.45,1.15-1.41,1.91Q14.23,15.63 13,15.9V19h4v2H7ZM7,10.8V7H5V8Q5,8.95 5.55,9.71Q6.1,10.48 7,10.8Zm7.13,2.33Q15,12.25 15,11V5H9v6q0,1.25 0.88,2.13T12,14t2.13-0.88ZM17,10.8q0.9-0.32 1.45-1.09T19,8V7H17v3.8ZM12,9.5Z') };
       function icono(x, id, cx, cy, s, fg) { x.save(); x.translate(cx, cy); x.fillStyle = fg; x.strokeStyle = fg; x.lineJoin = 'round'; x.lineCap = 'round'; x.beginPath();
         if (id === 'play') { x.lineWidth = s * .12; x.moveTo(-s * .36, -s * .46); x.lineTo(s * .5, 0); x.lineTo(-s * .36, s * .46); x.closePath(); x.fill(); x.stroke(); }
         else if (id === 'eject') { x.lineWidth = s * .1; x.moveTo(0, -s * .46); x.lineTo(s * .46, s * .08); x.lineTo(-s * .46, s * .08); x.closePath(); x.fill(); x.stroke(); x.beginPath(); x.roundRect ? x.roundRect(-s * .46, s * .24, s * .92, s * .2, s * .05) : x.rect(-s * .46, s * .24, s * .92, s * .2); x.fill(); }
-        else if (id === 'players') { [[-.2, .82], [.2, 1]].forEach(([dx, k]) => { const X = dx * s, r = s * .17 * k; x.globalAlpha = k < 1 ? .72 : 1; x.beginPath(); x.arc(X, -s * .2, r, 0, 6.283); x.fill(); x.beginPath(); x.moveTo(X - s * .34 * k, s * .46); x.quadraticCurveTo(X - s * .34 * k, s * .02, X, s * .02); x.quadraticCurveTo(X + s * .34 * k, s * .02, X + s * .34 * k, s * .46); x.closePath(); x.fill(); }); }
-        else if (id === 'records') { x.moveTo(-s * .3, -s * .44); x.lineTo(s * .3, -s * .44); x.lineTo(s * .27, -s * .08); x.quadraticCurveTo(s * .2, s * .14, 0, s * .16); x.quadraticCurveTo(-s * .2, s * .14, -s * .27, -s * .08); x.closePath(); x.fill();
-          x.lineWidth = s * .075; x.beginPath(); x.arc(-s * .3, -s * .24, s * .13, Math.PI * .45, Math.PI * 1.5); x.stroke(); x.beginPath(); x.arc(s * .3, -s * .24, s * .13, -Math.PI * .5, Math.PI * .55); x.stroke();
-          x.fillRect(-s * .06, s * .14, s * .12, s * .16); x.beginPath(); x.roundRect ? x.roundRect(-s * .24, s * .3, s * .48, s * .14, s * .03) : x.rect(-s * .24, s * .3, s * .48, s * .14); x.fill(); }
+        else if (ICO[id]) { const k = s / 20; x.scale(k, k); x.translate(-12, -12); x.fill(ICO[id]); }   // v12.21 · los iconos que eligió Josep (Material Symbols: trofeo y dos personas con micro)
         x.restore(); }
       function keyCanvas(id, txt, c1, c2, fg, cv) { const ancha = id === 'play', W = ancha ? 240 : 120, H = 112, [c, x] = cv ? [cv, cv.getContext('2d')] : canvas(W, H), g = x.createLinearGradient(0, 0, 0, H); g.addColorStop(0, c1); g.addColorStop(1, c2); x.fillStyle = g; x.fillRect(0, 0, W, H);
         x.shadowColor = 'rgba(0,0,0,.35)'; x.shadowOffsetY = 2; x.shadowBlur = 3;
