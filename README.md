@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.40**
+**Versión actual: v12.41**
 
 ## Cómo se juega
 
@@ -13,7 +13,8 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **Tu móvil es el mando:**
   - pulsa MANDO en la consola y escanea el código con el móvil, sin instalar nada;
   - juegan hasta 4 personas, cada una con su nombre y su color;
-  - sin móvil se juega con el ratón, el teclado, la pantalla táctil o el mando de la tele.
+  - sin móvil se juega con el ratón, el teclado, la pantalla táctil o el mando de la tele;
+  - antes de cada partida, cada jugador elige cómo juega: ratón (o dedo), móvil, mano o cuerpo (estos dos con la cámara).
 - **AJUSTES:**
   - formato de salida y cada pantalla en su monitor;
   - sala de juegos: el juego en la frontal, récords y turnos con QR y publicidad en las laterales, tele retro en la trasera;
@@ -35,7 +36,25 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.40)
+## Cambios de la versión actual (v12.41)
+
+- **«¿Cómo jugáis?» antes de cada partida.** Cada jugador elige su mando:
+  - 🖱 ratón (el dedo, en una pantalla táctil), 📱 móvil, ✋ mano o 🧍 cuerpo (solo en BEAT RACER); se pueden mezclar, uno con cada cosa;
+  - al lado de cada uno se ve al momento si su mando está listo: el móvil enlazado (o su código QR para enlazarlo ahí mismo), la cámara abriéndose, la mano o el cuerpo a la vista;
+  - se maneja con el ratón, el dedo o las flechas y OK del mando de la tele; se empieza con JUGAR, con el botón del móvil o juntando los dedos; con un solo jugador, volver a pulsar lo elegido también empieza;
+  - después sale la carta de cómo se juega con esos mandos, se calibran solo los móviles que lo necesitan y empieza la cuenta atrás;
+  - con «Otra vez» y en el turno siguiente no se vuelve a preguntar.
+- **La mano es el mando de un jugador**, con su nombre y su color, en vez de entrar como un jugador nuevo («Mano 1»). Los puestos que ocupaban las manos vuelven a ser jugadores normales.
+- **La mano en PALOTERAPIA, mucho más fiable:**
+  - en un golpe rápido la cámara pierde la mano un instante; antes, al volver a verla lejos, el juego creía que era otra mano y el golpe no contaba; ahora sigue siendo la misma;
+  - el sable, la espada o el bate siguen la inclinación de la mano, y en un golpe rápido se ponen de través para cortar todo lo que barren;
+  - detector de manos más fino (modelo completo; si el equipo no llega a tiempo, pasa solo al ligero), cámara a 60 imágenes por segundo para que la mano salga menos movida y, si el detector se queda colgado, se le vuelve a pedir;
+  - solo se siguen tantas manos como jugadores juegan con la mano.
+- **La carta de cómo se juega, también con el ratón, el dedo y el teclado:** apuntar, hacer clic, el golpe rápido, el clic derecho o la R para recargar, las flechas y el espacio de la BOLERA, y en pantallas táctiles arrastrar, tocar y los botones ◀ ▶ ● ⟳.
+- En los jugadores del cartucho, cada uno lleva el icono de su mando (el móvil, apagado si aún no está enlazado).
+- AJUSTES › Cámara: «Usar la cámara para jugar» abre la cámara sola al arrancar; la información dice qué modelo usa el detector y cuánto tarda.
+
+### v12.40
 
 - **Guía de mandos antes de cada partida**, como la tarjeta de seguridad de un avión: tarjetas con dibujos que se mueven explican cómo se juega **con el móvil**, **con la mano** o **con el cuerpo**, según los mandos que haya en la partida:
   - con el móvil: apuntar, pulsar el botón del juego (DISPARAR, SALTAR, PESCAR, LANZAR o GOLPEAR), agitar para recargar en PUNTERÍA, el golpe rápido en PALOTERAPIA y el balanceo de la BOLERA;
@@ -575,7 +594,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.40 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.41 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
