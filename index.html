@@ -3602,7 +3602,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '12.14';
+    const APP_VERSION = '12.15';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -7365,7 +7365,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
         function drawBall(b) { const [sx, sy, k] = P(b.x, b.z, 0), r = BR * k; x.save(); x.fillStyle = 'rgba(0,0,0,.45)'; x.beginPath(); x.ellipse(sx, sy, r * 1.1, r * .3, 0, 0, 6.283); x.fill();
           x.save(); x.beginPath(); x.arc(sx, sy - r, r, 0, 6.283); x.clip(); { const tx = BALLSKIN.tex(opt.ball || 'widow'), off = ((b.rot % 6.283) + 6.283) % 6.283 / 6.283 * r * 2; for (let k2 = 0; k2 < 2; k2++) x.drawImage(tx, sx - r, sy - r * 2 - off + k2 * r * 2, r * 2, r * 2); const sh = x.createRadialGradient(sx - r * .35, sy - r * 1.35, r * .1, sx, sy - r, r * 1.05); sh.addColorStop(0, 'rgba(255,255,255,.25)'); sh.addColorStop(.45, 'rgba(255,255,255,0)'); sh.addColorStop(1, 'rgba(0,0,0,.6)'); x.fillStyle = sh; x.fillRect(sx - r, sy - r * 2, r * 2, r * 2); }
           const hp = Math.cos(b.rot); if (hp > -.2) { x.fillStyle = 'rgba(0,0,0,.75)'; [[-.18, 0], [.18, 0], [0, .3]].forEach(([ox, oy]) => { x.beginPath(); x.ellipse(sx + ox * r, sy - r + (oy - .25 + (1 - hp) * .5) * r, r * .09, r * .09 * Math.max(.2, hp), 0, 0, 6.283); x.fill(); }); } x.restore();
-          x.fillStyle = 'rgba(255,255,255,.55)'; x.beginPath(); x.ellipse(sx - r * .35, sy - r * 1.45, r * .22, r * .12, -.5, 0, 6.283); x.fill(); if (PIDS.length > 1) { x.strokeStyle = PLS[PIDS[cp]].c; x.lineWidth = Math.max(1.5, r * .12); x.beginPath(); x.arc(sx, sy - r, r * .97, 0, 6.283); x.stroke(); } x.restore(); }
+          x.fillStyle = 'rgba(255,255,255,.55)'; x.beginPath(); x.ellipse(sx - r * .35, sy - r * 1.45, r * .22, r * .12, -.5, 0, 6.283); x.fill(); x.restore(); }   /* v12.15 · sin el aro de color del jugador alrededor de la bola: le quitaba realismo */
         function lane(off, hue, bass, mine) {
           const L0 = off - LW / 2, L1 = off + LW / 2, zEnd = LZ + .95;
           quad(P(L0 - GW, 0), P(L1 + GW, 0), P(L1 + GW, zEnd), P(L0 - GW, zEnd), '#1a1c22');
