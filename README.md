@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.50**
+**Versión actual: v12.51**
 
 ## Cómo se juega
 
@@ -36,7 +36,12 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.50)
+## Cambios de la versión actual (v12.51)
+
+- **BITCLAUD, junto a la carátula de Josep:** la cinta de Claude está ahora de pie al fondo de la mesa, justo debajo de la carátula de MEDIASERVI (autor y coautor juntos, como en la firma), y el cable de los auriculares del walkman ya no la cruza.
+- **Su funda, como la de los cartuchos:** la marca MSGAME arriba con la franja de color, el monitor sonriente grande con rayos de portada de juego y el título BITCLAUD con la letra y el relieve de los títulos de los juegos (sin el cielo de estrellas).
+
+### v12.50
 
 - **PUNTERÍA · WESTERN con personajes dibujados** (los que dibuja Josep, recortados del fondo verde, en `packs/western/`):
   - **Enemigos:** el bandido (asoma por puertas, ventanas y esquinas o cruza corriendo la calle), el pistolero de negro (dispara de rodillas) y Annie con su escopeta. Se preparan, apuntan y, si no les das a tiempo, disparan (se ve el fogonazo justo antes).
@@ -667,7 +672,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.50 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.51 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 

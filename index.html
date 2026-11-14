@@ -3662,7 +3662,7 @@ body.gm-modos #gmUI{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '12.50';
+    const APP_VERSION = '12.51';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -9578,7 +9578,7 @@ body.gm-modos #gmUI{display:none!important}
         // auriculares de diadema con almohadillas naranjas, apoyados al lado, y su cable
         const hp = new T.Group(); hp.position.set(.085, 0, .03); hp.rotation.y = -.7; g.add(hp); const band = inkm(new T.TorusGeometry(.05, .0028, 8, 30, Math.PI), sil, 0, .004, 0, hp); band.rotation.x = -Math.PI / 2;
         [-1, 1].forEach(sd => { const pad = inkm(new T.SphereGeometry(.019, 18, 12), toon({ color: 0xff8a1f, spec: .2 }), sd * .05, .012, .004, hp); pad.scale.set(.55, 1, 1); inkm(new T.CylinderGeometry(.012, .012, .006, 14), toon({ color: 0x1b1d24, spec: .6 }), sd * .058, .012, .004, hp).rotation.z = Math.PI / 2; });
-        const cab = new T.CatmullRomCurve3([new T.Vector3(.046, .016, -.1), new T.Vector3(.078, .02, -.07), new T.Vector3(.085, .004, -.01), new T.Vector3(.066, .003, .045), new T.Vector3(.05, .008, .045)]); mesh(new T.TubeGeometry(cab, 30, .0012, 5, false), toon({ color: 0x1b1d24, spec: .6 }), 0, 0, 0, g, false);
+        const cab = new T.CatmullRomCurve3([new T.Vector3(.046, .016, -.045), new T.Vector3(.074, .016, -.04), new T.Vector3(.085, .004, -.01), new T.Vector3(.066, .003, .045), new T.Vector3(.05, .008, .045)]); mesh(new T.TubeGeometry(cab, 30, .0012, 5, false), toon({ color: 0x1b1d24, spec: .6 }), 0, 0, 0, g, false);
         shadowsOn(g); }
       function buildCubo(p, ry) { const s = .1, COLS = ['#d4ff00', '#00b4ff', '#ffb000', '#00ff04', '#e100ff', '#9900ff'], IC = ['screens', 'systems', 'adposter', 'vjshow', 'msgame', null];   // cada pegatina, del color de una app y con su logo (la violeta, el «play» de AVHUB)
         const cara = idx => ctex(decal((x, w) => { x.fillStyle = '#0c0c10'; x.fillRect(0, 0, w, w); const c = w / 3, rr = (a, b, c2, d, r) => { x.beginPath(); x.roundRect ? x.roundRect(a, b, c2, d, r) : x.rect(a, b, c2, d); };
@@ -9770,25 +9770,20 @@ body.gm-modos #gmUI{display:none!important}
           '<rect x="22" y="26" width="52" height="44" rx="7" fill="#0f141c" stroke="#2a2433" stroke-width="2"/><rect x="22" y="26" width="52" height="44" rx="7" fill="none" stroke="#ff9a3c" stroke-opacity=".35" stroke-width="1.5"/>' +
           `<g fill="#ff9a3c">${chispa(36, 46, 7)}</g><g fill="#ff9a3c">${chispa(60, 46, 7)}</g><path d="M41 57q7 6 14 0" fill="none" stroke="#ff9a3c" stroke-width="2.6" stroke-linecap="round"/>` +
           '<g fill="#2a2433" opacity=".55"><rect x="22" y="75" width="20" height="2.5" rx="1"/><rect x="22" y="79.5" width="20" height="2.5" rx="1"/></g><circle cx="56" cy="78.5" r="2.6" fill="#ffa53c"/><circle cx="63" cy="78.5" r="2.6" fill="#ffa53c"/><circle cx="70" cy="78.5" r="2.6" fill="#ffa53c"/></svg>'; })();
-      async function bitclaudCover() { const W = 560, H = 352, [cv, x] = canvas(W, H);   /* v12.46 · la funda de una cinta de casete, apaisada: el monitor a la izquierda y el título a la derecha */
-        const g = x.createLinearGradient(0, 0, 0, H); g.addColorStop(0, '#1d0c3a'); g.addColorStop(.6, '#12072a'); g.addColorStop(1, '#06020e'); x.fillStyle = g; x.fillRect(0, 0, W, H);
-        /* rejilla de neón al fondo y la lluvia de ceros y unos (los «bits») */
-        const hz = H * .64; x.save(); x.strokeStyle = 'rgba(225,0,255,.5)'; x.lineWidth = 1.5; for (let i = 0; i < 8; i++) { const y = hz + Math.pow(i / 7, 1.8) * (H - hz); x.globalAlpha = .25 + i / 11; x.beginPath(); x.moveTo(0, y); x.lineTo(W, y); x.stroke(); }
-        for (let i = -10; i <= 10; i++) { x.globalAlpha = .45; x.beginPath(); x.moveTo(W / 2 + i * 16, hz); x.lineTo(W / 2 + i * 80, H); x.stroke(); } x.restore();
-        x.save(); x.font = '700 14px "Share Tech Mono",monospace'; x.textAlign = 'center'; let sd = 7; const rr = () => (sd = (sd * 16807) % 2147483647) / 2147483647;
-        for (let c = 0; c < 36; c++) { const cx = 8 + c * 15.5, n = 5 + Math.floor(rr() * 10), y0 = 20 + rr() * H * .45; for (let k = 0; k < n; k++) { const a = 1 - k / n; x.fillStyle = k ? `rgba(80,255,120,${.34 * a})` : 'rgba(220,255,225,.65)'; x.fillText(rr() < .5 ? '0' : '1', cx, y0 - k * 15); } } x.restore();
-        x.save(); x.globalCompositeOperation = 'lighter'; for (let i = 0; i < 30; i++) { const px = rr() * W, py = rr() * H, r = 1 + rr() * 2.2; x.fillStyle = `rgba(255,${120 + rr() * 80 | 0},255,${.35 + rr() * .5})`; x.beginPath(); x.arc(px, py, r, 0, 6.283); x.fill(); } x.restore();
-        /* el monitor con su aura */
-        const mx = W * .27, my = H * .53, ag = x.createRadialGradient(mx, my, 16, mx, my, 170); ag.addColorStop(0, 'rgba(255,154,60,.35)'); ag.addColorStop(.5, 'rgba(225,0,255,.16)'); ag.addColorStop(1, 'rgba(225,0,255,0)'); x.fillStyle = ag; x.fillRect(0, 0, W, H);
-        const im = await loadImg('data:image/svg+xml;charset=utf-8,' + encodeURIComponent(BITCLAUD_SVG)); if (im) { x.save(); x.shadowColor = 'rgba(0,0,0,.6)'; x.shadowBlur = 16; x.shadowOffsetY = 7; x.drawImage(im, mx - 128, my - 128, 256, 256); x.restore(); }
-        /* el título */
-        try { await document.fonts.load('400 70px Audiowide'); } catch (e) {} const tw = W * .46, tx = W * .735; let fs = 64; x.font = `400 ${fs}px Audiowide,"Russo One",sans-serif`; while (x.measureText('BITCLAUD').width > tw && fs > 24) { fs -= 2; x.font = `400 ${fs}px Audiowide,"Russo One",sans-serif`; }
-        const ty = H * .47; x.textAlign = 'center'; x.textBaseline = 'middle'; x.lineJoin = 'round'; x.lineWidth = fs * .2; x.strokeStyle = '#12091f'; x.strokeText('BITCLAUD', tx, ty);
-        const tg = x.createLinearGradient(0, ty - fs / 2, 0, ty + fs / 2); tg.addColorStop(0, '#ffe66b'); tg.addColorStop(.5, '#ff9a3c'); tg.addColorStop(1, '#e100ff'); x.save(); x.shadowColor = 'rgba(255,120,220,.8)'; x.shadowBlur = 14; x.fillStyle = tg; x.fillText('BITCLAUD', tx, ty); x.restore();
-        x.font = '700 14px "Share Tech Mono",monospace'; x.fillStyle = '#7fff9a'; x.fillText('01000010 01001001 01010100', tx, ty + fs * .78);
-        /* franjas de color arriba y abajo, como las fundas de las cintas, y la marca */
-        const sgr = x.createLinearGradient(0, 0, W, 0); sgr.addColorStop(0, '#ff9a3c'); sgr.addColorStop(1, '#e100ff'); x.fillStyle = sgr; x.fillRect(0, 0, W, 9); x.fillRect(0, H - 9, W, 9);
-        if (LG.msR) { const lh = 26; x.drawImage(LG.msR, W - 18 - lh * LG.msR.width / LG.msR.height, 20, lh * LG.msR.width / LG.msR.height, lh); }
+      async function bitclaudCover() { const W = 560, H = 352, [cv, x] = canvas(W, H), top = H * .14;   /* v12.51 · la funda como la de los cartuchos: la marca arriba, la franja de color, el monitor grande y el título con la letra de los juegos */
+        const g = x.createLinearGradient(0, top, 0, H); g.addColorStop(0, '#3a0d63'); g.addColorStop(.55, '#7a1a8c'); g.addColorStop(1, '#2a0838'); x.fillStyle = g; x.fillRect(0, 0, W, H);
+        const mx = W * .27, my = top + (H - top) * .52;
+        /* rayos de cómic desde el monitor y el suelo de rejilla, como una portada de juego */
+        x.save(); x.globalCompositeOperation = 'lighter'; for (let i = 0; i < 18; i++) { const a0 = i / 18 * 6.283, a1 = a0 + 6.283 / 36; x.fillStyle = i % 2 ? 'rgba(255,154,60,.10)' : 'rgba(225,0,255,.08)'; x.beginPath(); x.moveTo(mx, my); x.lineTo(mx + Math.cos(a0) * 900, my + Math.sin(a0) * 900); x.lineTo(mx + Math.cos(a1) * 900, my + Math.sin(a1) * 900); x.closePath(); x.fill(); } x.restore();
+        const hz = H * .72; x.save(); x.strokeStyle = 'rgba(255,90,220,.55)'; x.lineWidth = 2; for (let i = 0; i < 6; i++) { const y = hz + Math.pow(i / 5, 1.7) * (H - hz); x.globalAlpha = .3 + i / 9; x.beginPath(); x.moveTo(0, y); x.lineTo(W, y); x.stroke(); }
+        for (let i = -9; i <= 9; i++) { x.globalAlpha = .45; x.beginPath(); x.moveTo(W * .62 + i * 22, hz); x.lineTo(W * .62 + i * 95, H); x.stroke(); } x.restore();
+        const ag = x.createRadialGradient(mx, my, 20, mx, my, 190); ag.addColorStop(0, 'rgba(255,190,90,.55)'); ag.addColorStop(.45, 'rgba(255,90,200,.22)'); ag.addColorStop(1, 'rgba(225,0,255,0)'); x.fillStyle = ag; x.fillRect(0, 0, W, H);
+        const im = await loadImg('data:image/svg+xml;charset=utf-8,' + encodeURIComponent(BITCLAUD_SVG)); if (im) { const S = 262; x.save(); x.shadowColor = 'rgba(0,0,0,.65)'; x.shadowBlur = 18; x.shadowOffsetY = 8; x.drawImage(im, mx - S / 2, my - S / 2, S, S); x.restore(); }
+        /* el título, con la letra y el relieve de los títulos de los cartuchos */
+        try { await coverFonts(); } catch (e) {} title(x, 'BITCLAUD', W * .7, H * .6, 74, W * .54);
+        /* la marca arriba, como en los cartuchos */
+        x.fillStyle = '#1b1b22'; x.fillRect(0, 0, W, top); const sgr = x.createLinearGradient(0, 0, W, 0); sgr.addColorStop(0, '#ff9a3c'); sgr.addColorStop(1, '#e100ff'); x.fillStyle = sgr; x.fillRect(0, top, W, 7);
+        if (LG.msR) x.drawImage(LG.msR, 16, top * .2, top * .6 * LG.msR.width / LG.msR.height, top * .6); x.fillStyle = '#ff9a3c'; x.beginPath(); x.arc(W - 26, top / 2, 9, 0, 6.283); x.fill();
         x.strokeStyle = '#120a1c'; x.lineWidth = 8; x.strokeRect(0, 0, W, H); return cv; }
 
       /* ---------- escena ---------- */
@@ -9840,7 +9835,8 @@ body.gm-modos #gmUI{display:none!important}
         const luzT = ctex(canLuz()), canL = mesh(new T.CylinderGeometry(.0342, .0342, .098, 32, 1, true), new T.MeshBasicMaterial({ map: luzT, transparent: true, depthWrite: false, toneMapped: false, polygonOffset: true, polygonOffsetFactor: -6, polygonOffsetUnits: -6 }), 0, .057, 0, can, false); canL.rotation.y = Math.PI - .31; canL.renderOrder = 2;
         buildTV(new T.Vector3(0, TY, tz - .17)); buildConsole(new T.Vector3(0, TY, tz + .24)); buildPad(new T.Vector3(-.42, TY, tz + .3), .3); buildTel(new T.Vector3(.56, TY, tz + .3), -.42);
         buildLava(new T.Vector3(.39, TY, tz - .1), .8); buildWalkman(new T.Vector3(-.54, TY, tz + .13), .42); buildCubo(new T.Vector3(-.2, TY + .587, tz + .01), .5);
-        try { const bt = ctex(await bitclaudCover()), CW = .112, CH = .0704, CD = .018, ia = .95, bc = inkm(rbox(CW, CH, CD, .003), M.black, -.47, TY + CH / 2 * Math.sin(ia) + CD / 2 * Math.cos(ia), tz - .05, null); bc.rotation.set(-Math.PI / 2 + ia, .36, 0, 'YXZ'); const ca = plane(CW - .005, CH - .005, toon({ map: bt, emissive: 0xffffff, emissiveMap: bt, ei: .3, spec: .8, shin: 70, ht: .45 }), 0, 0, CD / 2 + .0006, bc); if (ca) { ca.userData = { id: 'bitclaud', w: CW - .005, h: CH - .005 }; CON.bitclaud = ca; } ST.bitclaud = bc; } catch (e) { console.warn('BITCLAUD', e); }   /* v12.46 · del tamaño de una funda de casete (como la cinta del walkman) y con su propia zona para tocarla */   /* v12.44 · BITCLAUD, tumbada con la tapa hacia arriba, detrás y al lado del walkman */   // v8.6 · la lámpara, verde, en el hueco de la mesa entre el monitor y la estantería; el cubo, encima del monitor; el walkman, al otro lado
+        const BCP = { x: -.505, z: -.14, ia: 1.25, ry: .3 };   /* v12.51 · de pie al fondo de la mesa, justo debajo de la carátula de Josep: autor y coautor juntos, como en la firma */
+        try { const bt = ctex(await bitclaudCover()), CW = .112, CH = .0704, CD = .018, ia = BCP.ia, bc = inkm(rbox(CW, CH, CD, .003), M.black, BCP.x, TY + CH / 2 * Math.sin(ia) + CD / 2 * Math.cos(ia), tz + BCP.z, null); bc.rotation.set(-Math.PI / 2 + ia, BCP.ry, 0, 'YXZ'); const ca = plane(CW - .005, CH - .005, toon({ map: bt, emissive: 0xffffff, emissiveMap: bt, ei: .3, spec: .8, shin: 70, ht: .45 }), 0, 0, CD / 2 + .0006, bc); if (ca) { ca.userData = { id: 'bitclaud', w: CW - .005, h: CH - .005 }; CON.bitclaud = ca; } ST.bitclaud = bc; } catch (e) { console.warn('BITCLAUD', e); }   /* v12.46 · del tamaño de una funda de casete (como la cinta del walkman) y con su propia zona para tocarla */   /* v12.44 · BITCLAUD, tumbada con la tapa hacia arriba, detrás y al lado del walkman */   // v8.6 · la lámpara, verde, en el hueco de la mesa entre el monitor y la estantería; el cubo, encima del monitor; el walkman, al otro lado
         // luces: principal cálida con sombras duras, fluorescentes, contraluces de neón y relleno frío
         S.add(new T.HemisphereLight(0xfff1e6, 0x3a2752, .36));
         const key = new T.SpotLight(0xfff2de, .8, 8, .72, .35, 1.1); key.position.set(1.0, 2.6, 2.7); key.target.position.set(0, .85, .6); S.add(key); S.add(key.target);
