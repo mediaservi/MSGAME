@@ -3512,7 +3512,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '12.0';
+    const APP_VERSION = '12.1';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -4824,7 +4824,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       let golpeT = 0;   /* v10.4 · última imagen de un juego de golpear (espada, sable, bate) */
       function padUpdate(dt) {
         let tx = pad.tx, ty = pad.ty;
-        if (performance.now() - pad.last < 400) { pad.src = 'phone'; [tx, ty] = padTarget(); }
+        const sin = performance.now() - pad.last; if (sin < 400 || (pad.src === 'phone' && sin < 4000)) { pad.src = 'phone'; [tx, ty] = padTarget(); }   /* v12.1 · si los datos del móvil se retrasan (wifi o relé), el puntero se queda donde estaba; antes, a los 0,4 s, saltaba al centro de la pantalla y volvía de golpe */
         if (tx === undefined) { tx = W / 2; ty = H * .6; }
         pad.px = pad.x; pad.py = pad.y; let k = .8; const fr = clamp(dt * 60, .25, 4), gol = performance.now() - golpeT < 400; if (pad.src === 'phone') { const d = Math.hypot(tx - pad.x, ty - pad.y) / Math.max(1, H), fino = Math.abs(cal.ys) < 14 ? .6 : 1, k0 = (gol ? .22 : .1) * fino, k60 = clamp(k0 + d * (gol ? 8 : 4.5), k0, gol ? .85 : .6); k = 1 - Math.pow(1 - k60, fr); }   /* v10.4 · el filtro va por tiempo (responde igual a 30 que a 60 imágenes por segundo) y, con espada o bate, sigue al móvil mucho más de cerca */   // v9.1 · filtro que se adapta: quieto o despacio suaviza mucho (sin temblor, sobre todo en pantallas pequeñas); en un gesto rápido responde al momento
         pad.x += (tx - pad.x) * k; pad.y += (ty - pad.y) * k;
@@ -4874,7 +4874,11 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       window.__gmPad = (m, i) => onPad(m, i);   /* para las pruebas: simula un mensaje del mando */
       function onPad(m, i) {
         if (!m || typeof m !== 'object') return; if (i === undefined) i = act; const pl = PLS[i]; if (!pl) return;
-        if (m.t === 'o') { const rw = pl.raw; rw.y = +m.y || 0; rw.p = +m.p || 0; rw.g = clamp(+m.g || 0, -80, 80); rw.t = performance.now(); pl.pad.last = rw.t; if (pl.fresh) { pl.fresh = false; pl.cal.yc = rw.y; } return; }
+        if (m.t === 'o') { const rw = pl.raw, ny = +m.y || 0, np = +m.p || 0, ahora = performance.now(), dist = (y1, p1, y2, p2) => Math.hypot(wrap(y1 - y2), p1 - p2);
+          /* v12.1 · un dato suelto que salta lejos y en el siguiente vuelve atrás es un tirón del sensor o de la red: se descarta. Si el siguiente sigue el movimiento, era un gesto rápido de verdad y solo se ha retrasado un dato. */
+          if (rw.sus) { const s = rw.sus; rw.sus = null; if (dist(ny, np, rw.y, rw.p) < dist(s.y, s.p, rw.y, rw.p) * .35) { pl.pad.last = ahora; } }
+          else if (rw.t && ahora - rw.t < 150 && dist(ny, np, rw.y, rw.p) > 28) { rw.sus = { y: ny, p: np }; pl.pad.last = ahora; return; }
+          rw.y = ny; rw.p = np; rw.g = clamp(+m.g || 0, -80, 80); rw.t = performance.now(); pl.pad.last = rw.t; if (pl.fresh) { pl.fresh = false; pl.cal.yc = rw.y; } return; }
         if (m.t === 'me') { if (m.n) pl.n = String(m.n).slice(0, 14); if (m.c && PCOL.includes(m.c)) pl.c = m.c; savePL(); renderPlayers(); stateToPad(); return; }
         if (m.t === 'b') {
           const sim = !!(G.match && G.match.sim), busy = !!(G.cur || calStep >= 0);
@@ -9141,8 +9145,11 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       const raw = o => { try { if (viaRele) { if (o && o.t === 'o') { const n = performance.now(); if (n - lastRele < 38) return true; lastRele = n; } return !!(rele && rele.pub(RTOP + 'up/' + cid, o)); } if (conn && conn.open) { conn.send(o); return true; } } catch (e) {} return false; };
       const send = o => { if (o && o.t === 'b' && !o.q) { o = Object.assign({}, o, { q: Date.now().toString(36) + (++seq) });   /* v10.1 · se marca una COPIA: los botones fijos (Calibrar, Centrar, Play…) reutilizan su objeto y, al quedar marcado, la pantalla descartaba como repetida la segunda pulsación */ if (!raw(o)) { st(joined ? 'Reconectando… vuelve a pulsar en un momento' : 'Aún no está conectado con la pantalla'); return; } setTimeout(() => raw(o), 130); setTimeout(() => raw(o), 420); return; } raw(o); };
       let giroP = null;   /* v10.4 · giro de muñeca seguido: al pasar de 90° el navegador cambia de representación (el ángulo salta de +90 a −90) y la espada daba un latigazo; ahora se queda tumbada de ese lado */
-      function orient(e) { if (!ok) return; let gm = e.gamma || 0; if (giroP !== null) { const alt = gm > 0 ? gm - 180 : gm + 180; if (Math.abs(alt - giroP) < Math.abs(gm - giroP)) gm = alt; } giroP = gm; const now = performance.now(); if (now - lastSend < 14) return; lastSend = now; const a = (e.alpha || 0) * Math.PI / 180, b = (e.beta || 0) * Math.PI / 180;
-        const f = [-Math.cos(b) * Math.sin(a), Math.cos(a) * Math.cos(b), Math.sin(b)], yaw = Math.atan2(f[0], f[1]) * 180 / Math.PI, pitch = Math.asin(Math.max(-1, Math.min(1, f[2]))) * 180 / Math.PI;
+      function orient(e) { if (!ok) return; let gm = e.gamma || 0; if (giroP !== null) { const alt = gm > 0 ? gm - 180 : gm + 180; if (Math.abs(alt - giroP) < Math.abs(gm - giroP)) gm = alt; } giroP = gm; const now = performance.now(); if (now - lastSend < 14) return; lastSend = now; const R = Math.PI / 180, a = (e.alpha || 0) * R, b = (e.beta || 0) * R, c = (e.gamma || 0) * R, ca = Math.cos(a), sa = Math.sin(a), cb = Math.cos(b), sb = Math.sin(b), cg = Math.cos(c), sg = Math.sin(c);
+        /* v12.1 · hacia dónde apunta el móvil, se coja como se coja: se mezclan el borde superior (Y, móvil tumbado como un mando) y la espalda (Z, móvil de pie como una cámara o una espada), cada uno con más peso cuanto más horizontal está.
+           Antes solo contaba el borde superior: con el móvil de pie ese borde mira al techo, el giro quedaba indefinido y el puntero saltaba de lado a lado (y el calibrado nunca encontraba el móvil quieto). */
+        const Y = [-sa * cb, ca * cb, sb], Z = [-(ca * sg + sa * sb * cg), -(sa * sg - ca * sb * cg), -cb * cg], hy = Math.hypot(Y[0], Y[1]), hz = Math.hypot(Z[0], Z[1]), w1 = hy * hy, w2 = hz * hz, as = v => Math.asin(Math.max(-1, Math.min(1, v)));
+        const yaw = Math.atan2(Y[0] * hy + Z[0] * hz, Y[1] * hy + Z[1] * hz) / R, pitch = (w1 * as(Y[2]) + w2 * (as(Z[2]) + Math.PI / 2)) / Math.max(1e-6, w1 + w2) / R;
         send({ t: 'o', y: +yaw.toFixed(2), p: +pitch.toFixed(2), g: +Math.max(-90, Math.min(90, gm)).toFixed(1) }); }
       /* ---- teclas con relieve: se hunden al tocarlas y suenan en el propio móvil (un clic al bajar y otro, más flojo, al soltar) ---- */
       let AC = null, ruido = null, clk = true; try { clk = localStorage.getItem('VJSHOW_PADCLK') !== '0'; } catch (e) {}

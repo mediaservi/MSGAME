@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.0**
+**Versión actual: v12.1**
 
 ## Cómo se juega
 
@@ -34,7 +34,14 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.0)
+## Cambios de la versión actual (v12.1)
+
+- **Mando del móvil estable, se coja como se coja.** El puntero ya no da golpetazos de lado a lado. Antes solo contaba el borde superior del móvil: con el móvil de pie (como una cámara o una espada) ese borde mira al techo y el giro quedaba indefinido, así que el puntero saltaba. Ahora se mezclan el borde superior y la espalda del móvil, cada uno con más peso cuanto más horizontal está: funciona igual tumbado como un mando a distancia, de pie o en medio.
+- **Calibrado más fiable:** al no temblar el giro, el calibrado automático encuentra el móvil quieto enseguida y toma el centro bueno.
+- **Sin tirones:** un dato suelto que salta lejos y vuelve en el siguiente (ruido del sensor o de la red) se descarta; si los datos se retrasan, el puntero se queda donde estaba en vez de saltar al centro de la pantalla.
+- Biblioteca común de efectos y motor común de sonido (`lib/msaudio.js`) preparados para la música dinámica de los juegos.
+
+### v12.0
 
 - **MSGAME es una app independiente.** Hasta la v11.8 su `index.html` se generaba a partir del de VJSHOW; desde esta versión el código fuente de MSGAME vive en este repositorio y se desarrolla aquí. Los juegos, sus imágenes, sonidos, paquetes y borradores están solo en MSGAME; VJSHOW ya no los lleva y su botón de juegos abre esta web.
 - **WONDERWALK, borrador 3:**
@@ -338,7 +345,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.0 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.1 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
