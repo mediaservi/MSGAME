@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.43**
+**Versión actual: v12.44**
 
 ## Cómo se juega
 
@@ -36,7 +36,11 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.43)
+## Cambios de la versión actual (v12.44)
+
+- **BITCLAUD en la sala:** encima de la mesa, al lado y detrás del walkman, hay una carátula tumbada con la tapa hacia arriba. Es la «cinta» BITCLAUD: el monitor de carita sonriente de Claude (el mismo del Memo AVHUB) sobre un fondo de neón con lluvia de ceros y unos, y el título BITCLAUD. Es de adorno: no abre ningún juego.
+
+### v12.43
 
 - **BEAT RACER, ahora en 3D, en sus dos modos.** La partida es la misma (carriles, saltos, premios, obstáculos y puntos). Mientras llegan los modelos se juega en 2D y la imagen pasa sola a 3D.
 - **RUNNER:**
@@ -621,7 +625,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.43 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.44 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 

@@ -3662,7 +3662,7 @@ body.gm-modos #gmUI{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '12.43';
+    const APP_VERSION = '12.44';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -9648,6 +9648,35 @@ body.gm-modos #gmUI{display:none!important}
         const man = plane(w - .03, h - .03, toon({ map: ctex(manualCanvas(c)), ht: .6 }), w / 2, 0, -.0006, lid); man.rotation.y = Math.PI;
         CASE.CP = new T.Vector3(0, -.02, -.0035); const cart = cartMesh(c); cart.position.copy(CASE.CP); cart.scale.setScalar(CASE.CS); g.add(cart); CASE.cart = cart; shadowsOn(g); S.add(g); return g; }
 
+      /* v12.44 · BITCLAUD: la «cinta» de Claude, una carátula con su monitor sonriente (el mismo del Memo AVHUB), tumbada en la mesa detrás del walkman */
+      const BITCLAUD_SVG = (() => { const chispa = (cx, cy, r) => [0, 45, 90, 135].map((g, i) => { const l = r * [1, .82, .95, .78][i]; return `<rect x="${cx - l}" y="${cy - r * .2}" width="${2 * l}" height="${r * .4}" rx="${r * .2}" transform="rotate(${g + 8} ${cx} ${cy})"/>`; }).join('');
+        return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96"><defs><linearGradient id="bm" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d9dde6"/><stop offset=".5" stop-color="#9aa1b0"/><stop offset="1" stop-color="#6c7383"/></linearGradient><radialGradient id="tg"><stop offset="0" stop-color="#ffd0ff"/><stop offset=".45" stop-color="#e100ff"/><stop offset="1" stop-color="#e100ff" stop-opacity="0"/></radialGradient></defs>' +
+          '<path d="M74 14l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#ffe66b"/><rect x="12" y="14" width="72" height="72" rx="10" fill="url(#bm)" stroke="#2a2433" stroke-width="2.5"/>' +
+          '<circle cx="86" cy="36" r="9" fill="#1a1622" stroke="#2a2433" stroke-width="2"/><circle cx="86" cy="36" r="6.5" fill="url(#tg)"/><circle cx="86" cy="36" r="4" fill="none" stroke="#ffb0ff" stroke-width="1.2" opacity=".8"/>' +
+          '<rect x="22" y="26" width="52" height="44" rx="7" fill="#0f141c" stroke="#2a2433" stroke-width="2"/><rect x="22" y="26" width="52" height="44" rx="7" fill="none" stroke="#ff9a3c" stroke-opacity=".35" stroke-width="1.5"/>' +
+          `<g fill="#ff9a3c">${chispa(36, 46, 7)}</g><g fill="#ff9a3c">${chispa(60, 46, 7)}</g><path d="M41 57q7 6 14 0" fill="none" stroke="#ff9a3c" stroke-width="2.6" stroke-linecap="round"/>` +
+          '<g fill="#2a2433" opacity=".55"><rect x="22" y="75" width="20" height="2.5" rx="1"/><rect x="22" y="79.5" width="20" height="2.5" rx="1"/></g><circle cx="56" cy="78.5" r="2.6" fill="#ffa53c"/><circle cx="63" cy="78.5" r="2.6" fill="#ffa53c"/><circle cx="70" cy="78.5" r="2.6" fill="#ffa53c"/></svg>'; })();
+      async function bitclaudCover() { const W = 384, H = 560, [cv, x] = canvas(W, H), top = H * .125;
+        const g = x.createLinearGradient(0, 0, 0, H); g.addColorStop(0, '#1d0c3a'); g.addColorStop(.6, '#12072a'); g.addColorStop(1, '#06020e'); x.fillStyle = g; x.fillRect(0, 0, W, H);
+        /* rejilla de neón al fondo y la lluvia de ceros y unos (los «bits») */
+        const hz = H * .63; x.save(); x.strokeStyle = 'rgba(225,0,255,.5)'; x.lineWidth = 1.5; for (let i = 0; i < 9; i++) { const y = hz + Math.pow(i / 8, 1.8) * (H - hz); x.globalAlpha = .25 + i / 12; x.beginPath(); x.moveTo(0, y); x.lineTo(W, y); x.stroke(); }
+        for (let i = -8; i <= 8; i++) { x.globalAlpha = .45; x.beginPath(); x.moveTo(W / 2 + i * 14, hz); x.lineTo(W / 2 + i * 70, H); x.stroke(); } x.restore();
+        x.save(); x.font = '700 15px "Share Tech Mono",monospace'; x.textAlign = 'center'; let sd = 7; const rr = () => (sd = (sd * 16807) % 2147483647) / 2147483647;
+        for (let c = 0; c < 24; c++) { const cx = 8 + c * 16, n = 6 + Math.floor(rr() * 14), y0 = top + rr() * H * .5; for (let k = 0; k < n; k++) { const a = 1 - k / n; x.fillStyle = k ? `rgba(80,255,120,${.38 * a})` : 'rgba(220,255,225,.7)'; x.fillText(rr() < .5 ? '0' : '1', cx, y0 - k * 16); } } x.restore();
+        x.save(); x.globalCompositeOperation = 'lighter'; for (let i = 0; i < 28; i++) { const px = rr() * W, py = top + rr() * (H - top), r = 1 + rr() * 2.2; x.fillStyle = `rgba(255,${120 + rr() * 80 | 0},255,${.35 + rr() * .5})`; x.beginPath(); x.arc(px, py, r, 0, 6.283); x.fill(); } x.restore();
+        /* el monitor, grande y con su aura */
+        const ag = x.createRadialGradient(W / 2, top + 175, 20, W / 2, top + 175, 190); ag.addColorStop(0, 'rgba(255,154,60,.35)'); ag.addColorStop(.5, 'rgba(225,0,255,.16)'); ag.addColorStop(1, 'rgba(225,0,255,0)'); x.fillStyle = ag; x.fillRect(0, top, W, H - top);
+        const im = await loadImg('data:image/svg+xml;charset=utf-8,' + encodeURIComponent(BITCLAUD_SVG)); if (im) { x.save(); x.shadowColor = 'rgba(0,0,0,.6)'; x.shadowBlur = 18; x.shadowOffsetY = 8; x.drawImage(im, W / 2 - 150, top + 22, 300, 300); x.restore(); }
+        /* el título */
+        try { await document.fonts.load('400 70px Audiowide'); } catch (e) {} let fs = 74; x.font = `400 ${fs}px Audiowide,"Russo One",sans-serif`; while (x.measureText('BITCLAUD').width > W - 36 && fs > 30) { fs -= 2; x.font = `400 ${fs}px Audiowide,"Russo One",sans-serif`; }
+        const ty = H - 92; x.textAlign = 'center'; x.textBaseline = 'middle'; x.lineJoin = 'round'; x.lineWidth = fs * .2; x.strokeStyle = '#12091f'; x.strokeText('BITCLAUD', W / 2, ty);
+        const tg = x.createLinearGradient(0, ty - fs / 2, 0, ty + fs / 2); tg.addColorStop(0, '#ffe66b'); tg.addColorStop(.5, '#ff9a3c'); tg.addColorStop(1, '#e100ff'); x.save(); x.shadowColor = 'rgba(255,120,220,.8)'; x.shadowBlur = 16; x.fillStyle = tg; x.fillText('BITCLAUD', W / 2, ty); x.restore();
+        x.font = '700 15px "Share Tech Mono",monospace'; x.fillStyle = '#7fff9a'; x.fillText('01000010 01001001 01010100', W / 2, ty + fs * .62);
+        /* cabecera como las demás carátulas: la marca a la izquierda y la franja de color */
+        x.fillStyle = '#1b1b22'; x.fillRect(0, 0, W, top); const sgr = x.createLinearGradient(0, 0, W, 0); sgr.addColorStop(0, '#ff9a3c'); sgr.addColorStop(1, '#e100ff'); x.fillStyle = sgr; x.fillRect(0, top, W, 7);
+        if (LG.msR) x.drawImage(LG.msR, 14, top * .2, top * .6 * LG.msR.width / LG.msR.height, top * .6); x.fillStyle = '#ff9a3c'; x.beginPath(); x.arc(W - 26, top / 2, 9, 0, 6.283); x.fill();
+        x.strokeStyle = '#120a1c'; x.lineWidth = 8; x.strokeRect(0, 0, W, H); return cv; }
+
       /* ---------- escena ---------- */
       const MAT = { cover: [] }, INST = { cov: [], body: null, feat: {} };
       async function build() {
@@ -9696,7 +9725,8 @@ body.gm-modos #gmUI{display:none!important}
         inkm(new T.CylinderGeometry(.0282, .0275, .004, 32, 1), lidM, 0, .12, 0, can); mesh(new T.CylinderGeometry(.0255, .0255, .001, 28), toon({ color: 0xaeb3bd, spec: 1.2, shin: 60 }), 0, .1205, 0, can, false); const tab = mesh(new T.BoxGeometry(.011, .0012, .017), lidM, 0, .1222, .004, can, false); tab.rotation.y = .5;
         const luzT = ctex(canLuz()), canL = mesh(new T.CylinderGeometry(.0342, .0342, .098, 32, 1, true), new T.MeshBasicMaterial({ map: luzT, transparent: true, depthWrite: false, toneMapped: false, polygonOffset: true, polygonOffsetFactor: -6, polygonOffsetUnits: -6 }), 0, .057, 0, can, false); canL.rotation.y = Math.PI - .31; canL.renderOrder = 2;
         buildTV(new T.Vector3(0, TY, tz - .17)); buildConsole(new T.Vector3(0, TY, tz + .24)); buildPad(new T.Vector3(-.42, TY, tz + .3), .3); buildTel(new T.Vector3(.56, TY, tz + .3), -.42);
-        buildLava(new T.Vector3(.39, TY, tz - .1), .8); buildWalkman(new T.Vector3(-.54, TY, tz + .13), .42); buildCubo(new T.Vector3(-.2, TY + .587, tz + .01), .5);   // v8.6 · la lámpara, verde, en el hueco de la mesa entre el monitor y la estantería; el cubo, encima del monitor; el walkman, al otro lado
+        buildLava(new T.Vector3(.39, TY, tz - .1), .8); buildWalkman(new T.Vector3(-.54, TY, tz + .13), .42); buildCubo(new T.Vector3(-.2, TY + .587, tz + .01), .5);
+        try { const bt = ctex(await bitclaudCover()), bk = .72, bc = inkm(bodG, M.black, -.5, TY + BOX.d * bk / 2, tz - .14, null); bc.rotation.set(-Math.PI / 2, 0, .36); bc.scale.setScalar(bk); plane(BOX.w, BOX.h, toon({ map: bt, emissive: 0xffffff, emissiveMap: bt, ei: .3, spec: .8, shin: 70, ht: .45 }), 0, 0, BOX.d / 2 + .0006, bc); ST.bitclaud = bc; } catch (e) { console.warn('BITCLAUD', e); }   /* v12.44 · BITCLAUD, tumbada con la tapa hacia arriba, detrás y al lado del walkman */   // v8.6 · la lámpara, verde, en el hueco de la mesa entre el monitor y la estantería; el cubo, encima del monitor; el walkman, al otro lado
         // luces: principal cálida con sombras duras, fluorescentes, contraluces de neón y relleno frío
         S.add(new T.HemisphereLight(0xfff1e6, 0x3a2752, .36));
         const key = new T.SpotLight(0xfff2de, .8, 8, .72, .35, 1.1); key.position.set(1.0, 2.6, 2.7); key.target.position.set(0, .85, .6); S.add(key); S.add(key.target);
