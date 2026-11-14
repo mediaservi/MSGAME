@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.37**
+**Versión actual: v12.38**
 
 ## Cómo se juega
 
@@ -17,7 +17,8 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **AJUSTES:**
   - formato de salida y cada pantalla en su monitor;
   - sala de juegos: el juego en la frontal, récords y turnos con QR y publicidad en las laterales, tele retro en la trasera;
-  - mezcla de bordes, corrección, mapeo y fuente de audio.
+  - mezcla de bordes, corrección, mapeo y fuente de audio;
+  - cámara para jugar con gestos, sin móvil (Intel RealSense o cualquier webcam).
 - **Sin internet:** desde la ayuda se prepara el «modo feria» o se descarga una copia offline.
 
 ## Juegos
@@ -34,7 +35,17 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.37)
+## Cambios de la versión actual (v12.38)
+
+- **Jugar con gestos, sin móvil.** Nueva pestaña **Cámara** en AJUSTES, pensada para la Intel RealSense D435 y válida con cualquier webcam:
+  - eliges la cámara de color y, con una RealSense, también su entrada de profundidad;
+  - «▶ Probar la cámara» enseña lo que ve cada una: la imagen con el esqueleto de las manos detectadas y la profundidad en colores, con su resolución, sus fps y si el navegador entrega la profundidad completa (16 bits) o recortada (8 bits);
+  - con **«Jugar con gestos»** cada mano es un jugador (hasta dos): la mano mueve la mira o el cursor igual que el móvil al apuntar, y juntar el pulgar y el índice es el botón de disparo. Sirve en los juegos que se juegan apuntando y pulsando, como PUNTERÍA o SHATEKI;
+  - en el modo **«Lo más cercano»** se sigue, con la profundidad, lo que esté más cerca de la cámara, también a oscuras, y se dispara empujando la mano hacia la pantalla;
+  - si se deja activado, la cámara arranca sola al abrir MSGAME (instalaciones y showrooms).
+- La detección de manos es MediaPipe Hands (Google, licencia Apache 2.0) y se hace en el propio equipo: la imagen no sale de él. La primera vez se descarga de jsDelivr; la política de privacidad lo recoge.
+
+### v12.37
 
 - **La radio de la sala, en pausa y sin emisoras.** Las emisoras de internet de la v12.36 se quitan: SomaFM pide expresamente que sus enlaces directos sean solo para escucha personal, y las demás no dan permiso para sonar en locales. Mientras no haya emisoras con permiso, en la sala suena la música de siempre y el walkman no hace nada. El mecanismo de la radio (ruido de sintonizar, turnos de 6 minutos, el casete que cambia de emisora) se queda listo para cuando las haya.
 
@@ -549,7 +560,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.37 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.38 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
