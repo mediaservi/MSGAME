@@ -3619,7 +3619,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '12.34';
+    const APP_VERSION = '12.35';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -8144,8 +8144,8 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
         ['shoot', 'shScene', 'western', 'shoot_western'], ['shoot', 'shScene', 'galaxy', 'shoot_galaxy'], ['shoot', 'shScene', 'zombieland', 'shoot_zombieland'], ['shoot', 'shScene', 'haunted', 'shoot_haunted'], ['shoot', 'shScene', 'alpine', 'shoot_alpine'], ['shoot', 'shScene', 'warfront', 'shoot_warfront'],
         ['race', 'rcVeh', 'runner', 'racer_runner'], ['race', 'rcVeh', 'dirty', 'racer_dirty'], ['paint'], ['wheel', null, null, 'fortuna'], ['bowl'], ['duck'], ['hoop', 'hpMode', 'ballhop'], ['hoop', 'hpMode', 'basket'], ['walk'], ['golf'], ['osaka'], ['mservi', null, null, 'enlace_mediaservi'], ['avhubw', null, null, 'enlace_avhub']]   /* v11.5 · dos cartuchos nuevos, todavía en borrador · v12.33 · y dos carátulas que parecen juegos pero abren una web */
         .map(([g, sel, val, img], i) => ({ i, g, sel, val, img, sub: val ? val.toUpperCase() : '' }));
-      const WEB = { mservi: ['https://mediaservi.com/', 'ESTUDIO AUDIOVISUAL'], avhubw: ['https://avhub.mediaservi.com/', 'TOOLS FOR PROFESSIONALS'] };
-      CV.forEach(c => { if (WEB[c.g]) { c.url = WEB[c.g][0]; c.sub = WEB[c.g][1]; } });
+      const WEB = { mservi: ['https://mediaservi.com/', 'ESTUDIO AUDIOVISUAL', 1], avhubw: ['https://avhub.mediaservi.com/', 'TOOLS FOR PROFESSIONALS'] };   /* v12.35 · la de mediaservi es tu material (cara y rótulo de neón MEDIASERVI.com): sin título pintado encima */
+      CV.forEach(c => { if (WEB[c.g]) { c.url = WEB[c.g][0]; c.sub = WEB[c.g][1]; c.solo = !!WEB[c.g][2]; } });
       const FIRST = {}; CV.forEach(c => { if (!(c.g in FIRST)) FIRST[c.g] = c.i; });
       let T = null, R = null, S = null, CAM = null, raf = 0, on = false, built = false, lastT = 0, frameN = 0;
       const ST = { seq: null, hover: -1, crt: false, mx: 0, my: 0, home: null, inserted: null, arts: [], thumbs: [] };
@@ -8581,14 +8581,14 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
             const P = CanvasRenderingContext2D.prototype; ['shadowBlur', 'shadowOffsetX', 'shadowOffsetY'].forEach(k => { const d = Object.getOwnPropertyDescriptor(P, k); Object.defineProperty(x, k, { set: v => d.set.call(x, v * K), get: () => d.get.call(x) / K }); });
             const f = Object.getOwnPropertyDescriptor(P, 'filter'); if (f) Object.defineProperty(x, 'filter', { set: v => f.set.call(x, String(v).replace(/(-?[\d.]+)px/g, (m, n) => n * K + 'px')), get: () => f.get.call(x) });
             x.scale(K, K); } x.fillStyle = '#140a26'; x.fillRect(0, 0, W, H); x.save(); x.beginPath(); x.rect(0, TOP, W, H - TOP); x.clip();
-          if (c.img && R.art) fondoFoto(x, R.art, vf, c); else if (ESC[c.g]) { try { ESC[c.g](x, vf, R, c); } catch (e) { console.error(e); } } x.restore();
+          if (c.img && R.art) { if (c.solo) vivo(x, R.art); else fondoFoto(x, R.art, vf, c); } else if (ESC[c.g]) { try { ESC[c.g](x, vf, R, c); } catch (e) { console.error(e); } } x.restore();
           if (vt === 'J' && R.figs && R.figs[c.val]) { const im = R.figs[c.val], S = c.val === 'dirty' ? 300 : 262, Y = c.val === 'dirty' ? TOP + 262 : TOP + 250; x.save(); x.beginPath(); x.rect(0, TOP + 7, W, H - TOP - 7); x.clip(); x.shadowColor = c.val === 'dirty' ? 'rgba(255,200,120,.75)' : 'rgba(59,243,255,.85)'; x.shadowBlur = 22; x.drawImage(im, W / 2 - S / 2, Y - S, S, S); x.shadowBlur = 0; x.drawImage(im, W / 2 - S / 2, Y - S, S, S); x.restore(); }
           x.save(); x.beginPath(); x.rect(0, TOP + 7, W, H - TOP - 7); x.clip();
           if (vt === 'D') armas(x, W / 2 + 8, TOP + (H - TOP) * .49, 214);
           else if (vt === 'G') { const bx = W * .7, by = H * .425; x.save(); x.translate(bx, by); x.rotate(.1); estallido(x, 0, 0, 62, '#ffd23f', '#e02929', 11); x.restore(); logo(x, '¡BANG!', bx, by + 12, { f: 'Bangers', s: 36, c: '#12091f', rot: -.1, brillo: 0 }); mira(x, bx - 50, by + 46, 30, '#ff4a3a'); mira(x, W * .3, H * .53, 56, '#8dff3a'); }
           else if (vt === 'K') ruleta(x, W / 2, TOP + 290, 102);
           x.restore();
-          cabecera(x, c, R); x.save(); x.beginPath(); x.rect(0, TOP + 7, W, H - TOP - 7); x.clip(); titulo(x, c, vt); x.restore(); pie(x, c); return cv; }
+          cabecera(x, c, R); if (!c.solo) { x.save(); x.beginPath(); x.rect(0, TOP + 7, W, H - TOP - 7); x.clip(); titulo(x, c, vt); x.restore(); } pie(x, c); return cv; }
         /* v11.3 · el rótulo de la carátula solo (título y variante, con su letra y sus colores, sobre transparente): para que el menú del juego lleve EL MISMO logo que la caja.
            Se pinta con el mismo código que la carátula, sin los velos oscuros de fondo (que son rectángulos). Devuelve una o dos piezas recortadas: [título] o [título, variante]. */
         function rotulo(c, vt) { const [cv, x] = mk(W, H), fr = x.fillRect; x.fillRect = () => {}; try { titulo(x, c, vt); } finally { x.fillRect = fr; }
@@ -8668,7 +8668,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
           x.fillStyle = '#2a2236'; x.textAlign = 'center'; x.font = '700 17px "Barlow Semi Condensed",Arial,sans-serif'; x.fillText(TT('Manual de instrucciones').toUpperCase(), w / 2, 102); x.fillStyle = 'rgba(42,34,54,.32)'; for (let i = 0; i < 12; i++) x.fillRect(28, 128 + i * 18, (w - 56) * (.5 + rnd() * .5), 6);
           x.strokeStyle = '#120a1c'; x.lineWidth = 6; x.strokeRect(3, 3, w - 6, h - 6); }, 256, 372); }
       function cartLabel(c, art) { return decal((x, W, H) => { const col = COL[c.g], g = x.createLinearGradient(0, 0, W, 0); g.addColorStop(0, col.c1); g.addColorStop(1, col.c2); x.fillStyle = '#0d0b14'; x.fillRect(0, 0, W, H);
-          if (art && art.cov) { const sw = art.width, sh = Math.min(art.height * .9, sw * (H - 52) / W); x.drawImage(art, 0, art.height * .1, sw, sh, 0, 52, W, H - 52); }   /* v12.17 · la pegatina es la carátula del propio juego (antes, para los juegos sin foto salía el dibujo de PALOTERAPIA) */
+          if (art && art.cov) { const sw = art.width, sh = Math.min(art.height * .9, sw * (H - 52) / W), va = c.val && c.sub && !c.url, cy = (c.g === 'hoop' ? (c.val === 'basket' ? .714 : .58) : .89) * art.height, sy = va ? Math.max(0, Math.min(art.height - sh, cy - sh / 2)) : art.height * .1; x.drawImage(art, 0, sy, sw, sh, 0, 52, W, H - 52); }   /* v12.17 · la pegatina es la carátula del propio juego (antes, para los juegos sin foto salía el dibujo de PALOTERAPIA) · v12.35 · con variante, el trozo de la carátula con su nombre (HAUNTED, ALIENS, RUNNER, BALLHOP…): arriba ya pone la saga */
           else if (art) { const k = Math.max(W / art.width, (H - 52) / art.height); x.drawImage(art, (W - art.width * k) / 2, 52 + (H - 52 - art.height * k) / 2, art.width * k, art.height * k); }
           x.fillStyle = g; x.fillRect(0, 0, W, 52); title(x, GN[c.g], W / 2, 40, 34, W - 30, c.g); x.strokeStyle = '#120a1c'; x.lineWidth = 7; x.strokeRect(3, 3, W - 6, H - 6); }, 256, 158); }
       function canCanvas() { return decal((x, w, h) => { const g = x.createLinearGradient(0, 0, 0, h); g.addColorStop(0, '#22c956'); g.addColorStop(.55, '#12a03f'); g.addColorStop(1, '#0a6e2c'); x.fillStyle = g; x.fillRect(0, 0, w, h);   // v8.6 · refresco de lima-limón inventado, «6GO»: impreso alrededor de la lata, no pegado

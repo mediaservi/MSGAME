@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.34**
+**Versión actual: v12.35**
 
 ## Cómo se juega
 
@@ -34,7 +34,12 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.34)
+## Cambios de la versión actual (v12.35)
+
+- **El cartucho dice qué variante es:** con un juego de saga (PALOTERAPIA, PUNTERÍA, BEAT RACER, ENCESTA), la pegatina del cartucho enseña el nombre de la saga arriba y debajo el trozo de la carátula con el de la variante (HAUNTED, ALIENS, RUNNER, BALLHOP…), en vez de repetir la saga.
+- **Carátula de MEDIASERVI con tu material:** tu cara en el aro de neón y el rótulo MEDIASERVI.com, sobre los haces de luz verdes, azules y morados; como el rótulo ya va en la imagen, no se pinta otro título encima.
+
+### v12.34
 
 - **Rótulos DYMO de verdad en las baldas:** el nombre de cada juego va en una cinta negra con las letras blancas en relieve de la letra Dymo, un poco torcidas como cuando se graban a mano. Las letras van ya dibujadas en `juegos/dymo.webp`; la fuente no está en el repositorio.
 
@@ -532,7 +537,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.34 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.35 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
