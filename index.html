@@ -3513,7 +3513,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '12.6';
+    const APP_VERSION = '12.7';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -8554,8 +8554,8 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
           x.strokeStyle = '#3c3f48'; x.lineWidth = h * .035; x.beginPath(); x.arc(w / 2, h * .27, h * .24, 0, 6.283); x.stroke(); x.fillStyle = '#3c3f48'; x.beginPath(); x.arc(w / 2, h * .24, h * .15, Math.PI, 0); x.fill(); x.fillRect(w / 2 - h * .15, h * .24, h * .3, h * .12);
           x.fillStyle = '#5d616a'; [-1, 1].forEach(sd => { x.beginPath(); for (let i = 0; i < 10; i++) { const a2 = i / 10 * 6.283 - Math.PI / 2, rr = (i % 2 ? .02 : .046) * h; x.lineTo(w / 2 + sd * h * .06 + Math.cos(a2) * rr, h * .27 + Math.sin(a2) * rr); } x.fill(); }); }, 1024, 280);
         const tp = plane(W - .03, ZA + D / 2 - .012, toon({ map: ctex(top), ht: .4, spec: .3 }), 0, H + .0068, (ZA - D / 2) / 2, g); tp.rotation.x = -Math.PI / 2;
-        inkm(rbox(.19, .03, .08, .008), M.plasticDk, 0, H + .012, SZ, g); mesh(new T.BoxGeometry(.14, .004, .03), new T.MeshBasicMaterial({ color: 0x050507 }), 0, H + .0255, SZ, g, false);
-        CON.glow = mesh(new T.BoxGeometry(.13, .002, .006), new T.MeshBasicMaterial({ color: 0xff8a2a, toneMapped: false }), 0, H + .0278, SZ, g, false); CON.glowS = glow(0xff8a2a, .2, 0, H + .04, SZ, .45, g); CON.slot = new T.Vector3(0, H + .027, SZ);
+        inkm(rbox(.134, .03, .05, .008), M.plasticDk, 0, H + .012, SZ, g); mesh(new T.BoxGeometry(.105, .004, .025), new T.MeshBasicMaterial({ color: 0x050507 }), 0, H + .0255, SZ, g, false);   /* v12.6 · la ranura a la medida del cartucho (10 × 2 cm, con holgura): antes era casi el doble */
+        CON.glow = mesh(new T.BoxGeometry(.1, .002, .005), new T.MeshBasicMaterial({ color: 0xff8a2a, toneMapped: false }), 0, H + .0278, SZ, g, false); CON.glowS = glow(0xff8a2a, .2, 0, H + .04, SZ, .34, g); CON.slot = new T.Vector3(0, H + .027, SZ);
         // frontal inclinado
         const al = Math.atan2(H - HF, ZF - ZA), LS = Math.hypot(ZF - ZA, H - HF), pn = new T.Group(); pn.position.set(0, (H + HF) / 2, (ZA + ZF) / 2); pn.rotation.x = -(Math.PI / 2 - al); g.add(pn);
         const PW = W - .03, PH = LS - .006, R1 = .05, R2 = -.03, front = decal((x, w, h) => { const gr = x.createLinearGradient(0, 0, 0, h); gr.addColorStop(0, '#6b6f78'); gr.addColorStop(.4, '#585c65'); gr.addColorStop(.88, '#4a4d55'); gr.addColorStop(1, '#3c3f46'); x.fillStyle = gr; x.fillRect(0, 0, w, h);
