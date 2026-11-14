@@ -12,4 +12,4 @@ Recursos de terceros que usa el juego (carpeta `packs/wonderwalk/`). Lo demás �
 
 El título usa el tipo de letra **Berkshire Swash** (Astigmatic, SIL Open Font License 1.1), en `fuentes/berkshire-swash.woff2`.
 
-Los ladrones 3D usan dos personajes de **KayKit Character Pack: Adventurers** (`kaykit/Rogue.glb` y `kaykit/Rogue_Hooded.glb`) y las animaciones de **KayKit Character Animations** (andar sigiloso, golpe, recoger y correr), reunidas en `kaykit/rig_medium_clips.glb`. Autor: Kay Lousberg · [kaylousberg.com](https://kaylousberg.com). Licencia CC0 1.0 (dominio público).
+Los ladrones 3D usan el personaje encapuchado de **KayKit Character Pack: Adventurers** (`kaykit/Rogue_Hooded.glb`) y las animaciones de **KayKit Character Animations** (andar sigiloso, golpe, recoger y correr), reunidas en `kaykit/rig_medium_clips.glb`. Autor: Kay Lousberg · [kaylousberg.com](https://kaylousberg.com). Licencia CC0 1.0 (dominio público).

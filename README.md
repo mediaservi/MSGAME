@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.21**
+**Versión actual: v12.22**
 
 ## Cómo se juega
 
@@ -29,12 +29,20 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **LA FORTUNA:** ruleta de premios para eventos, con existencias reales.
 - **BOLERA:** bolos con física real y pantallas con visuales.
 - **PATOPESCA:** la pesca de patitos de la feria.
-- **ENCESTA:** recreativa 3D con BALLHOP y BASKET.
+- **ENCESTA:** recreativa 3D con BALLHOP (con música dinámica) y BASKET.
 - **SHATEKI:** galería de tiro japonesa en 3D con rifle de corchos; solo te llevas lo que cae del estante.
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.21)
+## Cambios de la versión actual (v12.22)
+
+- **BALLHOP sin bolas enganchadas:** si una bola se mete entre el aro de fuera y el lateral, rebota por encima del aro y sigue rodando donde le toque; ninguna bola se queda parada en el tablero.
+- **BALLHOP con música larga y dinámica** (`packs/ballhop/`): entrada y bucle de 72 s con metales cómicos, galop de circo en las dos últimas bolas de la partida y cierre de circo al acabar.
+- **Fuera el «fondo propio»** de PUNTERÍA y las notas de fondos propios de otros juegos: venían de VJSHOW y los escenarios los diseñamos nosotros.
+- **Mevi señala con la palma abierta**, los dedos juntos y estirados.
+- **WONDERWALK (en desarrollo):** solo sale el ladrón encapuchado y camina pegado al terreno, también en las colinas.
+
+### v12.21
 
 - **Música propia para el cartucho:** desde que Mevi coge el cartucho hasta que empieza el juego suena un tema arcade (`packs/cartucho/`), con su entrada durante la animación y un bucle de 16 compases en el menú del juego. Al volver a la sala sigue la música de los menús, sin repetir la entrada.
 - **Iconos nuevos en la consola:** JUGADORES con dos personas y un micro, y RÉCORDS con un trofeo.
@@ -460,7 +468,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.21 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.22 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 

@@ -1,0 +1,24 @@
+{
+ "bpm": 120,
+ "tiempo": 0.5,
+ "fase": 0.142,
+ "entrada": [
+  0,
+  14.14
+ ],
+ "juego": [
+  14.14,
+  86.14
+ ],
+ "tension": [
+  86.92,
+  116.4
+ ],
+ "final": [
+  116.4,
+  124.55
+ ],
+ "fundido": 0.25,
+ "nota": "Música de BALLHOP hecha con dos temas: entrada y juego = «Trumpet Tumbles» (metales cómicos, 120 bpm; bucle de 36 compases, 72 s, que enlaza como los compases 42→43 del original); tension = el galop de «Bienvenue au cirque» para las dos últimas bolas de la partida; final = el cierre del circo con su golpe final.",
+ "fuente": "«Trumpet Tumbles - Comedy Brass» (Pixabay, n.º 530221) + «Bienvenue au cirque», Jean-Paul V (Pixabay, n.º 309565)"
+}

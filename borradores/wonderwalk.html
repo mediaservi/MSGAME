@@ -13,7 +13,7 @@
   #g3{position:fixed;inset:0;z-index:0}#c{position:relative;z-index:1}
 </style></head><body><canvas id="g3"></canvas><canvas id="c"></canvas>
 <script src="../lib/three.min.js"></script>
-<script src="../lib/gltf.js?v=12.20"></script>
+<script src="../lib/gltf.js?v=12.22"></script>
 <script src="../lib/mevi2d.js?v=12.6"></script>
 <script>
 'use strict';
@@ -203,9 +203,9 @@ function monta3() { if (!ini3()) return; const { T, fijo: g } = M3, PI = Math.PI
 /* piezas que cambian: escondites, zarzas, ladrones y Mevi */
 /* v12.20 · los ladrones son los Rogue de KayKit Adventurers (CC0) con esqueleto y animaciones de KayKit Character Animations: se acercan agachados, roban, se llevan un golpe y huyen corriendo */
 function rogues3() { if (M3.rog || !THREE.GLTFLoader) return; M3.rog = { modelos: [], clips: {} }; const L = new THREE.GLTFLoader(), K = '../packs/wonderwalk/kaykit/';
-  ['Rogue', 'Rogue_Hooded'].forEach((n, i) => L.load(K + n + '.glb', g => { const m = g.scene; m.traverse(o => { if (o.isMesh) { o.castShadow = true; o.frustumCulled = false; } }); const bb = new THREE.Box3().setFromObject(m), h = bb.max.y - bb.min.y || 1; m.userData.esc = 1.2 / h; M3.rog.modelos[i] = m; }));
+  ['Rogue_Hooded'].forEach((n, i) => L.load(K + n + '.glb', g => {   /* v12.22 · solo el ladrón encapuchado */ const m = g.scene; m.traverse(o => { if (o.isMesh) { o.castShadow = true; o.frustumCulled = false; } }); const bb = new THREE.Box3().setFromObject(m), h = bb.max.y - bb.min.y || 1; m.userData.esc = 1.2 / h; M3.rog.modelos[i] = m; }));
   L.load(K + 'rig_medium_clips.glb', g => { g.animations.forEach(c => { M3.rog.clips[c.name] = c; }); }); }
-function rogue3() { const R = M3.rog, mod = R && (R.modelos[Math.floor(Math.random() * 2)] || R.modelos[0] || R.modelos[1]); if (!mod || !R.clips.Sneaking) return null;
+function rogue3() { const R = M3.rog, mod = R && R.modelos[0]; if (!mod || !R.clips.Sneaking) return null;
   const g = new THREE.Group(), c = THREE.SkeletonUtils.clone(mod); c.scale.setScalar(mod.userData.esc); g.add(c); const mx = new THREE.AnimationMixer(c), A = {}; Object.keys(R.clips).forEach(k => { A[k] = mx.clipAction(R.clips[k]); });
   ['Hit_A', 'PickUp'].forEach(k => { if (A[k]) { A[k].setLoop(THREE.LoopOnce); A[k].clampWhenFinished = true; } }); g.userData.rog = { mx, A, cur: null }; M3.vivo.add(g); return g; }
 function anima3(g, nom, f) { const r = g.userData.rog; if (!r || r.cur === nom || !r.A[nom]) return; const a = r.A[nom]; a.reset(); a.fadeIn(f || .25); a.play(); if (r.cur && r.A[r.cur]) r.A[r.cur].fadeOut(f || .25); r.cur = nom; }
@@ -260,8 +260,8 @@ function pinta3(dt) { const { T, cam, sc, hemi, sol, v } = M3, k = lim(E.d / L, 
   E.ladrones.forEach((o, i) => { const g = M3.ld[i]; g.visible = (o.est === 'viene' || o.est === 'huye') && E.fase === 'paseo'; if (!g.visible) return; const d = E.d + o.z, rog = g.userData.rog;
     if (rog) {   // con esqueleto: agachado al acercarse; golpe o robo y luego a la carrera hacia su lado
       if (o.est === 'viene') anima3(g, 'Sneaking'); else if (o.est === 'huye') { if (!o.tH) { o.tH = E.t; anima3(g, o.robo ? 'PickUp' : 'Hit_A', .12); } else if (E.t - o.tH > (o.robo ? .55 : .45)) anima3(g, 'Running_A', .2); }
-      rog.mx.update(dt); g.position.set(wx(d, o.lat), 0, -d); const giro = o.est === 'huye' && E.t - (o.tH || 0) > .4 ? o.lado * Math.PI / 2 : 0; g.rotation.y += (giro - g.rotation.y) * Math.min(1, dt * 8); return; }
-    const c = Math.sin(E.t * 12); g.position.set(wx(d, o.lat), Math.abs(c) * .06, -d); g.rotation.y = o.est === 'huye' ? o.lado * 1.4 : 0; g.userData['p-1'].position.z = c * .1; g.userData.p1.position.z = -c * .1; });
+      rog.mx.update(dt); g.position.set(wx(d, o.lat), gy(d, o.lat), -d);   /* v12.22 · pisa el terreno (en las colinas no se hunde) */ const giro = o.est === 'huye' && E.t - (o.tH || 0) > .4 ? o.lado * Math.PI / 2 : 0; g.rotation.y += (giro - g.rotation.y) * Math.min(1, dt * 8); return; }
+    const c = Math.sin(E.t * 12); g.position.set(wx(d, o.lat), gy(d, o.lat) + Math.abs(c) * .06, -d); g.rotation.y = o.est === 'huye' ? o.lado * 1.4 : 0; g.userData['p-1'].position.z = c * .1; g.userData.p1.position.z = -c * .1; });
   M3.r.render(sc, cam); }
 /* ---------- cosas del camino ---------- */
 function arbol(p, o) { const h = 300 * U * p.s * o.s; x.fillStyle = o.osc ? '#3b2616' : '#6a4526'; x.fillRect(p.x - h * .05, p.y - h * .5, h * .1, h * .5); x.fillStyle = o.osc ? '#1f5a36' : '#4c9a54'; x.beginPath(); x.arc(p.x, p.y - h * .62, h * .3, 0, TAU); x.fill(); x.fillStyle = o.osc ? '#17472b' : '#3f8747'; x.beginPath(); x.arc(p.x - h * .16, p.y - h * .5, h * .2, 0, TAU); x.arc(p.x + h * .17, p.y - h * .52, h * .21, 0, TAU); x.fill(); }
