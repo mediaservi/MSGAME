@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.17**
+**Versión actual: v12.18**
 
 ## Cómo se juega
 
@@ -34,7 +34,11 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.17)
+## Cambios de la versión actual (v12.18)
+
+- **Fuera los visuales de VJSHOW:** MSGAME ya no los pinta ni los enseña. Entre turnos, al calibrar o al acabar una partida (por ejemplo, después de KRAZYGOLF) se ve un fondo azul noche como el de los menús, no los efectos de VJSHOW. Sin juego, las pantallas de la sala muestran la sala de juegos. El motor solo trabaja para las pantallas de BOLERA, y ahorra GPU el resto del tiempo.
+
+### v12.17
 
 - **Pegatinas de los cartuchos:** cada cartucho lleva la carátula de su propio juego. Antes, los juegos sin foto de fondo (KRAZYGOLF, WONDERWALK, SHATEKI y los demás) salían con el dibujo de PALOTERAPIA, y los otros con un dibujo genérico en vez de su carátula. Revisados los 22.
 
@@ -438,7 +442,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.17 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.18 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 

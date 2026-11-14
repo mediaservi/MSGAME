@@ -396,6 +396,8 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
     /* v2.9 juegos */
     #gameCv{position:fixed;inset:0;width:100vw;height:100vh;z-index:40;display:none;cursor:none;touch-action:none}
     #gameCv.on{display:block}
+    html[data-app=msgame] #canvasWrapper,html[data-app=msgame] #vignette{visibility:hidden}   /* v12.18 · en MSGAME no se ve nada de VJSHOW */
+    html[data-app=msgame] #gameCv{background:radial-gradient(ellipse at 50% 40%,#13203a 0%,#081022 58%,#04060d 100%)}   /* fondo de las pantallas de turno, calibrado y fin de partida */
     /* v12.12 · AJUSTES de MSGAME con la estética de los menús de los juegos (pantalla azul noche, títulos naranja, bordes neón y botones en píldora) */
     .msg-fuera{display:none!important}
     html[data-app=msgame] body:not(.gm-mode) #clubBub{display:none!important}
@@ -2849,6 +2851,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
     function animate() { if (PADMODE) return; requestAnimationFrame(animate); lastAnim = performance.now(); frame(); }
     window.__vjPump = () => { if (!PADMODE && performance.now() - lastAnim > 150) frame(); };
     let G3SKIP = 0;
+    const VJ_FUERA = { ok: false };
     function frame() {
 
       const now = Date.now();
@@ -2867,6 +2870,8 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       }
 
       processAudio();
+      if (ES_MSG && !window.VJTV_ON) { if (!VJ_FUERA.ok) { VJ_FUERA.ok = true; ctx.clearRect(0, 0, canvas.width, canvas.height); try { fctx.clearRect(0, 0, front.width, front.height); } catch (e) {} } return; }   /* v12.18 · MSGAME no pinta los visuales de VJSHOW: solo las pantallas de BOLERA los usan */
+      VJ_FUERA.ok = false;
       if (audioMetrics.beatHit) { beatCount++; const nb = parseInt(document.getElementById('beatsPerChange').value, 10) || 0; if (nb > 0 && beatCount >= nb) { beatCount = 0; selectShaderStyle(pickDifferent(shaderRandomOptions, params.shaderPreset)); } }
       updateRandomCycles(now);
       if (window.GAME3D && (++G3SKIP % 3)) return;   // con un juego 3D a pantalla completa, el visual de fondo se dibuja a 1/3 para dejar GPU al juego
@@ -3602,7 +3607,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '12.17';
+    const APP_VERSION = '12.18';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -7996,7 +8001,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       async function loadAds() { for (const id of S.ads.ids) { if (ADIMG[id]) continue; try { const b = await IDB.get('ad:' + id); if (b) ADIMG[id] = img(URL.createObjectURL(b)); } catch (e) {} } }
       const gcv = () => document.getElementById('gameCv'), gameOn = () => { const c = gcv(); return !!(c && c.classList.contains('on')); };
       const fit = (x, src, w, h, cover) => { const sw = src.videoWidth || src.naturalWidth || src.width, sh = src.videoHeight || src.naturalHeight || src.height; if (!sw || !sh) return; const k = cover ? Math.max(w / sw, h / sh) : Math.min(w / sw, h / sh); x.drawImage(src, (w - sw * k) / 2, (h - sh * k) / 2, sw * k, sh * k); };
-      const mainSrc = () => gameOn() ? gcv() : (typeof canvas !== 'undefined' ? canvas : null);
+      const mainSrc = () => gameOn() ? gcv() : ES_MSG ? (document.querySelector('#clubHome>canvas') || null) : (typeof canvas !== 'undefined' ? canvas : null);   /* v12.18 · sin juego, las salidas muestran la sala (antes, los visuales de VJSHOW) */
       const bass = () => { try { return audioMetrics.bass || 0; } catch (e) { return 0; } }, beat = () => { try { return !!audioMetrics.beatHit; } catch (e) { return false; } };
       function bg(x, w, h, t, hue) {   // fondo retrogaming vivo: zoom lento, rejilla neón que late, barrido de color y scanlines
         x.fillStyle = '#05040a'; x.fillRect(0, 0, w, h);
