@@ -3607,7 +3607,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '12.23';
+    const APP_VERSION = '12.24';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -6037,11 +6037,11 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
             const st = new THREE.Mesh(new THREE.BoxGeometry(.025, .025, 2.35), neon(sd < 0 ? '#3bf3ff' : '#ff2bd6', 2.4)); st.position.set(sd * (BWD / 2 + .08), .57 + .0, -5.15); sc.add(st); leds.push(st); });
           const pit = new THREE.Mesh(new THREE.BoxGeometry(BWD, .05, .62), MS({ color: 0x050508, roughness: .9 })); pit.position.set(0, .06, -5.25); sc.add(pit); }
         // rótulo y marcador
-        const sign = new THREE.Mesh(new THREE.PlaneGeometry(1.7, .42), new THREE.MeshBasicMaterial({ map: signTex('BALLHOP', 'mediaservi GAME SYSTEM', '#ffe36b', '#ff2bd6'), toneMapped: false })); sign.position.set(0, 2.52, -7.25); sc.add(sign);
+        const sign = new THREE.Mesh(new THREE.PlaneGeometry(1.9, .47), new THREE.MeshBasicMaterial({ map: signTex('BALLHOP', 'mediaservi GAME SYSTEM', '#ffe36b', '#ff2bd6'), toneMapped: false })); sign.position.set(0, 2.36, -5.84); sc.add(sign);   // v12.24 · el rótulo, encima y delante de las torres: ya no se mete en ellas ni queda cortado en las máquinas de los lados
         const ledT = ledTex(1024, 256), led = new THREE.Mesh(new THREE.PlaneGeometry(1.25, .31), new THREE.MeshBasicMaterial({ map: ledT, toneMapped: false })); led.position.set(0, 2.1, -7.25); sc.add(led); let ledK = '';
         const spot = new THREE.SpotLight(0xffffff, 2.2, 9, .55, .5); spot.position.set(0, 3.4, -4.2); spot.target.position.set(0, 1.0, -6.4); sc.add(spot); sc.add(spot.target);
         const pc = new THREE.PointLight(0x3bf3ff, 1.4, 5); pc.position.set(-.9, 1.5, -5.8); sc.add(pc); const pm2 = new THREE.PointLight(0xff2bd6, 1.4, 5); pm2.position.set(.9, 1.5, -5.8); sc.add(pm2);
-        { const parts = sc.children.filter(o => (o.isMesh || o.isGroup) && o !== led); [-1, 1].forEach(sd => { const grp = new THREE.Group(); parts.forEach(o => grp.add(o.clone())); grp.position.x = sd * 2.15; sc.add(grp); }); }
+        { const parts = sc.children.filter(o => (o.isMesh || o.isGroup) && o !== led); [-1, 1].forEach(sd => { const grp = new THREE.Group(); parts.forEach(o => grp.add(o.clone())); grp.position.x = sd * 2.5; sc.add(grp); }); }   // v12.24 · las máquinas de los lados, más separadas: sus rótulos ya no quedan cortados por los laterales de la del centro
         const floor = new THREE.Mesh(new THREE.PlaneGeometry(30, 30), MS({ map: carpetTex(), roughness: .95, envMapIntensity: .15 })); floor.rotation.x = -Math.PI / 2; floor.position.y = -.01; floor.receiveShadow = true; sc.add(floor);
         const wall = new THREE.Mesh(new THREE.PlaneGeometry(16, 8), new THREE.MeshBasicMaterial({ map: wallTex() })); wall.position.set(0, 3.5, -9.5); sc.add(wall);
         // bolas
