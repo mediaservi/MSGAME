@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.18**
+**Versión actual: v12.19**
 
 ## Cómo se juega
 
@@ -34,7 +34,14 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.18)
+## Cambios de la versión actual (v12.19)
+
+- **Mevi sin dedos dentro del cuerpo:** el pulgar va hacia fuera y se han recolocado los brazos de todas las posturas (saludo, pulgar arriba, visera, manos en la cintura, balanceo, señalar y andar) comprobándolas con una prueba de choques; ningún dedo, pulgar ni palma se mete en el cuerpo, la cabeza o las piernas.
+- **Teclas de la consola con iconos dibujados, grandes y claros:** JUGAR es la tecla más grande (triángulo y rótulo), EXPULSAR es cuadrada (su símbolo de expulsar), y JUGADORES y RÉCORDS llevan dos siluetas y un trofeo dorado en vez de emojis.
+- **El cubo de la tele lleva a la portada de AVHUB** (al pulsarlo, o con el mando de la tele; al pasar por encima, el monitor dice «AVHUB»).
+- **Cubo más realista:** cada piececita tiene un solo color, así que las pegatinas que se tocan en una arista o una esquina son del mismo color.
+
+### v12.18
 
 - **Fuera los visuales de VJSHOW:** MSGAME ya no los pinta ni los enseña. Entre turnos, al calibrar o al acabar una partida (por ejemplo, después de KRAZYGOLF) se ve un fondo azul noche como el de los menús, no los efectos de VJSHOW. Sin juego, las pantallas de la sala muestran la sala de juegos. El motor solo trabaja para las pantallas de BOLERA, y ahorra GPU el resto del tiempo.
 
@@ -442,7 +449,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.18 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.19 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
