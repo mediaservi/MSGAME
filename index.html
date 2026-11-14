@@ -3662,7 +3662,7 @@ body.gm-modos #gmUI{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '12.48';
+    const APP_VERSION = '12.49';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -5341,6 +5341,15 @@ body.gm-modos #gmUI{display:none!important}
           cajavuelve: () => { tone(420, 900, .1, 'sine', .14); noise(.04, 2500, 2500, 1.5, .08, 'bandpass', .08); tone(160, 110, .06, 'triangle', .12, .1); },
           puerta: () => { const f = 300 + Math.random() * 120; tone(f, f * 1.35, .35, 'sawtooth', .025); tone(f * 1.01, f * 1.3, .32, 'square', .012, .03); noise(.06, 400, 200, 1, .08, 'lowpass', .32); },
           tierra: () => { noise(.6, 500, 220, .8, .2, 'lowpass'); for (let i = 0; i < 6; i++) noise(.04, 900 + Math.random() * 900, 600, 2, .07, 'bandpass', .05 + Math.random() * .45); },
+          /* v12.49 · más pasos con sonido: BOLERA (carga, barrido, la máquina coloca los bolos y devuelve la bola), LA FORTUNA (impulso y frenazo), y GRAFFER (agitar el bote y forma nueva) */
+          carga: () => { tone(220, 440, .12, 'triangle', .1); tone(440, 660, .08, 'triangle', .07, .1); },
+          barrida: () => { noise(.5, 700, 300, .8, .16, 'lowpass'); tone(90, 70, .5, 'sawtooth', .04); noise(.06, 1800, 900, 2, .1, 'bandpass', .45); },
+          colocar: () => { [0, .07, .12, .2].forEach((d, i) => { noise(.03, 2200 + i * 200, 1400, 3, .12, 'bandpass', .05 + d); tone(700 + i * 40, 500, .04, 'triangle', .06, .05 + d); }); },
+          retorno: () => { noise(1.1, 220, 120, .7, .2, 'lowpass'); tone(60, 52, 1.0, 'sine', .14, .05); noise(.08, 900, 400, 1.2, .14, 'bandpass', 1.05); },
+          impulso: () => { noise(.45, 600, 2600, .9, .16, 'bandpass'); tone(160, 320, .3, 'sawtooth', .04); },
+          frena: () => { noise(.03, 3000, 2000, 2, .18, 'bandpass'); tone(260, 180, .1, 'triangle', .2); noise(.12, 500, 250, 1, .12, 'lowpass', .02); },
+          agitar: () => { for (let i = 0; i < 5; i++) { noise(.035, 3800 + Math.random() * 1500, 2600, 3, .12, 'bandpass', i * .085); tone(2400 + Math.random() * 600, 1900, .02, 'triangle', .04, i * .085 + .01); } },
+          forma: () => { noise(.12, 1500, 6000, 1, .07, 'highpass'); tone(660, 990, .1, 'sine', .08, .05); },
           valla: () => { tone(620, 600, .25, 'triangle', .08); tone(930, 900, .2, 'triangle', .05, .01); noise(.05, 2600, 1800, 2, .09, 'bandpass'); tone(120, 80, .08, 'triangle', .16, .3); noise(.08, 600, 300, 1, .12, 'lowpass', .3); },
           balloon: () => S.pop(),   // globo de tinta reventado
           cutsword: p => { noise(.16, 5200, 2600, 2.5, .45, 'bandpass'); tone(2600, 2200, .35, 'sine', .08, .02); tone(3900, 3600, .25, 'sine', .04, .03); noise(.08, 900, 400, 1, .3, 'lowpass'); if (p > .7) tone(1760, 1760, .25, 'triangle', .08, .05); },   // tajo de acero
@@ -5573,7 +5582,7 @@ body.gm-modos #gmUI{display:none!important}
         const POL = { st: 'idle', t: 0, next: R(16, 26), dir: 1, x: 0, paid: new Set(), caught: new Set(), sir: 0 }, SHP = [], CUFF = [], PS = {}, MON = {}; GPIDS.forEach(i => MON[i] = 0);
         const FREE = () => (($g('grMode') || {}).value || 'game') === 'free', mon = i => MON[i] || 0, addMon = (i, v) => { MON[i] = Math.max(0, mon(i) + v); g.score = GPIDS.length > 1 ? GPIDS.reduce((a, j) => a + mon(j), 0) : mon(i); }; let shT = R(2.5, 4.5), UI = [], panelR = 0;
         const unit = () => Math.round(hudS() * (GU_TOUCH && Math.min(W, H) < 700 ? 1.55 : 1));
-        function setCol(c) { PLS[act].gcol = c || null; if (G.match ? false : true) G.gcol = PLS[act].gcol; try { $g('grCans').querySelectorAll('.can').forEach(b => b.classList.toggle('on', (b.dataset.col || '') === (c || ''))); } catch (e) {} SFX.play('key'); }
+        function setCol(c) { PLS[act].gcol = c || null; if (G.match ? false : true) G.gcol = PLS[act].gcol; try { $g('grCans').querySelectorAll('.can').forEach(b => b.classList.toggle('on', (b.dataset.col || '') === (c || ''))); } catch (e) {} SFX.play('agitar', 0, 250); }
         function setCap(v) { PLS[act].gcap = v; G.gcap = v; try { $g('grCap').value = v; } catch (e) {} SFX.play('key'); }
         g.__pol = () => POL.st; g.__vis = () => !!POL.vis; g.__shp = () => SHP.map(o => [o.k, o.cin, o.nin, o.cout, o.done, Math.round(o.x), Math.round(o.y)]);   // pruebas
         g.bribe = (i = act) => { if (FREE() || !(POL.st === 'warn' || POL.st === 'drive') || POL.paid.has(i) || mon(i) < BRIBE) return false; addMon(i, -BRIBE); POL.paid.add(i); SFX.play('cash'); setTimeout(() => SFX.play('laugh'), 250); pop('🧾 ' + TT('¡MULTA PAGADA!') + ' −' + money(BRIBE) + (GPIDS.length > 1 ? ' · ' + PLS[i].n : ''), W / 2, H * .42, GPIDS.length > 1 ? PLS[i].c : '#7dff6a', 26); return true; };
@@ -5608,7 +5617,7 @@ body.gm-modos #gmUI{display:none!important}
           // rejilla para medir cuánto se ha pintado dentro y cuánto fuera (zona ampliada un 25 %)
           const E = S * 1.5, inside = new Uint8Array(GN * GN); let nin = 0; const tq = document.createElement('canvas').getContext('2d'); shapePath(tq, k, S);
           for (let j = 0; j < GN; j++) for (let i = 0; i < GN; i++) { const px2 = (i + .5) / GN * E - E / 2, py2 = (j + .5) / GN * E - E / 2; if (tq.isPointInPath(px2, py2)) { inside[j * GN + i] = 1; nin++; } }
-          SHP.push({ k, x: X, y: Y, S, E, c, inside, nin, hitIn: new Uint8Array(GN * GN), cin: 0, cout: 0, by: {}, t: 0, life: R(13, 17), done: 0 }); }
+          SHP.push({ k, x: X, y: Y, S, E, c, inside, nin, hitIn: new Uint8Array(GN * GN), cin: 0, cout: 0, by: {}, t: 0, life: R(13, 17), done: 0 }); SFX.play('forma', 0, 600); }
         function markShapes(X, Y, r, who) { SHP.forEach(o => { if (o.done) return; const E = o.E, cs = E / GN, rr2 = r * .75; if (X + rr2 < o.x - E / 2 || X - rr2 > o.x + E / 2 || Y + rr2 < o.y - E / 2 || Y - rr2 > o.y + E / 2) return;
           const i0 = Math.max(0, Math.floor((X - rr2 - o.x + E / 2) / cs)), i1 = Math.min(GN - 1, Math.floor((X + rr2 - o.x + E / 2) / cs)), j0 = Math.max(0, Math.floor((Y - rr2 - o.y + E / 2) / cs)), j1 = Math.min(GN - 1, Math.floor((Y + rr2 - o.y + E / 2) / cs));
           for (let j = j0; j <= j1; j++) for (let i = i0; i <= i1; i++) { const cx2 = o.x - E / 2 + (i + .5) * cs, cy2 = o.y - E / 2 + (j + .5) * cs; if (Math.hypot(cx2 - X, cy2 - Y) > rr2) continue; const n = j * GN + i; if (o.hitIn[n]) continue; o.hitIn[n] = 1; if (o.inside[n]) { o.cin++; o.by[who] = (o.by[who] || 0) + 1; } else o.cout++; }
@@ -7280,14 +7289,14 @@ body.gm-modos #gmUI{display:none!important}
           const S = segs(), s = S.find(x => x.it === it); const m = (s.a1 - s.a0) * .12, tgt = s.a0 + m + FT.rnd() * (s.a1 - s.a0 - m * 2);
           // la aguja está arriba (-90°): el ángulo de la rueda debe dejar «tgt» bajo la aguja
           const want = -Math.PI / 2 - tgt, base = g.ang, turns = 5 + Math.floor(FT.rnd() * 3); let end = want; while (end < base + turns * Math.PI * 2) end += Math.PI * 2;
-          g.sp = { from: base, to: end, t: 0, dur: 5.5 + FT.rnd() * 2, it, S, who: typeof G.firer === 'number' && PLS[G.firer] && PLS[G.firer].conn ? PLS[G.firer] : null }; const wi = typeof G.firer === 'number' ? G.firer : undefined; send({ t: 'hit', s: .6 }, wi); send({ t: 'prize', v: '…' }, wi);
+          g.sp = { from: base, to: end, t: 0, dur: 5.5 + FT.rnd() * 2, it, S, who: typeof G.firer === 'number' && PLS[G.firer] && PLS[G.firer].conn ? PLS[G.firer] : null }; const wi = typeof G.firer === 'number' ? G.firer : undefined; send({ t: 'hit', s: .6 }, wi); send({ t: 'prize', v: '…' }, wi); SFX.play('impulso');
         }
         g.fire = spin; g.click = spin;
         g.update = dt => { g.t += dt; g.flap = Math.max(0, g.flap - dt * 6);
           if (g.sp) { const s = g.sp; s.t += dt; const k = Math.min(1, s.t / s.dur), e = 1 - Math.pow(1 - k, 4); g.ang = s.from + (s.to - s.from) * e;
             const S = s.S.length ? s.S : segs(), rel = ((-Math.PI / 2 - g.ang) % (Math.PI * 2) + Math.PI * 4) % (Math.PI * 2), seg = S.findIndex(x => rel >= x.a0 && rel < x.a1);
             const peg = Math.floor(rel / (Math.PI * 2 / 24)) + seg * 100; if (peg !== g.lastPeg) { g.lastPeg = peg; g.flap = 1; tick(1 - k); }
-            if (k >= 1) { g.sp = null; g.ang = s.to % (Math.PI * 2); g.res = s.it; g.resT = g.t; g.resWho = s.who || (FPIDS ? PLS[act] : null); FT.take(s.it, g.resWho ? g.resWho.n : '', g.resWho ? g.resWho.c : ''); g.fw = 0; g.score++; if (FPIDS) { tk = (tk + 1) % FPIDS.length; use(FPIDS[tk]); setTimeout(stateToPad, 50); } flashT = .08; { const wi = s.who ? PLS.indexOf(s.who) : undefined; send({ t: 'hit', s: 1 }, wi); send({ t: 'prize', v: s.it.e + ' ' + s.it.n }, wi); } SFX.play('prize');
+            if (k >= 1) { g.sp = null; g.ang = s.to % (Math.PI * 2); g.res = s.it; g.resT = g.t; g.resWho = s.who || (FPIDS ? PLS[act] : null); FT.take(s.it, g.resWho ? g.resWho.n : '', g.resWho ? g.resWho.c : ''); g.fw = 0; g.score++; if (FPIDS) { tk = (tk + 1) % FPIDS.length; use(FPIDS[tk]); setTimeout(stateToPad, 50); } flashT = .08; { const wi = s.who ? PLS.indexOf(s.who) : undefined; send({ t: 'hit', s: 1 }, wi); send({ t: 'prize', v: s.it.e + ' ' + s.it.n }, wi); } SFX.play('frena'); setTimeout(() => SFX.play('prize'), 160);
               for (let i = 0; i < 160; i++) g.conf.push({ x: W / 2, y: H * .45, vx: R(-1, 1) * W * .5, vy: R(-1.2, .1) * H * .8, c: pick(COLS), r: R(0, 6), s: R(4, 10), l: R(1.5, 3) }); } }
           g.conf.forEach(c => { c.vy += H * .9 * dt; c.x += c.vx * dt; c.y += c.vy * dt; c.r += dt * 8; c.l -= dt; }); g.conf = g.conf.filter(c => c.l > 0 && c.y < H + 20);
           if (g.res && g.t - g.resT < 7) { const n = Math.round(dt * 140); for (let i = 0; i < n; i++) g.glit.push({ x: R(0, W), y: -10, vy: R(.12, .3) * H, sw: R(0, 6), ss: R(1.5, 3.5), s: R(2, 5) * H / 720, c: pick(['#ffd23f', '#fff6c2', '#ffffff', '#ff7ad9', '#7af0ff', '#c3ff7a', '#ffb347']), tw: R(0, 6) });
@@ -7453,7 +7462,7 @@ body.gm-modos #gmUI{display:none!important}
           if (next) g.fr++; sw = { t: 0, full: full || over, over, turn: next }; g.st = 'sweep'; g.stT = 0;
         }
         g.key = k => { if (g.st !== 'aim' && g.st !== 'meter' && g.st !== 'spin') return false; if (k === 'ArrowLeft' || k === 'ArrowRight') { g.padAim = false; g.pos = clamp(g.pos + (k === 'ArrowLeft' ? -.06 : .06), -LW / 2 + BR, LW / 2 - BR); return true; } if (k === 'ArrowUp' || k === 'ArrowDown') { g.hook = clamp(g.hook + (k === 'ArrowUp' ? .25 : -.25), -1, 1); return true; } return false; };
-        g.fire = () => { if (G.phase !== 'play') return; if (g.st === 'aim') { g.st = 'meter'; g.stT = 0; g.aimX = g.padAim ? aimFromPad() : g.pos * .3; } else if (g.st === 'meter') { g.pw = g.meter; g.st = 'spin'; g.stT = 0; } else if (g.st === 'spin') throwBall(g.pw, clamp(g.hook + g.spinM, -1, 1)); };
+        g.fire = () => { if (G.phase !== 'play') return; if (g.st === 'aim') { g.st = 'meter'; g.stT = 0; g.aimX = g.padAim ? aimFromPad() : g.pos * .3; SFX.play('carga'); } else if (g.st === 'meter') { g.pw = g.meter; g.st = 'spin'; g.stT = 0; SFX.play('key'); } else if (g.st === 'spin') throwBall(g.pw, clamp(g.hook + g.spinM, -1, 1)); };
         g.click = () => {};
         const aimFromPad = () => clamp((pad.x / W - .5) * 1.5, -.62, .62);
         let hold = null;
@@ -7469,7 +7478,7 @@ body.gm-modos #gmUI{display:none!important}
           else if (g.st === 'spin') g.spinM = Math.sin(g.stT * 2.6);
           else if (g.st === 'roll') { const n = 4; for (let i = 0; i < n; i++) physics(dt / n);
             if (ball.done || ball.z > LZ + 1.15) { settle += dt; const moving = pins.some(p => !p.gone && Math.hypot(p.vx, p.vz) > .04); if ((!moving && settle > .5) || settle > 2.6) finishRoll(); } else if (g.stT > 9) finishRoll(); }
-          else if (g.st === 'sweep') { if (g.stT > .55 && !sw.cleared) { sw.cleared = true; if (sw.full) pins = newPins(); else pins = pins.filter(p => p.up && !p.gone).map(p => Object.assign(p, { vx: 0, vz: 0, fall: 0 })); ball = null; }
+          else if (g.st === 'sweep') { if (!sw.snd) { sw.snd = 1; SFX.play('barrida'); } if (g.stT > .55 && !sw.cleared) { sw.cleared = true; SFX.play(sw.full ? 'colocar' : 'retorno'); if (sw.full) setTimeout(() => SFX.play('retorno'), 350); if (sw.full) pins = newPins(); else pins = pins.filter(p => p.up && !p.gone).map(p => Object.assign(p, { vx: 0, vz: 0, fall: 0 })); ball = null; }
             if (g.stT > 1.3) { if (PIDS.length > 1 && (sw.turn || sw.over)) { saveP(); if (sw.over) g.ps[cp].done = true; let nx = -1; for (let k = 1; k <= PIDS.length; k++) { const j = (cp + k) % PIDS.length; if (!g.ps[j].done) { nx = j; break; } }
                 if (nx < 0) { g.st = 'end'; g.stT = 0; } else { cp = nx; loadP(); use(PIDS[cp]); g.st = 'aim'; g.hook = 0; g.padAim = false; g.pos = 0; SFX.play('turn'); g.msg = TT('TURNO DE') + ' ' + PLS[PIDS[cp]].n; g.msgC = PLS[PIDS[cp]].c; g.msgT = 0; if (g.tick) g.tick(g.msg, PLS[PIDS[cp]].c); stateToPad(); } }
               else if (sw.over) { g.st = 'end'; g.stT = 0; } else { g.st = 'aim'; g.hook = 0; } } }
