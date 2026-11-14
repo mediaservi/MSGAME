@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.47**
+**Versión actual: v12.48**
 
 ## Cómo se juega
 
@@ -36,7 +36,12 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.47)
+## Cambios de la versión actual (v12.48)
+
+- **Un sonido para cada paso de la sala:** al elegir un juego suenan la caja al salir del estante, la carátula al abrirse, el cartucho al salir de la caja, el ¡clac! al meterlo y la tele al encenderse. Al volver, suenan los píxeles al evaporarse y la caja al volver a su sitio. Si un fotograma lento se salta un paso, su sonido suena igual.
+- **PUNTERÍA:** chirría la puerta cuando alguien aparece en ella, se oye la tierra cuando un zombi sale de su tumba y suena el hierro cuando salta la valla.
+
+### v12.47
 
 - **PUNTERÍA: cada personaje entra por donde tiene lógica.** Cada uno de los 6 escenarios pintados tiene su mapa: puertas, ventanas, tumbas, valla, abertura del muro, suelo, cielo y sitios donde posar objetos.
   - **Fundido:** los que asoman aparecen poco a poco en ventanas y puertas (en las puertas, de cuerpo entero). En Zombieland también asoman por detrás de las lápidas.
@@ -645,7 +650,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.47 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.48 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
