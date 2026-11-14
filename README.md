@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.32**
+**Versión actual: v12.33**
 
 ## Cómo se juega
 
@@ -34,7 +34,16 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.32)
+## Cambios de la versión actual (v12.33)
+
+- **Logo nuevo de MSGAME:** el que aprobaste. «MS» en Staatliches (la letra de GAME), blanca y gruesa, sobre dos fichas rectas moradas con el degradado del MS de siempre y sombra verde; se pisan entre ellas y la S pisa a la G. «GAME» y la calavera no cambian. Está en todas partes: cabecera, mando del móvil, rótulos de las estanterías, cajas, cartuchos, tele y versión con lema.
+- **Aura de Mevi que se ve:** la carátula que recomienda Mevi brilla ahora en verde lima y cian, que contrasta con las carátulas moradas y con la madera, y late como un destello para que se note de lejos.
+- **SONIDO OFF en el LCD:** el aviso de que no hay sonido ya no es una burbuja. Sale en rojo en el LCD de puntos de arriba al quitar el sonido y, mientras siga quitado, un mensaje sí y otro no. Pulsando el LCD con el aviso rojo vuelve el sonido.
+- **Dos carátulas que son webs:** en los dos huecos que estaban detrás del radiocasete y de la lámpara hay dos carátulas con aspecto de juego: MEDIASERVI (tu cara sobre un sol retro con rejilla de neón, «ESTUDIO AUDIOVISUAL») abre mediaservi.com, y AVHUB (la carta de ajuste 4K con la luna, «TOOLS FOR PROFESSIONALS») abre avhub.mediaservi.com, cada una en otra pestaña. Al pasar por encima, la tele enseña la web. No salen como cartuchos en el móvil.
+- **Tele SONIA:** el logo, un par de tonos más visible, sin dejar de ser discreto.
+- **Avances de partida en la tele:** cuando Mevi recomienda un juego, la tele enseña un vídeo corto de una partida de verdad de ese juego (PUNTERÍA Haunted y Western, PALOTERAPIA Aliens y Zombies, PATOPESCA, BEAT RACER, GRAFFER, LA FORTUNA, BOLERA y KRAZYGOLF). ENCESTA, SHATEKI y WONDERWALK enseñan de momento su carátula en movimiento.
+
+### v12.32
 
 - **Mevi recomienda con magia:** cuando Mevi te sugiere un juego, su carátula desprende un aura morada en degradado (rosa, morado y violeta), con destellos de cuatro puntas que la rodean y un sonido de campanillas. Así sabes de qué juego habla. Si recomienda ENCESTA, brillan BALLHOP y BASKET.
 - **Avance en la tele:** a la vez, la tele pasa por un fundido de ruido estático (con su chisporroteo) y enseña el avance de ese juego, con el cartel de «ELIGE UN JUEGO» arriba. Al acabar, ruido otra vez y vuelve el menú. De momento el avance es la carátula del juego en movimiento; los vídeos de partida se añadirán juego a juego.
@@ -519,7 +528,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.32 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.33 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
