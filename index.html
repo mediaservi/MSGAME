@@ -3607,7 +3607,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '12.24';
+    const APP_VERSION = '12.25';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -6232,7 +6232,11 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
           if (g.left <= 0 && !mov && !corchos.some(c => c.vivo)) { g.endT += dt; if (g.endT > (g.gana && g.t - g.gana.t < 3 ? 3 : 1.6)) {
               if (FPIDS && tk < FPIDS.length - 1) { g.ps[tk].score = g.score; tk++; use(FPIDS[tk]); setTimeout(stateToPad, 50); g.score = 0; g.combo = 0; g.left = 7; g.cool = .9; g.endT = 0; g.turnoT = 2.4; corchos.forEach(c => { if (c.m.parent) sc.remove(c.m); }); corchos.length = 0; monta(7 + tk * 31); SFX.play('turn'); }   /* siguiente jugador: gradas repuestas con lo que queda en existencias */
               else { if (FPIDS) g.ps[tk].score = g.score; return end(g); } } } else g.endT = 0; if (g.turnoT > 0) g.turnoT -= dt; };
-        g.draw = () => { const r = r3size(), port = W / H < 1; cam.aspect = W / H; cam.fov = port ? Math.min(74, 2 * Math.atan(Math.tan(.29) / cam.aspect) * 180 / Math.PI) : 30; cam.updateProjectionMatrix(); r.render(sc, cam); x.drawImage(T3.c, 0, 0, W, H);
+        g.draw = () => { const r = r3size(), port = W / H < 1; cam.aspect = W / H; cam.fov = port ? Math.min(74, 2 * Math.atan(Math.tan(.29) / cam.aspect) * 180 / Math.PI) : 30;
+          /* v12.24 · si sale el panel de premios y QR a la izquierda, la galería se aparta a la derecha y se encoge un poco: ningún premio queda debajo del panel */
+          { const pan = !port && W >= 860 && SK.D.items.some(it => it.n.trim()), s0 = hudS(), lado = pan ? Math.min(W * .2, s0 * 15) + s0 * 1.2 : 0, kk = (W - lado) / W;
+            if (lado) { cam.fov = 2 * Math.atan(Math.tan(cam.fov * Math.PI / 360) / kk) * 180 / Math.PI; cam.setViewOffset(W, H, -lado / 2, 0, W, H); } else cam.clearViewOffset(); }
+          cam.updateProjectionMatrix(); r.render(sc, cam); x.drawImage(T3.c, 0, 0, W, H);
           hud(g, TT('CORCHOS') + ' ' + g.left);
           if (!port && W >= 860) { const s0 = hudS(), pw = Math.min(W * .2, s0 * 15), av = SK.D.items.filter(it => it.n.trim()).slice(0, 8), corta = (t, n) => t.length > n ? t.slice(0, n - 1) + '…' : t, caja2 = (X, Y, w, h) => { x.save(); x.fillStyle = 'rgba(8,5,4,.62)'; x.strokeStyle = 'rgba(255,255,255,.14)'; x.lineWidth = 1; x.beginPath(); x.roundRect ? x.roundRect(X, Y, w, h, s0 * .5) : x.rect(X, Y, w, h); x.fill(); x.stroke(); x.restore(); };
             if (av.length) { const X0 = s0 * .7, Y0 = s0 * (G.match ? 6.4 : 4.6), hh = s0 * (1.9 + av.length * 1.2); caja2(X0, Y0, pw, hh); txt(TT('PREMIOS'), X0 + s0 * .6, Y0 + s0 * .4, s0 * .62, '#ffd23f'); av.forEach((it, k) => { const out = it.q > 0 && it.left <= 0; x.save(); x.font = `700 ${s0 * .78}px "Barlow Semi Condensed","Arial Narrow",Arial,sans-serif`; x.textBaseline = 'top'; x.fillStyle = out ? '#77706a' : '#fff'; x.fillText((it.q === 0 ? '∞' : it.left + '×') + '  ' + it.e + ' ' + corta(it.n, 20), X0 + s0 * .6, Y0 + s0 * (1.5 + k * 1.2), pw - s0 * 1.2); x.restore(); });

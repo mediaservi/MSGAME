@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.24**
+**Versión actual: v12.25**
 
 ## Cómo se juega
 
@@ -34,7 +34,11 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.24)
+## Cambios de la versión actual (v12.25)
+
+- **SHATEKI sin premios tapados:** cuando sale el panel de premios y el QR para unirse con el móvil, la galería se aparta a la derecha y se encoge un poco, así que ningún premio queda debajo del panel (antes los de la izquierda de cada balda no se veían). La mira sigue apuntando bien.
+
+### v12.24
 
 - **BALLHOP sin rótulos metidos en las torres:** el rótulo de cada máquina estaba en el mismo sitio que las torres laterales y, en las máquinas de los lados, quedaba cortado («BALLHO», «ALLHOP»). Ahora va delante y por encima de las torres, un poco más ancho, y las máquinas de los lados están más separadas.
 
@@ -477,7 +481,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.24 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.25 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
