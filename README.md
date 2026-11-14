@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.49**
+**Versión actual: v12.50**
 
 ## Cómo se juega
 
@@ -36,7 +36,17 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.49)
+## Cambios de la versión actual (v12.50)
+
+- **PUNTERÍA · WESTERN con personajes dibujados** (los que dibuja Josep, recortados del fondo verde, en `packs/western/`):
+  - **Enemigos:** el bandido (asoma por puertas, ventanas y esquinas o cruza corriendo la calle), el pistolero de negro (dispara de rodillas) y Annie con su escopeta. Se preparan, apuntan y, si no les das a tiempo, disparan (se ve el fogonazo justo antes).
+  - **No disparar:** la dama (se asusta), la vaca y el perro. Si les apuntas, se asustan y huyen corriendo.
+  - **Cada acción con su dibujo:** quieto, apunta, dispara, anda, se asusta, le dan y cae al suelo antes de desvanecerse.
+  - **Sombras:** cada personaje proyecta su sombra hacia delante, como las casas con el sol del atardecer al fondo, y lleva su sombra de contacto bajo los pies.
+  - **Acierto más justo:** cuenta lo dibujado de cada personaje, no un círculo.
+  - La gallina, la botella y la lata siguen de momento como emojis.
+
+### v12.49
 
 - **Más pasos con sonido:**
   - **BOLERA:** al cargar el tiro y fijar la fuerza, el barrido de la máquina, los bolos que se colocan y la bola que vuelve por el retorno.
@@ -657,7 +667,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.49 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.50 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
