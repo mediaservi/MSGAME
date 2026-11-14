@@ -13,7 +13,7 @@
 </style></head><body><canvas id="g3"></canvas><canvas id="c"></canvas>
 <script src="../lib/three.min.js"></script>
 <script src="../lib/msaudio.js"></script>
-<script src="../lib/mevi2d.js"></script>
+<script src="../lib/mevi2d.js?v=12.6"></script>
 <script>
 'use strict';
 const cv = document.getElementById('c'), x = cv.getContext('2d'); let W = 0, H = 0, K = 1, OX = 0, OY = 0;
@@ -280,5 +280,5 @@ function sube(tel) { if (E.modo === 'sim' && E.fase !== 'titulo' && E.fase !== '
 cv.addEventListener('pointerdown', e => { cv.setPointerCapture(e.pointerId); PH.on = false; baja(e.clientX, e.clientY); }); cv.addEventListener('pointermove', e => { if (!PH.on) mueve(e.clientX, e.clientY); }); cv.addEventListener('pointerup', () => sube()); cv.addEventListener('pointercancel', () => { E.arr = null; SM.hold = null; if (E.fase === 'swing') E.fase = 'apunta'; });
 addEventListener('keydown', e => { if (simTecla(e.key, true)) e.preventDefault(); }); addEventListener('keyup', e => { simTecla(e.key, false); });
 window.__kg = E; window.__kgH = HOYOS; window.__g3 = G3; </script>
-<script src="krazygolf-sim.js?v=12.4"></script>
+<script src="krazygolf-sim.js?v=12.6"></script>
 <script>'use strict'; window.__sm = SM; { const mm = (location.search.match(/[?&]modo=(\w+)/) || [])[1]; if (mm === 'krazy' || mm === 'clasico') { E.modo = mm; E.h = 0; E.tarjeta = []; empiezaHoyo(); } else if (mm === 'sim3' || mm === 'sim9') { E.modo = 'sim'; simEmpieza(+mm.slice(3)); } } requestAnimationFrame(tick);</script></body></html>

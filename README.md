@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.5**
+**Versión actual: v12.6**
 
 ## Cómo se juega
 
@@ -34,7 +34,11 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.5)
+## Cambios de la versión actual (v12.6)
+
+- **Mevi habla con ondas:** el texto va en un bocadillo cerrado, sin pico; entre la cara de Mevi y el bocadillo, por encima de los dos, tres ondas magenta semitransparentes parpadean mientras habla, como las de un megáfono.
+
+### v12.5
 
 - **Brazos de Mevi proporcionados al meter el cartucho:** las manos quedan a la distancia de un brazo de verdad (antes, al doble), los hombros salen más abajo y, al final, la mano se retira hacia el hombro en lugar de subir estirando el brazo.
 
@@ -365,7 +369,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.5 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.6 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
