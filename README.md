@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.41**
+**Versión actual: v12.42**
 
 ## Cómo se juega
 
@@ -36,7 +36,17 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.41)
+## Cambios de la versión actual (v12.42)
+
+- **La cámara ya no se abre sola al arrancar.** Solo cuando la pides: con «Probar la cámara» en AJUSTES › Cámara, con su interruptor o al elegir ✋ Mano o 🧍 Cuerpo en «¿Cómo jugáis?»; ahí, si aún está cerrada, se abre al pulsar JUGAR.
+- **Al salir de la partida la cámara se cierra** (salvo que estés mirando la pestaña Cámara).
+- **Gasta mucho menos y el juego ya no va a saltos:**
+  - la profundidad de la RealSense solo se abre en «lo más cercano» o al probarla en AJUSTES (en el Mac no llega y era lo que más cargaba);
+  - vuelve el detector de manos ligero;
+  - el detector mira la imagen 30 veces por segundo como mucho y, si el equipo va justo, más espaciado; en AJUSTES › Cámara se ve cuánto tarda y cuántas veces por segundo mira.
+- Sin elegir mando, nadie juega con la cámara: el móvil si está enlazado y, si no, el ratón.
+
+### v12.41
 
 - **«¿Cómo jugáis?» antes de cada partida.** Cada jugador elige su mando:
   - 🖱 ratón (el dedo, en una pantalla táctil), 📱 móvil, ✋ mano o 🧍 cuerpo (solo en BEAT RACER); se pueden mezclar, uno con cada cosa;
@@ -594,7 +604,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.41 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.42 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
