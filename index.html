@@ -3662,7 +3662,7 @@ body.gm-modos #gmUI{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '12.42';
+    const APP_VERSION = '12.43';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -6420,11 +6420,18 @@ body.gm-modos #gmUI{display:none!important}
           if (g.msgT > 0) txt(TT('¡NIVEL') + ' ' + (g.lv + 1) + '!', W / 2, H * .42, Math.round(H / 10), '#56f700', 'center', '#56f700');
           if (g.t < 5 && g.lv === 0 && g.st === 'aim') txt(TT(pad.src === 'phone' ? 'APUNTA Y PULSA «LANZAR» DOS VECES: FUERZA Y LANZAMIENTO' : W < H ? 'DESLIZA HACIA ARRIBA PARA LANZAR' : GU_TOUCH ? 'APUNTA CON ◀ ▶ Y PULSA «LANZAR» DOS VECES · O DESLIZA HACIA ARRIBA' : 'APUNTA · OK / CLIC: FUERZA · OK / CLIC: LANZAR · O DESLIZA HACIA ARRIBA'), W / 2, H * .94, Math.round(Math.min(H / 44, W / 26)), '#fff', 'center'); };
         return g; }
+      /* v12.43 · BEAT RACER en 3D (RUNNER y DIRTY): el módulo packs/racer/racer3d.js y sus modelos se cargan al jugar; mientras llegan, se juega en 2D */
+      function RACER3D(opt, g, R3) { if (window.__no3d) return;
+        const scr = (u, ya) => ya() ? Promise.resolve() : new Promise((res, rej) => { const s = document.createElement('script'); s.src = u; s.onload = res; s.onerror = () => rej(new Error(u)); document.head.appendChild(s); });
+        loadThree().then(() => scr('lib/gltf.js?v=' + APP_VERSION, () => THREE.GLTFLoader)).then(() => scr('packs/racer/racer3d.js?v=' + APP_VERSION, () => window.MSG_RACER3D))
+          .then(() => { if (G.cur !== g) return; return MSG_RACER3D.crea({ opt, g, R3, T3, r3size, cvTex, dynRes, bib: bibCanvas, plate: plateCanvas, col: () => G.match ? PLS[act].c : '#3bf3ff', WH: () => [W, H], ctx: () => x, audio: () => audioMetrics, fase: () => G.phase, vivo: () => G.cur === g, v: APP_VERSION }); })
+          .catch(e => console.warn('BEAT RACER 3D', e)); }
       function Racer(opt) {
         const g = { id: 'race', name: 'BEAT RACER', score: 0, combo: 0, maxc: 0, hits: 0, shots: 0, energy: 100, lives: 3, t: 0, dur: opt.dur, items: [], sx: 0, speed: 1, inv: 0, beatT: 0, jt: -1, jy: 0, slip: 0, slipD: 0, hzT: 0 };
         const JUMP = .78, air = () => g.jy > .32;   // duración del salto (s) · en el aire se pasa por encima de muros, bombas y plátanos
         function jump() { if (G.phase !== 'play' || g.jt >= 0 || g.slip > 0) return; g.jt = 0; SFX.play('jump'); send({ t: 'hit', s: .2 }); }
-        const per = () => 60 / clamp(params.bpm || 120, 70, 180), proj = (lx, z) => { const p = 1 / (1 + 3.4 * z), hz = g.hz || .42; return [W / 2 + lx * W * .45 * p, H * hz + H * (.94 - hz) * p, p]; };
+        const per = () => 60 / clamp(params.bpm || 120, 70, 180), proj0 = (lx, z) => { const p = 1 / (1 + 3.4 * z), hz = g.hz || .42; return [W / 2 + lx * W * .45 * p, H * hz + H * (.94 - hz) * p, p]; };
+        const R3 = g.r3 = { ok: false }, proj = (lx, z) => R3.ok ? R3.proj(lx, z) : proj0(lx, z); RACER3D(opt, g, R3);   /* v12.43 · RUNNER y DIRTY en 3D en cuanto llegan los modelos; mientras, en 2D */
         g.update = dt => {
           g.t += dt; if (g.t > g.dur || g.lives <= 0) return end(g);
           g.speed = 1 + g.t / 70; g.score += Math.round(dt * 60 * g.speed); g.inv = Math.max(0, g.inv - dt);
@@ -6448,6 +6455,7 @@ body.gm-modos #gmUI{display:none!important}
             if (it.z < -.1) g.items.splice(i, 1); }
           stateTick(g); };
         g.draw = () => {
+          if (R3.ok && R3.draw()) {} else {
           const rk = opt.veh === 'dirty' ? 'racer_dirty' : 'racer_runner', rk2 = JBG.get(rk) ? rk : 'racer', rim = JBG.get(rk2); g.hz = null; if (rim) { const bass = audioMetrics.bass || 0; g.hz = JBG.fit(x, rim, W, H, rk2, .42, .58, 1 + bass * .02); x.fillStyle = 'rgba(0,0,0,.2)'; x.fillRect(0, 0, W, H); }
           else { const bass = audioMetrics.bass || 0, hz = H * .42; x.fillStyle = (() => { const gg = x.createLinearGradient(0, 0, 0, hz); gg.addColorStop(0, '#05010f'); gg.addColorStop(.6, '#2a0a3e'); gg.addColorStop(1, '#6a1450'); return gg; })(); x.fillRect(0, 0, W, hz);
             if (!g.st) g.st = Array.from({ length: 90 }, () => [Math.random() * W, Math.random() * hz * .8, Math.random()]); g.st.forEach(s3 => { x.fillStyle = `rgba(255,255,255,${.25 + s3[2] * .6 * (.6 + .4 * Math.sin(g.t * 3 + s3[0]))})`; x.fillRect(s3[0], s3[1], 1.5, 1.5); });
@@ -6491,7 +6499,7 @@ body.gm-modos #gmUI{display:none!important}
           if (opt.veh === 'dirty') drawCar(sx, sy, RS * .25, { t: g.t, dirt: g.dirt, squash: g.land, lean: lean * 1.6, speed: G.phase === 'play' ? g.speed : 0, air: g.jy > .05, gY: sy0, brake: g.slip > 0 || g.inv > 1 });
           else if (RIMG.im && RIMG.im.width) { const im = RIMG.im, hh = RS * .36, k = hh / im.height, bob = Math.abs(Math.sin(ph)) * RS * .012; x.fillStyle = 'rgba(0,0,0,.45)'; x.beginPath(); x.ellipse(sx, sy, im.width * k * .3, RS * .012, 0, 0, 6.283); x.fill(); x.translate(sx, sy - bob); x.rotate(lean + Math.sin(ph) * .025); x.drawImage(im, -im.width * k / 2, -hh, im.width * k, hh); }
           else runner(sx, sy, RS * .34, ph, lean, G.match ? PLS[act].c : '#3bf3ff');
-          x.restore();
+          x.restore(); }
           hud(g, '♥'.repeat(Math.max(0, g.lives)));
           if (g.t < 6) txt(TT(pad.src === 'phone' ? 'PULSA «SALTAR» EN EL MÓVIL PARA SALTAR LOS MUROS' : GU_TOUCH ? 'USA ◀ ▶ PARA MOVERTE Y «SALTAR» PARA SALTAR LOS MUROS' : 'OK / CLIC / ESPACIO PARA SALTAR LOS MUROS'), W / 2, H * (GU_TOUCH && W < H ? .72 : .9), Math.round(Math.min(H / 42, W / 26)), '#cfd6dc', 'center');
         };

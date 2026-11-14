@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.42**
+**Versión actual: v12.43**
 
 ## Cómo se juega
 
@@ -26,7 +26,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 - **PALOTERAPIA:** corta y golpea al ritmo con sable láser, espada o bate; 5 temáticas.
 - **PUNTERÍA:** galería de tiro con el móvil como pistola y 6 escenarios.
-- **BEAT RACER:** carrera al ritmo, a pie (RUNNER) o en todoterreno (DIRTY).
+- **BEAT RACER:** carrera al ritmo en 3D, a pie (RUNNER) o en todoterreno (DIRTY).
 - **GRAFFER:** pinta las formas sin salirte y cuidado con la policía.
 - **LA FORTUNA:** ruleta de premios para eventos, con existencias reales.
 - **BOLERA:** bolos con física real y pantallas con visuales.
@@ -36,7 +36,24 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.42)
+## Cambios de la versión actual (v12.43)
+
+- **BEAT RACER, ahora en 3D, en sus dos modos.** La partida es la misma (carriles, saltos, premios, obstáculos y puntos). Mientras llegan los modelos se juega en 2D y la imagen pasa sola a 3D.
+- **RUNNER:**
+  - la corredora lleva ropa de correr de tu color de jugador y, a la espalda, un dorsal con el texto de la matrícula;
+  - corre, salta, rueda al patinar, encaja los golpes y baila al acabar;
+  - la calle es de ciudad al atardecer, con edificios, aceras, bolardos, farolas y arcos de neón que laten con la música;
+  - refrescos, zumos, medallas, copas, bombas, plátanos y barreras, todo en 3D.
+- **DIRTY:**
+  - el coche es un todoterreno tipo SUV, naranja como el de 2D y con los cristales oscuros;
+  - lleva tu matrícula en el portón, luces de freno, ruedas que giran y giran al virar, y suspensión que rebota al aterrizar;
+  - se va ensuciando y levanta polvo;
+  - corre por un camino de tierra en un pinar al atardecer, con postes de rally y arcos de control con bombillas que laten con la música;
+  - en el camino hay rayos, banderas de cuadros que ondean, copas y billetes con alas (estos, saltando), conos con larguero, coches de policía de frente con las luces encendidas, fardos de paja y vallas de rally.
+- Los modelos se cargan solo al jugar y, al acabar la partida, se libera lo que ya no hace falta.
+- Créditos de los recursos (Quaternius y Kenney, CC0) en `packs/racer/CREDITOS.md`.
+
+### v12.42
 
 - **La cámara ya no se abre sola al arrancar.** Solo cuando la pides: con «Probar la cámara» en AJUSTES › Cámara, con su interruptor o al elegir ✋ Mano o 🧍 Cuerpo en «¿Cómo jugáis?»; ahí, si aún está cerrada, se abre al pulsar JUGAR.
 - **Al salir de la partida la cámara se cierra** (salvo que estés mirando la pestaña Cámara).
@@ -604,7 +621,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.42 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.43 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
