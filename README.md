@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.30**
+**Versión actual: v12.31**
 
 ## Cómo se juega
 
@@ -34,7 +34,17 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.30)
+## Cambios de la versión actual (v12.31)
+
+- **Usa tu móvil como mando:** si no hay ningún móvil enlazado, en el menú del cartucho aparece junto a JUGAR la tecla «Usa tu móvil como mando». Abre una pantalla con un código QR por cada jugador activo, con su color y su nombre: cada móvil que lo escanea entra en ese puesto y conserva su color. Al enlazarse, su código cambia por un móvil verde y «Conectado», y cuando están todos la tele vuelve sola al cartucho. Los códigos se ajustan para que quepa todo sin desplazar en cualquier pantalla.
+- **Móvil verde en el menú:** el jugador que ya tiene el móvil enlazado lleva un icono de móvil verde junto a su puesto. Al pulsar JUGAR se juega con el móvil.
+- **Mando del móvil:** la cruceta va centrada y más arriba, con el botón de acción debajo. En los huecos de abajo de la cruceta hay un botón ATRÁS (izquierda) y otro de SILENCIO (derecha), que se tacha en rojo cuando el sonido está apagado. En un móvil bajo, la cruceta encoge lo justo, y si en GRAFFER no cabe ni así, el botón de acción se pone a su lado.
+- **PALOTERAPIA:** el botón de acción del mando ya no cambia de arma; ahora golpea (corta o batea lo que esté a tiro junto a la hoja). El arma solo se cambia con sus botones: láser, espada y bate.
+- **Estanterías:** hay 32 huecos y 22 carátulas distintas. Cada carátula distinta ocupa un hueco que se ve entero desde la cámara de la sala; las 10 repetidas van solo donde tapan Mevi, el radiocasete, la lámpara, la lata o la mesa. KRAZYGOLF, WONDERWALK y SHATEKI ya no quedan escondidos.
+- **Consola:** el icono de JUGADORES ya no lleva micro. Los iconos de JUGADORES y RÉCORDS van serigrafiados en gris oscuro (el trofeo ya no es dorado) y el texto de JUGAR y EXPULSAR va en negro. El rojo de EXPULSAR es más claro para que se lea bien.
+- **Tele SONIA:** el logo de la carcasa es mucho más discreto: más pequeño, del color del plástico y con un relieve muy suave.
+
+### v12.30
 
 - **KRAZYGOLF con su título nuevo:** el que elegiste (C1), con cielo y césped, letras hinchadas de colores, la O como pelota de minigolf con hoyuelos y la banderita del hoyo pegada al lado izquierdo de la K, apuntando a la izquierda. «MINIGOLF GAMBERRO» va escrito como con tiza, pero legible. Sale en la portada del juego, en horizontal y en vertical.
 
@@ -504,7 +514,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.30 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.31 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
