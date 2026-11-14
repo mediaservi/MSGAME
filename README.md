@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.28**
+**Versión actual: v12.29**
 
 ## Cómo se juega
 
@@ -34,7 +34,13 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.28)
+## Cambios de la versión actual (v12.29)
+
+- **KRAZYGOLF con hoyo de verdad:** el campo tiene un agujero real con su copa (forro blanco arriba, paredes y fondo oscuros), borde metálico y la bandera clavada en su casquillo. La bola cae dentro por gravedad, bota en el fondo y se queda contra la pared, y la bandera sale del hoyo como cuando la quitas.
+- **Física del borde:** fuera el imán que arrastraba la bola. Ahora el borde inclina la bola hacia dentro: si llega lenta y centrada, cae; si va rápida o rozando, ronda el borde («clinc») o pasa por encima y sigue.
+- **Flecha de tiro nueva:** en 3D, pegada al césped, con chevrones que corren, punta y una estela de puntos que marca la dirección. Va de verde a rojo con la fuerza.
+
+### v12.28
 
 - **Teléfono rojo con QR en el monitor:** al pasar por encima del teléfono rojo de la mesa, o al seleccionarlo con el mando de la tele, el monitor enseña el código QR para unirse con el móvil y el rótulo «ÚNETE CON EL MÓVIL». Si el QR aún se está preparando, lo dice y aparece en cuanto está listo.
 
@@ -494,7 +500,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.28 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.29 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
