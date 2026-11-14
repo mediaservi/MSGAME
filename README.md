@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.35**
+**Versión actual: v12.36**
 
 ## Cómo se juega
 
@@ -34,7 +34,15 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.35)
+## Cambios de la versión actual (v12.36)
+
+- **Radio en la sala:** cuando la música de la sala ha sonado una vez (la entrada y una vuelta del bucle, poco más de un minuto), se funde con el ruido de sintonizar un dial y empieza una emisora al azar. Cada 6 minutos, ruido otra vez y la siguiente. Son 14 emisoras sin anuncios, de música sola: synthpop de los 80, synthwave, chill y lounge. El nombre de la que suena sale en el LCD.
+- **El casete del walkman cambia de emisora:** cada pulsación pone la siguiente de la lista y la deja fija, sin cambios cada 6 minutos, hasta que vuelvas a pulsar. Después de la última, la radio se apaga y vuelve la música de siempre; otra pulsación la enciende de nuevo.
+- La radio solo suena en la sala. En los juegos, el menú del juego y AJUSTES suena la música de siempre, y al volver sigue la misma emisora. Respeta el silencio (F10, N o SONIDO) y la salida de audio elegida.
+- Si una emisora no responde, se prueba su otro servidor y después otra emisora. Sin conexión, sigue la música del menú y lo vuelve a intentar a los 5 minutos.
+- Emisoras (cada una, de su web): SomaFM (Underground 80s, Vaporwaves, Groove Salad, Groove Salad Classic, Space Station Soma, Lush, Beat Blender, Secret Agent, Illinois Street Lounge y PopTron · somafm.com), Nightride FM, Chillsynth FM y Spacesynth FM (nightride.fm) y Radio Paradise Mellow Mix (radioparadise.com). MSGAME solo las escucha en directo desde sus servidores: no guarda ni retransmite nada.
+
+### v12.35
 
 - **El cartucho dice qué variante es:** con un juego de saga (PALOTERAPIA, PUNTERÍA, BEAT RACER, ENCESTA), la pegatina del cartucho enseña el nombre de la saga arriba y debajo el trozo de la carátula con el de la variante (HAUNTED, ALIENS, RUNNER, BALLHOP…), en vez de repetir la saga.
 - **Carátula de MEDIASERVI con tu material:** tu cara en el aro de neón y el rótulo MEDIASERVI.com, sobre los haces de luz verdes, azules y morados; como el rótulo ya va en la imagen, no se pinta otro título encima.
@@ -537,7 +545,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.35 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.36 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
