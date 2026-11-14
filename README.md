@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.22**
+**Versión actual: v12.23**
 
 ## Cómo se juega
 
@@ -34,7 +34,12 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.22)
+## Cambios de la versión actual (v12.23)
+
+- **KRAZYGOLF sin objetos que se mezclan:** auditados los seis campos (CLÁSICO y KRAZY) con una prueba de cajas. El ventilador del despacho y el molino del CLÁSICO ya no meten la base dentro del campo ni del borde. El ratón, los libros y la estantería ya no se hunden en la mesa o el suelo; todas las piezas de los packs se apoyan solas en el suelo. Se han recolocado el cactus de la encimera (pisaba la cuchara de palo), los libros del despacho (pisaban el ventilador y el ratón) y, en el salón, el sillón, la estantería, la planta y el cactus, que se metían unos en otros y en el sofá y la mesita.
+- **Mevi burlón en KRAZYGOLF:** mientras suelta sus ironías tiene un ojo entornado y habla con la boca torcida; al acabar la frase sonríe con cinismo y saca la lengua.
+
+### v12.22
 
 - **BALLHOP sin bolas enganchadas:** si una bola se mete entre el aro de fuera y el lateral, rebota por encima del aro y sigue rodando donde le toque; ninguna bola se queda parada en el tablero.
 - **BALLHOP con música larga y dinámica** (`packs/ballhop/`): entrada y bucle de 72 s con metales cómicos, galop de circo en las dos últimas bolas de la partida y cierre de circo al acabar.
@@ -468,7 +473,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.22 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.23 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
