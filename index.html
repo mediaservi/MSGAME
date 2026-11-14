@@ -1219,6 +1219,19 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
     #clubBub span{display:block;min-height:1.25em}
     body.club-seq #clubBub,body.crt-open #clubBub{display:none}
     #clubHome.on{opacity:1;pointer-events:auto}
+    /* v12.11 · arranque: pantalla negra desde el primer instante (nada de la home antigua) y la sala se enciende como una tele de tubo */
+    #msBoot{position:fixed;inset:0;z-index:2147483000;pointer-events:none;overflow:hidden}
+    #msBoot::before,#msBoot::after{content:"";position:absolute;left:0;right:0;height:50.5%;background:#000}
+    #msBoot::before{top:0}#msBoot::after{bottom:0}
+    #msBoot>i{position:absolute;left:50%;top:50%;width:.7vmin;height:.7vmin;margin:-.35vmin 0 0 -.35vmin;border-radius:50%;background:#8ff;box-shadow:0 0 1.2vmin .4vmin rgba(140,255,255,.7);z-index:1;animation:msBootDot 1.6s ease-in-out infinite}
+    @keyframes msBootDot{0%,100%{opacity:.15}50%{opacity:.75}}
+    #msBoot.enc>i{left:0;width:100%;height:.45vmin;margin:-.225vmin 0 0;border-radius:0;background:#fff;box-shadow:0 0 2.4vmin .8vmin rgba(200,240,255,.9),0 0 9vmin 2vmin rgba(150,210,255,.45);animation:msTvLinea .62s cubic-bezier(.2,.7,.3,1) forwards}
+    #msBoot.enc::before{animation:msTvArr .5s .17s cubic-bezier(.55,0,.25,1) forwards}#msBoot.enc::after{animation:msTvAba .5s .17s cubic-bezier(.55,0,.25,1) forwards}
+    @keyframes msTvLinea{0%{transform:scaleX(0);opacity:1}26%{transform:scaleX(1);opacity:1}45%{transform:scaleX(1) scaleY(4);opacity:1}100%{transform:scaleX(1) scaleY(120);opacity:0}}
+    @keyframes msTvArr{to{transform:translateY(-101%)}}@keyframes msTvAba{to{transform:translateY(101%)}}
+    body.club-tv #clubHome>canvas{animation:msTvBrillo 1.3s ease-out}
+    @keyframes msTvBrillo{0%,15%{filter:brightness(2.6) saturate(.2) contrast(1.4)}55%{filter:brightness(1.25) saturate(.85)}100%{filter:none}}
+    @media (prefers-reduced-motion:reduce){#msBoot.enc{transition:opacity .4s;opacity:0}#msBoot.enc>i,#msBoot.enc::before,#msBoot.enc::after,body.club-tv #clubHome>canvas{animation:none}}
     #clubHome>canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:manipulation}
     #clubHome>canvas.ptr{cursor:pointer}
     #clubFx{position:absolute;inset:0;pointer-events:none;background:radial-gradient(130% 100% at 50% 44%,transparent 56%,rgba(16,6,30,.5) 100%)}
@@ -1545,6 +1558,8 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
 </script>
 </head>
 <body class="h-full overflow-hidden select-none font-sans text-slate-100 bg-slate-950">
+  <div id="msBoot" aria-hidden="true"><i></i></div>
+  <script>(function () { var b = document.getElementById('msBoot'); if (/[?&]pad=/.test(location.search)) { b.remove(); return; } setTimeout(function () { if (b.parentNode) b.remove(); }, 60000); })();</script>
 
   <!-- Fullscreen Visualizer Canvas -->
   <div id="canvasWrapper" class="fixed inset-0 z-0">
@@ -3543,7 +3558,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '12.10';
+    const APP_VERSION = '12.11';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -9082,15 +9097,16 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
 
       /* ---------- arranque ---------- */
       let started = false;
+      function tvOn() { const b = document.getElementById('msBoot'); if (!b) return; document.body.classList.add('club-tv'); b.classList.add('enc'); setTimeout(() => { b.remove(); document.body.classList.remove('club-tv'); }, 1400); }   /* v12.11 · se enciende como una tele de tubo */
       function falla(cod, e) {   // sin 3D: se queda la consola de siempre y el LED dice por qué
-        if (e) console.warn('videoclub 3D', cod, e); document.body.classList.remove('club-carga'); const w = $c('clubHome'); if (w && !on) w.remove(); const msg = TT('Videoclub 3D no disponible en este dispositivo') + ' (' + cod + ')', l = $c('clubLoad'); if (l) { l.textContent = msg; l.classList.add('ko'); setTimeout(() => l.remove(), 15000); }   // el motivo se queda 15 s a la vista, además de pasar por el LED
+        if (e) console.warn('videoclub 3D', cod, e); document.body.classList.remove('club-carga'); tvOn(); const w = $c('clubHome'); if (w && !on) w.remove(); const msg = TT('Videoclub 3D no disponible en este dispositivo') + ' (' + cod + ')', l = $c('clubLoad'); if (l) { l.textContent = msg; l.classList.add('ko'); setTimeout(() => l.remove(), 15000); }   // el motivo se queda 15 s a la vista, además de pasar por el LED
         try { showToast(msg); } catch (x) {} }
       const malos = () => { try { return (R.info.programs || []).filter(p => p.diagnostics && p.diagnostics.runnable === false).length; } catch (e) { return 0; } };
       function sencillo() {   // si el móvil no compila el sombreado de cómic: materiales de serie y sin contorno, la sala se ve igual
         S.traverse(o => [].concat(o.material || []).forEach(m => { if (m === FX.inkM) m.visible = false; else if (m.onBeforeCompile === toonHook) { m.onBeforeCompile = function () {}; m.needsUpdate = true; } })); }
       async function init() {
         if (started) return; started = true;
-        const host = $c('hudOverlay'); if (!host || $c('clubHome')) return; colors();
+        const host = $c('hudOverlay'); if (!host || $c('clubHome')) { tvOn(); return; } colors();
         document.body.classList.add('club-carga');   // v7.6 · mientras carga, la sala se ve desenfocada (nada de la home antigua)
         const load = document.createElement('div'); load.id = 'clubLoad'; load.setAttribute('role', 'status'); load.textContent = TT('Cargando el videoclub…'); host.appendChild(load);
         try { await Promise.race([GAMES.three(), new Promise((_, rej) => setTimeout(() => rej(new Error('three')), 40000))]); } catch (e) { falla('motor', e); return; }
@@ -9107,10 +9123,8 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
         try { R.render(S, CAM); const k0 = malos(); if (k0) { sencillo(); R.render(S, CAM); if (malos() > k0) throw new Error('shader'); } } catch (e) { falla('sombreado', e); return; }
         on = true; load.remove();
         try { buildMevi(); } catch (e) { console.warn('Mevi', e); }
-        // primero una imagen desenfocada de la propia sala (una copia fija en pequeño, no el 3D en vivo: sin parpadeos) y después, nítida
-        const pre = document.createElement('canvas'); pre.id = 'clubPre'; pre.width = 56; pre.height = Math.max(8, Math.round(56 * innerHeight / innerWidth)); try { pre.getContext('2d').drawImage(R.domElement, 0, 0, pre.width, pre.height); wrap.appendChild(pre); } catch (e) {}
-        placeSpots(); wrap.classList.add('on'); document.body.classList.add('club3d'); document.body.classList.remove('club-carga');
-        setTimeout(() => wrap.classList.add('nit'), 650); setTimeout(() => pre.remove(), 2300); setTimeout(meviGo, 2400);   // primero desenfocada, luego nítida y entonces salta Mevi
+        placeSpots(); wrap.style.transition = 'none'; wrap.classList.add('on', 'nit'); document.body.classList.add('club3d'); document.body.classList.remove('club-carga');
+        requestAnimationFrame(() => { tvOn(); setTimeout(() => { wrap.style.transition = ''; }, 100); }); setTimeout(meviGo, 1500);   // v12.11 · la sala se enciende como una tele de tubo y entonces salta Mevi (antes: imagen desenfocada y luego nítida)
         R.domElement.addEventListener('pointermove', onMove); R.domElement.addEventListener('pointerleave', () => { ST.par = [0, 0]; highlight(-1); }); R.domElement.addEventListener('click', onClick);
         skip.addEventListener('click', e => { e.stopPropagation(); if (ST.seq) { const s = ST.seq; if (s.c) { if (s.q) ST.last = s; s.shots.forEach(x => { if (x.act) x.act(x.b); }); HAND.g.visible = false; ST.inserted = CASE.cart; finish(s.c); } else s.end(); } });
         addEventListener('keydown', e => { if (ST.seq && (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); e.stopPropagation(); skip.click(); } }, true);
