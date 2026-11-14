@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.36**
+**Versión actual: v12.37**
 
 ## Cómo se juega
 
@@ -34,7 +34,11 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.36)
+## Cambios de la versión actual (v12.37)
+
+- **La radio de la sala, en pausa y sin emisoras.** Las emisoras de internet de la v12.36 se quitan: SomaFM pide expresamente que sus enlaces directos sean solo para escucha personal, y las demás no dan permiso para sonar en locales. Mientras no haya emisoras con permiso, en la sala suena la música de siempre y el walkman no hace nada. El mecanismo de la radio (ruido de sintonizar, turnos de 6 minutos, el casete que cambia de emisora) se queda listo para cuando las haya.
+
+### v12.36
 
 - **Radio en la sala:** cuando la música de la sala ha sonado una vez (la entrada y una vuelta del bucle, poco más de un minuto), se funde con el ruido de sintonizar un dial y empieza una emisora al azar. Cada 6 minutos, ruido otra vez y la siguiente. Son 14 emisoras sin anuncios, de música sola: synthpop de los 80, synthwave, chill y lounge. El nombre de la que suena sale en el LCD.
 - **El casete del walkman cambia de emisora:** cada pulsación pone la siguiente de la lista y la deja fija, sin cambios cada 6 minutos, hasta que vuelvas a pulsar. Después de la última, la radio se apaga y vuelve la música de siempre; otra pulsación la enciende de nuevo.
@@ -545,7 +549,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.36 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.37 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 

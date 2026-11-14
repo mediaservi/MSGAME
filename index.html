@@ -3619,7 +3619,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '12.36';
+    const APP_VERSION = '12.37';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -7669,10 +7669,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
          sin anuncios, al azar, durante 6 minutos; luego, ruido otra vez y la siguiente. El casete del walkman las va pasando por orden: la que elijas se queda fija hasta que la cambies, y después de la última
          la radio se apaga y vuelve la música del menú. Solo suena en la sala: en los juegos, el menú del juego y AJUSTES suena lo de siempre, y al volver a la sala sigue la misma emisora. */
       const RADIO = (() => {
-        const SO = c => ['https://ice5.somafm.com/' + c + '-128-mp3', 'https://ice2.somafm.com/' + c + '-128-mp3', 'https://ice4.somafm.com/' + c + '-128-mp3'], NR = c => ['https://stream.nightride.fm/' + c + '.mp3', 'https://stream.nightride.fm/' + c + '.ogg'];
-        const EM = [['SomaFM · Underground 80s', SO('u80s')], ['Nightride FM', NR('nightride')], ['Chillsynth FM', NR('chillsynth')], ['Spacesynth FM', NR('spacesynth')], ['SomaFM · Vaporwaves', SO('vaporwaves')], ['SomaFM · Groove Salad', SO('groovesalad')], ['SomaFM · Groove Salad Classic', SO('gsclassic')],
-          ['SomaFM · Space Station Soma', SO('spacestation')], ['SomaFM · Lush', SO('lush')], ['SomaFM · Beat Blender', SO('beatblender')], ['SomaFM · Secret Agent', SO('secretagent')], ['SomaFM · Illinois Street Lounge', SO('illstreet')],
-          ['Radio Paradise · Mellow Mix', ['https://stream.radioparadise.com/mellow-128', 'https://stream.radioparadise.com/mellow-192', 'https://stream.radioparadise.com/mellow-320']], ['SomaFM · PopTron', SO('poptron')]];
+        const EM = [];   /* v12.37 · sin emisoras: Josep no quiere emisoras que solo sean para escucha personal (SomaFM lo pide así y las demás no dan permiso para locales). Formato: [nombre, [direcciones]] */
         let ESPERA = 65, TURNO = 360; const PRUEBA = 9000, RUIDO_MIN = 1500;   // s de música base antes de la radio · s por emisora · ms que se espera a cada dirección · ms mínimos de sintonía
         let au = null, cur = -1, fija = false, apagada = false, viva = false, acum = 0, jugado = 0, mazo = [], gen = 0, rd = null, fallos = 0, hasta = 0;   // fallos: emisoras seguidas que no responden; hasta: sin radio hasta entonces (sin conexión)
         const vol = () => .34 * +((($g('gmSfxVol') || {}).value) || .7), aviso = t => { try { ledSay(t, true); } catch (e) {} };
@@ -7704,17 +7701,18 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
         function calla() { gen++; ruido(false); suelta(au); au = null; viva = false; }
         function tick(enSala, base) {   // cada segundo, desde musTick: enSala = la sala a la vista y con la música de siempre; base = suena la música base
           if (au) au.muted = !!window.APP_MUTED;
-          if (!enSala || apagada || performance.now() < hasta) { if (viva) calla(); return false; }
+          if (!EM.length || !enSala || apagada || performance.now() < hasta) { if (viva) calla(); return false; }
           if (!viva && cur < 0) { if (base && !window.APP_MUTED) acum++; if (acum < ESPERA) return false; viva = true; baraja(); sintoniza(otra(), true); return true; }   // la primera vez, después de una vuelta de la música base
           if (!viva) { viva = true; sintoniza(!fija && jugado >= TURNO ? otra() : cur, !fija && jugado >= TURNO); return true; }   // al volver a la sala, la misma emisora (o la siguiente si ya cumplió su turno)
           if (au && !au.paused) { jugado++; if (!fija && jugado >= TURNO) sintoniza(otra(), true); }
           return true; }
         function casete() {   // el casete del walkman: la siguiente emisora, y se queda fija; después de la última, se apaga y vuelve la música del menú
+          if (!EM.length) return;
           try { window.MSAudio && MSAudio.despierta(); } catch (e) {}
           if (apagada || !viva) { apagada = false; fija = true; viva = true; acum = ESPERA; sintoniza(cur < 0 ? 0 : (cur + 1) % EM.length, true); try { menuStop(); } catch (e) {} return; }
           if (cur + 1 >= EM.length) { apagada = true; fija = false; calla(); aviso('📻 ' + TT('Radio apagada: vuelve la música del menú')); try { window.__musTick && window.__musTick(); } catch (e) {} return; }
           fija = true; sintoniza(cur + 1, true); }
-        return { tick, casete, _t(e, t) { ESPERA = e; TURNO = t; }, get estado() { return { viva, cur, fija, apagada, acum, jugado, suena: !!(au && !au.paused), nombre: cur >= 0 ? EM[cur][0] : '' }; }, EM };
+        return { tick, casete, hay: () => EM.length > 0, _t(e, t) { ESPERA = e; TURNO = t; }, get estado() { return { viva, cur, fija, apagada, acum, jugado, suena: !!(au && !au.paused), nombre: cur >= 0 ? EM[cur][0] : '' }; }, EM };
       })();
       window.__radio = () => RADIO.estado; window.__radioT = (e, t) => RADIO._t(e, t);   // para las pruebas
       const musTick = () => {   // música: la del juego mientras se juega; la de los menús (dinámica) en la sala, el menú del juego y AJUSTES; nada si el equipo ya suena otro audio
@@ -8014,7 +8012,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       }
       try { initTab(); } catch (e) { console.warn(e); }
       const SNDS = [...Object.values(SFX.files).flat(), ...SFX.fx(), ...['halloween', 'zombies', 'aliens', 'sports', 'disco', 'western', 'galaxy', 'haunted', 'alpine', 'warfront', 'racer_runner', 'racer_dirty', 'graffiti', 'fortuna', 'bolera', 'patopesca', 'encesta_ballhop', 'encesta_basket'].map(n => 'ingame_' + n)].map(n => 'sonidos/' + n + '.mp3').concat(['packs/menu/musica.mp3', 'packs/cartucho/musica.mp3', 'packs/cartucho/musica.json', 'packs/ballhop/musica.mp3', 'packs/ballhop/musica.json', 'packs/menu/musica.json']);
-      return { three: () => loadThree(), art: k => CARTART.art(k), figura, pushState: () => stateToPad(), shareScore, padURL: () => padURL(), room: () => { const M = G.match, cur = G.cur; return { g: cur ? cur.id : null, ph: G.phase, sc: cur ? cur.score || 0 : 0, pn: (PLS[act] || {}).n, scores: SC(), match: M && !M.sim ? { now: PLS[M.ids[M.k]], next: M.ids[M.k + 1] !== undefined ? PLS[M.ids[M.k + 1]] : null } : M ? { now: { n: M.ids.map(i => PLS[i].n).join(' · '), c: '#ffd23f' }, next: null } : null }; }, MUS, SNDS, LIBS: [PEER_JS, QR_JS, T3URL[0]], _plate: () => plateCanvas(), _bib: () => bibCanvas(), SFX, FT, PLS, _join: (c, m) => joinSlot(c, m), use, start, stop, link, calStart, pad, get state() { return G; }, _cal: () => cal, _raw: raw, onPad, radio: () => RADIO.casete() };
+      return { three: () => loadThree(), art: k => CARTART.art(k), figura, pushState: () => stateToPad(), shareScore, padURL: () => padURL(), room: () => { const M = G.match, cur = G.cur; return { g: cur ? cur.id : null, ph: G.phase, sc: cur ? cur.score || 0 : 0, pn: (PLS[act] || {}).n, scores: SC(), match: M && !M.sim ? { now: PLS[M.ids[M.k]], next: M.ids[M.k + 1] !== undefined ? PLS[M.ids[M.k + 1]] : null } : M ? { now: { n: M.ids.map(i => PLS[i].n).join(' · '), c: '#ffd23f' }, next: null } : null }; }, MUS, SNDS, LIBS: [PEER_JS, QR_JS, T3URL[0]], _plate: () => plateCanvas(), _bib: () => bibCanvas(), SFX, FT, PLS, _join: (c, m) => joinSlot(c, m), use, start, stop, link, calStart, pad, get state() { return G; }, _cal: () => cal, _raw: raw, onPad, radio: () => RADIO.casete(), radioHay: () => RADIO.hay() };
     })();
 
     /* ---------- MARKETING: compartir con marca, reto viral y enlaces con UTM ----------
@@ -9227,7 +9225,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       function spots() { const box = $c('clubHot'); if (!box) return; box.innerHTML = '';
         slots.forEach((q, i) => { const c = CV[q.c], b = document.createElement('button'); b.type = 'button'; b.className = 'clubspot tv-focusable'; b.dataset.gv = c.g; b.dataset.q = i; b.setAttribute('aria-label', GN[c.g] + (c.sub ? ' · ' + c.sub : '')); box.appendChild(b); });
         if (CON.cubo) { const b = document.createElement('button'); b.type = 'button'; b.className = 'clubspot clubkey tv-focusable'; b.dataset.key = 'avhub'; b.setAttribute('aria-label', 'AVHUB'); b.title = 'AVHUB'; box.appendChild(b); }
-        if (CON.radio) { const b = document.createElement('button'); b.type = 'button'; b.className = 'clubspot clubkey tv-focusable'; b.dataset.key = 'radio'; b.setAttribute('aria-label', TT('Radio')); b.title = TT('Radio'); box.appendChild(b); }
+        if (CON.radio && window.GAMES && GAMES.radioHay && GAMES.radioHay()) { const b = document.createElement('button'); b.type = 'button'; b.className = 'clubspot clubkey tv-focusable'; b.dataset.key = 'radio'; b.setAttribute('aria-label', TT('Radio')); b.title = TT('Radio'); box.appendChild(b); }
         if (CON.power) { const b = document.createElement('button'); b.type = 'button'; b.className = 'clubspot clubkey tv-focusable'; b.dataset.key = 'power'; b.setAttribute('aria-label', TT('Apagar')); box.appendChild(b); }
         CON.keys.forEach(k => { const b = document.createElement('button'); b.type = 'button'; b.className = 'clubspot clubkey tv-focusable'; b.dataset.key = k.userData.id; b.setAttribute('aria-label', { play: 'Jugar', eject: 'Expulsar', players: 'Jugadores', records: 'Récords' }[k.userData.id]); box.appendChild(b); });
         if (TEL.g) { const b = document.createElement('button'); b.type = 'button'; b.className = 'clubspot clubtel tv-focusable'; b.dataset.key = 'pad'; b.setAttribute('aria-label', TT('Mando móvil')); b.title = TT('Mando móvil'); b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M3.2 10.3c-.5-1.9.3-3.3 2.1-4C7.300 5.500 9.600 5.100 12 5.100s4.700.4 6.700 1.200c1.800.7 2.600 2.100 2.100 4l-.3 1.100c-.2.700-.9 1.100-1.600.9l-2.300-.6c-.6-.2-1-.7-1-1.300V9.300c-1.100-.3-2.300-.5-3.600-.5s-2.500.2-3.600.5v1.100c0 .6-.4 1.100-1 1.300l-2.300.6c-.7.2-1.400-.2-1.600-.9zM7 13.500h10l2.200 4.300c.4.800-.2 1.700-1.100 1.700H5.900c-.9 0-1.500-.9-1.100-1.700zm5 1.300a1.900 1.900 0 100 3.800 1.900 1.900 0 000-3.800z"/></svg>'; box.appendChild(b); }   // v10.4 · el teléfono rojo de la mesa abre la configuración del móvil
