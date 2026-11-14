@@ -3602,7 +3602,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '12.16';
+    const APP_VERSION = '12.17';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -8592,7 +8592,8 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
           x.fillStyle = '#2a2236'; x.textAlign = 'center'; x.font = '700 17px "Barlow Semi Condensed",Arial,sans-serif'; x.fillText(TT('Manual de instrucciones').toUpperCase(), w / 2, 102); x.fillStyle = 'rgba(42,34,54,.32)'; for (let i = 0; i < 12; i++) x.fillRect(28, 128 + i * 18, (w - 56) * (.5 + rnd() * .5), 6);
           x.strokeStyle = '#120a1c'; x.lineWidth = 6; x.strokeRect(3, 3, w - 6, h - 6); }, 256, 372); }
       function cartLabel(c, art) { return decal((x, W, H) => { const col = COL[c.g], g = x.createLinearGradient(0, 0, W, 0); g.addColorStop(0, col.c1); g.addColorStop(1, col.c2); x.fillStyle = '#0d0b14'; x.fillRect(0, 0, W, H);
-          if (art) { const k = Math.max(W / art.width, (H - 52) / art.height); x.drawImage(art, (W - art.width * k) / 2, 52 + (H - 52 - art.height * k) / 2, art.width * k, art.height * k); }
+          if (art && art.cov) { const sw = art.width, sh = Math.min(art.height * .9, sw * (H - 52) / W); x.drawImage(art, 0, art.height * .1, sw, sh, 0, 52, W, H - 52); }   /* v12.17 · la pegatina es la carátula del propio juego (antes, para los juegos sin foto salía el dibujo de PALOTERAPIA) */
+          else if (art) { const k = Math.max(W / art.width, (H - 52) / art.height); x.drawImage(art, (W - art.width * k) / 2, 52 + (H - 52 - art.height * k) / 2, art.width * k, art.height * k); }
           x.fillStyle = g; x.fillRect(0, 0, W, 52); title(x, GN[c.g], W / 2, 40, 34, W - 30, c.g); x.strokeStyle = '#120a1c'; x.lineWidth = 7; x.strokeRect(3, 3, W - 6, H - 6); }, 256, 158); }
       function canCanvas() { return decal((x, w, h) => { const g = x.createLinearGradient(0, 0, 0, h); g.addColorStop(0, '#22c956'); g.addColorStop(.55, '#12a03f'); g.addColorStop(1, '#0a6e2c'); x.fillStyle = g; x.fillRect(0, 0, w, h);   // v8.6 · refresco de lima-limón inventado, «6GO»: impreso alrededor de la lata, no pegado
           x.fillStyle = '#e6ff3a'; x.fillRect(0, h * .04, w, h * .03); x.fillRect(0, h * .93, w, h * .03); x.fillStyle = 'rgba(255,255,255,.55)'; x.fillRect(0, h * .085, w, h * .008); x.fillRect(0, h * .905, w, h * .008);
@@ -8958,7 +8959,7 @@ html:not([data-app=msgame]) #dashTab5{display:none!important}
           const eg = new T.ExtrudeGeometry(sh, { depth: .02 - 2 * bz, bevelEnabled: true, bevelThickness: bz, bevelSize: bz, bevelSegments: 3, curveSegments: 6 }); eg.translate(0, 0, -(.02 - 2 * bz) / 2); eg.computeVertexNormals(); inkm(eg, body, 0, 0, 0, g);
           [-.0167, 0, .0167].forEach(mx => mesh(new T.BoxGeometry(.0028, .012, .002), dark, mx, -.0385, .0098, g, false)); }
         plane(.082, .03, toon({ map: ctex(decal((x, w, h) => { x.fillStyle = col.b2; x.fillRect(0, 0, w, h); const lh = h * .66, lw = lh * 444.2 / 120; x.drawImage(LG.msR, (w - lw * 1.2) / 2, (h - lh * 1.2) / 2, lw * 1.2, lh * 1.2);   /* v11.4 · logo nuevo a color */ }, 328, 120)), spec: .6, shin: 36 }), 0, .0405, .0104, g);
-        plane(.08, .0495, toon({ map: ctex(cartLabel(c, ST.arts[c.i])), spec: .5, shin: 50, ht: .5 }), 0, -.0012, .0104, g);
+        plane(.08, .0495, toon({ map: ctex(cartLabel(c, ST.thumbs[c.i] ? Object.assign(ST.thumbs[c.i], { cov: true }) : ST.arts[c.i])), spec: .5, shin: 50, ht: .5 }), 0, -.0012, .0104, g);
         const pins = decal((x, w, h) => { x.fillStyle = '#1a1208'; x.fillRect(0, 0, w, h); for (let i = 0; i < 22; i++) { x.fillStyle = '#e9b949'; x.fillRect(4 + i * 11.4, 3, 7, h - 6); } }, 256, 32);
         plane(.058, .0075, new T.MeshBasicMaterial({ map: ctex(pins) }), 0, -.0505, .0104, g); shadowsOn(g); return g; }
       function buildCase(c) { if (CASE.g) S.remove(CASE.g); const g = new T.Group(), lid = new T.Group(); CASE.g = g; CASE.lid = lid; const w = BOX.w, h = BOX.h, inner = toon({ color: 0x2a2833, ht: .8 });
