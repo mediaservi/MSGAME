@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.33**
+**Versión actual: v12.34**
 
 ## Cómo se juega
 
@@ -34,7 +34,11 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.33)
+## Cambios de la versión actual (v12.34)
+
+- **Rótulos DYMO de verdad en las baldas:** el nombre de cada juego va en una cinta negra con las letras blancas en relieve de la letra Dymo, un poco torcidas como cuando se graban a mano. Las letras van ya dibujadas en `juegos/dymo.webp`; la fuente no está en el repositorio.
+
+### v12.33
 
 - **Logo nuevo de MSGAME:** el que aprobaste. «MS» en Staatliches (la letra de GAME), blanca y gruesa, sobre dos fichas rectas moradas con el degradado del MS de siempre y sombra verde; se pisan entre ellas y la S pisa a la G. «GAME» y la calavera no cambian. Está en todas partes: cabecera, mando del móvil, rótulos de las estanterías, cajas, cartuchos, tele y versión con lema.
 - **Aura de Mevi que se ve:** la carátula que recomienda Mevi brilla ahora en verde lima y cian, que contrasta con las carátulas moradas y con la madera, y late como un destello para que se note de lejos.
@@ -528,7 +532,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.33 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.34 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 

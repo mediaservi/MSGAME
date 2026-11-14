@@ -32,3 +32,7 @@ También bajo **SIL Open Font License 1.1**, del mismo origen (subconjunto latin
 ## Tipos del módulo de textos de VJSHOW (v10.0)
 
 En `fuentes/txt/`, también bajo **SIL Open Font License 1.1** y del mismo origen (subconjunto latino, WOFF2): Abril Fatface, Alfa Slab One, Anton, Archivo Black, Arimo, Barlow Condensed, Bebas Neue, Big Shoulders Display, Cabin, Cinzel, Courier Prime, Creepster, Eater, Exo 2, Fjalla One, Fredoka, Jost, Krona One, League Gothic, Libre Caslon Display, Marcellus, Monoton, Montserrat, Montserrat Alternates, News Cycle, Nosifer, Orbitron, Oswald, Playfair Display, Poppins, Potta One, Rajdhani, Rampart One, Righteous, Silkscreen, Staatliches, Teko.
+
+## Rótulos DYMO de las baldas (v12.34)
+
+Los nombres de los juegos de las baldas de la sala se dibujaron una vez con la letra **Dymo** (© Esselte New Media, 1997; descarga gratuita de dymo.com) y se guardan como imagen en `juegos/dymo.webp`. El archivo de la fuente **no** se incluye en el repositorio ni se sirve con la app.
