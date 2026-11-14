@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.7**
+**Versión actual: v12.8**
 
 ## Cómo se juega
 
@@ -34,7 +34,17 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.7)
+## Cambios de la versión actual (v12.8)
+
+- **Mando del móvil rediseñado:**
+  - cabecera con el logo de MSGAME, un botón de **inicio** en el centro (deja el juego y vuelve a la sala) y el jugador;
+  - pie en morado con CONTROL, JUEGOS y AJUSTES;
+  - la **cruceta siempre en el centro** en todos los juegos, con los botones de cada juego en su sitio y con su color;
+  - **JUEGOS** enseña los 22 cartuchos con su pegatina (la portada de cada uno, que manda la pantalla y el móvil guarda); al tocar uno, Mevi lo mete en la consola;
+  - **CALIBRAR** solo en AJUSTES.
+- **Vincular desde el teléfono rojo:** en cuanto el móvil se enlaza, la pantalla vuelve sola a la sala para elegir juego.
+
+### v12.7
 
 - **Ranura de la consola a la medida del cartucho:** la boca era casi el doble de ancha y de honda que el cartucho; ahora le deja solo la holgura justa, con su luz también ajustada.
 
@@ -373,7 +383,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.7 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.8 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
