@@ -1,0 +1,32 @@
+{
+ "bpm": 109.98,
+ "tiempo": 0.54554,
+ "fase": 30.6097,
+ "entrada": [
+  0,
+  30.6097
+ ],
+ "juego": [
+  30.6097,
+  65.5241
+ ],
+ "calma": [
+  109.167,
+  117.8956
+ ],
+ "tension": [
+  126.6242,
+  161.5385
+ ],
+ "menu": [
+  181.1779,
+  198.635
+ ],
+ "final": [
+  248.8244,
+  270.6
+ ],
+ "fundido": 0.25,
+ "nota": "Música de los menús de MSGAME, cortada para música dinámica: entrada (intro), juego = la sala (16 compases), calma = ajustes, jugadores y récords (4 compases), tension = Mevi mete el cartucho (16 compases), menu = menú del juego (8 compases), final = cierre. Cortes en el primer tiempo del compás; se encadenan en la siguiente barra con un fundido de 0,25 s.",
+ "fuente": "menu_gamesystem.mp3 (música de los menús de MSGAME, la de siempre)"
+}

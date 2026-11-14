@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.11**
+**Versión actual: v12.12**
 
 ## Cómo se juega
 
@@ -34,7 +34,14 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.11)
+## Cambios de la versión actual (v12.12)
+
+- **Colores de los jugadores:** nunca se repiten. Si un móvil trae el color de otro jugador, se queda con el suyo; si en la lista eliges un color que ya tiene otro, os lo intercambiáis. Un móvil que llega con el nombre por defecto de otro puesto («Jugador 2» en el puesto 1) toma el de su puesto.
+- **Ambiente en todos los juegos:** cada juego lleva dos capas sutiles de movimiento según su fondo y su temática (niebla, nubes, humo, polvo en la luz, ascuas, nieve, vapor, pétalos, destellos, haces de focos, sombras de nubes…), por encima del escenario y por debajo de los marcadores, sin tapar la jugada (`lib/ambiente.js`).
+- **Música de los menús dinámica:** la de siempre, cortada en entrada, bucles y final (`packs/menu/`). Cambia de bucle en la siguiente barra según dónde estés: la sala, Mevi metiendo el cartucho, el menú del juego, o AJUSTES, jugadores y récords (más tranquila).
+- **AJUSTES más limpios, con la estética de los menús de los juegos:** solo queda lo que usan los juegos, en tres apartados: PANTALLAS (cuántas, salidas y qué muestra cada una), PUBLICIDAD y SONIDO. Fuera lo heredado de VJSHOW: mezcla, edge blending, corrección, mapeo, salida avanzada, formato, fuente de audio y ritmo (lo quitado queda siempre en sus valores de fábrica).
+
+### v12.11
 
 - **Arranque:** al cargar MSGAME ya no asoma la portada antigua con el portacartuchos vertical. La pantalla queda en negro (con un puntito de espera) hasta que la sala está lista y entonces **se enciende como una tele de tubo**: una línea blanca que se abre de lado a lado, se despliega de arriba abajo y la sala aparece con un destello que se asienta. El mando del móvil no lo lleva.
 
@@ -403,7 +410,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.11 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.12 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
