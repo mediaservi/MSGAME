@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.26**
+**Versión actual: v12.27**
 
 ## Cómo se juega
 
@@ -34,7 +34,11 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.26)
+## Cambios de la versión actual (v12.27)
+
+- **Cinemática del cartucho más natural:** la cámara se mueve como llevada en mano, con un vaivén muy suave. La mano llega a la caja en arco y, antes de sacarla, la empuja un pelín, como cuando algo pesa. El cartucho baja hacia la consola en arco y se encaja en la ranura con un pequeño vaivén. Al acabar, la mano se retira acelerando con suavidad.
+
+### v12.26
 
 - **Mevi en la sala, con más sentido:** al aparecer solo dice «¡Hola! Soy Mevi. ¿Jugamos?». Al llegar a la esquina señala las estanterías: «Elige un juego de la estantería». Si no eliges, cada 20 segundos te recomienda un juego según su temática (miedo, bolos, espacio, feria, golf, velocidad, arte, paseo mágico, vaqueros, suerte, tiro japonés, canastas y zombis), señalando las estanterías. En español, inglés y catalán.
 - **Sonidos de Mevi:** un «¡tachán!» brillante al aparecer (en lugar del boing), un «tup» al aterrizar del salto y pasitos de dibujo animado mientras cruza hasta la esquina.
@@ -486,7 +490,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.26 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.27 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
