@@ -13,3 +13,15 @@ Solo los propios del golf; los genéricos (victoria, fallo, público, sorpresa, 
 | `golpe.mp3` | Palo contra la bola | freesound_community · golf-12 · 94166 |
 | `swing.mp3` | Barrido del palo | floraphonic · swing-whoosh-5 · 198498 |
 | `hoyo.mp3` | Bola dentro del hoyo | freesound_community · minigolf-putt-right-into-the-hole · 96699 |
+
+## Modelos 3D (`modelos/`)
+
+Convertidos con el conversor propio de MSGAME (`modelos.json` + `modelos.bin`, texturas en `modelos/tex/`). Los dos packs son CC0 (dominio público).
+
+| Modelo | Para qué | Original |
+|---|---|---|
+| `molino` (con las aspas como pieza aparte, que giran) | Molino de viento del modo CLÁSICO | Kenney · Minigolf Kit · `windmill` |
+| `bandera` | Banderín del hoyo | Kenney · Minigolf Kit · `flag-red` |
+| `palo` | Palo de golf que se ve apuntar y golpear | Kenney · Minigolf Kit · `club-red` |
+| `castillo`, `puerta` | Decorado del jardín del modo CLÁSICO | Kenney · Minigolf Kit · `castle`, `structure-gate` |
+| `sillon`, `cactus`, `cactus2`, `libros`, `marco`, `marco2`, `lampara`, `estante`, `taburete` | Muebles y objetos de casa del modo KRAZY | Kay Lousberg · KayKit Furniture Bits 1.0 |

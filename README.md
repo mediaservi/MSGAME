@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.1**
+**Versión actual: v12.2**
 
 ## Cómo se juega
 
@@ -34,7 +34,14 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.1)
+## Cambios de la versión actual (v12.2)
+
+- **KRAZYGOLF con sonido de verdad:** música dinámica (entrada, juego, tensión en el último hoyo o cuando el hoyo se complica, y final en la tarjeta), golpe, barrido del palo, bola dentro del hoyo, rebotes según la pelota, harina o arena, fanfarria en el hoyo en uno y pájaros en CLÁSICO y SIMULATOR. Todo con el motor común `lib/msaudio.js`.
+- **KRAZYGOLF más vivo:** palo de golf que se ve apuntar, coger impulso según la fuerza y golpear; polvo al golpear, harina o arena al entrar y confeti al embocar.
+- **Modelos de packs:** en CLÁSICO, molino de viento con las aspas girando, banderines y un castillo (Kenney Minigolf Kit); en KRAZY, muebles y objetos de casa (KayKit Furniture Bits). Ambos CC0.
+- **Ajustes de MSGAME:** fuera el interruptor «Apagar las demás capas al jugar», que venía de VJSHOW y ya no tenía sentido: al jugar queda siempre solo el fondo del juego.
+
+### v12.1
 
 - **Mando del móvil estable, se coja como se coja.** El puntero ya no da golpetazos de lado a lado. Antes solo contaba el borde superior del móvil: con el móvil de pie (como una cámara o una espada) ese borde mira al techo y el giro quedaba indefinido, así que el puntero saltaba. Ahora se mezclan el borde superior y la espalda del móvil, cada uno con más peso cuanto más horizontal está: funciona igual tumbado como un mando a distancia, de pie o en medio.
 - **Calibrado más fiable:** al no temblar el giro, el calibrado automático encuentra el móvil quieto enseguida y toma el centro bueno.
@@ -345,7 +352,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.1 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.2 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
