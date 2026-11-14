@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.9**
+**Versión actual: v12.10**
 
 ## Cómo se juega
 
@@ -34,7 +34,15 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.9)
+## Cambios de la versión actual (v12.10)
+
+- **Consola de la sala:**
+  - JUGADORES y RÉCORDS son ahora teclas **redondas y más pequeñas**, solo con su icono en grande, en su propio hueco, separadas de JUGAR y EXPULSAR;
+  - al pasar el ratón (o el foco del mando de la tele) por cualquier tecla, el **monitor muestra su nombre en grande**;
+  - el logo de la carcasa es solo «MSGAME», **grabado en el plástico** (ya no a color);
+  - la **calavera, también grabada**, en el centro de la consola, entre los dos grupos de teclas.
+
+### v12.9
 
 - **Mando del móvil:**
   - la **cruceta con OK** queda fija en el mismo sitio en todos los juegos y más pequeña, para que quepan más botones;
@@ -391,7 +399,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.9 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.10 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
