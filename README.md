@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.3**
+**Versión actual: v12.4**
 
 ## Cómo se juega
 
@@ -34,7 +34,11 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.3)
+## Cambios de la versión actual (v12.4)
+
+- **Mevi habla en los juegos:** donde había un círculo con la M, ahora sale la cabeza de Mevi (melena, ojos de estrella y mofletes) que entra con un saltito, mueve la cabeza y abre y cierra la boca mientras habla, con el texto en un bocadillo que le sale de la boca. En KRAZYGOLF (el narrador) y en WONDERWALK (las explicaciones). Dibujo común en `lib/mevi2d.js`.
+
+### v12.3
 
 - **Calibrar cuando tú quieras:** el mando ya no se calibra solo al conectarse. En la esquina de arriba del móvil hay siempre un botón **CALIBRAR**: al pulsarlo, apunta al centro de la pantalla y mantenlo quieto. Al conectar, la pantalla solo lo recuerda con un aviso.
 - **Lámpara de lava con física:** la cera se calienta abajo y sube despacio, se enfría arriba y baja; las gotas chocan, se aplastan al tocarse como si se fundieran, rozan el cristal y derivan de lado.
@@ -357,7 +361,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.3 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.4 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 

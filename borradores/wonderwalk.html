@@ -13,6 +13,7 @@
   #g3{position:fixed;inset:0;z-index:0}#c{position:relative;z-index:1}
 </style></head><body><canvas id="g3"></canvas><canvas id="c"></canvas>
 <script src="../lib/three.min.js"></script>
+<script src="../lib/mevi2d.js"></script>
 <script>
 'use strict';
 const cv = document.getElementById('c'), x = cv.getContext('2d'); let W = 0, H = 0, U = 1;
@@ -329,7 +330,10 @@ function velo(a) { x.fillStyle = `rgba(13,10,26,${a})`; x.fillRect(0, 0, W, H); 
 function texto(t, X, Y, s, c, w) { x.font = `${w || 700} ${Math.max(12, s * U * 1.35)}px system-ui,Segoe UI,Arial`; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = c || '#fff'; x.fillText(t, X, Y); }
 function rotulo(t, Y, s) { Y = Math.max(Y, 46 + s * U * .7); x.save(); x.shadowColor = '#000'; x.shadowBlur = 12; let z = s; x.font = `900 ${z * U * 1.35}px system-ui`; while (x.measureText(t).width > W * .92 && z > 10) { z -= 1; x.font = `900 ${z * U * 1.35}px system-ui`; } texto(t, W / 2, Y, z, '#fff', 900); x.restore(); }
 const BOT = []; function boton(t, Y) { const w = Math.min(W * .8, 360 * U * 1.3), h = 58 * U * 1.3, X = W / 2 - w / 2; x.fillStyle = '#e100ff'; x.beginPath(); x.roundRect(X, Y - h / 2, w, h, h / 2); x.fill(); texto(t, W / 2, Y, 20, '#fff', 800); BOT.length = 0; BOT.push([X, Y - h / 2, w, h]); }
-function mevi(t) { const w = Math.min(W * .9, 720 * U * 1.2), X = W / 2 - w / 2, Y = H * .64, h = 64 * U * 1.3; x.fillStyle = 'rgba(255,255,255,.94)'; x.beginPath(); x.roundRect(X, Y - h / 2, w, h, 14); x.fill(); x.fillStyle = '#d400f0'; x.beginPath(); x.arc(X + h * .5, Y, h * .32, 0, TAU); x.fill(); x.fillStyle = '#fff'; x.font = `900 ${h * .34}px system-ui`; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText('M', X + h * .5, Y + 1);
+let meviTx = '', meviT0 = 0;
+function mevi(t) { const w = Math.min(W * .9, 720 * U * 1.2), X = W / 2 - w / 2, Y = H * .64, h = 64 * U * 1.3, ahora = performance.now() / 1000; if (t !== meviTx) { meviTx = t; meviT0 = ahora; }
+  if (window.MEVI2D) { MEVI2D.dice(x, { texto: t, X, Y, W: w, h, t: ahora - meviT0, fuente: 15 * U * 1.35 }); return; }   /* v12.3 · Mevi habla: su cabeza y el texto en un bocadillo */
+  x.fillStyle = 'rgba(255,255,255,.94)'; x.beginPath(); x.roundRect(X, Y - h / 2, w, h, 14); x.fill(); x.fillStyle = '#d400f0'; x.beginPath(); x.arc(X + h * .5, Y, h * .32, 0, TAU); x.fill(); x.fillStyle = '#fff'; x.font = `900 ${h * .34}px system-ui`; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText('M', X + h * .5, Y + 1);
   let z = 15; x.font = `600 ${z * U * 1.35}px system-ui`; while (x.measureText(t).width > w - h * 1.3 && z > 8) { z -= .5; x.font = `600 ${z * U * 1.35}px system-ui`; } x.fillStyle = '#1a1026'; x.textAlign = 'left'; x.fillText(t, X + h * 1.05, Y); }
 /* el título, con la letra de la carátula (Berkshire Swash, OFL): blanca y con volumen */
 function titWW(Y, s) { let z = s * U * 1.35; const F = () => { x.font = `400 ${z}px "Berkshire Swash",Georgia,serif`; }; x.save(); x.textAlign = 'center'; x.textBaseline = 'middle'; F(); const mw = x.measureText('WonderWalk').width; if (mw > W * .9) { z *= W * .9 / mw; F(); } Y = Math.max(Y, z * .62 + 8);

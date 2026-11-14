@@ -13,6 +13,7 @@
 </style></head><body><canvas id="g3"></canvas><canvas id="c"></canvas>
 <script src="../lib/three.min.js"></script>
 <script src="../lib/msaudio.js"></script>
+<script src="../lib/mevi2d.js"></script>
 <script>
 'use strict';
 const cv = document.getElementById('c'), x = cv.getContext('2d'); let W = 0, H = 0, K = 1, OX = 0, OY = 0;
@@ -235,7 +236,8 @@ function texto(t, X, Y, s, c, w, al) { x.font = `${w || 700} ${s}px system-ui,Se
 function cabe(t, X, Y, s, c, w, mw) { let z = s; x.font = `${w || 700} ${z}px system-ui`; while (x.measureText(t).width > mw && z > 9) { z -= .5; x.font = `${w || 700} ${z}px system-ui`; } texto(t, X, Y, z, c, w); }
 const BOT = []; function boton(t, X, Y, w, col, id) { const h = Math.min(56, H * .09); x.fillStyle = col || '#e100ff'; x.beginPath(); x.roundRect(X - w / 2, Y - h / 2, w, h, h / 2); x.fill(); cabe(t, X, Y, 18, '#fff', 800, w - 24); BOT.push([X - w / 2, Y - h / 2, w, h, id]); }
 function hud() { const h = HOYOS[E.h]; cabe(`HOYO ${E.h + 1}/3 · ${h.n.toUpperCase()} · PAR ${h.par}`, W / 2, 44, 17, '#fff', 800, W - 24); cabe(`Golpes: ${E.golpes} de 6   ·   ${E.modo === 'krazy' ? 'KRAZY: ' + BOLAS[E.tipo].n : 'CLÁSICO'}`, W / 2, 64, 13, '#cfc6e6', 600, W - 24);
-  if (E.fraseT > 0) { const w = Math.min(W - 20, 760), Y = H - 54; x.globalAlpha = lim(E.fraseT, 0, 1); x.fillStyle = 'rgba(255,255,255,.95)'; x.beginPath(); x.roundRect(W / 2 - w / 2, Y - 26, w, 52, 14); x.fill(); x.fillStyle = '#d400f0'; x.beginPath(); x.arc(W / 2 - w / 2 + 28, Y, 16, 0, TAU); x.fill(); texto('M', W / 2 - w / 2 + 28, Y + 1, 16, '#fff', 900); cabe(E.frase, W / 2 + 18, Y, 16, '#1a1026', 600, w - 76); x.globalAlpha = 1; }
+  if (E.frase !== E.fraseV) { E.fraseV = E.frase; E.fraseT0 = E.t; }   /* v12.3 · el narrador es Mevi: su cabeza habla y el texto sale en un bocadillo */
+  if (E.fraseT > 0) { const w = Math.min(W - 20, 800), Y = H - 54; if (window.MEVI2D) MEVI2D.dice(x, { texto: E.frase, X: W / 2 - w / 2, Y, W: w, h: 50, t: E.t - E.fraseT0, a: lim(E.fraseT, 0, 1), fuente: 16 }); else { x.globalAlpha = lim(E.fraseT, 0, 1); x.fillStyle = 'rgba(255,255,255,.95)'; x.beginPath(); x.roundRect(W / 2 - w / 2, Y - 26, w, 52, 14); x.fill(); cabe(E.frase, W / 2, Y, 16, '#1a1026', 600, w - 30); x.globalAlpha = 1; } }
   else if (E.fase === 'apunta') { const w = Math.min(W - 20, 620), Y = H - 54; x.fillStyle = 'rgba(13,10,26,.6)'; x.beginPath(); x.roundRect(W / 2 - w / 2, Y - 18, w, 36, 12); x.fill(); cabe(PH.on ? 'Mantén el botón del móvil, apunta a donde quieres tirar (más lejos, más fuerte) y suelta' : 'Tira de la bola hacia atrás y suelta', W / 2, Y, 15, '#fff', 600, w - 20); } }
 /* ---------- puente con MSGAME: cuando el borrador va dentro del juego (?emb=1) recibe el puntero y los botones del móvil y devuelve los puntos ---------- */
 const EMB = /[?&]emb=1/.test(location.search), PH = { on: false, x: .5, y: .5, down: false, antes: false, g: 0, t: -9e9 };
@@ -278,5 +280,5 @@ function sube(tel) { if (E.modo === 'sim' && E.fase !== 'titulo' && E.fase !== '
 cv.addEventListener('pointerdown', e => { cv.setPointerCapture(e.pointerId); PH.on = false; baja(e.clientX, e.clientY); }); cv.addEventListener('pointermove', e => { if (!PH.on) mueve(e.clientX, e.clientY); }); cv.addEventListener('pointerup', () => sube()); cv.addEventListener('pointercancel', () => { E.arr = null; SM.hold = null; if (E.fase === 'swing') E.fase = 'apunta'; });
 addEventListener('keydown', e => { if (simTecla(e.key, true)) e.preventDefault(); }); addEventListener('keyup', e => { simTecla(e.key, false); });
 window.__kg = E; window.__kgH = HOYOS; window.__g3 = G3; </script>
-<script src="krazygolf-sim.js?v=12.2"></script>
+<script src="krazygolf-sim.js?v=12.4"></script>
 <script>'use strict'; window.__sm = SM; { const mm = (location.search.match(/[?&]modo=(\w+)/) || [])[1]; if (mm === 'krazy' || mm === 'clasico') { E.modo = mm; E.h = 0; E.tarjeta = []; empiezaHoyo(); } else if (mm === 'sim3' || mm === 'sim9') { E.modo = 'sim'; simEmpieza(+mm.slice(3)); } } requestAnimationFrame(tick);</script></body></html>
