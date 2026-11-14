@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.13**
+**Versión actual: v12.14**
 
 ## Cómo se juega
 
@@ -34,7 +34,15 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.13)
+## Cambios de la versión actual (v12.14)
+
+- **Mevi en la sala de juegos:**
+  - guantes de verdad, como la mano que coge el cartucho: puño, palma, tres dedos con falanges y pulgar;
+  - entra saltando y saludando con la mano abierta; después cruza la sala andando (piernas, brazos y balanceo) hasta la esquina;
+  - en la esquina va cambiando de postura: pulgar arriba, mirando las estanterías con la mano de visera, manos en la cintura, balanceándose y marcando el ritmo con el pie;
+  - si tardas en elegir, te saluda y señala las estanterías con el bocadillo «¡Mira las estanterías! Elige un cartucho.».
+
+### v12.13
 
 - **Interruptor POWER en la consola** (a la derecha de JUGADORES y RÉCORDS): un basculante negro con OFF arriba, ON abajo y luz roja.
   - Al arrancar MSGAME se oye el «clack» al encenderlo, mientras la sala se enciende como una tele de tubo (si el navegador deja sonar audio antes de tocar nada).
@@ -417,7 +425,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.13 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.14 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
