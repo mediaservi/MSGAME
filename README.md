@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.12**
+**Versión actual: v12.13**
 
 ## Cómo se juega
 
@@ -34,7 +34,14 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.12)
+## Cambios de la versión actual (v12.13)
+
+- **Interruptor POWER en la consola** (a la derecha de JUGADORES y RÉCORDS): un basculante negro con OFF arriba, ON abajo y luz roja.
+  - Al arrancar MSGAME se oye el «clack» al encenderlo, mientras la sala se enciende como una tele de tubo (si el navegador deja sonar audio antes de tocar nada).
+  - En OFF: «clack», la tele de tubo se apaga en una línea y un punto, sube una niebla digital de interferencia con su siseo y se vuelve a la portada de AVHUB.
+  - Al pasar por encima, el monitor muestra «APAGAR».
+
+### v12.12
 
 - **Colores de los jugadores:** nunca se repiten. Si un móvil trae el color de otro jugador, se queda con el suyo; si en la lista eliges un color que ya tiene otro, os lo intercambiáis. Un móvil que llega con el nombre por defecto de otro puesto («Jugador 2» en el puesto 1) toma el de su puesto.
 - **Ambiente en todos los juegos:** cada juego lleva dos capas sutiles de movimiento según su fondo y su temática (niebla, nubes, humo, polvo en la luz, ascuas, nieve, vapor, pétalos, destellos, haces de focos, sombras de nubes…), por encima del escenario y por debajo de los marcadores, sin tapar la jugada (`lib/ambiente.js`).
@@ -410,7 +417,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.12 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.13 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
