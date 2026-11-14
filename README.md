@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.38**
+**Versión actual: v12.39**
 
 ## Cómo se juega
 
@@ -35,7 +35,12 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.38)
+## Cambios de la versión actual (v12.39)
+
+- **AJUSTES se cierra a la vista.** Un botón **CERRAR** a la derecha de las pestañas de AJUSTES vuelve a los juegos; en el móvil se queda en la ✕. Escape, o el botón «atrás» del mando de la tele, también los cierra, aunque la sala esté detrás.
+- **RealSense en un Mac.** macOS no le pasa al navegador la profundidad de la RealSense, porque no maneja su formato de 16 bits; solo llega la imagen de color. En un Mac, la vista de profundidad de la pestaña Cámara ya no se queda vacía: dice «En Mac no hay profundidad» y propone jugar con «La mano» o conectar la cámara a un PC con Windows o Linux. Lo mismo sale en la línea de información si se elige la profundidad o el modo «Lo más cercano».
+
+### v12.38
 
 - **Jugar con gestos, sin móvil.** Nueva pestaña **Cámara** en AJUSTES, pensada para la Intel RealSense D435 y válida con cualquier webcam:
   - eliges la cámara de color y, con una RealSense, también su entrada de profundidad;
@@ -560,7 +565,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.38 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.39 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
