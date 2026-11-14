@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.2**
+**Versión actual: v12.3**
 
 ## Cómo se juega
 
@@ -34,7 +34,12 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.2)
+## Cambios de la versión actual (v12.3)
+
+- **Calibrar cuando tú quieras:** el mando ya no se calibra solo al conectarse. En la esquina de arriba del móvil hay siempre un botón **CALIBRAR**: al pulsarlo, apunta al centro de la pantalla y mantenlo quieto. Al conectar, la pantalla solo lo recuerda con un aviso.
+- **Lámpara de lava con física:** la cera se calienta abajo y sube despacio, se enfría arriba y baja; las gotas chocan, se aplastan al tocarse como si se fundieran, rozan el cristal y derivan de lado.
+
+### v12.2
 
 - **KRAZYGOLF con sonido de verdad:** música dinámica (entrada, juego, tensión en el último hoyo o cuando el hoyo se complica, y final en la tarjeta), golpe, barrido del palo, bola dentro del hoyo, rebotes según la pelota, harina o arena, fanfarria en el hoyo en uno y pájaros en CLÁSICO y SIMULATOR. Todo con el motor común `lib/msaudio.js`.
 - **KRAZYGOLF más vivo:** palo de golf que se ve apuntar, coger impulso según la fuerza y golpear; polvo al golpear, harina o arena al entrar y confeti al embocar.
@@ -352,7 +357,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.2 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.3 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
