@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.55**
+**Versión actual: v12.56**
 
 ## Cómo se juega
 
@@ -36,7 +36,11 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.55)
+## Cambios de la versión actual (v12.56)
+
+- **Línea de crédito nueva**, la misma que en SCREENS, SYSTEMS y ADPOSTER: «MSGAME v12.56 2026 forma parte del proyecto AVHUB ideado por el fundador de mediaservi.com», en español, inglés y catalán. Si el navegador o el panel guardaban la frase anterior, se cambia sola por la nueva; la dirección «…/#aviso» abre el aviso legal.
+
+### v12.55
 
 - **PUNTERÍA · WESTERN con los sonidos de Josep** (los que dejó en la carpeta western, en `packs/western/`):
   - Si casi le das a un pistolero, la bala rebota en el metal.
@@ -692,7 +696,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.55 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.56 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
