@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.71**
+**Versión actual: v12.72**
 
 ## Cómo se juega
 
@@ -36,7 +36,15 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.71)
+## Cambios de la versión actual (v12.72)
+
+**WONDERWALK: la puerta secreta se abre de verdad y transiciones sin cortes.**
+
+- **Puerta secreta:** al abrirse ya no se ve la muralla detrás. Las dos hojas se abren hacia fuera y dejan un vano oscuro con la luz de la cueva al fondo; la hechicera y Mevi entran por él y desaparecen dentro, en vez de atravesar el muro.
+- **Transiciones revisadas:** el portal que se abre desde el centro cubre también el paso del banquete al vuelo de dron, la repesca, la vuelta a la portada con OTRA VEZ y SALIR; ya no queda ningún cambio de escena a corte seco.
+- **Cuevas sin cartel:** se quita el rótulo «Las Cuevas de Sal»; el paso por la cueva es solo la transición tras conseguir la misión.
+
+### v12.71
 
 **Biblioteca común de flores y WONDERWALK con ellas.**
 
@@ -847,7 +855,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.71 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.72 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
