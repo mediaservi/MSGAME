@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.58**
+**Versión actual: v12.59**
 
 ## Cómo se juega
 
@@ -36,7 +36,26 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.58)
+## Cambios de la versión actual (v12.59)
+
+Correcciones de la auditoría en el móvil en vertical (412 × 839, 390 × 844 y 360 × 740):
+
+- **Idiomas:** en el móvil el menú del globo va a lo ancho de la pantalla; ya no se corta por la izquierda y se pueden elegir Español y Català.
+- **Mando del móvil:**
+  - El botón grande dice la acción de cada juego: SALTAR (BEAT RACER), PESCAR (PATOPESCA), LANZAR (ENCESTA) y TOCAR (WONDERWALK), en vez de DISPARAR.
+  - La página del mando ya no carga lo de la pantalla grande: de unas 335 peticiones y 7 MB a 23 y 2 MB, sin los 275 errores 404, y no se da de alta como tele.
+  - Un aviso viejo (récord, reconectando…) se borra de la ventanilla al cambiar de fase.
+  - La línea del juego y el marcador pasan a dos líneas antes de encoger la letra (mínimo 9–12 px en vez de 7).
+  - Los errores de enlace salen en palabras («Sin conexión: revisa internet…») y no como código técnico; la dirección bajo el QR, más grande.
+  - En la pestaña JUEGOS sin portadas están también SHATEKI, WONDERWALK y KRAZYGOLF.
+- **Menú del juego en vertical:** la carátula ocupa menos y el menú gana ancho; teclas de servicio con letra mayor; en JUGADORES el nombre de cada jugador va en su propia fila y se lee entero; los nombres por defecto siguen el idioma.
+- **Partidas con el dedo en vertical:** la tarjeta «Cómo se juega» deja libres arriba el marcador y SALIR y abajo los botones táctiles; en PUNTERÍA las balas quedan por encima de RECARGA; en GRAFFER «PAGAR MULTA» cabe en su botón y la ayuda ya no pisa el dinero; en PATOPESCA el letrero se ensancha y el rótulo cabe dentro.
+- **WONDERWALK:** la frase de cómo se juega se parte en líneas en vez de salirse de la pantalla.
+- **AJUSTES:** en pantallas táctiles las explicaciones largas se ven enteras.
+- **Textos:** boquilla «Media» bien traducida (Medium/Mitjana), «Fin» traducido, «Con el dedo solo puede jugar uno a la vez», la tecla catalana «El mòbil com a comandament» cabe, y el botón de fallos dice su nombre en el idioma elegido.
+- **`media-manifest.json`** lista las imágenes de `fondos/`, `gente/` y `objetos/`: la app ya no las busca a ciegas.
+
+### v12.58
 
 - **El modo ligero tiene la misma sala:**
   - Una foto fija sacada de la propia sala 3D (`juegos/lite/`, una por idioma y orientación), sin estanterías ni Mevi: la tele SONIA, la consola nueva, el radiocasete, el mando, el cubo, la lámpara de lava, la lata y el teléfono.
@@ -713,7 +732,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.58 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.59 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 

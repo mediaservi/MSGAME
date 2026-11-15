@@ -1,6 +1,30 @@
 {
-  "fondos": [],
-  "gente": [],
-  "objetos": [],
+  "fondos": [
+    "fondos/fondo0.webp",
+    "fondos/fondo1.webp",
+    "fondos/fondo2.webp",
+    "fondos/fondo3.webp",
+    "fondos/fondo4.webp",
+    "fondos/fondo5.webp",
+    "fondos/fondo6.webp",
+    "fondos/fondo7.webp",
+    "fondos/fondo8.webp",
+    "fondos/fondo9.webp"
+  ],
+  "gente": [
+    "gente/gente1.webp",
+    "gente/gente2.webp",
+    "gente/gente3.webp",
+    "gente/gente4.webp",
+    "gente/gente5.webp",
+    "gente/gente6.webp",
+    "gente/gente7.webp"
+  ],
+  "objetos": [
+    "objetos/objeto1.webp",
+    "objetos/objeto2.webp",
+    "objetos/objeto3.webp",
+    "objetos/objeto4.webp"
+  ],
   "loops": []
 }
