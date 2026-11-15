@@ -35,3 +35,7 @@ El escenario es una recreación libre, no una reproducción fiel:
 - **Vegetación halófila:** el salado blanco (*Atriplex halimus*) que crece en los suelos salinos de los alrededores ([Viles Florides · Cardona](https://vilesflorides.cat/vila/cardona/)).
 
 Los sonidos del bosque (lobo, búho, tensión, risa y grito del ladrón) están sintetizados en el propio juego; no usan grabaciones.
+
+## Ardilla (v12.70)
+
+`ardilla.webp`: cuatro vistas de un modelo 3D de ardilla roja con licencia **CC0** (dominio público), aportado por Josep el 15-11-2026 (`squirrel-light.glb`). Pendiente de anotar aquí el autor y la página de descarga.

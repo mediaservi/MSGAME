@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.69**
+**Versión actual: v12.70**
 
 ## Cómo se juega
 
@@ -36,7 +36,13 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.69)
+## Cambios de la versión actual (v12.70)
+
+**WONDERWALK: ardillas de verdad.**
+
+- Las ardillas hechas con esferas se sustituyen por una **ardilla roja** sacada de un modelo 3D con licencia CC0 que aportó Josep. El modelo original pesa 16 MB y 400.000 triángulos, así que no se carga en el juego: se usan cuatro vistas suyas (frente, espalda y los dos perfiles) en una sola imagen de 41 KB (`packs/wonderwalk/ardilla.webp`), y se muestra la que toca según hacia dónde corre o cuando se para a mirar.
+
+### v12.69
 
 **WONDERWALK: flores de la pradera con los modelos del kit.**
 
@@ -834,7 +840,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.69 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.70 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
