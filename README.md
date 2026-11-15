@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.70**
+**Versión actual: v12.71**
 
 ## Cómo se juega
 
@@ -36,7 +36,14 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.70)
+## Cambios de la versión actual (v12.71)
+
+**Biblioteca común de flores y WONDERWALK con ellas.**
+
+- **Nueva biblioteca `packs/comun/flora/`**, pensada para todos los juegos: dedalera, rosal, amapola, cardo, arbusto de bayas y hortensia. Son modelos CC0 de [grab3d.com](https://grab3d.com/) aportados por Josep, aligerados para el juego (de unos 14.000 triángulos a entre 1.800 y 4.000, una sola textura de color de 256 px, entre 150 y 270 KB cada uno).
+- **WONDERWALK:** la Pradera de las Flores mezcla estas seis especies con las flores del kit de naturaleza, y al pie del castillo de Cardona crecen **cardos**, la planta de su escudo. Las flores se cargan después que el resto del paisaje, para no retrasar el arranque.
+
+### v12.70
 
 **WONDERWALK: ardillas de verdad.**
 
@@ -840,7 +847,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.70 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.71 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 

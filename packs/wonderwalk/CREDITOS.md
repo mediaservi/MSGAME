@@ -38,4 +38,6 @@ Los sonidos del bosque (lobo, búho, tensión, risa y grito del ladrón) están 
 
 ## Ardilla (v12.70)
 
-`ardilla.webp`: cuatro vistas de un modelo 3D de ardilla roja con licencia **CC0** (dominio público), aportado por Josep el 15-11-2026 (`squirrel-light.glb`). Pendiente de anotar aquí el autor y la página de descarga.
+`ardilla.webp`: cuatro vistas de un modelo 3D de ardilla roja con licencia **CC0** (dominio público), descargado de [grab3d.com](https://grab3d.com/) por Josep el 15-11-2026 (`squirrel-light.glb`).
+
+Las flores nuevas de la pradera y los cardos del castillo (v12.71) salen de la biblioteca común `packs/comun/flora/` (ver su CREDITOS.md).
