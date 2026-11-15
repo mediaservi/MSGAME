@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.51**
+**Versión actual: v12.52**
 
 ## Cómo se juega
 
@@ -36,7 +36,11 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.51)
+## Cambios de la versión actual (v12.52)
+
+- **Arranque sin cámaras:** si alguna vez se dejó encendida la entrada de cámara (la capa DIRECTO heredada de VJSHOW), al abrir MSGAME la volvía a encender: buscaba y probaba todas las cámaras, una tras otra, y la app se atascaba. Ahora esa entrada nunca se enciende sola al arrancar; la cámara solo se abre cuando eliges jugar con gestos.
+
+### v12.51
 
 - **BITCLAUD, junto a la carátula de Josep:** la cinta de Claude está ahora de pie al fondo de la mesa, justo debajo de la carátula de MEDIASERVI (autor y coautor juntos, como en la firma), y el cable de los auriculares del walkman ya no la cruza.
 - **Su funda, como la de los cartuchos:** la marca MSGAME arriba con la franja de color, el monitor sonriente grande con rayos de portada de juego y el título BITCLAUD con la letra y el relieve de los títulos de los juegos (sin el cielo de estrellas).
@@ -672,7 +676,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.51 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.52 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
