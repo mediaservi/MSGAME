@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.54**
+**Versión actual: v12.55**
 
 ## Cómo se juega
 
@@ -36,7 +36,15 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.54)
+## Cambios de la versión actual (v12.55)
+
+- **PUNTERÍA · WESTERN con los sonidos de Josep** (los que dejó en la carpeta western, en `packs/western/`):
+  - Si casi le das a un pistolero, la bala rebota en el metal.
+  - El bandido cruza la calle corriendo con sus pasos.
+  - La dama carraspea al asomarse y se sobresalta si le apuntas. Si casi le das, se le corta la respiración; si le das, grita; si se retira a salvo, suspira.
+  - Annie se ríe al asomarse y se queja cuando le das (cuatro quejidos distintos, al azar).
+
+### v12.54
 
 - **El vídeo de la tele ya no se congela:** en algunos navegadores, el avance que pone la tele cuando Mevi recomienda un juego se quedaba parado en un fotograma (por ejemplo, la niebla de HAUNTED HOUSE). El vídeo iba fuera de la página y el navegador dejaba de avanzar sus fotogramas; además, se rebobinaba en cada fotograma y no llegaba a arrancar. Ahora el vídeo va dentro de la página (invisible), se rebobina una sola vez y solo se pinta en la tele mientras avanza de verdad; si se para, sale la carátula en movimiento. La estática cambia en cada dibujo, así que nunca se ve quieta.
 
@@ -684,7 +692,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.54 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.55 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
