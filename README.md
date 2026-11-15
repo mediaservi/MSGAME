@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.74**
+**Versión actual: v12.75**
 
 ## Cómo se juega
 
@@ -36,7 +36,13 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.74)
+## Cambios de la versión actual (v12.75)
+
+**WONDERWALK: carátula reajustada para la estantería.**
+
+- La carátula ya no lleva el rótulo pintado, porque la estantería pone encima el logo «WonderWalk · El camino al castillo» y salía dos veces. Se recompone pensando en el recorte vertical de la estantería: Mevi con su magia en el centro, el castillo detrás y la parte de abajo libre para el logo.
+
+### v12.74
 
 **WONDERWALK: carátula con título y magia en verde y lila.**
 
@@ -868,7 +874,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.74 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.75 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
