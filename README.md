@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.52**
+**Versión actual: v12.53**
 
 ## Cómo se juega
 
@@ -36,7 +36,11 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.52)
+## Cambios de la versión actual (v12.53)
+
+- **La tele ya no se queda con la carátula quieta:** cuando Mevi recomienda un juego, el vídeo de la partida no siempre llegaba a tiempo y la tele se quedaba con la carátula fija. Ahora ese vídeo se empieza a cargar unos segundos antes; mientras llega, la tele muestra estática (como buscando canal) y, si tarda mucho, la carátula se mueve.
+
+### v12.52
 
 - **Arranque sin cámaras:** si alguna vez se dejó encendida la entrada de cámara (la capa DIRECTO heredada de VJSHOW), al abrir MSGAME la volvía a encender: buscaba y probaba todas las cámaras, una tras otra, y la app se atascaba. Ahora esa entrada nunca se enciende sola al arrancar; la cámara solo se abre cuando eliges jugar con gestos.
 
@@ -676,7 +680,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.52 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.53 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
