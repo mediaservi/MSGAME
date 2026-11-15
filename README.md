@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.65**
+**Versión actual: v12.66**
 
 ## Cómo se juega
 
@@ -36,7 +36,32 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.65)
+## Cambios de la versión actual (v12.66)
+
+**WONDERWALK, segunda tanda (indicaciones de Josep del 15-11 por la tarde).**
+
+- **Portada de entrada:** ya no se ve el camino al abrir. Fondo morado como el cartel, la silueta del castillo de Cardona con las ventanas encendidas sobre la luna, Mevi con el pulgar arriba, una estela ondulada de polvo mágico que marca el camino y destellos de varita (polvo de estrellas, chispas sobre el título y un trazo dorado que cruza la pantalla).
+- **Carátula nueva** en la estantería (`juegos/wonderwalk.webp`): el castillo real del juego de noche, Mevi y la estela mágica.
+- **PAUSA y SALIR** siempre a mano arriba a la derecha (dedo, ratón o mando de la tele); también P y Escape con teclado.
+- **Velocidad según el nivel:** la de antes queda para DIFÍCIL; NORMAL camina a un 78 % y FÁCIL a un 60 %. Los ladrones también se acercan más despacio.
+- **Mevi algo más pequeña** que los demás personajes: es la joven del grupo.
+- **Cuento de entrada:** tras elegir nivel, un pergamino en el que el cuento se va escribiendo a pluma, con letra manuscrita en tinta rojiza (Dancing Script, OFL), en tres páginas: la fiesta del castillo, los ladrones que lo han escondido todo y la **hechicera del camino**, que entrega a Mevi su varita mágica (se ve cómo vuela de una a otra entre chispas). Así tiene sentido que Mevi empiece el paseo con la varita en la mano.
+- **La hechicera sustituye al guardián:** es la maga quien pide la lista, revisa la mochila y tiene la llave. Los caballeros pasan a ser **dos soldados que custodian siempre la puerta principal**, uno a cada lado.
+- **Varita nueva:** madera tallada con pomo y anillas de oro, punta de cristal y un destello en cruz que va cambiando de color.
+- **Rótulos de tramo a pluma:** el nombre de cada tramo se escribe sobre una cinta de pergamino en vez de salir como un rótulo moderno.
+- **Puerta secreta de verdad:** ya no está en la fachada ni en una loma. Está en el **muro del costado izquierdo del castillo**, que no se ve llegando por el camino, tapada por matorrales. La hechicera lleva a Mevi rodeando el baluarte, aparta los matorrales, saca su llave, abre el candado, levanta la tranca de hierro y abre una puerta de madera con herrajes; la cámara las acompaña. Alrededor del castillo el terreno es ahora una explanada llana.
+- **Banquete con más público:** al fondo del salón, sobre una tarima con alfombra roja, los **tronos del rey y la reina** (el explorador y la pícara, con corona); a los lados la hechicera y los soldados, y más aldeanos saltando, aplaudiendo y sentados a las mesas. Las antorchas y las velas tienen **llama de verdad**.
+- **Pirotecnia solo fuera:** ya no hay fuegos dentro del salón. Al salir, el **dron gira despacio sin parar** alrededor del castillo y sube entre palmeras de fuegos en 3D que iluminan las murallas, cada una con su silbido y su estallido.
+- **Créditos de cine y fanfarria** al ganar: trompetas, redoble y platillo, y durante el vuelo suben el título, la puntuación, el nivel, el reparto y los créditos hasta el «FIN».
+- **Luna kawaii:** tiene cara y carácter; sonríe, se sorprende, pone cara de «ups» al fallar y está feliz al ganar y durante el vuelo.
+- **Vida en el paisaje:** pájaros en formación, mariposas y ardillas que corretean; la **senyera ondea** como tela.
+- **Puerta de la casamata y cuevas de sal:** la puerta secreta reproduce la de la casamata del castillo de Cardona (arco rebajado de sillares, dos hojas de madera vieja con ventanillo enrejado). Ya no da al salón: lleva a unas **cuevas de sal** inspiradas en la Montaña de Sal de Cardona (galería en arco con vetas plegadas ocres y rojizas, costras blancas, cortinas de estalactitas, montones de sal y focos cálidos), y al fondo la hechicera abre una segunda puerta que entra al banquete.
+- **Inspiración:** el escenario está inspirado en el castillo de Cardona, su casamata y la Montaña de Sal (Cardona, Barcelona, Cataluña); se dice también en los créditos finales.
+- **Tres idiomas** dentro del juego (español, inglés y catalán): textos, frases de Mevi, cuento y créditos.
+- **Castillo con más calidad:** piedra de sillería (hiladas, juntas, desgaste y musgo) en vez de bloques de color, sin los cuadros temblorosos de la fachada (profundidad logarítmica, ventanas con desplazamiento y sombras ancladas). Suelo con más textura (briznas y manchas) y nubes que cruzan el cielo sin parar.
+- **Efectos:** se acaban los pitidos; aciertos, fallos y avisos usan la biblioteca común de MSGAME y la **pirotecnia** suena a cohete de verdad (silbido de subida, estallido grave y chisporroteo, repartidos a izquierda y derecha) sincronizada con cada palmera.
+
+### v12.65
 
 **WONDERWALK: música dinámica del paseo.**
 
@@ -783,7 +808,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.65 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.66 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 

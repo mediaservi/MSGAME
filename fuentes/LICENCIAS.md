@@ -12,6 +12,7 @@ Todos se distribuyen bajo la **SIL Open Font License 1.1** (uso, incrustación y
 | `chewy.woff2` | Chewy | PATOPESCA |
 | `bungee.woff2` | Bungee | ENCESTA |
 | `berkshire-swash.woff2` | Berkshire Swash | WONDERWALK |
+| `dancing-script-700.woff2` | Dancing Script (cuento y rótulos a pluma) | WONDERWALK |
 
 GRAFFER usa Sedgwick Ave Display, también bajo OFL 1.1.
 
