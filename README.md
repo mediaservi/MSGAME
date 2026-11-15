@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.57**
+**Versión actual: v12.58**
 
 ## Cómo se juega
 
@@ -36,7 +36,16 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.57)
+## Cambios de la versión actual (v12.58)
+
+- **El modo ligero tiene la misma sala:**
+  - Una foto fija sacada de la propia sala 3D (`juegos/lite/`, una por idioma y orientación), sin estanterías ni Mevi: la tele SONIA, la consola nueva, el radiocasete, el mando, el cubo, la lámpara de lava, la lata y el teléfono.
+  - Arriba, en fila, las 24 carátulas de las estanterías, dibujadas en 2D. Elegir una abre el menú del juego en la tele, igual que en la sala.
+  - Ya no salen la consola antigua ni la torre de cartuchos.
+  - En el móvil, las carátulas van en una tira que se desliza.
+- **`?diag`:** enseña en pantalla qué tiene el aparato (navegador, memoria, núcleos, pantalla, 3D y gráfica) y en qué paso del arranque está, con los errores. Sirve para saber por qué una tele o un proyector no carga.
+
+### v12.57
 
 - **Carga ligera automática para aparatos con poca capacidad:**
   - **Cuándo se activa:** en teles y proyectores con Google TV y poca memoria, en aparatos sin 3D (WebGL) o con una gráfica floja, MSGAME arranca sin la sala 3D. Sale la consola 2D con la estantería de cartuchos y los juegos van en su versión 2D, con un aviso en el letrero.
@@ -704,7 +713,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.57 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.58 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
