@@ -20,3 +20,6 @@ Los ladrones 3D usan el personaje encapuchado de **KayKit Character Pack: Advent
 |---|---|---|---|
 | `props/` | Llave dorada y plateada, candelero y vela, pergaminos, moneda, cáliz, pociones, zanahoria, jarra, libro, botella y el morral de la mochila de Mevi (*Fantasy Props MegaKit, Standard*). Solo los modelos que usa el juego; texturas de color reducidas a 512 px y sin mapas de relieve | Quaternius · quaternius.com | CC0 1.0 (dominio público) |
 | `kaykit/Knight.glb` | El guardián del camino (v12.62), con las mismas animaciones que los ladrones | Kay Lousberg · KayKit Adventurers 2.0 | CC0 1.0 (dominio público) |
+| `salon/` | El gran salón del banquete (v12.63): suelo, muros con arcos, columnas, estandartes, antorchas, mesas largas con mantel, sillas, platos con comida, velas, barriles, cofre y monedas | Kay Lousberg · KayKit Dungeon Pack 1.1 | CC0 1.0 (dominio público) |
+| `kaykit/Mage.glb`, `Barbarian.glb`, `Ranger.glb`, `Rogue.glb` | Señores, aldeanos y el bufón del banquete | Kay Lousberg · KayKit Adventurers 2.0 | CC0 1.0 (dominio público) |
+| `kaykit/rig_medium_fiesta.glb` | Animaciones del banquete (aplaudir, saludar, sentarse, saltar…), sacadas de KayKit Character Animations 1.1 solo con lo que se usa | Kay Lousberg · KayKit | CC0 1.0 (dominio público) |
