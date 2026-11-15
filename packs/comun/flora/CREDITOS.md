@@ -12,3 +12,5 @@ Modelos 3D de plantas para cualquier juego de MSGAME.
 | `hydrangea.glb` | Hortensia | grab3d.com | CC0 1.0 (dominio público) |
 
 Descargados de [grab3d.com](https://grab3d.com/) por Josep el 15-11-2026, con su nombre original. Para el juego se han aligerado: malla simplificada (de unos 14.000 triángulos a entre 1.800 y 4.000), solo la textura de color, reducida a 256 px, y sin mapas de relieve ni de rugosidad.
+
+**Al usarlos:** cada modelo trae un disco de tierra en la base, de unos 3 cm de alto en sus unidades. Para que la planta parezca nacer del suelo hay que hundirla ese tanto (WONDERWALK baja la malla 0,036 al cargarla).
