@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.66**
+**Versión actual: v12.67**
 
 ## Cómo se juega
 
@@ -36,7 +36,18 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.66)
+## Cambios de la versión actual (v12.67)
+
+**WONDERWALK: las tres sendas con nombre propio, más vida y la leyenda de Adalés.**
+
+- **Nombres de las sendas** (escritos a pluma, en los tres idiomas): **La Pradera de las Flores** (del inicio al paso 34), **Bosque de los Secretos** (del 34 al 78) y **Senda de Adalés** (del 78 al castillo, con el río y el puente).
+- **Pradera de las Flores:** cientos de flores nuevas de formas y colores distintos (tulipanes, margaritas, espigas y pompones) y más del doble de mariposas revoloteando.
+- **Bosque de los Secretos:** aullidos de lobo y búhos de fondo; cuando sale un ladrón suena un golpe de tensión, **se ríe si te roba** y **grita al huir** si lo espantas. Son sonidos sintetizados en el propio juego, sin archivos.
+- **Senda de Adalés:** recoge la leyenda de la Torre de la Minyona. Según la tradición local, el duque de Cardona encerró a su hija Adalés en esta torre cilíndrica por enamorarse de un príncipe musulmán, y su espíritu aún vaga de noche por la fortaleza. En el juego, una dama de luz ronda la torre al anochecer y Mevi lo comenta al acercarse.
+- **Vegetación halófila de Cardona:** al pie de las murallas crecen matas de **salado blanco** (*Atriplex halimus*), de hoja plateada, propias de los suelos salinos que rodean la Montaña de Sal ([Viles Florides · Cardona](https://vilesflorides.cat/vila/cardona/)).
+- Los créditos finales citan también la leyenda de Adalés y la Torre de la Minyona.
+
+### v12.66
 
 **WONDERWALK, segunda tanda (indicaciones de Josep del 15-11 por la tarde).**
 
@@ -808,7 +819,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.66 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.67 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 

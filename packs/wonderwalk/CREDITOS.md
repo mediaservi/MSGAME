@@ -24,3 +24,14 @@ Los ladrones 3D usan el personaje encapuchado de **KayKit Character Pack: Advent
 | `kaykit/Mage.glb`, `Barbarian.glb`, `Ranger.glb`, `Rogue.glb` | La maga es la hechicera del camino (v12.66; `hechicera.webp` es una imagen suya para el cuento); el explorador y la pícara son el rey y la reina; además, aldeanos y bufón del banquete | Kay Lousberg · KayKit Adventurers 2.0 | CC0 1.0 (dominio público) |
 | `kaykit/rig_medium_fiesta.glb` | Animaciones del banquete (aplaudir, saludar, sentarse, saltar…), sacadas de KayKit Character Animations 1.1 solo con lo que se usa | Kay Lousberg · KayKit | CC0 1.0 (dominio público) |
 | `mevi.webp` y `juegos/wonderwalk.webp` | Mevi recortada del cartel propio de WONDERWALK (material de mediaservi) y carátula montada con una imagen del propio juego | mediaservi.com | Propio |
+
+## Inspiración y referencias (v12.67)
+
+El escenario es una recreación libre, no una reproducción fiel:
+
+- **Castillo de Cardona** (Cardona, Barcelona, Cataluña), con la **Torre de la Minyona** y la puerta de la **casamata**.
+- **Leyenda de Adalés:** según la tradición local, el duque de Cardona encerró a su hija Adalés en la torre por enamorarse de un príncipe musulmán; se dice que su espíritu todavía vaga de noche por la fortaleza.
+- **Montaña de Sal de Cardona** ([Parque Cultural de la Montaña de Sal · Patrimoni Gencat](https://patrimoni.gencat.cat/es/coleccion/parque-cultural-de-la-montana-de-sal-de-cardona)): las cuevas de sal del pasaje interior.
+- **Vegetación halófila:** el salado blanco (*Atriplex halimus*) que crece en los suelos salinos de los alrededores ([Viles Florides · Cardona](https://vilesflorides.cat/vila/cardona/)).
+
+Los sonidos del bosque (lobo, búho, tensión, risa y grito del ladrón) están sintetizados en el propio juego; no usan grabaciones.
