@@ -3663,7 +3663,7 @@ body.gm-modos #gmUI{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '12.53';
+    const APP_VERSION = '12.54';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -9678,18 +9678,23 @@ body.gm-modos #gmUI{display:none!important}
             const tw = Math.pow(Math.max(0, Math.sin(t * 2.7 + p.ph)), 2), up = ((t * .22 + p.sube) % 1); p.s.position.set(X * (1 + up * .12), Y + up * .03, BOX.d / 2 + .012); p.s.material.opacity = a * tw * (1 - up * .6); p.s.scale.setScalar(p.z * (.55 + .9 * tw)); }); }); }
       /* v12.53 · el vídeo de la recomendación se empieza a cargar antes de que Mevi la diga: así no se queda la carátula quieta en la tele */
       function preDemo(n) { try { const c = recCovs(n)[0], v = c && demoVid(demoKey(c)); if (v && !v.dataset.pre) { v.dataset.pre = '1'; v.load(); } } catch (e) {} }
-      function demoVid(key) { if (key in DEMO.v) return DEMO.v[key]; const v = document.createElement('video'); v.muted = true; v.loop = true; v.playsInline = true; v.setAttribute('playsinline', ''); v.preload = 'auto'; v.addEventListener('error', () => { DEMO.v[key] = null; }); v.src = 'juegos/demo/' + key + '.mp4?v=' + APP_VERSION; DEMO.v[key] = v; return v; }
+      function demoVid(key) { if (key in DEMO.v) return DEMO.v[key]; const v = document.createElement('video'); v.muted = true; v.loop = true; v.playsInline = true; v.setAttribute('playsinline', ''); v.preload = 'auto'; v.addEventListener('error', () => { DEMO.v[key] = null; }); v.src = 'juegos/demo/' + key + '.mp4?v=' + APP_VERSION; DEMO.v[key] = v;
+        v.setAttribute('aria-hidden', 'true'); v.style.cssText = 'position:fixed;left:0;bottom:0;width:2px;height:2px;opacity:.01;pointer-events:none;z-index:-1'; try { document.body.appendChild(v); } catch (e) {} return v; }   /* v12.54 · dentro de la página (invisible): fuera de ella algunos navegadores no avanzan los fotogramas y el vídeo se quedaba congelado en la tele */
       function ruidoTV(i) { if (!DEMO.ruido.length) for (let n = 0; n < 6; n++) { const [c, x] = canvas(160, 120), im = x.createImageData(160, 120); for (let j = 0; j < im.data.length; j += 4) { const v = Math.random() * 255 | 0; im.data[j] = im.data[j + 1] = im.data[j + 2] = v; im.data[j + 3] = 255; } x.putImageData(im, 0, 0); x.fillStyle = 'rgba(255,255,255,.18)'; x.fillRect(0, (n * 23) % 120, 160, 9); DEMO.ruido.push(c); } return DEMO.ruido[i % DEMO.ruido.length]; }
       /* en la tele: ruido estático, el avance del juego (vídeo de una partida; si falta, su carátula en movimiento) con el cartel de «ELIGE UN JUEGO» encima, y ruido otra vez para volver al menú */
       function recTV(x, W, H, t) { const r = ST.rec, k = r.k, c = recCovs(r.n)[0]; if (!c) return; const v = demoVid(demoKey(c)); if (v) DEMO.cur = v;
         const ru = k < .7 ? 0 : k < 1.3 ? sg(k, .7, 1.3) : k < 1.75 ? 1 - sg(k, 1.3, 1.75) : k < 8 ? 0 : k < 8.4 ? sg(k, 8, 8.4) : 1 - sg(k, 8.4, 9);
-        if (v) { if (k >= .7 && k < 8.6) { if (v.paused) { try { if (k < 1.4) v.currentTime = 0; } catch (e) {} const pr = v.play(); if (pr && pr.catch) pr.catch(() => {}); } } else if (!v.paused) v.pause(); }
+        const rid = r.n + '|' + (c.i);
+        if (v) { if (k >= .7 && k < 8.6) { if (DEMO.rid !== rid) { DEMO.rid = rid; DEMO.ct = -1; DEMO.ctT = t; try { v.currentTime = 0; } catch (e) {} }   /* v12.54 · al principio de cada recomendación vuelve al inicio una sola vez (antes lo hacía en cada fotograma y el vídeo no arrancaba) */
+            if (v.paused && t - (DEMO.pt || 0) > 1) { DEMO.pt = t; const pr = v.play(); if (pr && pr.catch) pr.catch(() => {}); } } else if (!v.paused) v.pause(); }
+        if (v && !v.paused && v.readyState >= 2 && v.currentTime !== DEMO.ct) { DEMO.ct = v.currentTime; DEMO.ctT = t; }
+        const fluye = !!(v && !v.paused && v.readyState >= 2 && v.videoWidth && t - (DEMO.ctT || 0) < 1.2);   /* v12.54 · solo se pinta el vídeo si de verdad avanza: si se para, la carátula en movimiento, nunca un fotograma congelado */
         if (k >= 1.3 && k < 8.4) { x.fillStyle = '#000'; x.fillRect(0, 0, W, H); let ok = false;
-          if (v && v.readyState >= 2 && v.videoWidth) { const s2 = Math.max(W / v.videoWidth, H / v.videoHeight), dw = v.videoWidth * s2, dh = v.videoHeight * s2; try { x.drawImage(v, (W - dw) / 2, (H - dh) / 2, dw, dh); ok = true; } catch (e) {} }
-          if (!ok && v && k < 3.2) { x.save(); x.imageSmoothingEnabled = false; x.drawImage(ruidoTV(Math.floor(t * 30)), 0, 0, W, H); x.restore(); ok = true; }   /* v12.53 · si el vídeo aún no ha llegado, estática (como una tele buscando canal) en vez de la carátula quieta; si tarda más, la carátula en movimiento */
+          if (fluye) { const s2 = Math.max(W / v.videoWidth, H / v.videoHeight), dw = v.videoWidth * s2, dh = v.videoHeight * s2; try { x.drawImage(v, (W - dw) / 2, (H - dh) / 2, dw, dh); ok = true; } catch (e) {} }
+          if (!ok && v && k < 2.4) { x.save(); x.imageSmoothingEnabled = false; x.drawImage(ruidoTV(DEMO.rn = (DEMO.rn || 0) + 1), 0, 0, W, H); x.restore(); ok = true; }   /* v12.53 · si el vídeo aún no ha llegado, estática (como una tele buscando canal) en vez de la carátula quieta; si tarda más, la carátula en movimiento */
           if (!ok) { const im = ST.thumbs[c.i] || ST.arts[c.i]; if (im && im.width) { const z = 1.12 + .08 * sg(k, 1.3, 8.4), s2 = Math.max(W / im.width, H / im.height) * z, dw = im.width * s2, dh = im.height * s2, px = Math.sin(k * .4) * W * .03; try { x.drawImage(im, (W - dw) / 2 + px, (H - dh) / 2 - H * .04 * sg(k, 1.3, 8.4), dw, dh); } catch (e) {} } }
           x.fillStyle = 'rgba(8,4,24,.74)'; x.fillRect(0, 0, W, H * .13); if (Math.floor(t * 1.6) % 2) { x.textAlign = 'center'; x.textBaseline = 'middle'; x.font = '400 15px "Press Start 2P",monospace'; x.fillStyle = '#ffd23f'; x.shadowColor = '#ff2fd0'; x.shadowBlur = 10; x.fillText(TT('ELIGE UN JUEGO'), W / 2, H * .067); x.shadowBlur = 0; x.textBaseline = 'alphabetic'; } }
-        if (ru > 0) { x.save(); x.globalAlpha = ru; x.imageSmoothingEnabled = false; x.drawImage(ruidoTV(Math.floor(t * 30)), 0, 0, W, H); x.restore(); } }
+        if (ru > 0) { x.save(); x.globalAlpha = ru; x.imageSmoothingEnabled = false; x.drawImage(ruidoTV(DEMO.rn = (DEMO.rn || 0) + 1), 0, 0, W, H); x.restore(); } }   /* v12.54 · la estática cambia en cada dibujo (por lenta que vaya la tele, nunca se ve quieta) */
       const MEVI_FR = [['¿Te gustó?', '¿Ahora cuál?'], ['¡Qué bueno!', '¿Probamos otro?'], ['¡Bien jugado!', '¿A cuál vamos ahora?'], ['¿Otra partida?', 'Elige el siguiente.']];
       function meviGo(otra) { if (!MEVI.g || ST.seq || ST.crt) return; MEVI.fr = otra === true ? MEVI_FR[(MEVI.k = (MEVI.k || 0) + 1) % MEVI_FR.length] : null; MEVI.t0 = performance.now(); MEVI.out = 0; MEVI.n = -1; MEVI.at = 0; MEVI.pi = null; MEVI.g.visible = true; MEVI.bub.innerHTML = ''; try { meviSon('sale'); } catch (e) {} kick(); }
       function meviFuera() { if (!MEVI.g || !MEVI.t0) return; MEVI.bub.classList.remove('on'); MEVI.g.visible = false; MEVI.t0 = 0; }   // solo se va cuando se elige un juego
