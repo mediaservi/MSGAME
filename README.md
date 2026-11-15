@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.67**
+**Versión actual: v12.68**
 
 ## Cómo se juega
 
@@ -36,7 +36,16 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.67)
+## Cambios de la versión actual (v12.68)
+
+**WONDERWALK: el cuento de entrada, en cine.**
+
+- **Cinemática en 3D:** el cuento ya no son dos figuras pegadas sobre un fondo. Se rueda en el propio mundo del juego, con Mevi y la hechicera en el mismo plano y el pergamino escrito a pluma arriba. Página 1: el castillo en fiestas con sus fuegos y los ladrones escabulléndose por el bosque con el botín. Página 2: la entrega de la varita en cuatro tomas (plano general, sobre el hombro de Mevi, primer plano de la varita volando entre chispas y Mevi alzándola). Página 3: las dos miran el camino y Mevi echa a andar.
+- **Portal entre planos:** cada cambio de toma o de escena se abre desde el centro como un portal mágico, con anillo de luz y chispas, en vez de un corte o un fundido.
+- **Llegada a vista de dron:** al empezar el paseo la cámara baja del cielo en un plano secuencia hasta colocarse detrás de Mevi.
+- Sin 3D (equipos muy limitados) se mantiene el cuento ilustrado anterior.
+
+### v12.67
 
 **WONDERWALK: las tres sendas con nombre propio, más vida y la leyenda de Adalés.**
 
@@ -819,7 +828,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.67 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.68 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
