@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.63**
+**Versión actual: v12.64**
 
 ## Cómo se juega
 
@@ -36,7 +36,15 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.63)
+## Cambios de la versión actual (v12.64)
+
+**WONDERWALK: título animado, vuelo de dron final y cartucho con su letra.**
+
+- **Título animado:** las letras de «WonderWalk» caen una a una con rebote y un destello; después ondean suaves y un brillo las recorre cada pocos segundos.
+- **Cierre a vista de dron:** tras unos segundos de banquete, la cámara sale del salón, asciende y vuela alrededor del castillo iluminado de noche, sobre el río y el sendero, atravesando capas de nubes, con fuegos en el cielo.
+- **El cartucho de WONDERWALK** lleva la misma letra que el título (Berkshire Swash) y el nombre como en el logo, «WonderWalk».
+
+### v12.63
 
 **WONDERWALK: el banquete en el gran salón del castillo.**
 
@@ -767,7 +775,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.63 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.64 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 

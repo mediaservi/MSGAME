@@ -623,6 +623,7 @@ body.gm-modos #gmUI{display:none!important}
     @font-face{font-family:"Black Ops One";src:url(fuentes/black-ops-one.woff2) format("woff2");font-display:swap}
     @font-face{font-family:"Racing Sans One";src:url(fuentes/racing-sans-one.woff2) format("woff2");font-display:swap}
     @font-face{font-family:"Lobster";src:url(fuentes/lobster.woff2) format("woff2");font-display:swap}
+    @font-face{font-family:"Berkshire Swash";src:url(fuentes/berkshire-swash.woff2) format("woff2");font-display:swap}   /* v12.64 · la letra del título de WONDERWALK, también en su cartucho */
     @font-face{font-family:"Bowlby One";src:url(fuentes/bowlby-one.woff2) format("woff2");font-display:swap}
     @font-face{font-family:"Chewy";src:url(fuentes/chewy.woff2) format("woff2");font-display:swap}
     @font-face{font-family:"Bungee";src:url(fuentes/bungee.woff2) format("woff2");font-display:swap}
@@ -3701,7 +3702,7 @@ body.gm-modos #gmUI{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '12.63';
+    const APP_VERSION = '12.64';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -8962,12 +8963,12 @@ body.gm-modos #gmUI{display:none!important}
         const sagas = () => Promise.all(Object.keys(SAGA).map(g => SG[g] ? 0 : new Promise(r => { const im = new Image(); im.onload = () => { SG[g] = im; r(); }; im.onerror = () => r(); im.src = SAGA[g] + '?v=' + APP_VERSION; })));
         const mk = (w, h) => { const c = document.createElement('canvas'); c.width = w; c.height = h; return [c, c.getContext('2d')]; };
         const COL = { hit: ['#ff3bd4', '#ffb000'], shoot: ['#b6e600', '#ff6a1a'], race: ['#19b8ff', '#ff2fd0'], paint: ['#7dff3a', '#ff2a8a'], wheel: ['#ffd23f', '#e53935'], bowl: ['#ff8f4d', '#3bd0ff'], duck: ['#ffc21a', '#19a8ff'], hoop: ['#ff8a1f', '#7a3cff'], walk: ['#ffd76a', '#8a4dff'], golf: ['#9dff3a', '#ff7a1f'], osaka: ['#ffd23f', '#e02a1f'] , mservi: ['#56f700', '#e100ff'], avhubw: ['#22e5ff', '#7a3cff'] };
-        const GN = { hit: 'PALOTERAPIA', shoot: 'PUNTERÍA', race: 'BEAT RACER', paint: 'GRAFFER', wheel: 'LA FORTUNA', bowl: 'BOLERA', duck: 'PATOPESCA', hoop: 'ENCESTA', walk: 'WONDERWALK', golf: 'KRAZYGOLF', osaka: 'SHATEKI', mservi: 'MEDIASERVI', avhubw: 'AVHUB' };
+        const GN = { hit: 'PALOTERAPIA', shoot: 'PUNTERÍA', race: 'BEAT RACER', paint: 'GRAFFER', wheel: 'LA FORTUNA', bowl: 'BOLERA', duck: 'PATOPESCA', hoop: 'ENCESTA', walk: 'WonderWalk', golf: 'KRAZYGOLF', osaka: 'SHATEKI', mservi: 'MEDIASERVI', avhubw: 'AVHUB' };
         const PARTE = { PALOTERAPIA: ['PALO', 'TERAPIA'], PATOPESCA: ['PATO', 'PESCA'] };
         const LEMA = { paint: 'PINTA SIN QUE TE PILLEN', wheel: 'GIRA Y GANA', bowl: '¡A POR EL PLENO!', duck: 'LA FERIA EN CASA', walk: 'EL CAMINO AL CASTILLO', golf: 'MINIGOLF GAMBERRO', osaka: 'GALERÍA DE TIRO · OSAKA' };
         /* tipos: [diagonal, cartel, emblema] por juego; y un tipo con carácter para cada variante cuando es la protagonista */
         const F = { hit: ['Bangers', 'Anton', 'Luckiest Guy'], shoot: ['Black Ops One', 'Alfa Slab One', 'Staatliches'], race: ['Racing Sans One', 'Big Shoulders Display', 'Krona One'], paint: ['Sedgwick Ave Display', 'Rampart One', 'Potta One'],
-          wheel: ['Lobster', 'Abril Fatface', 'Cinzel'], bowl: ['Bowlby One', 'Alfa Slab One', 'Righteous'], duck: ['Chewy', 'Fredoka', 'Luckiest Guy'], hoop: ['Bungee', 'Big Shoulders Display', 'Russo One'], walk: ['Lobster', 'Abril Fatface', 'Abril Fatface'], golf: ['Bungee', 'Bowlby One', 'Bowlby One'], osaka: ['Potta One', 'Potta One', 'Potta One'], mservi: ['Bungee', 'Russo One', 'Russo One'], avhubw: ['Orbitron', 'Krona One', 'Krona One'] };
+          wheel: ['Lobster', 'Abril Fatface', 'Cinzel'], bowl: ['Bowlby One', 'Alfa Slab One', 'Righteous'], duck: ['Chewy', 'Fredoka', 'Luckiest Guy'], hoop: ['Bungee', 'Big Shoulders Display', 'Russo One'], walk: ['Berkshire Swash', 'Berkshire Swash', 'Berkshire Swash'], golf: ['Bungee', 'Bowlby One', 'Bowlby One'], osaka: ['Potta One', 'Potta One', 'Potta One'], mservi: ['Bungee', 'Russo One', 'Russo One'], avhubw: ['Orbitron', 'Krona One', 'Krona One'] };
         const FV = { halloween: 'Creepster', zombies: 'Eater', aliens: 'Orbitron', sports: 'Alfa Slab One', disco: 'Monoton', western: 'Abril Fatface', galaxy: 'Orbitron', zombieland: 'Nosifer', haunted: 'Creepster', alpine: 'Krona One', warfront: 'Black Ops One', runner: 'Racing Sans One', dirty: 'Rampart One', ballhop: 'Righteous', basket: 'Bowlby One' };
         const GR = { hit: ['#fff7a8', '#ffd21f', '#ff7a00', '#e8232b'], shoot: ['#ffffff', '#e9ff7a', '#b6e600', '#4f8a00'], race: ['#ffffff', '#8ff3ff', '#19b8ff', '#2b4dff'], paint: ['#fff36b', '#ff9d2e', '#ff3bd4', '#b01cff'], wheel: ['#fffbe0', '#ffe27a', '#ffb300', '#c26a00'], bowl: ['#ffffff', '#ffe9c9', '#ff8f4d', '#d93a1c'], duck: ['#ffffff', '#fff27a', '#ffc21a', '#ff8a00'], hoop: ['#ffffff', '#ffd9a8', '#ff8a1f', '#d9480f'], walk: ['#ffffff', '#fff3b0', '#ffc94d', '#ff7ab8'], golf: ['#ffffff', '#f1ff8a', '#9dff3a', '#22a23f'], osaka: ['#ffffff', '#fff2b8', '#ffd23f', '#ff7a1f'], mservi: ['#ffffff', '#e2ff9a', '#56f700', '#1f8a00'], avhubw: ['#ffffff', '#c6f8ff', '#22e5ff', '#3a5bff'] };
         const KO = { hit: '#2a0612', shoot: '#0f1a05', race: '#050b2e', paint: '#1a0524', wheel: '#3a1200', bowl: '#2b0d05', duck: '#06304a', hoop: '#2a0e02', walk: '#1f0a3a', golf: '#06280f', osaka: '#3a0806', mservi: '#1a0530', avhubw: '#050b2e' };
@@ -10194,7 +10195,7 @@ body.gm-modos #gmUI{display:none!important}
         R.outputEncoding = T.sRGBEncoding; R.toneMapping = T.ACESFilmicToneMapping; R.toneMappingExposure = .72; R.shadowMap.enabled = !LOW; R.shadowMap.type = T.PCFShadowMap; R.setPixelRatio(Math.min(devicePixelRatio || 1, LOW ? 1 : 1.75));
         wrap.appendChild(R.domElement); const fx = document.createElement('div'); fx.id = 'clubFx'; wrap.appendChild(fx); const hot = document.createElement('div'); hot.id = 'clubHot'; wrap.appendChild(hot);
         const skip = document.createElement('button'); skip.type = 'button'; skip.id = 'clubSkip'; skip.className = 'tv-focusable'; skip.textContent = 'Saltar la intro'; wrap.appendChild(skip); host.prepend(wrap);
-        try { await Promise.race([Promise.all(['Bangers', 'Black Ops One', 'Racing Sans One', 'Lobster', 'Bowlby One', 'Chewy', 'Bungee', 'Sedgwick Ave Display', 'Russo One'].map(f => document.fonts.load('400 40px "' + f + '"').catch(() => 0))), new Promise(r => setTimeout(r, 3500))]); } catch (e) {}
+        try { await Promise.race([Promise.all(['Bangers', 'Black Ops One', 'Racing Sans One', 'Lobster', 'Bowlby One', 'Chewy', 'Bungee', 'Sedgwick Ave Display', 'Russo One', 'Berkshire Swash'].map(f => document.fonts.load('400 40px "' + f + '"').catch(() => 0))), new Promise(r => setTimeout(r, 3500))]); } catch (e) {}
         try { await Promise.race([document.fonts && document.fonts.ready, new Promise(r => setTimeout(r, 3000))]); } catch (e) {} if (liteOn) return; R.setSize(innerWidth, innerHeight, false);
         PASO('letras'); try { await build(); } catch (e) { clearTimeout(vigia); PASO('fallo escena'); falla('escena', e); return; } PASO('sala montada');
         if (liteOn) return;
