@@ -13,3 +13,9 @@ Recursos de terceros que usa el juego (carpeta `packs/wonderwalk/`). Lo demás �
 El título usa el tipo de letra **Berkshire Swash** (Astigmatic, SIL Open Font License 1.1), en `fuentes/berkshire-swash.woff2`.
 
 Los ladrones 3D usan el personaje encapuchado de **KayKit Character Pack: Adventurers** (`kaykit/Rogue_Hooded.glb`) y las animaciones de **KayKit Character Animations** (andar sigiloso, golpe, recoger y correr), reunidas en `kaykit/rig_medium_clips.glb`. Autor: Kay Lousberg · [kaylousberg.com](https://kaylousberg.com). Licencia CC0 1.0 (dominio público).
+
+## v12.61 · objetos 3D
+
+| Carpeta | Qué es | Autor | Licencia |
+|---|---|---|---|
+| `props/` | Llave dorada y plateada, candelero y vela, pergaminos, moneda, cáliz, pociones, zanahoria, jarra, libro, botella y el morral de la mochila de Mevi (*Fantasy Props MegaKit, Standard*). Solo los modelos que usa el juego; texturas de color reducidas a 512 px y sin mapas de relieve | Quaternius · quaternius.com | CC0 1.0 (dominio público) |

@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.60**
+**Versión actual: v12.61**
 
 ## Cómo se juega
 
@@ -36,7 +36,15 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.60)
+## Cambios de la versión actual (v12.61)
+
+**WONDERWALK: objetos 3D reales que giran al recogerlos** (primer paso del «estandarte»).
+
+- Los objetos son modelos 3D del *Fantasy Props MegaKit* de Quaternius (CC0): la llave, el candelero con su vela, el pergamino, la moneda, el cáliz y la poción; los parecidos son la llave plateada, el candelero y el cáliz dorados, el pergamino rojo, la moneda de cobre y la poción morada; y los señuelos, una zanahoria, una jarra, un libro y una botella.
+- Al descubrirlo, el objeto flota y gira sobre su escondite; al cogerlo, vuela girando hasta la mochila de Mevi (ahora un morral de cuero 3D) y se guarda con un destello.
+- Las fichas de la lista, de la mochila y del cartel del cruce llevan una foto del propio modelo 3D.
+
+### v12.60
 
 **WONDERWALK: niveles, cruce, niebla, y la mochila y la varita como pidió Josep.**
 
@@ -742,7 +750,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.60 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.61 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
