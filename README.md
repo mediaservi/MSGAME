@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.75**
+**Versión actual: v12.76**
 
 ## Cómo se juega
 
@@ -36,7 +36,15 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.75)
+## Cambios de la versión actual (v12.76)
+
+**La cámara ya no se enciende sola al arrancar; narrador y música de portada en WONDERWALK.**
+
+- **Cámara (privacidad):** si alguna vez se había dejado marcado el interruptor de GESTOS, la consola lo restauraba al arrancar junto con el resto de ajustes y eso encendía la cámara sin pedirlo. Ese interruptor ya no se restaura nunca: la cámara solo se enciende cuando se pulsa expresamente en esa sesión. Reproducido y comprobado: con el ajuste guardado, la versión anterior pedía la cámara al cargar y esta no.
+- **Narrador del cuento (WONDERWALK):** cada página del cuento se lee en voz alta con la voz del propio dispositivo, en español, catalán o inglés según el idioma del juego, para quien no ve bien el texto. Botón de altavoz arriba a la derecha para apagarlo o encenderlo (se recuerda). Si el equipo no tiene voz en catalán, en catalán no habla.
+- **Música en la portada (WONDERWALK):** dentro de MSGAME la música del paseo suena ya desde la portada y el cuento, suave. Abierto suelto, el navegador no deja sonar nada hasta el primer toque.
+
+### v12.75
 
 **WONDERWALK: carátula reajustada para la estantería.**
 
@@ -874,7 +882,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.75 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.76 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 

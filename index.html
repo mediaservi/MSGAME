@@ -3302,7 +3302,7 @@ body.gm-modos #gmUI{display:none!important}
     function applySettings(o) {
       if (!o) return;
       for (const [id, val] of Object.entries(o.v || {})) {
-        if (id === 'chkLive' || id === 'camDepth') continue;   /* v12.52 · la entrada de cámara (DIRECTO) nunca se enciende sola al arrancar: abría y probaba todas las cámaras y la app se atascaba */
+        if (id === 'chkLive' || id === 'camDepth' || id === 'gsOn' || id === 'imDev') continue;   /* v12.76 · tampoco el interruptor de GESTOS: al restaurarlo marcado se encendía la cámara nada más arrancar */   /* v12.52 · la entrada de cámara (DIRECTO) nunca se enciende sola al arrancar: abría y probaba todas las cámaras y la app se atascaba */
         const x = document.getElementById(id); if (!x || x.type === 'file') continue;
         try { if (x.type === 'checkbox') x.checked = !!val; else x.value = (id === 'sliderMasterSpeed' && +val <= 3.01 && +val > 0 && +val % 5 !== 0) ? ptsFromSpeed(+val) : val; x.dispatchEvent(new Event(x.type === 'range' ? 'input' : 'change', { bubbles: true })); } catch (e) {}
       }
@@ -3702,7 +3702,7 @@ body.gm-modos #gmUI{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '12.75';
+    const APP_VERSION = '12.76';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
