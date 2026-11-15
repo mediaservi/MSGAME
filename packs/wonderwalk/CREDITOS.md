@@ -19,3 +19,4 @@ Los ladrones 3D usan el personaje encapuchado de **KayKit Character Pack: Advent
 | Carpeta | Qué es | Autor | Licencia |
 |---|---|---|---|
 | `props/` | Llave dorada y plateada, candelero y vela, pergaminos, moneda, cáliz, pociones, zanahoria, jarra, libro, botella y el morral de la mochila de Mevi (*Fantasy Props MegaKit, Standard*). Solo los modelos que usa el juego; texturas de color reducidas a 512 px y sin mapas de relieve | Quaternius · quaternius.com | CC0 1.0 (dominio público) |
+| `kaykit/Knight.glb` | El guardián del camino (v12.62), con las mismas animaciones que los ladrones | Kay Lousberg · KayKit Adventurers 2.0 | CC0 1.0 (dominio público) |
