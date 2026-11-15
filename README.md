@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.59**
+**Versión actual: v12.60**
 
 ## Cómo se juega
 
@@ -36,7 +36,17 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.59)
+## Cambios de la versión actual (v12.60)
+
+**WONDERWALK: niveles, cruce, niebla, y la mochila y la varita como pidió Josep.**
+
+- **Tres niveles** en la portada: FÁCIL (3 objetos y camino tranquilo), NORMAL (4 objetos, señuelos parecidos y niebla) y DIFÍCIL (5 objetos, la lista solo se enseña al principio, más niebla y ladrones, y un cruce). El nivel elegido se recuerda para el siguiente jugador.
+- **Señuelos parecidos:** el mismo objeto en otro color (la llave plateada, el farol azul, la moneda de cobre…), para fijarse bien.
+- **Cruce con dos ramales** (difícil): el camino se abre alrededor de una isla de rocas y matas con un poste de dos flechas. Un cartel enseña lo que asoma por cada lado y se elige tocando a la izquierda o a la derecha. Mevi y la cámara siguen el ramal elegido.
+- **Niebla que tapa los escondites:** bancos de niebla (humo de Kenney, CC0) que no dejan descubrir lo que hay detrás hasta que el rayo los disipa.
+- **Mochila y varita:** la mochila solo carga lo que hace falta y no hay huecos que gestionar. Lo que no se necesita da un fallo corto y se deshace en humo; lo que sí se necesita brilla, vuela girando hasta la mochila y se guarda solo, con un destello. Mevi lleva la mochila 3D a la espalda. Abajo, un hueco por objeto de la lista (en difícil, con interrogantes).
+
+### v12.59
 
 Correcciones de la auditoría en el móvil en vertical (412 × 839, 390 × 844 y 360 × 740):
 
@@ -732,7 +742,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.59 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.60 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
