@@ -21,11 +21,11 @@ const Q = new URLSearchParams(location.search);
 // Cortes de cada modelo (fracciones de la altura)
 const MODELOS = {
   'a3D-mevi': { cuello:0.575, cadera:0.29, hombroX:0.165, hombroY:0.53, axilaX:0.165, axilaY:0.44, manoY:0.40, caderaX:0.07, giroCuello:0.57, brazoReposo:-0.8 },
-  'a3D-mevi-A': { cuello:0.6, cadera:0.29, hombroX:0.17, hombroY:0.57, axilaX:0.215, axilaY:0.42, manoY:0.2, caderaX:0.07, giroCuello:0.6, pivX:0.14, pivY:0.535, brazoReposo:0 }
+  'a3D-mevi-A': { cuello:0.6, cadera:0.29, hombroX:0.165, hombroY:0.575, axilaX:0.19, axilaY:0.45, manoY:0.2, caderaX:0.07, giroCuello:0.6, pivX:0.15, pivY:0.545, brazoReposo:0, banda:0.012 }
 };
 const nombre = Q.get('m') || 'a3D-mevi-A';
 const cortes = Object.assign({}, MODELOS[nombre] || MODELOS['a3D-mevi-A']);
-['cuello','cadera','hombroX','hombroY','axilaX','axilaY','manoY','caderaX','giroCuello','pivX','pivY','brazoReposo'].forEach(k=>{ if(Q.has(k)) cortes[k]=parseFloat(Q.get(k)); });
+['cuello','cadera','hombroX','hombroY','axilaX','axilaY','manoY','caderaX','giroCuello','pivX','pivY','brazoReposo','banda'].forEach(k=>{ if(Q.has(k)) cortes[k]=parseFloat(Q.get(k)); });
 const piezas = Q.has('piezas');
 const franja = Q.has('franja');
 
