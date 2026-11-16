@@ -3702,7 +3702,7 @@ body.gm-modos #gmUI{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '12.78';
+    const APP_VERSION = '12.79';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -8213,7 +8213,7 @@ body.gm-modos #gmUI{display:none!important}
         const fr = o.firstChild, manda = m => { try { fr.contentWindow.postMessage(m, location.origin); } catch (e) {} }; let era = '', pau = false, vig = 0;
         const cierra = () => { o.remove(); removeEventListener('message', oye); document.removeEventListener('keydown', tecla, true); }, tecla = e => { if (e.key === 'Escape') { e.stopPropagation(); cierra(); if (G.cur === g) stop(); } };
         const oye = e => { const m = e.data; if (e.source !== fr.contentWindow || !m || typeof m !== 'object') return; if (m.t === 'pts') g.score = Math.max(0, m.v | 0); else if (m.t === 'modo') BMODO[id] = String(m.v).slice(0, 12); else if (m.t === 'fin') { g.score = Math.max(0, m.v | 0); cierra(); if (G.cur === g) end(g); } };
-        addEventListener('message', oye); o.lastChild.addEventListener('click', () => { cierra(); if (G.cur === g) stop(); }); document.addEventListener('keydown', tecla, true); fr.addEventListener('load', () => { try { fr.contentWindow.addEventListener('keydown', tecla, true); } catch (e) {} }); document.body.appendChild(o); try { fr.focus(); } catch (e) {}
+        addEventListener('message', oye); o.lastChild.addEventListener('click', () => { cierra(); if (G.cur === g) stop(); }); document.addEventListener('keydown', tecla, true); fr.addEventListener('load', () => { try { fr.contentWindow.addEventListener('keydown', tecla, true); } catch (e) {} try { const M = G.match, ids = M && M.ids && M.ids.length ? M.ids : [act]; manda({ t: 'jug', n: PLS[act].n, c: PLS[act].c, v: ids.map(i => PLS[i].n) }); } catch (e) {} });   /* v12.79 · el borrador sabe quién juega (créditos de WONDERWALK) */ document.body.appendChild(o); try { fr.focus(); } catch (e) {}
         vig = setInterval(() => { if (G.cur !== g) { clearInterval(vig); cierra(); return; } const p2 = G.phase === 'pause'; if (p2 !== pau) { pau = p2; manda({ t: 'pausa', v: p2 }); } }, 200);
         g.update = dt => { g.t += dt; if (pad.src === 'phone') { era = 'phone'; manda({ t: 'pad', x: pad.x / W, y: pad.y / H, d: !!pad.spray, g: raw.g || 0 }); } else if (era) { era = ''; manda({ t: 'raton' }); } };
         g.draw = () => { x.fillStyle = '#0b0b12'; x.fillRect(0, 0, W, H); }; g.fire = () => manda({ t: 'fire' }); g.key = k => { if (k === 'ArrowLeft' || k === 'ArrowRight') { manda({ t: 'pos', v: k === 'ArrowLeft' ? -1 : 1 }); return true; } return false; }; return g; }

@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.78**
+**Versión actual: v12.79**
 
 ## Cómo se juega
 
@@ -36,7 +36,19 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.78)
+## Cambios de la versión actual (v12.79)
+
+**WONDERWALK: la cámara llega limpia a la puerta lateral y los créditos nombran a quien juega.**
+
+- **El pino que se cruzaba:** cuando la hechicera lleva a Mevi a la puerta secreta, la cámara rodea el baluarte izquierdo y tenía en medio un pino que crecía sobre su terraza. Ese pino pasa al grupo de la derecha de la entrada: el recorrido se ve entero y la llegada al castillo queda igual de arbolada.
+- **Tu nombre en los créditos:** al terminar, los créditos de cine añaden «CON LA VARITA» y el nombre de quien ha jugado, en su color. Si la partida es de varios, debajo salen los demás («TAMBIÉN JUEGAN»). MSGAME le pasa los nombres al cartucho al abrirlo; abierto suelto, sin consola, los créditos salen como antes.
+- **Repaso de las escenas nuevas en los seis formatos** (tele, ordenador, tableta en horizontal y de pie, móvil de pie y tumbado): cuento en cinemática, bajada de dron, puerta lateral, cuevas, banquete y vuelo final. De ese repaso salen tres arreglos para las pantallas de pie:
+  - **Portada:** en la tableta de pie el castillo subía hasta tapar el tercer nivel y la línea de ayuda, y el nombre y el detalle de cada nivel se montaban dentro del botón; en el móvil, la ayuda en dos líneas pisaba el botón de DIFÍCIL y, en los más pequeños, el lema quedaba bajo el primero. Ahora título, lema, niveles, ayuda y castillo se reparten el alto sin pisarse, del móvil más corto a la tableta.
+  - **La lista:** los objetos van algo más grandes en el móvil de pie y su nombre ya no pisa al de al lado (si no cabe, el artículo va arriba y el nombre debajo).
+  - **El bocadillo de Mevi** (también en KRAZYGOLF): el texto ya no se sale por la derecha; cuando no cabe en una línea se reparte en dos o tres, con la letra más grande que quepa.
+- En español, inglés y catalán.
+
+### v12.78
 
 **WONDERWALK: el cuento con voces grabadas.**
 
@@ -897,7 +909,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.78 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.79 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
