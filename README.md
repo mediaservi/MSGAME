@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.80**
+**Versión actual: v12.81**
 
 ## Cómo se juega
 
@@ -36,7 +36,17 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.80)
+## Cambios de la versión actual (v12.81)
+
+**La tele de la sala ya no se queda clavada en la estática; el menú del cartucho, dentro del marco del monitor; WONDERWALK con auras, texto sin pergamino y prisa al final.**
+
+- **La tele de la sala (enlace de la beta):** cuando Mevi recomendaba un juego, la tele se quedaba para siempre con la estática. En ese enlace los vídeos de avance llegan reenviados desde otro dominio y, al pintar el primero, el navegador bloqueaba el lienzo de la tele: ya no se podía actualizar y se quedaba el último fotograma bueno. Ahora los avances se piden con permiso de copia y, además, un vídeo solo se pinta si se puede copiar (si no, sale la carátula en movimiento). En la web publicada no pasaba.
+- **Menú del cartucho sobre el monitor:** el menú es algo más pequeño que el cristal (que además es curvo) y lo que hubiera en la tele asomaba por los bordes como una doble imagen. En la foto de la sala que hace de fondo, el cristal sale ahora apagado y sin reflejo: el menú queda dentro del marco negro del monitor, sin nada detrás.
+- **WONDERWALK · auras:** cada objeto destapado lleva un aura: **verde fluorescente** si hay que guardarlo en la mochila (está en la lista y aún no lo llevas) y un **halo rojo suave** si no. Al guardar uno, los iguales que queden pasan a rojo.
+- **WONDERWALK · sin pergamino:** el cuento y el rótulo de cada zona se escriben directamente sobre la imagen, en letra clara con borde y sombra oscuros; el resto queda transparente.
+- **WONDERWALK · prisa:** con todo lo de la lista en la mochila, Mevi aprieta el paso hasta la hechicera. Si un ladrón le quita algo, vuelve al paso normal.
+
+### v12.80
 
 **KRAZYGOLF: el modo CLÁSICO ya no habla de la casa; BITCLAUD, tumbada sobre la mesa.**
 
@@ -916,7 +926,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.80 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.81 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
