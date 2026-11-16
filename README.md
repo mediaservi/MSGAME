@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.79**
+**Versión actual: v12.80**
 
 ## Cómo se juega
 
@@ -36,7 +36,14 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.79)
+## Cambios de la versión actual (v12.80)
+
+**KRAZYGOLF: el modo CLÁSICO ya no habla de la casa; BITCLAUD, tumbada sobre la mesa.**
+
+- **KRAZYGOLF, modo CLÁSICO:** el minigolf de jardín usaba los nombres de los hoyos del modo KRAZY («La encimera», «El despacho», «El salón») y las bromas del narrador sobre la harina, el ventilador y el aspirador. Ahora sus tres hoyos se llaman **El búnker, El molino y El tronco** (en la cabecera, en la frase de salida y en la tarjeta) y el narrador habla de arena, aspas y tronco. El modo KRAZY sigue igual.
+- **BITCLAUD:** la carátula de la mesa de la sala ya no está de pie; queda tumbada sobre la mesa, con la tapa hacia arriba, delante del walkman.
+
+### v12.79
 
 **WONDERWALK: la cámara llega limpia a la puerta lateral y los créditos nombran a quien juega.**
 
@@ -909,7 +916,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.79 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.80 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 

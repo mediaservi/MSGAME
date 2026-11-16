@@ -3702,7 +3702,7 @@ body.gm-modos #gmUI{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '12.79';
+    const APP_VERSION = '12.80';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -9892,7 +9892,7 @@ body.gm-modos #gmUI{display:none!important}
         const luzT = ctex(canLuz()), canL = mesh(new T.CylinderGeometry(.0342, .0342, .098, 32, 1, true), new T.MeshBasicMaterial({ map: luzT, transparent: true, depthWrite: false, toneMapped: false, polygonOffset: true, polygonOffsetFactor: -6, polygonOffsetUnits: -6 }), 0, .057, 0, can, false); canL.rotation.y = Math.PI - .31; canL.renderOrder = 2;
         buildTV(new T.Vector3(0, TY, tz - .17)); buildConsole(new T.Vector3(0, TY, tz + .24)); buildPad(new T.Vector3(-.42, TY, tz + .3), .3); buildTel(new T.Vector3(.56, TY, tz + .3), -.42);
         buildLava(new T.Vector3(.39, TY, tz - .1), .8); buildWalkman(new T.Vector3(-.54, TY, tz + .13), .42); buildCubo(new T.Vector3(-.2, TY + .587, tz + .01), .5);
-        const BCP = { x: -.505, z: -.14, ia: 1.25, ry: .3 };   /* v12.51 · de pie al fondo de la mesa, justo debajo de la carátula de Josep: autor y coautor juntos, como en la firma */
+        const BCP = { x: -.585, z: .31, ia: 0, ry: -.22 };   /* v12.80 · tumbada sobre la mesa con la tapa hacia arriba, delante del walkman: de pie no era natural y, tumbada al fondo, la cámara la veía de canto (v12.51 · estaba de pie al fondo, bajo la carátula de Josep) */
         try { const bt = ctex(await bitclaudCover()), CW = .112, CH = .0704, CD = .018, ia = BCP.ia, bc = inkm(rbox(CW, CH, CD, .003), M.black, BCP.x, TY + CH / 2 * Math.sin(ia) + CD / 2 * Math.cos(ia), tz + BCP.z, null); bc.rotation.set(-Math.PI / 2 + ia, BCP.ry, 0, 'YXZ'); const ca = plane(CW - .005, CH - .005, toon({ map: bt, emissive: 0xffffff, emissiveMap: bt, ei: .3, spec: .8, shin: 70, ht: .45 }), 0, 0, CD / 2 + .0006, bc); if (ca) { ca.userData = { id: 'bitclaud', w: CW - .005, h: CH - .005 }; CON.bitclaud = ca; } ST.bitclaud = bc; } catch (e) { console.warn('BITCLAUD', e); }   /* v12.46 · del tamaño de una funda de casete (como la cinta del walkman) y con su propia zona para tocarla */   /* v12.44 · BITCLAUD, tumbada con la tapa hacia arriba, detrás y al lado del walkman */   // v8.6 · la lámpara, verde, en el hueco de la mesa entre el monitor y la estantería; el cubo, encima del monitor; el walkman, al otro lado
         // luces: principal cálida con sombras duras, fluorescentes, contraluces de neón y relleno frío
         S.add(new T.HemisphereLight(0xfff1e6, 0x3a2752, .36));
