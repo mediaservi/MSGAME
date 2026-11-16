@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Mevi 3D por piezas · prueba</title>
+<!-- MSGAME · Mevi construida pieza a pieza, junto a su imagen de referencia · mediaservi.com · GPL-3.0 -->
+<style>
+  html,body{margin:0;height:100%;background:radial-gradient(circle at 50% 35%,#2b1a48,#0b0714 72%);color:#fff;font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;overflow:hidden}
+  #vista{position:fixed;inset:0 0 auto 0;height:calc(100dvh - 120px);display:grid;grid-template-columns:1fr 1fr}
+  #vista.solo{grid-template-columns:1fr}
+  #vista.solo #ref{display:none}
+  #lienzo{position:relative;touch-action:none}
+  canvas{display:block;width:100%;height:100%}
+  #ref{display:grid;place-items:center;padding:12px}
+  #ref img{max-width:100%;max-height:92%;object-fit:contain}
+  .et{position:absolute;top:8px;left:0;right:0;text-align:center;font:600 12px/1 ui-monospace,Menlo,monospace;letter-spacing:.2em;color:#b6ff00;pointer-events:none}
+  #ui{position:fixed;left:0;right:0;bottom:0;height:120px;box-sizing:border-box;padding:8px 8px calc(8px + env(safe-area-inset-bottom));display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-content:center;background:#0b0714}
+  #ui button{font:600 clamp(12px,3.3vw,15px) system-ui;padding:9px 12px;border-radius:11px;border:2px solid #7d3cff;background:#1d1330;color:#fff;cursor:pointer}
+  #ui button.on{background:#7d3cff;border-color:#b6ff00}
+  @media (max-width:700px){#vista{grid-template-columns:1fr;grid-template-rows:1fr 34%}}
+</style></head><body>
+<div id="vista"><div id="lienzo"><div class="et">MEVI 3D · POR PIEZAS</div></div><div id="ref"><div class="et" style="position:static;margin-bottom:6px">REFERENCIA</div><img src="ref.webp" alt="Mevi, imagen de referencia"></div></div>
+<div id="ui"></div>
+<script src="../../lib/three.min.js"></script><script src="../../lib/mevi3d.js"></script>
+<script>
+(function(){
+'use strict';
+const caja = document.getElementById('lienzo');
+const R = new THREE.WebGLRenderer({antialias:true,alpha:true});
+R.setPixelRatio(Math.min(2,devicePixelRatio)); R.outputEncoding = THREE.sRGBEncoding; R.shadowMap.enabled = true; R.shadowMap.type = THREE.PCFSoftShadowMap;
+
+caja.appendChild(R.domElement);
+const E = new THREE.Scene();
+const cam = new THREE.PerspectiveCamera(26, 1, 0.05, 50);
+E.add(new THREE.HemisphereLight(0xffffff, 0x6a4a8a, 0.85));
+const sol = new THREE.DirectionalLight(0xffffff, 1.25); sol.position.set(1.2, 2.6, 2.2); sol.castShadow = true;
+sol.shadow.mapSize.set(1024,1024); sol.shadow.camera.left=-1; sol.shadow.camera.right=1; sol.shadow.camera.top=1.5; sol.shadow.camera.bottom=-0.5; sol.shadow.bias=-0.0005; E.add(sol);
+const relleno = new THREE.DirectionalLight(0xffe6ff, 0.45); relleno.position.set(-2, 1.2, 1.5); E.add(relleno);
+const contra = new THREE.DirectionalLight(0xd8b0ff, 0.3); contra.position.set(0, 1.5, -2.5); E.add(contra);
+const suelo = new THREE.Mesh(new THREE.CircleGeometry(0.7, 48), new THREE.ShadowMaterial({opacity:0.35}));
+suelo.rotation.x = -Math.PI/2; suelo.receiveShadow = true; E.add(suelo);
+const Q = new URLSearchParams(location.search);
+if (Q.has('solo')) document.getElementById('vista').classList.add('solo');
+const M = MEVI3D.crea(); E.add(M.raiz);
+let rotY = 0, auto = !Q.has('quieta');
+function tam(){ const w = caja.clientWidth, h = caja.clientHeight; R.setSize(w, h); cam.aspect = w/h; cam.position.set(0, 0.55, w/h < 0.75 ? 3.4 : 2.8); cam.lookAt(0, 0.5, 0); cam.updateProjectionMatrix(); }
+addEventListener('resize', tam); tam();
+// girar con el dedo
+let x0 = null; caja.addEventListener('pointerdown', e => { x0 = e.clientX; auto = false; }); addEventListener('pointerup', () => x0 = null);
+addEventListener('pointermove', e => { if (x0 == null) return; rotY += (e.clientX - x0) * 0.01; x0 = e.clientX; });
+const NOM = { reposo:'Reposo', saluda:'Saludar', senala:'Señalar', invita:'¡Ven, pulsa!', celebra:'Celebrar', andar:'Andar' };
+const ui = document.getElementById('ui');
+let demo = !Q.has('clip');
+const bd = document.createElement('button'); bd.textContent = '▶ Demo'; bd.classList.toggle('on', demo); bd.onclick = () => { demo = !demo; bd.classList.toggle('on', demo); }; ui.appendChild(bd);
+const bg = document.createElement('button'); bg.textContent = '⟲ Girar'; bg.onclick = () => { auto = !auto; }; ui.appendChild(bg);
+Object.keys(NOM).forEach(k => { const b = document.createElement('button'); b.textContent = NOM[k]; b.dataset.k = k; b.onclick = () => { demo = false; bd.classList.remove('on'); M.toca(k); marca(); }; ui.appendChild(b); });
+function marca(){ ui.querySelectorAll('button[data-k]').forEach(b => b.classList.toggle('on', b.dataset.k === M.clip)); }
+if (Q.has('clip')) { M.toca(Q.get('clip')); marca(); }
+if (Q.has('rot')) { rotY = parseFloat(Q.get('rot')); auto = false; }
+const ORDEN = ['saluda','reposo','senala','reposo','invita','reposo','celebra','reposo','andar','reposo'];
+let i = 0, tDemo = 1.5;
+const reloj = new THREE.Clock();
+function bucle(){
+  requestAnimationFrame(bucle);
+  const dt = Math.min(0.05, reloj.getDelta());
+  if (demo) { tDemo -= dt; if (tDemo <= 0) { const k = ORDEN[i++ % ORDEN.length]; M.toca(k); marca(); tDemo = k === 'reposo' ? 1.2 : 3.4; } }
+  if (auto) rotY = 0.45 * Math.sin(performance.now() / 3500);
+  M.raiz.rotation.y = rotY;
+  M.avanza(dt);
+  R.render(E, cam);
+}
+bucle();
+window.__M = M;
+})();
+</script>
+</body></html>
