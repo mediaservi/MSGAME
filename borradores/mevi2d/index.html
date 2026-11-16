@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Mevi animada · prueba para mediaservi.com</title>
+<!-- Prueba de Mevi animada con poses ilustradas para las tres zonas de mediaservi.com · mediaservi.com · GPL-3.0 -->
+<style>
+  html,body{margin:0;background:#0b0714;color:#fff;font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif}
+  h1{font-size:clamp(16px,4.5vw,22px);text-align:center;margin:14px 8px 4px;letter-spacing:.05em}
+  p.n{color:#cfc6e6;text-align:center;margin:0 10px 14px;font-size:14px}
+  .zona{position:relative;margin:0 auto 18px;width:min(96vw,1100px);border-radius:14px;overflow:hidden;border:1px solid #3a2a5a;background:linear-gradient(120deg,#1b0d2e,#2b1150 45%,#0c2a1a)}
+  .zona h2{position:absolute;top:8px;left:12px;margin:0;font:600 12px/1 ui-monospace,Menlo,monospace;letter-spacing:.2em;color:#b6ff00;z-index:2}
+  #portada{height:clamp(150px,22vw,200px)}
+  #portada .cd{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);text-align:center;font:700 clamp(26px,6vw,48px) ui-monospace,Menlo,monospace;color:#ffb000;letter-spacing:.08em;opacity:.9}
+  #conecta{height:clamp(300px,46vw,440px);display:grid;grid-template-columns:32% 1fr;align-items:center}
+  #conecta .redes{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding:16px}
+  #conecta .redes div{height:clamp(46px,8vw,80px);border-radius:10px;background:#1a1726;border:1px solid #2f2945;display:grid;place-items:center;font-weight:700;color:#ddd}
+  #conecta .hueco{position:relative;height:100%}
+  #museo{height:clamp(260px,40vw,420px);background:radial-gradient(circle at 60% 30%,#173a5a,#05030c 70%)}
+  #museo .tx{position:absolute;right:6%;top:40%;font:700 clamp(14px,3vw,22px) ui-monospace,Menlo,monospace;color:#fff}
+  #museo .esq{position:absolute;left:0;bottom:0;width:34%;height:46%}
+</style></head><body>
+<h1>MEVI ANIMADA · PRUEBA</h1>
+<p class="n">Las tres zonas de mediaservi.com, con las poses ilustradas de Mevi.</p>
+<div class="zona" id="portada"><h2>01 · INICIO (franja de la cuenta atrás)</h2><div class="cd">171 00 17 40</div></div>
+<div class="zona" id="conecta"><h2>04 · CONECTA</h2><div class="hueco"></div><div class="redes"><div>LinkedIn</div><div>TikTok</div><div>YouTube</div><div>Facebook</div><div>X</div><div>Instagram</div></div></div>
+<div class="zona" id="museo"><h2>02 · MUSEO DIGITAL</h2><div class="tx">PULSA PARA ENTRAR</div><div class="esq"></div></div>
+<script src="mevi-actor.js"></script>
+<script>
+  const ruta = 'img/';
+  const alto = c => Math.round(c.clientHeight * 0.92);
+  const p = document.getElementById('portada');
+  MEVI.crea(p, { ruta, alto: alto(p) * 0.9, modo: 'paseo' });
+  const h = document.querySelector('#conecta .hueco');
+  MEVI.crea(h, { ruta, alto: alto(h) * 0.95, modo: 'conecta', x: 0.12, mira: 1 });
+  const e = document.querySelector('#museo .esq');
+  MEVI.crea(e, { ruta, alto: alto(e) * 1.05, modo: 'museo', x: 0.2, mira: 1 });
+</script>
+</body></html>
