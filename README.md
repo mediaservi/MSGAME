@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.82**
+**Versión actual: v12.83**
 
 ## Cómo se juega
 
@@ -36,7 +36,15 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.82)
+## Cambios de la versión actual (v12.83)
+
+**Letra nueva en los marcadores y textos de los juegos: Jersey 20.**
+
+- Josep eligió la opción E (Jersey 20, licencia libre OFL) entre las tres propuestas del estilo de la B. Sustituye a Audiowide en los marcadores (SCORE, HI, COMBO), los nombres de los juegos, los avisos y la pantalla de fin de partida.
+- Va un 30 % más grande que la anterior: así sus mayúsculas quedan algo más altas, y el texto sigue siendo más estrecho, de modo que nada se sale (si algo no cabe, el texto se encoge como antes). Audiowide queda de respaldo mientras se carga.
+- Comprobado: los rótulos de zona de WONDERWALK en inglés y catalán caben en una línea en todos los formatos.
+
+### v12.82
 
 **WONDERWALK: en DIFÍCIL no hay auras.**
 
@@ -932,7 +940,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.82 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.83 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 

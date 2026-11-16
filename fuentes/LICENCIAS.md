@@ -24,6 +24,7 @@ También bajo **SIL Open Font License 1.1**, del mismo origen (subconjunto latin
 |---|---|
 | `barlow-semi-condensed-500.woff2`, `-600`, `-700` | Barlow Semi Condensed |
 | `press-start-2p.woff2` | Press Start 2P |
+| `jersey-20.woff2` | Jersey 20 (marcadores y textos de los juegos desde la v12.83) |
 | `audiowide.woff2` | Audiowide |
 | `russo-one.woff2` | Russo One |
 | `sedgwick-ave-display.woff2` | Sedgwick Ave Display |

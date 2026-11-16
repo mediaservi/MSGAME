@@ -633,6 +633,7 @@ body.gm-modos #gmUI{display:none!important}
     @font-face{font-family:"Barlow Semi Condensed";font-weight:700;src:url(fuentes/barlow-semi-condensed-700.woff2) format("woff2");font-display:swap}
     @font-face{font-family:"Press Start 2P";src:url(fuentes/press-start-2p.woff2) format("woff2");font-display:swap}
     @font-face{font-family:"Audiowide";src:url(fuentes/audiowide.woff2) format("woff2");font-display:swap}
+@font-face{font-family:"Jersey 20";src:url(fuentes/jersey-20.woff2) format("woff2");font-display:swap}
     @font-face{font-family:"Russo One";src:url(fuentes/russo-one.woff2) format("woff2");font-display:swap}
     @font-face{font-family:"Sedgwick Ave Display";src:url(fuentes/sedgwick-ave-display.woff2) format("woff2");font-display:swap}
     @font-face{font-family:"Luckiest Guy";src:url(fuentes/luckiest-guy.woff2) format("woff2");font-display:swap}
@@ -3702,7 +3703,7 @@ body.gm-modos #gmUI{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '12.82';
+    const APP_VERSION = '12.83';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -5172,8 +5173,10 @@ body.gm-modos #gmUI{display:none!important}
       /* ---------- utilidades de dibujo ---------- */
       const EF = '"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif', SPR = {};
       function spr(e) { if (SPR[e]) return SPR[e]; const c = document.createElement('canvas'); c.width = c.height = 160; const t = c.getContext('2d'); t.font = '124px ' + EF; t.textAlign = 'center'; t.textBaseline = 'middle'; t.fillText(e, 80, 88); return (SPR[e] = c); }
-      const AF = '"Audiowide","Russo One","Arial Black",sans-serif';   // letra de los juegos: legible y de aire espacial (Audiowide, de licencia libre)
-      function txt(s, X, Y, sz, col, al, glow) { sz *= 1.18; x.save(); x.font = `${sz}px ${AF}`; { const av = (al === 'center' ? W * .94 : al === 'right' ? X - 4 : W - X - 4), mw = x.measureText(s).width; if (av > 20 && mw > av) { sz = Math.max(sz * .45, sz * av / mw); x.font = `${sz}px ${AF}`; } } x.textAlign = al || 'left'; x.textBaseline = 'top'; if (glow) { x.shadowColor = glow; x.shadowBlur = sz * .6; } x.fillStyle = '#000'; x.fillText(s, X + sz * .12, Y + sz * .12); x.fillStyle = col; x.fillText(s, X, Y); x.restore(); }
+      const AF = '"Jersey 20","Audiowide","Russo One","Arial Black",sans-serif';   // v12.83 · letra de los juegos: Jersey 20 (píxel rotunda, OFL), la E que eligió Josep; Audiowide queda de respaldo
+      const AFK = 1.3;   // Jersey 20 es más baja y estrecha que Audiowide: a 1,3 sus mayúsculas quedan algo más altas y el texto sigue siendo más estrecho
+      try { document.fonts.load('40px "Jersey 20"'); } catch (e) {}
+      function txt(s, X, Y, sz, col, al, glow) { sz *= 1.18 * AFK; x.save(); x.font = `${sz}px ${AF}`; { const av = (al === 'center' ? W * .94 : al === 'right' ? X - 4 : W - X - 4), mw = x.measureText(s).width; if (av > 20 && mw > av) { sz = Math.max(sz * .45, sz * av / mw); x.font = `${sz}px ${AF}`; } } x.textAlign = al || 'left'; x.textBaseline = 'top'; if (glow) { x.shadowColor = glow; x.shadowBlur = sz * .6; } x.fillStyle = '#000'; x.fillText(s, X + sz * .12, Y + sz * .12); x.fillStyle = col; x.fillText(s, X, Y); x.restore(); }
       const segD = (px, py, ax, ay, bx, by) => { const dx = bx - ax, dy = by - ay, l = dx * dx + dy * dy || 1, t = clamp(((px - ax) * dx + (py - ay) * dy) / l, 0, 1); return [Math.hypot(px - ax - t * dx, py - ay - t * dy), t]; };
       const P = [];   // partículas
       function burst(X, Y, col, n, sp, big) { for (let i = 0; i < n; i++) { const a = R(0, 6.283), v = R(.2, 1) * sp; P.push({ x: X, y: Y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - sp * .2, l: R(.5, 1.1), t: 0, c: Array.isArray(col) ? pick(col) : col, s: R(2, big ? 9 : 5) }); } }
