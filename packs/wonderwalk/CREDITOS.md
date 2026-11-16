@@ -41,3 +41,7 @@ Los sonidos del bosque (lobo, búho, tensión, risa y grito del ladrón) están 
 `ardilla.webp`: cuatro vistas de un modelo 3D de ardilla roja con licencia **CC0** (dominio público), descargado de [grab3d.com](https://grab3d.com/) por Josep el 15-11-2026 (`squirrel-light.glb`).
 
 Las flores nuevas de la pradera y los cardos del castillo (v12.71) salen de la biblioteca común `packs/comun/flora/` (ver su CREDITOS.md).
+
+## Voces del cuento (v12.78)
+
+`voz/`: 15 frases en MP3 (narrador `n1`–`n3` y hechicera `h1`–`h2`, en `-es`, `-en` y `-ca`). Voces sintéticas generadas por Josep el 16-11-2026 con el texto a voz de Microsoft Clipchamp: **Marcello Multilingual** (narrador) y **Vivienne Multilingual** (hechicera). Recortadas frase a frase, igualadas de volumen y pasadas a mono.

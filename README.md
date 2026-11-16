@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.77**
+**Versión actual: v12.78**
 
 ## Cómo se juega
 
@@ -36,7 +36,16 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.77)
+## Cambios de la versión actual (v12.78)
+
+**WONDERWALK: el cuento con voces grabadas.**
+
+- El cuento ya no lo lee la voz del navegador (sonaba distinta en cada aparato): ahora tiene **dos voces grabadas**, un narrador y la hechicera, en **español, inglés y catalán**. Son 15 frases (`packs/wonderwalk/voz/`), que suenan igual en todos los equipos y también sin conexión.
+- Cada página dice sus frases seguidas (narrador y hechicera se alternan) y el texto se escribe al paso de la voz. La **música baja** mientras hablan y vuelve al terminar.
+- El botón del altavoz del cuento sigue encendiendo y apagando las voces; si la consola está en silencio, no suenan.
+- El cuento dice «el castillo» (Cardona queda en los créditos, como inspiración).
+
+### v12.77
 
 **WONDERWALK: las flores nacen de la hierba.**
 
@@ -888,7 +897,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.77 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.78 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
