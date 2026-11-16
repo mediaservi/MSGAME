@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>MSGAME · Mevi articulada (prueba)</title>
+<!-- MSGAME · prueba del muñeco articulado de Mevi para mediaservi.com · mediaservi.com · GPL-3.0 -->
+<style>
+  html,body{margin:0;height:100%;background:radial-gradient(circle at 50% 40%,#2a1846,#0b0714 70%);color:#fff;font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;overflow:hidden}
+  canvas{display:block;width:100vw;height:100dvh}
+  #ui{position:fixed;left:0;right:0;bottom:0;padding:10px 10px calc(10px + env(safe-area-inset-bottom));display:flex;flex-wrap:wrap;gap:8px;justify-content:center;background:linear-gradient(transparent,#0b0714cc 40%)}
+  #ui button{font:600 clamp(13px,3.4vw,16px) system-ui;padding:10px 14px;border-radius:12px;border:2px solid #7d3cff;background:#1d1330;color:#fff;cursor:pointer}
+  #ui button.on{background:#7d3cff;border-color:#b6ff00}
+  #tit{position:fixed;top:10px;left:0;right:0;text-align:center;font:700 clamp(15px,4vw,20px) system-ui;letter-spacing:.06em;color:#cfc6e6;pointer-events:none}
+  #msg{position:fixed;top:44px;left:0;right:0;text-align:center;font-size:14px;color:#b6ff00;pointer-events:none}
+</style></head><body>
+<div id="tit">MEVI · MUÑECO ARTICULADO</div><div id="msg">Cargando…</div>
+<div id="ui"></div>
+<script src="../lib/three.min.js"></script><script src="../lib/gltf.js"></script><script src="../lib/meshopt.js"></script><script src="../lib/muneco.js"></script>
+<script>
+(function(){
+'use strict';
+const Q = new URLSearchParams(location.search);
+// Cortes de cada modelo (fracciones de la altura)
+const MODELOS = {
+  'a3D-mevi': { cuello:0.575, cadera:0.29, hombroX:0.165, hombroY:0.53, axilaX:0.165, axilaY:0.44, manoY:0.40, caderaX:0.07, giroCuello:0.57, brazoReposo:-0.8 },
+  'a3D-mevi-A': { cuello:0.6, cadera:0.29, hombroX:0.17, hombroY:0.57, axilaX:0.215, axilaY:0.42, manoY:0.2, caderaX:0.07, giroCuello:0.6, pivX:0.14, pivY:0.535, brazoReposo:0 }
+};
+const nombre = Q.get('m') || 'a3D-mevi-A';
+const cortes = Object.assign({}, MODELOS[nombre] || MODELOS['a3D-mevi-A']);
+['cuello','cadera','hombroX','hombroY','axilaX','axilaY','manoY','caderaX','giroCuello','pivX','pivY','brazoReposo'].forEach(k=>{ if(Q.has(k)) cortes[k]=parseFloat(Q.get(k)); });
+const piezas = Q.has('piezas');
+const franja = Q.has('franja');
+
+const R = new THREE.WebGLRenderer({antialias:true,alpha:true});
+R.setPixelRatio(Math.min(2,devicePixelRatio)); R.outputEncoding = THREE.sRGBEncoding;
+document.body.prepend(R.domElement);
+const E = new THREE.Scene();
+const cam = new THREE.PerspectiveCamera(30,1,0.05,50);
+E.add(new THREE.HemisphereLight(0xffffff,0x553377,1.0));
+const sol = new THREE.DirectionalLight(0xffffff,1.1); sol.position.set(1.5,3,2.5); E.add(sol);
+const suelo = new THREE.Mesh(new THREE.CircleGeometry(0.6,48), new THREE.MeshBasicMaterial({color:0x000000,transparent:true,opacity:.28}));
+suelo.rotation.x = -Math.PI/2; E.add(suelo);
+function tam(){ const w=innerWidth,h=innerHeight; R.setSize(w,h); cam.aspect=w/h;
+  if(franja){ cam.position.set(0,0.55,6.2); cam.lookAt(0,0.5,0); cam.fov=22; }
+  else { const d = w<h ? 3.6 : 3.0; cam.position.set(0,0.62,d); cam.lookAt(0,0.5,0); cam.fov=30; }
+  cam.updateProjectionMatrix(); }
+addEventListener('resize',tam); tam();
+
+let M=null;
+const L = new THREE.GLTFLoader(); L.setMeshoptDecoder(MeshoptDecoder);
+const url = Q.get('url') || ('../packs/modelos/'+nombre+'.glb');
+L.load(url, g=>{
+  M = MUNECO.crea(g.scene, Object.assign({escala:1}, cortes));
+  if(piezas){ const col={cuerpo:0x888888}; const pal=[0xff4060,0x40ff80,0x4080ff,0xffd040,0xff40ff,0x40ffff];
+    let i=0; M.raiz.traverse(o=>{ if(o.isMesh){ o.material = new THREE.MeshLambertMaterial({color:pal[(i++)%pal.length]}); } }); }
+  E.add(M.raiz);
+  document.getElementById('msg').textContent = piezas ? 'Vista de piezas' : '';
+  monta();
+}, undefined, e=>{ document.getElementById('msg').textContent='No se pudo cargar el modelo'; console.error(e); });
+
+const NOMBRES = { reposo:'Reposo', andar:'Andar', saluda:'Saludar', senala:'Señalar', senalaI:'Señalar (izq.)', invita:'¡Ven, pulsa!', pulgar:'Pulgar arriba', celebra:'Celebrar', asiente:'Asentir', reverencia:'Reverencia' };
+let auto = true, tAuto = 0, iAuto = 0;
+function monta(){
+  const ui = document.getElementById('ui');
+  const b0 = document.createElement('button'); b0.textContent='▶ Demo'; b0.className='on';
+  b0.onclick=()=>{ auto=!auto; b0.classList.toggle('on',auto); }; ui.appendChild(b0);
+  Object.keys(NOMBRES).forEach(k=>{ const b=document.createElement('button'); b.textContent=NOMBRES[k]; b.dataset.k=k;
+    b.onclick=()=>{ auto=false; b0.classList.remove('on'); M.toca(k); marca(); }; ui.appendChild(b); });
+}
+function marca(){ document.querySelectorAll('#ui button[data-k]').forEach(b=>b.classList.toggle('on', b.dataset.k===M.clip)); }
+
+// Demo: en franja, pasea de lado a lado y para a hacer gestos; si no, va pasando los gestos
+const ORDEN = ['saluda','pulgar','senala','invita','celebra','asiente','reverencia','andar','reposo'];
+let x = -1.6, dir = 1, parada = 0, gesto = null;
+const reloj = new THREE.Clock();
+function bucle(){
+  requestAnimationFrame(bucle);
+  const dt = Math.min(0.05, reloj.getDelta());
+  if(M){
+    if(franja && auto){
+      if(parada>0){ parada-=dt; if(parada<=0){ M.toca('andar'); marca(); } }
+      else { x += dir*0.35*dt; M.raiz.rotation.y = dir>0 ? Math.PI/2 : -Math.PI/2;
+        if(Math.abs(x)>1.7){ dir=-dir; x=Math.sign(x)*1.7; }
+        if(M.clip!=='andar'){ M.toca('andar'); marca(); }
+        if(Math.random()<dt*0.18){ parada=2.6; M.toca(['saluda','pulgar','celebra','asiente','invita'][Math.floor(Math.random()*5)]); marca(); } }
+      if(parada>0){ M.raiz.rotation.y += (0 - M.raiz.rotation.y)*Math.min(1,dt*6); }
+      M.raiz.position.x = x; suelo.position.x = x;
+    } else if(auto){
+      tAuto -= dt; if(tAuto<=0){ M.toca(ORDEN[iAuto++ % ORDEN.length]); marca(); tAuto = 3.2; }
+      M.raiz.rotation.y = 0.35*Math.sin(performance.now()/4000);
+    }
+    M.avanza(dt);
+  }
+  R.render(E,cam);
+}
+bucle();
+window.__M = ()=>M;
+})();
+</script>
+</body></html>
