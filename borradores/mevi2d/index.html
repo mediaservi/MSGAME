@@ -30,7 +30,7 @@
   const p = document.getElementById('portada');
   MEVI.crea(p, { ruta, alto: alto(p) * 0.9, modo: 'paseo' });
   const h = document.querySelector('#conecta .hueco');
-  MEVI.crea(h, { ruta, alto: alto(h) * 0.95, modo: 'conecta', x: 0.12, mira: 1 });
+  MEVI.crea(h, { ruta, alto: Math.min(alto(h) * 0.95, h.clientWidth * 1.05), modo: 'conecta', x: 0.0, mira: 1 });
   const e = document.querySelector('#museo .esq');
   MEVI.crea(e, { ruta, alto: alto(e) * 1.05, modo: 'museo', x: 0.2, mira: 1 });
 </script>
