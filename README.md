@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.83**
+**Versión actual: v12.84**
 
 ## Cómo se juega
 
@@ -36,7 +36,16 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.83)
+## Cambios de la versión actual (v12.84)
+
+**Mevi es la misma en la web y en MSGAME: la del modelo 3D de mediaservi.com, en la sala y en la cinemática del cartucho.**
+
+- **El modelo:** `packs/comun/mevi/mevi.glb` es el mismo archivo que usa mediaservi.com: Mevi con esqueleto de Mixamo y siete animaciones (reposo, andar, señala, invita, saluda, feliz y salta). Se pinta con el mismo acabado de dibujo animado que el resto de la sala.
+- **En la sala:** la Mevi que salta, saluda, cruza hasta la esquina y recomienda juegos es ahora la del modelo. Sus posturas pasan a las animaciones del modelo: saluda al llegar, anda al cruzar, se pone contenta, se queda en reposo en la esquina y señala al recomendar. El bocadillo, los sonidos y las recomendaciones no cambian.
+- **En la cinemática del cartucho:** al sonar el ¡clac!, Mevi asoma por la esquina, da un salto de alegría mientras la tele se enciende y se va cuando la cámara entra en el juego. Las manos que cogen la caja, la abren y meten el cartucho siguen siendo las suyas, en primera persona.
+- **Si el modelo no llega** (red lenta, aparato sin soporte), sale la Mevi de piezas de siempre. La sala espera a Mevi como mucho 3,5 s y nunca se cambia una Mevi por otra mientras está en pantalla. El «modo feria» también guarda el modelo para jugar sin internet.
+
+### v12.83
 
 **Letra nueva en los marcadores y textos de los juegos: Jersey 20.**
 
@@ -940,7 +949,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.83 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.84 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
