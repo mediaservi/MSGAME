@@ -18,8 +18,8 @@
 <script>
 (function () {
 'use strict';
-// ?p=ladron,mevi elige los personajes (por defecto, el ladrón)
-const Q = new URLSearchParams(location.search), LISTA = (Q.get('p') || 'ladron').split(',');
+// ?p=hechicera,ladron,mevi elige los personajes (por defecto, los tres)
+const Q = new URLSearchParams(location.search), LISTA = (Q.get('p') || 'hechicera,ladron,mevi').split(',');
 const NOMBRE = { ladron: 'LADRÓN', mevi: 'MEVI', hechicera: 'HECHICERA' };
 const CLIP = { andar: 'Andar', saluda: 'Saludar', reposo: 'Reposo', senala: 'Señalar', invita: 'Invitar', feliz: 'Contenta' };
 const caja = document.getElementById('vista');
