@@ -35,7 +35,7 @@ addEventListener('pointermove', e => { if (x0 == null) return; rotY += (e.client
 function tam() { const w = caja.clientWidth, h = caja.clientHeight; R.setSize(w, h); cam.aspect = w / h; const ancho = LISTA.length * .9 + .3, t = Math.tan(THREE.MathUtils.degToRad(13)); cam.position.set(0, .58, Math.max(1.45 / 2 / t, ancho / 2 / t / cam.aspect)); cam.lookAt(0, .5, 0); cam.updateProjectionMatrix(); }
 addEventListener('resize', tam); tam();
 const L = new THREE.GLTFLoader(); L.setMeshoptDecoder(MeshoptDecoder);
-Promise.all(LISTA.map(n => new Promise((ok, mal) => L.load(n + '.glb?v=1', ok, undefined, mal)))).then(gs => {
+Promise.all(LISTA.map(n => new Promise((ok, mal) => L.load(n + '.glb?v=2', ok, undefined, mal)))).then(gs => {
   document.getElementById('carga').remove();
   gs.forEach((g, i) => {
     const o = g.scene; o.traverse(k => { if (k.isMesh) { k.frustumCulled = false; const m = k.material.map; if (m) { m.generateMipmaps = false; m.minFilter = THREE.LinearFilter; m.needsUpdate = true; } } });
