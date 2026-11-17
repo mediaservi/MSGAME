@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.84**
+**Versión actual: v12.85**
 
 ## Cómo se juega
 
@@ -36,7 +36,17 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.84)
+## Cambios de la versión actual (v12.85)
+
+**TRONIK FM: la radio propia de la sala, lista para recibir temas.**
+
+- La radio de la sala (el walkman de la mesa) pasa a ser **TRONIK FM**, con música propia guardada en la app: `packs/radio/tronik.json` (lista de temas) y `packs/radio/temas/` (los MP3). No depende de emisoras de internet y funciona sin conexión.
+- Los temas los sube Josep en el Memo (TALLER MSGAME → TRONIK FM) con su título, autor y enlace; con la palabra **TRONIK FM**, Claude los nivela, los mete aquí y los créditos van a `packs/radio/CREDITOS.md`.
+- Cómo suena: después de una vuelta de la música de la sala, entra con el ruido de sintonizar y va pasando los temas al azar, sin repetir hasta que suenan todos; al acabar uno, empieza el siguiente sin ruido. El LCD dice qué suena («📻 TRONIK FM · tema — autor»). El casete del walkman la enciende y la apaga. Solo suena en la sala.
+- El «modo feria» guarda también la lista y los temas.
+- Mientras la lista esté vacía, la sala suena como hasta ahora.
+
+### v12.84
 
 **Mevi es la misma en la web y en MSGAME: la del modelo 3D de mediaservi.com, en la sala y en la cinemática del cartucho.**
 
@@ -949,7 +959,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.84 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.85 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 

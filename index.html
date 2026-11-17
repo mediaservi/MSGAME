@@ -3703,7 +3703,7 @@ body.gm-modos #gmUI{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '12.84';
+    const APP_VERSION = '12.85';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -3890,7 +3890,7 @@ body.gm-modos #gmUI{display:none!important}
       ['starjedi', 'stranger', 'pricedown', 'akira', 'scary', 'nextups', 'astronaut'].forEach(k => ['woff2', 'woff', 'ttf', 'otf'].forEach(e => U.add(new URL('fuentes/' + k + '.' + e, location.href).href)));
       try { GAMES.SNDS.forEach(f => U.add(new URL(f, location.href).href)); } catch (e) {}
       document.querySelectorAll('link[rel=stylesheet]').forEach(l => { if (/fonts\.googleapis/.test(l.href)) U.add(l.href); });
-      try { TXTF.gurl().forEach(u => U.add(u)); } catch (e) {} ['bangers', 'black-ops-one', 'racing-sans-one', 'lobster', 'bowlby-one', 'chewy', 'bungee', 'barlow-semi-condensed-500', 'barlow-semi-condensed-600', 'barlow-semi-condensed-700', 'press-start-2p', 'audiowide', 'russo-one', 'sedgwick-ave-display', 'luckiest-guy', 'lilita-one'].forEach(k => U.add(new URL('fuentes/' + k + '.woff2', location.href).href)); ['peerjs.min.js', 'qrcode.min.js', 'three.min.js'].forEach(k => U.add(new URL('lib/' + k, location.href).href)); ['lib/meshopt.js', 'lib/gltf.js', 'packs/comun/mevi/mevi.glb'].forEach(k => U.add(new URL(k + '?v=' + APP_VERSION, location.href).href));   /* v12.84 · la Mevi del GLB, también sin internet */   // v9.9 · tipos de letra y librerías propios
+      try { TXTF.gurl().forEach(u => U.add(u)); } catch (e) {} ['bangers', 'black-ops-one', 'racing-sans-one', 'lobster', 'bowlby-one', 'chewy', 'bungee', 'barlow-semi-condensed-500', 'barlow-semi-condensed-600', 'barlow-semi-condensed-700', 'press-start-2p', 'audiowide', 'russo-one', 'sedgwick-ave-display', 'luckiest-guy', 'lilita-one'].forEach(k => U.add(new URL('fuentes/' + k + '.woff2', location.href).href)); ['peerjs.min.js', 'qrcode.min.js', 'three.min.js'].forEach(k => U.add(new URL('lib/' + k, location.href).href)); ['lib/meshopt.js', 'lib/gltf.js', 'packs/comun/mevi/mevi.glb', 'packs/radio/tronik.json'].forEach(k => U.add(new URL(k + '?v=' + APP_VERSION, location.href).href)); try { (window.__radioTemas ? window.__radioTemas() : []).forEach(f => U.add(new URL(f, location.href).href)); } catch (e) {}   /* v12.85 · TRONIK FM también sin internet */   /* v12.84 · la Mevi del GLB, también sin internet */   // v9.9 · tipos de letra y librerías propios
       const b = $('btnFair'); b.disabled = true; showToast('Guardando la app para usarla sin internet…');
       const ch = new MessageChannel(); ch.port1.onmessage = e => { const d = e.data || {}; if (d.t === 'prog') b.querySelector('span').textContent = `📶 ${Math.round(d.done / d.n * 100)} %`; else if (d.t === 'fin') { b.disabled = false; b.querySelector('span').textContent = '📶 Preparar modo feria (sin internet)'; showToast(`Listo: ${d.ok} archivos guardados. Ya puedes usarla sin internet en este equipo`); try { localStorage.setItem('VJSHOW_FAIR', String(Date.now())); } catch (x) {} } };
       reg.active.postMessage({ t: 'pre', urls: [...U] }, [ch.port2]);
@@ -8150,6 +8150,7 @@ body.gm-modos #gmUI{display:none!important}
       const RADIO = (() => {
         const EM = [];   /* v12.37 · sin emisoras: Josep no quiere emisoras que solo sean para escucha personal (SomaFM lo pide así y las demás no dan permiso para locales). Formato: [nombre, [direcciones]] */
         let ESPERA = 65, TURNO = 360; const PRUEBA = 9000, RUIDO_MIN = 1500;   // s de música base antes de la radio · s por emisora · ms que se espera a cada dirección · ms mínimos de sintonía
+        let PL = null, pq = [], tema = null, ultimo = -1;   /* v12.85 · TRONIK FM: la emisora propia, con los temas de packs/radio/tronik.json (los sube Josep en el Memo) */
         let au = null, cur = -1, fija = false, apagada = false, viva = false, acum = 0, jugado = 0, mazo = [], gen = 0, rd = null, fallos = 0, hasta = 0;   // fallos: emisoras seguidas que no responden; hasta: sin radio hasta entonces (sin conexión)
         const vol = () => .34 * +((($g('gmSfxVol') || {}).value) || .7), aviso = t => { try { ledSay(t, true); } catch (e) {} };
         const baraja = () => { mazo = EM.map((_, i) => i).filter(i => i !== cur); for (let i = mazo.length - 1; i > 0; i--) { const j = (Math.random() * (i + 1)) | 0; [mazo[i], mazo[j]] = [mazo[j], mazo[i]]; } };
@@ -8163,27 +8164,29 @@ body.gm-modos #gmUI{display:none!important}
             src.connect(bp); bp.connect(g); o.connect(og); og.connect(g); g.connect(M.bm); src.start(t); o.start(t); lfo.start(t); rd = { src, o, g, og }; } catch (e) { rd = null; } }
         function suelta(a, rapido) { if (!a) return; const v0 = a.volume, t0 = performance.now(), d = rapido ? 250 : 900; const st = () => { const k = Math.min(1, (performance.now() - t0) / d); try { a.volume = Math.max(0, v0 * (1 - k)); } catch (e) {} if (k < 1) requestAnimationFrame(st); else { try { a.pause(); a.removeAttribute('src'); a.load(); } catch (e) {} } }; st(); }
         function sube(a) { const t0 = performance.now(); const st = () => { if (a !== au) return; const k = Math.min(1, (performance.now() - t0) / 1600); try { a.volume = vol() * k; } catch (e) {} if (k < 1) requestAnimationFrame(st); }; st(); }
-        function sintoniza(i, nueva) {   // ruido de sintonizar y la emisora i: prueba sus direcciones por orden; si ninguna arranca, pasa a otra
-          const g0 = ++gen; suelta(au); au = null; cur = i; if (nueva) jugado = 0; let k = 0; const t0 = performance.now(); ruido(true);
-          const prueba = () => { if (g0 !== gen) return; const L = EM[cur][1]; if (k >= L.length) { if (fija) aviso('📻 ' + EM[cur][0] + ' · ' + TT('no responde')); fija = false; jugado = 0;
+        const sigTema = () => { if (!pq.length) { pq = PL.map((_, i) => i); for (let i = pq.length - 1; i > 0; i--) { const j = (Math.random() * (i + 1)) | 0; [pq[i], pq[j]] = [pq[j], pq[i]]; } if (pq.length > 1 && pq[0] === ultimo) pq.push(pq.shift()); } ultimo = pq.shift(); return PL[ultimo]; };
+        const rotulo = () => '📻 ' + EM[cur][0] + (tema ? ' · ' + (tema.t || '') + (tema.a ? ' — ' + tema.a : '') : '');
+        function sintoniza(i, nueva, seguido) {   // ruido de sintonizar y la emisora i: prueba sus direcciones por orden; si ninguna arranca, pasa a otra · v12.85 · en TRONIK FM, un tema; «seguido» = el siguiente tema, sin ruido
+          const g0 = ++gen; suelta(au); au = null; cur = i; if (nueva) jugado = 0; let k = 0; const t0 = performance.now(); if (!seguido) ruido(true); tema = EM[cur][1] ? null : sigTema(); const L0 = EM[cur][1] || [tema.f];
+          const prueba = () => { if (g0 !== gen) return; const L = L0; if (k >= L.length) { if (fija) aviso('📻 ' + EM[cur][0] + ' · ' + TT('no responde')); fija = false; jugado = 0;
               if (++fallos >= 3 || !navigator.onLine) { fallos = 0; hasta = performance.now() + 300000; calla(); aviso('📻 ' + TT('Sin radio: no hay conexión. Vuelve la música del menú')); try { window.__musTick && window.__musTick(); } catch (e) {} return; }   // tres emisoras seguidas sin responder: 5 minutos con la música del menú
               sintoniza(otra(), true); return; }
             const a = new Audio(); a.preload = 'none'; a.src = L[k++]; a.volume = 0; a.muted = !!window.APP_MUTED; try { MUS.sink(a); } catch (e) {}
             let fin = false; const mal = () => { if (fin) return; fin = true; clearTimeout(tm); try { a.pause(); a.removeAttribute('src'); a.load(); } catch (e) {} prueba(); }, tm = setTimeout(mal, PRUEBA);
             a.addEventListener('playing', () => { if (fin) return; fin = true; clearTimeout(tm); if (g0 !== gen) { suelta(a, true); return; } au = a; fallos = 0;
-              setTimeout(() => { if (g0 !== gen || au !== a) return; ruido(false); sube(a); aviso('📻 ' + EM[cur][0]); }, Math.max(0, RUIDO_MIN - (performance.now() - t0))); }, { once: true });
+              setTimeout(() => { if (g0 !== gen || au !== a) return; ruido(false); sube(a); aviso(rotulo()); }, seguido ? 0 : Math.max(0, RUIDO_MIN - (performance.now() - t0))); }, { once: true });
             a.addEventListener('error', () => { if (!fin) mal(); else if (au === a && g0 === gen) sintoniza(fija ? cur : otra(), !fija); });   // se corta en marcha: la misma si es la elegida; si no, otra
-            a.addEventListener('ended', () => { if (au === a && g0 === gen) sintoniza(fija ? cur : otra(), !fija); });
+            a.addEventListener('ended', () => { if (au === a && g0 === gen) { if (PL) sintoniza(cur, false, true); else sintoniza(fija ? cur : otra(), !fija); } });   // TRONIK FM: al acabar un tema, el siguiente
             a.play().catch(mal); };
           prueba(); }
-        const otra = () => { if (!mazo.length) baraja(); return mazo.shift(); };
+        const otra = () => { if (EM.length < 2) return 0; if (!mazo.length) baraja(); return mazo.shift(); };
         function calla() { gen++; ruido(false); suelta(au); au = null; viva = false; }
         function tick(enSala, base) {   // cada segundo, desde musTick: enSala = la sala a la vista y con la música de siempre; base = suena la música base
           if (au) au.muted = !!window.APP_MUTED;
           if (!EM.length || !enSala || apagada || performance.now() < hasta) { if (viva) calla(); return false; }
           if (!viva && cur < 0) { if (base && !window.APP_MUTED) acum++; if (acum < ESPERA) return false; viva = true; baraja(); sintoniza(otra(), true); return true; }   // la primera vez, después de una vuelta de la música base
           if (!viva) { viva = true; sintoniza(!fija && jugado >= TURNO ? otra() : cur, !fija && jugado >= TURNO); return true; }   // al volver a la sala, la misma emisora (o la siguiente si ya cumplió su turno)
-          if (au && !au.paused) { jugado++; if (!fija && jugado >= TURNO) sintoniza(otra(), true); }
+          if (au && !au.paused) { jugado++; if (!fija && !PL && jugado >= TURNO) sintoniza(otra(), true); }
           return true; }
         function casete() {   // el casete del walkman: la siguiente emisora, y se queda fija; después de la última, se apaga y vuelve la música del menú
           if (!EM.length) return;
@@ -8191,9 +8194,10 @@ body.gm-modos #gmUI{display:none!important}
           if (apagada || !viva) { apagada = false; fija = true; viva = true; acum = ESPERA; sintoniza(cur < 0 ? 0 : (cur + 1) % EM.length, true); try { menuStop(); } catch (e) {} return; }
           if (cur + 1 >= EM.length) { apagada = true; fija = false; calla(); aviso('📻 ' + TT('Radio apagada: vuelve la música del menú')); try { window.__musTick && window.__musTick(); } catch (e) {} return; }
           fija = true; sintoniza(cur + 1, true); }
-        return { tick, casete, hay: () => EM.length > 0, _t(e, t) { ESPERA = e; TURNO = t; }, get estado() { return { viva, cur, fija, apagada, acum, jugado, suena: !!(au && !au.paused), nombre: cur >= 0 ? EM[cur][0] : '' }; }, EM };
+        fetch('packs/radio/tronik.json?v=' + APP_VERSION).then(r => r.ok ? r.json() : null).then(j => { const T = j && Array.isArray(j.temas) ? j.temas.filter(x => x && x.f) : []; if (!T.length) return; PL = T; EM.length = 0; EM.push([j.nombre || 'TRONIK FM', null]); }).catch(() => {});
+        return { tick, casete, hay: () => EM.length > 0, temas: () => (PL || []).map(x => x.f), _t(e, t) { ESPERA = e; TURNO = t; }, get estado() { return { viva, cur, fija, apagada, acum, jugado, suena: !!(au && !au.paused), nombre: cur >= 0 ? EM[cur][0] : '' }; }, EM };
       })();
-      window.__radio = () => RADIO.estado; window.__radioT = (e, t) => RADIO._t(e, t);   // para las pruebas
+      window.__radio = () => RADIO.estado; window.__radioTemas = () => RADIO.temas(); window.__radioT = (e, t) => RADIO._t(e, t);   // para las pruebas
       const musTick = () => {   // música: la del juego mientras se juega; la de los menús (dinámica) en la sala, el menú del juego y AJUSTES; nada si el equipo ya suena otro audio
         const ok = MUS.on() && !MUS.busy(), playing = G.cur && G.phase !== 'idle', inMenu = !playing && typeof isHUDVisible !== 'undefined' && isHUDVisible && (window.CRT_ON || ($g('tabContent14') && !$g('tabContent14').classList.contains('hidden')) || (ES_MSG && curStep === 1));
         if (!ok) { if (MUS.a || MUS.dm) MUS.stop(); menuStop(true); RADIO.tick(false); return; }
