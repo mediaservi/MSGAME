@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v13.4**
+**Versión actual: v13.5**
 
 ## Cómo se juega
 
@@ -36,7 +36,12 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v13.4)
+## Cambios de la versión actual (v13.5)
+
+- **TRONIK FM en antena:** la radio de la sala ya suena con emisora propia. Doce temas (unos 30 minutos) nivelados a −14 LUFS, en MP3 de 128 kbps y sin silencios al principio ni al final; suenan uno tras otro, en orden aleatorio y sin repetir hasta acabar la lista. El rótulo de la consola muestra el título y el autor.
+- Los temas y sus créditos están en `packs/radio/` (`tronik.json`, `temas/` y `CREDITOS.md`).
+
+### v13.4
 **Racord de la consola nueva en la portada ligera y con «reducir movimiento»** (Josep, 21-11-2026).
 
 - **Portada ligera**: las seis fotos de la sala (horizontal y vertical, en español, inglés y catalán) están rehechas con la consola actual (ranura a ras con su marco-guía, logo MSGAME hundido, sin la carita de Mevi). Antes enseñaban la consola antigua.
@@ -1087,7 +1092,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v13.4 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v13.5 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 

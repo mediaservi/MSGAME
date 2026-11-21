@@ -1,4 +1,101 @@
 {
   "nombre": "TRONIK FM",
-  "temas": []
+  "temas": [
+    {
+      "id": "px-163687",
+      "f": "packs/radio/temas/radiance-euphoric-dance-hit-163687.mp3",
+      "t": "Radiance",
+      "a": "Alpume",
+      "u": "https://pixabay.com/music/search/radiance%20euphoric%20dance%20hit/",
+      "dur": 157
+    },
+    {
+      "id": "px-517412",
+      "f": "packs/radio/temas/almost-loved-you-517412.mp3",
+      "t": "Almost Loved You",
+      "a": "Asian Background Music",
+      "u": "https://pixabay.com/music/search/almost%20loved%20you/",
+      "dur": 223
+    },
+    {
+      "id": "px-474381",
+      "f": "packs/radio/temas/lisbon-tram-station-474381.mp3",
+      "t": "Lisbon Tram Station",
+      "a": "Asian Background Music",
+      "u": "https://pixabay.com/music/search/lisbon%20tram%20station/",
+      "dur": 223
+    },
+    {
+      "id": "px-526027",
+      "f": "packs/radio/temas/praslin-vallee-de-mai-526027.mp3",
+      "t": "Praslin · Vallée de Mai",
+      "a": "Asian Background Music",
+      "u": "https://pixabay.com/music/search/praslin%20vallee%20de%20mai/",
+      "dur": 181
+    },
+    {
+      "id": "px-458824",
+      "f": "packs/radio/temas/rainy-season-ends-in-bali-458824.mp3",
+      "t": "Rainy Season Ends in Bali",
+      "a": "Asian Background Music",
+      "u": "https://pixabay.com/music/search/rainy%20season%20ends%20in%20bali/",
+      "dur": 178
+    },
+    {
+      "id": "px-598432",
+      "f": "packs/radio/temas/cool-jazz-598432.mp3",
+      "t": "Cool Jazz",
+      "a": "Aurec",
+      "u": "https://pixabay.com/music/search/cool%20jazz/",
+      "dur": 165
+    },
+    {
+      "id": "px-391704",
+      "f": "packs/radio/temas/circus-comes-to-town-instrumental-391704.mp3",
+      "t": "Circus Comes to Town",
+      "a": "Croxroc",
+      "u": "https://pixabay.com/music/search/circus%20comes%20to%20town%20instrumental/",
+      "dur": 66
+    },
+    {
+      "id": "px-438479",
+      "f": "packs/radio/temas/new-year-song-438479.mp3",
+      "t": "New Year Song",
+      "a": "EchoGateStudios",
+      "u": "https://pixabay.com/music/search/new%20year%20song/",
+      "dur": 124
+    },
+    {
+      "id": "px-281116",
+      "f": "packs/radio/temas/tv-show-281116.mp3",
+      "t": "TV Show",
+      "a": "Kulakovka",
+      "u": "https://pixabay.com/music/search/tv%20show/",
+      "dur": 120
+    },
+    {
+      "id": "px-480100",
+      "f": "packs/radio/temas/burning-skyline-480100.mp3",
+      "t": "Burning Skyline",
+      "a": "Memoryarcade",
+      "u": "https://pixabay.com/music/rock-burning-skyline-480100/",
+      "dur": 206
+    },
+    {
+      "id": "px-300450",
+      "f": "packs/radio/temas/tv-show-introduction-intro-music-300450.mp3",
+      "t": "TV Show Introduction",
+      "a": "MFCC",
+      "u": "https://pixabay.com/music/search/tv%20show%20introduction%20intro%20music/",
+      "dur": 95
+    },
+    {
+      "id": "px-111370",
+      "f": "packs/radio/temas/happy-cooking-show-111370.mp3",
+      "t": "Happy Cooking Show",
+      "a": "Music For Videos",
+      "u": "https://pixabay.com/music/search/happy%20cooking%20show/",
+      "dur": 55
+    }
+  ]
 }
