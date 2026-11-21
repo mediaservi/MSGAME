@@ -1,0 +1,20 @@
+{
+ "bpm": 120.0,
+ "tiempo": 0.5,
+ "fase": 0.072,
+ "entrada": [
+  0,
+  4.072
+ ],
+ "juego": [
+  4.072,
+  76.072
+ ],
+ "final": [
+  96.072,
+  102.07
+ ],
+ "fundido": 0.25,
+ "nota": "Música de PALOTERAPIA · HALLOWEEN: entrada = 2 compases; juego = compases 2 a 37 (el 38 repite el 2); final = el cierre del tema.",
+ "fuente": "«sound4stock-halloween-spooky-music-620458» (Pixabay)"
+}

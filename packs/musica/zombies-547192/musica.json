@@ -1,0 +1,20 @@
+{
+ "bpm": 80.0,
+ "tiempo": 0.75,
+ "fase": 0.194,
+ "entrada": [
+  0,
+  15.194
+ ],
+ "juego": [
+  15.194,
+  75.194
+ ],
+ "final": [
+  81.194,
+  90.57
+ ],
+ "fundido": 0.25,
+ "nota": "Música de PALOTERAPIA · ZOMBIES: entrada = 5 compases; juego = compases 5 a 24 (el 25 repite el 5); final = el cierre del tema.",
+ "fuente": "«tolsetmusic-halloween-night-halloween-holiday-background-music-547192» (Pixabay)"
+}

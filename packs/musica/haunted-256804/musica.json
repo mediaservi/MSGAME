@@ -1,0 +1,20 @@
+{
+ "bpm": 130.0,
+ "tiempo": 0.46154,
+ "fase": 0.164,
+ "entrada": [
+  0,
+  5.702
+ ],
+ "juego": [
+  5.702,
+  64.779
+ ],
+ "final": [
+  70.318,
+  77.43
+ ],
+ "fundido": 0.25,
+ "nota": "Música de PUNTERÍA · HAUNTED: entrada = 3 compases; juego = compases 3 a 34 (el 35 repite el 3); final = el cierre del tema.",
+ "fuente": "«villatic_music-zombie-256804» (Pixabay)"
+}

@@ -1,0 +1,20 @@
+{
+ "bpm": 140.0,
+ "tiempo": 0.42857,
+ "fase": 1.644,
+ "entrada": [
+  0,
+  5.072
+ ],
+ "juego": [
+  5.072,
+  73.644
+ ],
+ "final": [
+  147.358,
+  152.77
+ ],
+ "fundido": 0.25,
+ "nota": "Música de PALOTERAPIA · ALIENS: entrada = 2 compases; juego = compases 2 a 41 (el 42 repite el 2); final = el cierre del tema.",
+ "fuente": "«psychronic-alien-commandos-147564» (Pixabay)"
+}

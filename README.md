@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v13.6**
+**Versión actual: v13.7**
 
 ## Cómo se juega
 
@@ -36,7 +36,18 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v13.6)
+## Cambios de la versión actual (v13.7)
+**Música nueva en los juegos, desde las carpetas de Drive** (Josep, 21-11-2026).
+
+- Cada juego y variante suena con los temas de su carpeta, con entrada, bucle y final; si hay varios, uno distinto al azar en cada partida:
+  - PUNTERÍA · WESTERN (4 temas) y HAUNTED (1);
+  - PALOTERAPIA · HALLOWEEN (2), ZOMBIES (1), ALIENS (2) y SPORTS (1);
+  - BEAT RACER · RUNNER (1) y DIRTY (1);
+  - GRAFFER (4).
+- Los temas están en `packs/musica/<carpeta>-<n.º de Pixabay>/` (`musica.mp3` y `musica.json`), con sus créditos en `packs/musica/CREDITOS.md`, y entran en la copia sin conexión.
+- Seis temas de las carpetas se han quedado fuera porque su compás no se deja medir con seguridad (tempo que deriva o bucle que no casa); esas variantes conservan también su música anterior como reserva.
+
+### v13.6
 **Nivel en JUGADORES, RÉCORDS con podio y música nueva en PATOPESCA** (Josep, 21-11-2026).
 
 - **JUGADORES**: cada fila lleva su botón de nivel (FÁCIL · MEDIO · DIFÍCIL), el mismo dato que el botón NIVEL del menú del cartucho. En menús estrechos el botón enseña solo las tres barras.
@@ -1099,7 +1110,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v13.6 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v13.7 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 

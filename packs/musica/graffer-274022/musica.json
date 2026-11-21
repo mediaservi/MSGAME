@@ -1,0 +1,20 @@
+{
+ "bpm": 90.0,
+ "tiempo": 0.66667,
+ "fase": 1.363,
+ "entrada": [
+  0,
+  6.697
+ ],
+ "juego": [
+  6.697,
+  60.03
+ ],
+ "final": [
+  62.697,
+  70.69
+ ],
+ "fundido": 0.25,
+ "nota": "Música de GRAFFER: entrada = 2 compases; juego = compases 2 a 21 (el 22 repite el 2); final = el cierre del tema.",
+ "fuente": "«u_98o9hlkn7r-oldschool-hip-hop-274022» (Pixabay)"
+}

@@ -1,0 +1,20 @@
+{
+ "bpm": 131.0,
+ "tiempo": 0.45802,
+ "fase": 0.27,
+ "entrada": [
+  0,
+  3.934
+ ],
+ "juego": [
+  3.934,
+  77.217
+ ],
+ "final": [
+  86.377,
+  92.09
+ ],
+ "fundido": 0.25,
+ "nota": "Música de BEAT RACER · DIRTY: entrada = 2 compases; juego = compases 2 a 41 (el 42 repite el 2); final = el cierre del tema.",
+ "fuente": "«hitslab-racing-car-automotive-music-340264» (Pixabay)"
+}

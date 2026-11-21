@@ -1,0 +1,20 @@
+{
+ "bpm": 140.0,
+ "tiempo": 0.42857,
+ "fase": 0.485,
+ "entrada": [
+  0,
+  14.199
+ ],
+ "juego": [
+  14.199,
+  89.627
+ ],
+ "final": [
+  118.77,
+  125.05
+ ],
+ "fundido": 0.25,
+ "nota": "Música de GRAFFER: entrada = 8 compases; juego = compases 8 a 51 (el 52 repite el 8); final = el cierre del tema.",
+ "fuente": "«kromaspere-shine-byte-run-the-block-521221» (Pixabay)"
+}

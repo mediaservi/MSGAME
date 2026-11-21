@@ -1,0 +1,20 @@
+{
+ "bpm": 110.0,
+ "tiempo": 0.54545,
+ "fase": 0.859,
+ "entrada": [
+  0,
+  5.223
+ ],
+ "juego": [
+  5.223,
+  57.587
+ ],
+ "final": [
+  57.587,
+  65.76
+ ],
+ "fundido": 0.25,
+ "nota": "Música de PALOTERAPIA · HALLOWEEN: entrada = 2 compases; juego = compases 2 a 25 (el 26 repite el 2); final = el cierre del tema.",
+ "fuente": "«bombinsound-halloween-suspense-horror-halloween-waltz-619348» (Pixabay)"
+}

@@ -1,0 +1,20 @@
+{
+ "bpm": 85.0,
+ "tiempo": 0.70588,
+ "fase": 2.514,
+ "entrada": [
+  0,
+  10.984
+ ],
+ "juego": [
+  10.984,
+  98.514
+ ],
+ "final": [
+  135.22,
+  144.0
+ ],
+ "fundido": 0.25,
+ "nota": "Música de PALOTERAPIA · ALIENS: entrada = 3 compases; juego = compases 3 a 33 (el 34 repite el 3); final = el cierre del tema.",
+ "fuente": "«slimeyfox-alien-electro-1982-471156» (Pixabay)"
+}

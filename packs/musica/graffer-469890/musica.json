@@ -1,0 +1,20 @@
+{
+ "bpm": 93.3,
+ "tiempo": 0.64309,
+ "fase": 0.052,
+ "entrada": [
+  0,
+  5.197
+ ],
+ "juego": [
+  5.197,
+  190.406
+ ],
+ "final": [
+  190.406,
+  200.02
+ ],
+ "fundido": 0.25,
+ "nota": "Música de GRAFFER: entrada = 2 compases; juego = compases 2 a 73 (el 74 repite el 2); final = el cierre del tema.",
+ "fuente": "«shimafm-duel-of-strings-469890» (Pixabay)"
+}

@@ -1,0 +1,20 @@
+{
+ "bpm": 97.0,
+ "tiempo": 0.61856,
+ "fase": 0.032,
+ "entrada": [
+  0,
+  4.98
+ ],
+ "juego": [
+  4.98,
+  74.259
+ ],
+ "final": [
+  79.207,
+  86.63
+ ],
+ "fundido": 0.25,
+ "nota": "Música de GRAFFER: entrada = 2 compases; juego = compases 2 a 29 (el 30 repite el 2); final = el cierre del tema.",
+ "fuente": "«u_98o9hlkn7r-funky-positive-beat-303455» (Pixabay)"
+}

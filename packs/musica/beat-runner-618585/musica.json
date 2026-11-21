@@ -1,0 +1,20 @@
+{
+ "bpm": 80.0,
+ "tiempo": 0.75,
+ "fase": 1.156,
+ "entrada": [
+  0,
+  7.156
+ ],
+ "juego": [
+  7.156,
+  79.156
+ ],
+ "final": [
+  100.156,
+  110.4
+ ],
+ "fundido": 0.25,
+ "nota": "Música de BEAT RACER · RUNNER: entrada = 2 compases; juego = compases 2 a 25 (el 26 repite el 2); final = el cierre del tema.",
+ "fuente": "«kulakovka-active-sport-618585» (Pixabay)"
+}
