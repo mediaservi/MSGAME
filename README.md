@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.99**
+**Versión actual: v13.0**
 
 ## Cómo se juega
 
@@ -36,7 +36,15 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.99)
+## Cambios de la versión actual (v13.0)
+**Un impacto ya no quita una vida entera y las figuras van hacia donde miran** (Josep, reglas para todos los juegos).
+
+- **Energía en vez de vidas** en BEAT RACER y PUNTERÍA: desaparecen los tres corazones y entra la misma barra de energía (HP) de PALOTERAPIA. Cada choque, mordisco, disparo o invasión quita una parte (8, 11 o 16 puntos de 100 según el nivel FÁCIL · MEDIO · DIFÍCIL del jugador), y cada premio recogido o diana acertada devuelve 1. Antes, tres golpes acababan la partida.
+- **PALOTERAPIA**: un fallo quita 4, 6 o 9 de energía (antes 8, 10 o 14).
+- **Partidas de 2 minutos**: la duración por defecto pasa de 90 a 120 s (se siguen pudiendo elegir 60 y 90).
+- **PUNTERÍA, figuras con lógica**: la vaca, el perro y el bandido dibujados andaban hacia atrás (su dibujo mira a la derecha y el juego lo trataba como si mirase a la izquierda); la avioneta también volaba de cola. Lo que va por el suelo o se posa (botellas, latas, calabazas) ya no sale volando cuando no tiene sitio en la escena: simplemente no sale.
+
+### v12.99
 **Texto de ayuda de ENCESTA.** BALLHOP ya no dice «con 9 bolas» (son 11, 9 o 7 según el nivel del jugador): ahora «con bolas contadas», en español, inglés y catalán.
 
 ### v12.98
@@ -1048,7 +1056,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.99 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v13.0 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
