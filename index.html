@@ -3755,7 +3755,7 @@ body.gm-modos #gmUI{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '12.94';
+    const APP_VERSION = '12.95';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -6557,18 +6557,19 @@ body.gm-modos #gmUI{display:none!important}
           .catch(e => console.warn('BEAT RACER 3D', e)); }
       function Racer(opt) {
         const g = { id: 'race', name: 'BEAT RACER', score: 0, combo: 0, maxc: 0, hits: 0, shots: 0, energy: 100, lives: 3, t: 0, dur: opt.dur, items: [], sx: 0, speed: 1, inv: 0, beatT: 0, jt: -1, jy: 0, slip: 0, slipD: 0, hzT: 0 };
+        const df = { easy: [.82, .6], normal: [1, 1], hard: [1.22, 1.5] }[opt.diff] || [1, 1];   /* v12.95 · nivel: velocidad de la pista y cuántos peligros salen */
         const JUMP = .78, air = () => g.jy > .32;   // duración del salto (s) · en el aire se pasa por encima de muros, bombas y plátanos
         function jump() { if (G.phase !== 'play' || g.jt >= 0 || g.slip > 0) return; g.jt = 0; SFX.play('jump'); send({ t: 'hit', s: .2 }); }
         const per = () => 60 / clamp(params.bpm || 120, 70, 180), proj0 = (lx, z) => { const p = 1 / (1 + 3.4 * z), hz = g.hz || .42; return [W / 2 + lx * W * .45 * p, H * hz + H * (.94 - hz) * p, p]; };
         const R3 = g.r3 = { ok: false }, proj = (lx, z) => R3.ok ? R3.proj(lx, z) : proj0(lx, z); RACER3D(opt, g, R3);   /* v12.43 · RUNNER y DIRTY en 3D en cuanto llegan los modelos; mientras, en 2D */
         g.update = dt => {
           g.t += dt; if (g.t > g.dur || g.lives <= 0) return end(g);
-          g.speed = 1 + g.t / 70; g.score += Math.round(dt * 60 * g.speed); g.inv = Math.max(0, g.inv - dt);
+          g.speed = (1 + g.t / 70) * df[0]; g.score += Math.round(dt * 60 * g.speed); g.inv = Math.max(0, g.inv - dt);
           if (g.jt >= 0) { g.jt += dt; const k = g.jt / JUMP; g.jy = k >= 1 ? 0 : Math.sin(Math.PI * k); if (k >= 1) { g.jt = -1; SFX.play('land'); g.land = 1; g.dirt = Math.min(1, (g.dirt || 0) + .03); } }
           if (g.slip > 0) { g.slip = Math.max(0, g.slip - dt); g.sx = clamp(g.sx + g.slipD * dt * 1.6 * (g.slip / .9), -1, 1); }   // patinazo: el control no responde un momento
           else g.sx += (clamp((pad.x / W - .5) * 2, -1, 1) - g.sx) * Math.min(1, dt * 12);
           g.beatT += dt; if (audioMetrics.beatHit && g.beatT > per() * .45 || g.beatT > per() * 1.4) { g.beatT = 0; const gap = R(-.7, .7); if (Math.random() < .8) g.items.push({ k: 'wall', lx: gap > 0 ? gap - 1.05 : gap + 1.05, w: .62, z: 1 }); if (Math.random() < .75) { const q = Math.random(), d = opt.veh === 'dirty' ? (q < .45 ? ['⚡', 75] : q < .72 ? ['🏁', 150] : q < .86 ? ['🏆', 300] : ['💸', 400, 1]) : (q < .45 ? ['🥤', 50] : q < .75 ? ['🧃', 75] : q < .93 ? ['🏅', 150] : ['🏆', 300]); g.items.push({ k: 'orb', e: d[0], pts: d[1], high: !!d[2], lx: gap + R(-.12, .12), z: 1.08, w: .16, ph: R(0, 6) }); }
-            g.hzT += 1; if (g.t > 5 && g.hzT >= 2 && Math.random() < .2 + Math.min(.15, g.t / 600)) { g.hzT = 0; const bomb = Math.random() < .5; g.items.push({ k: bomb ? 'bomb' : 'banana', e: opt.veh === 'dirty' ? (bomb ? '🚧' : '🚔') : (bomb ? '💣' : '🍌'), alt: opt.veh === 'dirty' ? (bomb ? 'cone' : 'cop') : '', lx: clamp(gap + R(-.35, .35), -.85, .85), z: 1.32, w: bomb ? .2 : .22, ph: R(0, 6) }); if (opt.veh === 'dirty' && !bomb) SFX.play('siren', 3); } }
+            g.hzT += 1; if (g.t > 5 && g.hzT >= 2 && Math.random() < (.2 + Math.min(.15, g.t / 600)) * df[1]) { g.hzT = 0; const bomb = Math.random() < .5; g.items.push({ k: bomb ? 'bomb' : 'banana', e: opt.veh === 'dirty' ? (bomb ? '🚧' : '🚔') : (bomb ? '💣' : '🍌'), alt: opt.veh === 'dirty' ? (bomb ? 'cone' : 'cop') : '', lx: clamp(gap + R(-.35, .35), -.85, .85), z: 1.32, w: bomb ? .2 : .22, ph: R(0, 6) }); if (opt.veh === 'dirty' && !bomb) SFX.play('siren', 3); } }
           for (let i = g.items.length - 1; i >= 0; i--) { const it = g.items[i]; it.z -= dt * .55 * g.speed; if (it.alt === 'cop' && !it.hit) it.lx = clamp(it.lx + Math.sin(g.t * 2.2 + it.ph) * dt * .12, -.88, .88); if (it.z < .03 && it.z > -.05 && !it.done) { if (Math.abs(it.lx - g.sx) < it.w / 2 + .1) { it.done = 1;
                 if (it.k === 'orb' && it.high && !air()) { it.done = 1; g.shots++; }
                 else if (it.k === 'orb') { SFX.play('coin'); g.combo++; g.maxc = Math.max(g.maxc, g.combo); g.hits++; g.shots++; const v = (it.pts || 50) * Math.min(8, 1 + Math.floor(g.combo / 5)); g.score += v; const [X, Y] = proj(it.lx, 0); pop((it.e || '') + ' +' + v, X, Y - H * .2, it.pts >= 300 ? '#ffd23f' : it.pts >= 150 ? '#ffe9a0' : '#3bf3ff', it.pts >= 150 ? 20 : 16); if (it.pts >= 150) SFX.play('ding'); burst(X, Y, ['#3bf3ff', '#fff'], 18, H * .5); send({ t: 'hit', s: .3 }); }
@@ -7554,6 +7555,7 @@ body.gm-modos #gmUI{display:none!important}
         const g = { id: 'bowl', name: 'BOLERA', score: 0, combo: 0, maxc: 0, hits: 0, shots: 0, t: 0, dur: 0, frames: [], fr: 0, st: 'aim', stT: 0, msg: null, msgT: 0, pos: 0, hook: 0, meter: 0 };
         const PIN0 = []; for (let r = 0; r < 4; r++) for (let i = 0; i <= r; i++) PIN0.push([(i - r / 2) * .3048, LZ + r * .2639]);
         const newPins = () => PIN0.map(([x0, z0]) => ({ x: x0, z: z0, vx: 0, vz: 0, up: true, fall: 0, fd: 1, gone: false, rot: 0 }));
+        const nvB = () => (PLS[PIDS[cp]] || {}).nv || 'normal', mvB = () => ({ easy: .7, hard: 1.45 }[nvB()] || 1);   /* v12.95 · nivel del jugador que tira: FÁCIL con barreras y medidores lentos; DIFÍCIL con medidores rápidos */
         let pins = newPins(), ball = null, sw = null, settle = 0, standAt = 10, gutter = false;
         const PIDS = G.match && G.match.own ? G.match.ids.slice() : [act], BK = ['frames', 'fr', 'score', 'combo', 'maxc', 'hits', 'shots']; let cp = 0;
         g.ps = PIDS.map(i => ({ i, frames: [], fr: 0, score: 0, combo: 0, maxc: 0, hits: 0, shots: 0, done: false }));
@@ -7582,7 +7584,7 @@ body.gm-modos #gmUI{display:none!important}
           if (ball && !ball.done) { const b = ball;
             if (!b.gut && b.z > 6 && b.z < LZ) { const k2 = clamp((b.z - 6) / 6, 0, 1); b.vx += b.hook * .7 * k2 * dt; }
             b.x += b.vx * dt; b.z += b.vz * dt; b.rot += Math.hypot(b.vx, b.vz) * dt / BR;
-            if (!b.gut && Math.abs(b.x) > LW / 2 - BR * .25 && b.z < LZ - .2) { b.gut = true; gutter = true; b.x = Math.sign(b.x) * (LW / 2 + GW / 2); b.vx = 0; }
+            if (!b.gut && Math.abs(b.x) > LW / 2 - BR * .25 && b.z < LZ - .2) { if (nvB() === 'easy') { b.x = Math.sign(b.x) * (LW / 2 - BR * .25); b.vx = -b.vx * .7; b.hook = 0; send({ t: 'hit', s: .3 }); } else { b.gut = true; gutter = true; b.x = Math.sign(b.x) * (LW / 2 + GW / 2); b.vx = 0; } }
             if (b.gut) b.x = Math.sign(b.x) * (LW / 2 + GW / 2);
             if (!b.gut) pins.forEach(p => { if (p.gone) return; if (hitPair(b, BR, 7.2, p, PR, 1.5, .55)) { knock(p); send({ t: 'hit', s: .9 }); } });
             if (b.z > LZ + 1.15) { b.done = true; } }
@@ -7615,8 +7617,8 @@ body.gm-modos #gmUI{display:none!important}
             if (!down) { const a = hold.s[0], b = hold.s[hold.s.length - 1], dtt = Math.max(.03, b.t - a.t), vy = (a.y - b.y) / dtt, swing = clamp(vy / (H * 2.2), 0, 1), held = g.t - hold.t0;
               const power = swing > .12 ? swing : clamp(.35 + held * .35, .35, .8), hk = pad.src === 'phone' ? clamp((raw.g || 0) / 30, -1, 1) : clamp((b.x - hold.x0) / (W * .18), -1, 1);
               g.aimX = hold.ax; throwBall(power, hk + g.hook); } }
-          else if (g.st === 'meter') g.meter = .5 - .5 * Math.cos(g.stT * 3.2);
-          else if (g.st === 'spin') g.spinM = Math.sin(g.stT * 2.6);
+          else if (g.st === 'meter') g.meter = .5 - .5 * Math.cos(g.stT * 3.2 * mvB());
+          else if (g.st === 'spin') g.spinM = Math.sin(g.stT * 2.6 * mvB());
           else if (g.st === 'roll') { const n = 4; for (let i = 0; i < n; i++) physics(dt / n);
             if (ball.done || ball.z > LZ + 1.15) { settle += dt; const moving = pins.some(p => !p.gone && Math.hypot(p.vx, p.vz) > .04); if ((!moving && settle > .5) || settle > 2.6) finishRoll(); } else if (g.stT > 9) finishRoll(); }
           else if (g.st === 'sweep') { if (!sw.snd) { sw.snd = 1; SFX.play('barrida'); } if (g.stT > .55 && !sw.cleared) { sw.cleared = true; SFX.play(sw.full ? 'colocar' : 'retorno'); if (sw.full) setTimeout(() => SFX.play('retorno'), 350); if (sw.full) pins = newPins(); else pins = pins.filter(p => p.up && !p.gone).map(p => Object.assign(p, { vx: 0, vz: 0, fall: 0 })); ball = null; }
@@ -7712,6 +7714,7 @@ body.gm-modos #gmUI{display:none!important}
           const fl0 = P(L0 - GW, 0), fl1 = P(L1 + GW, 0); x.fillStyle = '#111'; x.fillRect(fl0[0], fl0[1] - 2, fl1[0] - fl0[0], 4);
           x.save(); x.globalCompositeOperation = 'lighter'; x.strokeStyle = `hsla(${hue},100%,60%,${.35 + bass * .6})`; x.lineWidth = 2; x.shadowColor = `hsl(${hue},100%,60%)`; x.shadowBlur = 12; [L0 - GW - .02, L1 + GW + .02].forEach(ex => { const a = P(ex, 0), b = P(ex, zEnd); x.beginPath(); x.moveTo(a[0], a[1]); x.lineTo(b[0], b[1]); x.stroke(); }); x.restore();
           const pt = P(L0 - GW, zEnd), pb = P(L1 + GW, zEnd), ph = P(L0 - GW, zEnd, .75); x.fillStyle = '#050507'; x.fillRect(pt[0], ph[1], pb[0] - pt[0], pt[1] - ph[1]);
+          if (mine && nvB() === 'easy') [[L0, -1], [L1, 1]].forEach(([e, sg]) => { const z0 = .15, z1 = LZ - .25, hB = .11, e2 = e + sg * .05; quad(P(e, z0, hB), P(e, z1, hB), P(e, z1, 0), P(e, z0, 0), '#b8891c'); quad(P(e, z0, hB), P(e2, z0, hB), P(e2, z1, hB), P(e, z1, hB), '#ffd23f'); });   /* v12.95 · barreras del nivel FÁCIL */
         }
         const npins = [-2, -1, 1, 2].map(k => PIN0.map(([px, pz]) => ({ x: px + k * PITCH, z: pz, up: true, fall: 0 })));
         g.draw = () => {
@@ -8148,7 +8151,7 @@ body.gm-modos #gmUI{display:none!important}
         G.raf = requestAnimationFrame(loop);
       }
       /* v12.94 · nivel por jugador (Josep, 21-11-2026: «uno por jugador»). Cada jugador lleva su FÁCIL · MEDIO · DIFÍCIL a todos los juegos; por turnos cada turno se juega al nivel de quien tira y, cuando varios comparten la misma partida a la vez, manda el más fácil de los que juegan */
-      const NIVELES = ['easy', 'normal', 'hard'], NIVEL_N = { easy: 'Fácil', normal: 'Medio', hard: 'Difícil' }, NIVEL_C = ['hit', 'shoot', 'duck'];   // cartuchos que ya aplican el nivel
+      const NIVELES = ['easy', 'normal', 'hard'], NIVEL_N = { easy: 'Fácil', normal: 'Medio', hard: 'Difícil' }, NIVEL_C = ['hit', 'shoot', 'duck', 'race', 'bowl'];   // cartuchos que ya aplican el nivel
       function nivelPartida() { const L = G.match && G.match.sim ? G.match.ids : [act]; return NIVELES[Math.max(0, Math.min.apply(null, L.map(i => NIVELES.indexOf((PLS[i] || {}).nv || 'normal'))))] || 'normal'; }
       function opts() { return { theme: ($g('hhTheme') || {}).value || 'halloween', mode: ($g('hhMode') || {}).value || 'laser', diff: ($g('hhDiff') || {}).value || 'normal', dur: +(($g('hhDur') || {}).value || 90), ink: !$g('hhInk') || $g('hhInk').checked, scene: ($g('shScene') || {}).value || 'western', ball: ($g('bwBall') || {}).value || 'widow', scr: !$g('bwScr') || $g('bwScr').checked, veh: ($g('rcVeh') || {}).value || 'runner', ddur: +(($g('dkDur') || {}).value || 60), ddiff: ($g('dkDiff') || {}).value || 'normal', hmode: ($g('hpMode') || {}).value || 'ballhop', hdur: +(($g('hpDur') || {}).value || 45) }; }
       function players() { const L2 = PLS.filter(p => p.on).map(p => p.i); return L2.length ? L2 : [act]; }
