@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v13.5**
+**Versión actual: v13.6**
 
 ## Cómo se juega
 
@@ -36,7 +36,14 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v13.5)
+## Cambios de la versión actual (v13.6)
+**Nivel en JUGADORES, RÉCORDS con podio y música nueva en PATOPESCA** (Josep, 21-11-2026).
+
+- **JUGADORES**: cada fila lleva su botón de nivel (FÁCIL · MEDIO · DIFÍCIL), el mismo dato que el botón NIVEL del menú del cartucho. En menús estrechos el botón enseña solo las tres barras.
+- **RÉCORDS**: una tira que se desplaza de lado, con un podio por juego (2.º, 1.º y 3.º; del 4.º en adelante, debajo). Primero salen los juegos que ya tienen récords. Con el mando, el foco pasa de podio en podio.
+- **PATOPESCA** con música dinámica: «Comedy Cartoon» (la de su carpeta de Drive), con entrada, bucle de juego, tensión en los últimos 20 segundos y final. Archivos en `packs/patopesca/`.
+
+### v13.5
 
 - **TRONIK FM en antena:** la radio de la sala ya suena con emisora propia. Doce temas (unos 30 minutos) nivelados a −14 LUFS, en MP3 de 128 kbps y sin silencios al principio ni al final; suenan uno tras otro, en orden aleatorio y sin repetir hasta acabar la lista. El rótulo de la consola muestra el título y el autor.
 - Los temas y sus créditos están en `packs/radio/` (`tronik.json`, `temas/` y `CREDITOS.md`).
@@ -1092,7 +1099,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v13.5 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v13.6 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 

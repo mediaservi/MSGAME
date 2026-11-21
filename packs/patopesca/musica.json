@@ -1,0 +1,12 @@
+{
+ "bpm": 120,
+ "tiempo": 0.5,
+ "fase": 0.345,
+ "entrada": [0, 8.345],
+ "juego": [8.345, 70.345],
+ "tension": [100.345, 140.345],
+ "final": [140.345, 147.1],
+ "fundido": 0.25,
+ "nota": "Música de PATOPESCA: «Comedy Cartoon Background Music», 120 bpm, compases de 2 s. entrada = los 4 primeros compases; juego = compases 4 a 34 (62 s; el 35 repite el 4); tension = compases 50 a 69 (40 s, la parte más llena; el 70 repite el 50) para los últimos 20 s de la partida; final = el cierre del tema.",
+ "fuente": "«Comedy Cartoon Background Music», FreeBeatsOfficial (Pixabay, n.º 514448)"
+}
