@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v13.0**
+**Versión actual: v13.1**
 
 ## Cómo se juega
 
@@ -36,7 +36,18 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v13.0)
+## Cambios de la versión actual (v13.1)
+**Menú del cartucho en dos pasos, cartucho nuevo y consola retocada** (Josep, 21-11-2026).
+
+- **Menú en dos pasos**: primero «1 Jugadores» (quién juega, su nivel y el modo) y después «2 Opciones» (las del juego), cada paso a pantalla completa y con la letra lo más grande que cabe, sin desplazar ni paginar. JUGAR se llama SIGUIENTE en el primer paso; VOLVER y la tecla atrás regresan del segundo al primero; RESTABLECER en el primer paso pone los niveles en MEDIO y el modo en Auto. Los cartuchos sin opciones siguen en un solo paso.
+- **En vertical (móvil y tableta de pie)**: el menú ocupa la pantalla entera, sin dibujar el monitor ni la consola, con el rótulo del juego arriba; si todo cabe con letra legible va en una sola página y, si no, en los dos pasos.
+- **Cartucho nuevo**: el modelo generado en Meshy (`packs/modelos/a3D-cartucho.glb`), de unos 9,5 cm, del color de su juego y con los contactos dorados. Lleva la etiqueta en las dos caras: el rótulo del juego sobre el fondo de **su propia carátula** (la de su variante). Es el mismo en la sala, en la cinemática y en el menú; si el modelo no carga, sale el cartucho de antes.
+- **Consola**: la ranura ya no abulta (antes sobresalía 3 cm): queda a ras de la tapa, con un marco bajo que ciñe la boca a la forma del cuello del cartucho y una guía a cada extremo. La consola se traga el cartucho hasta sus topes laterales, así que con el menú abierto se ve entero bajo la pantalla, con su etiqueta. La marca MSGAME va **hundida en el plástico** con su logo (antes, un rótulo de letras) y desaparece la carita de Mevi de la tapa.
+- **Arreglo**: la cabecera del menú de KRAZYGOLF, WONDERWALK y SHATEKI salía con el fondo de PALOTERAPIA (calabazas); ahora cada cabecera lleva el fondo de su carátula.
+- **Versión ligera**: enseña el mismo equipo que la sala 3D (una foto suya, `juegos/lite/equipo.webp`, con el cartucho de cada juego encima, `juegos/lite/cart-<juego>_<variante>.webp`).
+- **Botonera del menú**: los rótulos largos («RESTABLECER», «El mòbil com a comandament») ya no se cortan.
+
+### v13.0
 **Un impacto ya no quita una vida entera y las figuras van hacia donde miran** (Josep, reglas para todos los juegos).
 
 - **Energía en vez de vidas** en BEAT RACER y PUNTERÍA: desaparecen los tres corazones y entra la misma barra de energía (HP) de PALOTERAPIA. Cada choque, mordisco, disparo o invasión quita una parte (8, 11 o 16 puntos de 100 según el nivel FÁCIL · MEDIO · DIFÍCIL del jugador), y cada premio recogido o diana acertada devuelve 1. Antes, tres golpes acababan la partida.
@@ -1056,7 +1067,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v13.0 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v13.1 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
