@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.97**
+**Versión actual: v12.98**
 
 ## Cómo se juega
 
@@ -36,7 +36,14 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.97)
+## Cambios de la versión actual (v12.98)
+**El botón de nivel se ve, KRAZYGOLF tiene nivel y el rótulo de la BOLERA se lee** (Josep, 21-11-2026).
+
+- **Botón de nivel más visible**: bajo cada jugador activo ahora dice «NIVEL · FÁCIL / MEDIO / DIFÍCIL», con letra mayor y el fondo del color del jugador (antes solo ponía «MEDIO» en pequeño y pasaba desapercibido). Un toque u OK cambia al siguiente nivel.
+- **KRAZYGOLF** (opción A de Josep): en FÁCIL la flecha de tiro se alarga con una guía de puntos que marca hacia dónde irá la bola; en MEDIO queda como estaba; en DIFÍCIL no hay flecha, solo la goma de la fuerza (en 3D, el palo). No cambia en los modos de simulador.
+- **BOLERA**: el rótulo luminoso pasa de 9 a 16 filas de puntos, con los puntos enteros (sin medias tintas), así que el texto se lee; corre algo más rápido para pasar las mismas letras por segundo.
+
+### v12.97
 **WONDERWALK abre con el nivel del jugador** (cierra el reparto del nivel por jugador, paso 2 del plan de MSGAME).
 
 - WONDERWALK ya tenía sus tres niveles en la portada del cuento; ahora llega marcado el del jugador (FÁCIL · MEDIO · DIFÍCIL) y se puede cambiar allí mismo como antes. El botón de nivel aparece en el menú de su cartucho.
@@ -1038,7 +1045,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.97 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.98 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
