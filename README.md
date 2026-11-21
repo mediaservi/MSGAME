@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.87**
+**Versión actual: v12.88**
 
 ## Cómo se juega
 
@@ -36,7 +36,22 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.87)
+## Cambios de la versión actual (v12.88)
+**Base técnica y versión ligera, primera parte** (paso 1 del plan de MSGAME, Josep, 21-11-2026).
+
+- **Arranca en teles con navegador antiguo.** La app usaba ocho construcciones modernas (`?.`, `??`) y tres expresiones regulares con `\p{Extended_Pictographic}` que en un Chrome anterior al 80 (webOS de 2021 y anteriores, Android TV sin actualizar) son un error de sintaxis: el navegador descartaba el programa entero y la pantalla se quedaba parada en el arranque. Ahora todo el código es válido en ES2018, y lo que le falta a esos navegadores (`flat`, `flatMap`, `replaceChildren`) se añade al cargar.
+- **Si aun así no puede arrancar, lo dice.** A los 12 s sin arrancar aparece un aviso en pantalla (es, en, ca) con el motivo, en vez de quedarse en negro.
+- **Detector de capacidad único, `MSCAP`** (al principio de la página, en ES5): tele o no, memoria, núcleos, gráfica, 3D, navegador y tipo de entrada, calculado una sola vez. `MSCAP.nivel()` da `LITE` o `FULL`; la carga ligera de la v12.57 decide ahora con él (mismas reglas).
+- **Calidad adaptable del lienzo de juego** (`GAMES.cal`). Los juegos 2D se pintaban siempre a la resolución completa de la pantalla (en una tele 4K, 3840 × 2160) y con sombras difusas, que es lo que más frena a una tele. Hay cuatro niveles: el 0 es el de siempre; el 1, 2 y 3 pintan con 1280, 960 o 720 puntos de lado largo y sin sombras difusas. En la carga ligera se empieza en el 1, y en cualquier aparato un juego que va a tirones (menos de 22 imágenes por segundo durante 6 s) baja solo un nivel. Los juegos no cambian: siguen pintando en medidas de ventana.
+- **BOLERA en la carga ligera:** sus pantallas enseñan la carta de ajuste en vez de los visuales en vivo (era el juego que se quedaba clavado).
+- **WONDERWALK** se abre en su calidad más baja en la carga ligera, y **SHATEKI** avisa de que sin 3D se juega la galería en 2D.
+- **Inicio ligero:** las carátulas tienen medida de reserva para los navegadores sin `aspect-ratio` ni `clamp()` (antes no se veían).
+- **`?diag`** enseña también la capacidad (LITE / FULL) y el nivel de calidad del juego.
+
+Medido sin gráfica (peor caso), en imágenes por segundo, antes → ahora: BOLERA 4 → 29, BALLHOP 8 → 59, LA FORTUNA 27 → 52, PALOTERAPIA 39 → 55. Sigue pendiente del paso 1: zonas seguras, entrada unificada, ajustes globales y máquina de estados.
+
+### v12.87
+
 - **Sin caché** (pedido por Josep, 18-11-2026): las páginas llevan las etiquetas equivalentes a `Cache-Control: no-cache, no-store, must-revalidate` y el service worker pide siempre al servidor lo de la propia app, revalidando, sin pasar por la copia del navegador. Sin conexión sigue funcionando con la copia guardada.
 
 ### v12.86
@@ -969,7 +984,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.87 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.88 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
