@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.98**
+**Versión actual: v12.99**
 
 ## Cómo se juega
 
@@ -36,7 +36,10 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.98)
+## Cambios de la versión actual (v12.99)
+**Texto de ayuda de ENCESTA.** BALLHOP ya no dice «con 9 bolas» (son 11, 9 o 7 según el nivel del jugador): ahora «con bolas contadas», en español, inglés y catalán.
+
+### v12.98
 **El botón de nivel se ve, KRAZYGOLF tiene nivel y el rótulo de la BOLERA se lee** (Josep, 21-11-2026).
 
 - **Botón de nivel más visible**: bajo cada jugador activo ahora dice «NIVEL · FÁCIL / MEDIO / DIFÍCIL», con letra mayor y el fondo del color del jugador (antes solo ponía «MEDIO» en pequeño y pasaba desapercibido). Un toque u OK cambia al siguiente nivel.
@@ -1045,7 +1048,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.98 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.99 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
