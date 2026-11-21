@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.93**
+**Versión actual: v12.94**
 
 ## Cómo se juega
 
@@ -36,7 +36,16 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.93)
+## Cambios de la versión actual (v12.94)
+**Nivel por jugador** (paso 1 del plan de MSGAME, ajustes globales; Josep, 21-11-2026: «uno por jugador»).
+
+- Cada jugador tiene su nivel, **FÁCIL · MEDIO · DIFÍCIL**, y lo lleva a todos los juegos: un niño y un adulto pueden jugar la misma partida cada uno al suyo. Se guarda con el jugador.
+- Se cambia en el menú del cartucho, en el botón que hay debajo de cada jugador activo (un toque o OK pasa al siguiente nivel; las tres barritas dicen cuál es). Funciona con ratón, dedo, flechas y OK.
+- Por turnos, cada turno se juega al nivel de quien tira. Cuando varios comparten la misma partida a la vez (PUNTERÍA en simultáneo), manda el nivel más fácil de los que juegan.
+- De momento lo aplican los juegos que ya tenían dificultad: **PALOTERAPIA, PUNTERÍA y PATOPESCA**; en el resto el botón no aparece hasta que el juego lo use (paso 2). Sus selectores «Dificultad» desaparecen: antes PUNTERÍA tomaba, sin decirlo, la dificultad elegida en PALOTERAPIA.
+- `GAMES.nivel()` devuelve el nivel de la partida en curso.
+
+### v12.93
 **Arranque sin peticiones de sonido fallidas.** `sonidos/lista.json` dice qué archivos de `sonidos/` existen, y la app ya no pide los efectos opcionales que todavía no están grabados (eran unas 30 peticiones fallidas al sonar el primer efecto, que en una tele se notan). Sin la lista, o sin conexión, se prueba todo como antes.
 
 > **Al añadir o quitar un archivo de `sonidos/` hay que regenerar `sonidos/lista.json`** (nombres sin `.mp3`, en orden alfabético); un efecto que no esté en la lista no se carga.
@@ -1007,7 +1016,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.93 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.94 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
