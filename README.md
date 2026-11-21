@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.89**
+**Versión actual: v12.90**
 
 ## Cómo se juega
 
@@ -36,7 +36,11 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.89)
+## Cambios de la versión actual (v12.90)
+**`?diag` enseña la zona segura.** Con `?diag` se dibujan tres marcos (el borde de la pantalla, al 2,5 % y al 5 %): en una foto de la tele se ve si recorta la imagen (sobrebarrido) y cuánto margen hay que dejar. Sin `?diag` no cambia nada.
+
+### v12.89
+
 **Tele con mando de flechas: se juega con el móvil** (paso 1 del plan de MSGAME, entrada).
 
 - En «¿Cómo juegas?», una tele en la que no se ha movido ningún puntero (mando de flechas, como en Android TV) propone ya el **móvil**, con su código QR a la vista; antes proponía el ratón y la partida empezaba sin forma de apuntar. Con un mando con puntero (webOS) o un ratón, en cuanto se mueve vuelve a proponer el ratón, también con el diálogo abierto. Lo que el jugador elija a mano se respeta. En ordenador, tableta y móvil no cambia nada.
@@ -992,7 +996,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.89 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.90 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 

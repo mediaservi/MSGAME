@@ -1727,7 +1727,11 @@ body.gm-modos #gmUI{display:none!important}
         'Capacidad: ' + (window.MSCAP ? MSCAP.nivel() + (MSCAP.datos().motivo ? ' (' + MSCAP.datos().motivo + ')' : '') : '?') + ' · Calidad de juego: ' + (function () { try { return GAMES.cal.n + ' de 3 (escala ' + GAMES.cal.k.toFixed(2) + ')'; } catch (e) { return '—'; } })() + '\n' +
         'Pasos: ' + (P.pasos.map(function (q) { return q[0] + ' ' + q[1] + ' s'; }).join(' → ') || '—') + '\n' +
         (P.err.length ? 'Errores:\n  ' + P.err.slice(-6).join('\n  ') : 'Errores: ninguno'); }
-    setInterval(pinta, 1000); pinta(); })();</script>
+    setInterval(pinta, 1000); pinta();
+    /* v12.90 · ?diag: marco de zona segura. Tres marcos (borde de la pantalla, 2,5 % y 5 %) para ver en una foto si la tele recorta la imagen (sobrebarrido) */
+    function marcos() { if (!document.body || document.getElementById('msDiagZona')) return; var z = document.createElement('div'); z.id = 'msDiagZona'; z.setAttribute('aria-hidden', 'true'); z.setAttribute('data-noi18n', ''); z.style.cssText = 'position:fixed;left:0;top:0;right:0;bottom:0;z-index:2147483646;pointer-events:none';
+      [[0, '#ff2bd6', '0 %'], [2.5, '#ffd23f', '2,5 %'], [5, '#00ff04', '5 %']].forEach(function (m) { var d = document.createElement('div'); d.style.cssText = 'position:absolute;left:' + m[0] + '%;top:' + m[0] + '%;right:' + m[0] + '%;bottom:' + m[0] + '%;border:2px solid ' + m[1] + ';box-sizing:border-box'; var t = document.createElement('span'); t.textContent = m[2]; t.style.cssText = 'position:absolute;right:6px;bottom:2px;font:12px/1.2 monospace;color:' + m[1] + ';background:rgba(0,0,0,.7);padding:0 4px'; d.appendChild(t); z.appendChild(d); }); document.body.appendChild(z); }
+    if (document.body) marcos(); addEventListener('DOMContentLoaded', marcos); })();</script>
 
   <!-- Fullscreen Visualizer Canvas -->
   <div id="canvasWrapper" class="fixed inset-0 z-0">
@@ -3745,7 +3749,7 @@ body.gm-modos #gmUI{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '12.89';
+    const APP_VERSION = '12.90';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
