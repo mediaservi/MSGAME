@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.92**
+**Versión actual: v12.93**
 
 ## Cómo se juega
 
@@ -36,7 +36,12 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.92)
+## Cambios de la versión actual (v12.93)
+**Arranque sin peticiones de sonido fallidas.** `sonidos/lista.json` dice qué archivos de `sonidos/` existen, y la app ya no pide los efectos opcionales que todavía no están grabados (eran unas 30 peticiones fallidas al sonar el primer efecto, que en una tele se notan). Sin la lista, o sin conexión, se prueba todo como antes.
+
+> **Al añadir o quitar un archivo de `sonidos/` hay que regenerar `sonidos/lista.json`** (nombres sin `.mp3`, en orden alfabético); un efecto que no esté en la lista no se carga.
+
+### v12.92
 **Eslogan corporativo al día.** La carátula-enlace de AVHUB dice «TOOLS FOR AV PEOPLE» (antes «TOOLS FOR PROFESSIONALS»).
 
 ### v12.91
@@ -1002,7 +1007,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.92 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.93 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
