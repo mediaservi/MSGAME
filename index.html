@@ -3782,7 +3782,7 @@ body.gm-modos #gmUI{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '13.7';
+    const APP_VERSION = '13.8';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -3962,7 +3962,7 @@ body.gm-modos #gmUI{display:none!important}
       if (!SW_OK) { showToast(location.protocol === 'file:' ? 'Abre la app desde su web (https) para preparar el modo feria' : 'Este navegador no permite el modo feria'); return; }
       let reg = null; try { reg = await navigator.serviceWorker.getRegistration(); if (!reg) reg = await navigator.serviceWorker.register('sw.js'); await navigator.serviceWorker.ready; reg = await navigator.serviceWorker.getRegistration(); } catch (e) {}
       if (!reg || !reg.active) { showToast('Falta sw.js en la web: súbelo junto a index.html'); return; }
-      const U = new Set([new URL('./', location.href).href, new URL('index.html', location.href).href, 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'logos/screens-logo.svg', 'logos/systems-logo.svg', 'logos/adposter-logo.svg', 'logos/msgame-logo.svg?v=5', 'logos/screens-icono.svg', 'logos/systems-icono.svg', 'logos/adposter-icono.svg', 'logos/msgame-icono.svg?v=4', 'media-manifest.json', 'juegos/horizontes.json', 'juegos/beatracer.png', 'juegos/dymo.webp?v=' + APP_VERSION].map(u => new URL(u, location.href).href));
+      const U = new Set([new URL('./', location.href).href, new URL('index.html', location.href).href, 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'logos/screens-logo.svg', 'logos/systems-logo.svg', 'logos/adposter-logo.svg', 'logos/msgame-logo.svg?v=5', 'logos/screens-icono.svg', 'logos/systems-icono.svg', 'logos/adposter-icono.svg', 'logos/msgame-icono.svg?v=4', 'media-manifest.json', 'juegos/horizontes.json', 'juegos/beatracer.png', 'juegos/dymo.webp?v=' + APP_VERSION, 'juegos/logo_paloterapia.svg?v=' + APP_VERSION].concat(['halloween', 'zombies', 'aliens', 'sports', 'disco'].map(k => 'juegos/fig_hit_' + k + '.webp?v=' + APP_VERSION)).map(u => new URL(u, location.href).href));
       ['fondos', 'gente', 'objetos'].forEach(c => { U.add(new URL(c + '/manifest.json', location.href).href); (mediaData[c] || []).forEach(it => { if (!it.local && it.path && !/^(blob|data):/.test(it.path)) U.add(new URL(it.path, location.href).href); }); });
       for (let n = 1; n <= 8; n++) ['paredes', 'juegos'].forEach(d => U.add(new URL(d + '/pared' + n + '.webp', location.href).href));
       ['hit_halloween', 'hit_zombies', 'hit_aliens', 'hit_sports', 'hit_disco', 'shoot_western', 'shoot_galaxy', 'shoot_zombieland', 'shoot_haunted', 'shoot_alpine', 'shoot_warfront', 'shoot_western_frente', 'wonderwalk', 'shoot_zombieland_frente', 'racer', 'racer_runner', 'racer_dirty', 'bolera', 'fortuna', 'retrogaming', 'patopesca', 'ballhop', 'basket', 'ekchuah'].forEach(k => ['webp', 'png', 'jpg', 'gif'].forEach(e => U.add(new URL('juegos/' + k + '.' + e, location.href).href)));
@@ -9103,8 +9103,11 @@ body.gm-modos #gmUI{display:none!important}
       const CAR = (() => {
         const W = 384, H = 560, TOP = 70, TAU = Math.PI * 2;
         /* v12.38 · logo propio de la saga: PALOTERAPIA con el bate, el golpe en la O y el sable y la espada cruzados (aprobado por Josep el 14-11) */
-        const SAGA = {}, SG = {}; let ASPA = false;   // logo propio de una saga en sus carátulas y cartuchos, p. ej. { hit: 'juegos/logo_paloterapia.svg' }; vacío hasta que se apruebe
-        const sagas = () => Promise.all(Object.keys(SAGA).map(g => SG[g] ? 0 : new Promise(r => { const im = new Image(); im.onload = () => { SG[g] = im; r(); }; im.onerror = () => r(); im.src = SAGA[g] + '?v=' + APP_VERSION; })));
+        const SAGA = { hit: 'juegos/logo_paloterapia.svg' }, SG = {}; let ASPA = false;
+        /* v13.8 · logo A (sin aspa): en el sitio de las aspas, el personaje principal de cada temática (render de su modelo 3D); se actualiza cuando cambie el personaje del juego */
+        const FIG = { halloween: 'juegos/fig_hit_halloween.webp', zombies: 'juegos/fig_hit_zombies.webp', aliens: 'juegos/fig_hit_aliens.webp', sports: 'juegos/fig_hit_sports.webp', disco: 'juegos/fig_hit_disco.webp' }, FG = {};   // logo propio de una saga en sus carátulas y cartuchos, p. ej. { hit: 'juegos/logo_paloterapia.svg' }; vacío hasta que se apruebe
+        const trae = (M, O) => Object.keys(M).map(g => O[g] ? 0 : new Promise(r => { const im = new Image(); im.onload = () => { O[g] = im; r(); }; im.onerror = () => r(); im.src = M[g] + '?v=' + APP_VERSION; }));
+        const sagas = () => Promise.all(trae(SAGA, SG).concat(trae(FIG, FG)));
         const mk = (w, h) => { const c = document.createElement('canvas'); c.width = w; c.height = h; return [c, c.getContext('2d')]; };
         const COL = { hit: ['#ff3bd4', '#ffb000'], shoot: ['#b6e600', '#ff6a1a'], race: ['#19b8ff', '#ff2fd0'], paint: ['#7dff3a', '#ff2a8a'], wheel: ['#ffd23f', '#e53935'], bowl: ['#ff8f4d', '#3bd0ff'], duck: ['#ffc21a', '#19a8ff'], hoop: ['#ff8a1f', '#7a3cff'], walk: ['#ffd76a', '#8a4dff'], golf: ['#9dff3a', '#ff7a1f'], osaka: ['#ffd23f', '#e02a1f'] , ekchuah: ['#ffc83d', '#12b886'], mservi: ['#56f700', '#e100ff'], avhubw: ['#22e5ff', '#7a3cff'] };
         const GN = { hit: 'PALOTERAPIA', shoot: 'PUNTERÍA', race: 'BEAT RACER', paint: 'GRAFFER', wheel: 'LA FORTUNA', bowl: 'BOLERA', duck: 'PATOPESCA', hoop: 'ENCESTA', walk: 'WonderWalk', golf: 'KRAZYGOLF', osaka: 'SHATEKI', ekchuah: 'EK CHUAH', mservi: 'MEDIASERVI', avhubw: 'AVHUB' };
@@ -9434,6 +9437,7 @@ body.gm-modos #gmUI{display:none!important}
           if (R && R.fondo) return cv;   /* v13.1 · solo el fondo de la carátula (sin cabecera, rótulo ni pie): para la etiqueta del cartucho y la cabecera del menú, que llevan el rótulo encima */
           if (vt === 'J' && R.figs && R.figs[c.val]) { const im = R.figs[c.val], S = c.val === 'dirty' ? 300 : 262, Y = c.val === 'dirty' ? TOP + 262 : TOP + 250; x.save(); x.beginPath(); x.rect(0, TOP + 7, W, H - TOP - 7); x.clip(); x.shadowColor = c.val === 'dirty' ? 'rgba(255,200,120,.75)' : 'rgba(59,243,255,.85)'; x.shadowBlur = 22; x.drawImage(im, W / 2 - S / 2, Y - S, S, S); x.shadowBlur = 0; x.drawImage(im, W / 2 - S / 2, Y - S, S, S); x.restore(); }
           x.save(); x.beginPath(); x.rect(0, TOP + 7, W, H - TOP - 7); x.clip();
+          if (vt === 'D' && SG[c.g] && !ASPA && FG[c.val]) { const im = FG[c.val], k = 232 / Math.max(im.width, im.height), dw = im.width * k, dh = im.height * k, X = W / 2, Y = TOP + (H - TOP) * .6, g = x.createRadialGradient(X, Y, 8, X, Y, 150); g.addColorStop(0, 'rgba(255,255,255,.3)'); g.addColorStop(.5, 'rgba(255,255,255,.09)'); g.addColorStop(1, 'rgba(255,255,255,0)'); x.fillStyle = g; x.fillRect(X - 150, Y - 150, 300, 300); x.save(); x.shadowColor = 'rgba(8,2,18,.75)'; x.shadowBlur = 16; x.shadowOffsetY = 6; x.drawImage(im, X - dw / 2, Y - dh / 2, dw, dh); x.restore(); }
           if (vt === 'D' && (!SG[c.g] || ASPA)) armas(x, W / 2 + 8, TOP + (H - TOP) * (SG[c.g] ? .6 : .49), SG[c.g] ? 168 : 214);   /* v12.38 · con el logo de la saga, que ya trae sus armas, sin el aspa del centro (o más pequeña y más abajo) */
           else if (vt === 'G') { const bx = W * .7, by = H * .425; x.save(); x.translate(bx, by); x.rotate(.1); estallido(x, 0, 0, 62, '#ffd23f', '#e02929', 11); x.restore(); logo(x, '¡BANG!', bx, by + 12, { f: 'Bangers', s: 36, c: '#12091f', rot: -.1, brillo: 0 }); mira(x, bx - 50, by + 46, 30, '#ff4a3a'); mira(x, W * .3, H * .53, 56, '#8dff3a'); }
           else if (vt === 'K') ruleta(x, W / 2, TOP + 290, 102);

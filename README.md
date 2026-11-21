@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v13.7**
+**Versión actual: v13.8**
 
 ## Cómo se juega
 
@@ -36,7 +36,14 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v13.7)
+## Cambios de la versión actual (v13.8)
+**Logo propio de PALOTERAPIA** (opción A, elegida por Josep; 22-11-2026).
+
+- Las cinco carátulas (HALLOWEEN, ZOMBIES, ALIENS, SPORTS y DISCO) llevan el logo de la saga: PALO y TERAPIA apilados, el bate haciendo de «I», el golpe de cómic en la O y el sable láser y la espada cruzados (`juegos/logo_paloterapia.svg`).
+- Sin el aspa de armas del centro: en su sitio va el personaje principal de cada temática, sacado de su modelo 3D (`juegos/fig_hit_<temática>.webp`). Cuando cambie el personaje de un juego, se rehace su imagen.
+- El mismo logo sale en la etiqueta de los cartuchos, en la cabecera del menú, en el monitor y en las fotos de cartucho de la portada ligera.
+
+### v13.7
 **Música nueva en los juegos, desde las carpetas de Drive** (Josep, 21-11-2026).
 
 - Cada juego y variante suena con los temas de su carpeta, con entrada, bucle y final; si hay varios, uno distinto al azar en cada partida:
@@ -1110,7 +1117,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v13.7 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v13.8 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
