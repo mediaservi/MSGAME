@@ -3749,7 +3749,7 @@ body.gm-modos #gmUI{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '12.91';
+    const APP_VERSION = '12.92';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -8914,7 +8914,7 @@ body.gm-modos #gmUI{display:none!important}
         ['shoot', 'shScene', 'western', 'shoot_western'], ['shoot', 'shScene', 'galaxy', 'shoot_galaxy'], ['shoot', 'shScene', 'zombieland', 'shoot_zombieland'], ['shoot', 'shScene', 'haunted', 'shoot_haunted'], ['shoot', 'shScene', 'alpine', 'shoot_alpine'], ['shoot', 'shScene', 'warfront', 'shoot_warfront'],
         ['race', 'rcVeh', 'runner', 'racer_runner'], ['race', 'rcVeh', 'dirty', 'racer_dirty'], ['paint'], ['wheel', null, null, 'fortuna'], ['bowl'], ['duck'], ['hoop', 'hpMode', 'ballhop'], ['hoop', 'hpMode', 'basket'], ['walk', null, null, 'wonderwalk'], ['golf'], ['osaka'], ['mservi', null, null, 'enlace_mediaservi'], ['avhubw', null, null, 'enlace_avhub']]   /* v11.5 · dos cartuchos nuevos, todavía en borrador · v12.33 · y dos carátulas que parecen juegos pero abren una web */
         .map(([g, sel, val, img], i) => ({ i, g, sel, val, img, sub: val ? val.toUpperCase() : '' }));
-      const WEB = { mservi: ['https://mediaservi.com/', 'ESTUDIO AUDIOVISUAL', 1], avhubw: ['https://avhub.mediaservi.com/', 'TOOLS FOR PROFESSIONALS'] };   /* v12.35 · la de mediaservi es tu material (cara y rótulo de neón MEDIASERVI.com): sin título pintado encima */
+      const WEB = { mservi: ['https://mediaservi.com/', 'ESTUDIO AUDIOVISUAL', 1], avhubw: ['https://avhub.mediaservi.com/', 'TOOLS FOR AV PEOPLE'] };   /* v12.35 · la de mediaservi es tu material (cara y rótulo de neón MEDIASERVI.com): sin título pintado encima */
       CV.forEach(c => { if (WEB[c.g]) { c.url = WEB[c.g][0]; c.sub = WEB[c.g][1]; c.solo = !!WEB[c.g][2]; } });
       const FIRST = {}; CV.forEach(c => { if (!(c.g in FIRST)) FIRST[c.g] = c.i; });
       let T = null, R = null, S = null, CAM = null, raf = 0, on = false, built = false, lastT = 0, frameN = 0;

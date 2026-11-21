@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.91**
+**Versión actual: v12.92**
 
 ## Cómo se juega
 
@@ -36,7 +36,10 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.91)
+## Cambios de la versión actual (v12.92)
+**Eslogan corporativo al día.** La carátula-enlace de AVHUB dice «TOOLS FOR AV PEOPLE» (antes «TOOLS FOR PROFESSIONALS»).
+
+### v12.91
 **El foco ya no se pierde al activar un jugador con el mando.** En el menú del cartucho, al pulsar OK sobre el conmutador de un jugador se repintaban los botones y el foco desaparecía hasta pulsar otra flecha; ahora se queda en el mismo botón (también con la cruceta del móvil).
 
 ### v12.90
@@ -510,7 +513,7 @@ Correcciones de la auditoría en el móvil en vertical (412 × 839, 390 × 844 y
 - **Logo nuevo de MSGAME:** el que aprobaste. «MS» en Staatliches (la letra de GAME), blanca y gruesa, sobre dos fichas rectas moradas con el degradado del MS de siempre y sombra verde; se pisan entre ellas y la S pisa a la G. «GAME» y la calavera no cambian. Está en todas partes: cabecera, mando del móvil, rótulos de las estanterías, cajas, cartuchos, tele y versión con lema.
 - **Aura de Mevi que se ve:** la carátula que recomienda Mevi brilla ahora en verde lima y cian, que contrasta con las carátulas moradas y con la madera, y late como un destello para que se note de lejos.
 - **SONIDO OFF en el LCD:** el aviso de que no hay sonido ya no es una burbuja. Sale en rojo en el LCD de puntos de arriba al quitar el sonido y, mientras siga quitado, un mensaje sí y otro no. Pulsando el LCD con el aviso rojo vuelve el sonido.
-- **Dos carátulas que son webs:** en los dos huecos que estaban detrás del radiocasete y de la lámpara hay dos carátulas con aspecto de juego: MEDIASERVI (tu cara sobre un sol retro con rejilla de neón, «ESTUDIO AUDIOVISUAL») abre mediaservi.com, y AVHUB (la carta de ajuste 4K con la luna, «TOOLS FOR PROFESSIONALS») abre avhub.mediaservi.com, cada una en otra pestaña. Al pasar por encima, la tele enseña la web. No salen como cartuchos en el móvil.
+- **Dos carátulas que son webs:** en los dos huecos que estaban detrás del radiocasete y de la lámpara hay dos carátulas con aspecto de juego: MEDIASERVI (tu cara sobre un sol retro con rejilla de neón, «ESTUDIO AUDIOVISUAL») abre mediaservi.com, y AVHUB (la carta de ajuste 4K con la luna, «TOOLS FOR AV PEOPLE») abre avhub.mediaservi.com, cada una en otra pestaña. Al pasar por encima, la tele enseña la web. No salen como cartuchos en el móvil.
 - **Tele SONIA:** el logo, un par de tonos más visible, sin dejar de ser discreto.
 - **Avances de partida en la tele:** cuando Mevi recomienda un juego, la tele enseña un vídeo corto de una partida de verdad de ese juego (PUNTERÍA Haunted y Western, PALOTERAPIA Aliens y Zombies, PATOPESCA, BEAT RACER, GRAFFER, LA FORTUNA, BOLERA y KRAZYGOLF). ENCESTA, SHATEKI y WONDERWALK enseñan de momento su carátula en movimiento.
 
@@ -999,7 +1002,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.91 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.92 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
