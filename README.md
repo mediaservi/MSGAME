@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v13.3**
+**Versión actual: v13.4**
 
 ## Cómo se juega
 
@@ -36,7 +36,13 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v13.3)
+## Cambios de la versión actual (v13.4)
+**Racord de la consola nueva en la portada ligera y con «reducir movimiento»** (Josep, 21-11-2026).
+
+- **Portada ligera**: las seis fotos de la sala (horizontal y vertical, en español, inglés y catalán) están rehechas con la consola actual (ranura a ras con su marco-guía, logo MSGAME hundido, sin la carita de Mevi). Antes enseñaban la consola antigua.
+- **«Reducir movimiento»**: al elegir un juego no hay cinemática, pero el cartucho queda igualmente metido en la consola, con el piloto en verde y el nombre del juego en el LCD (antes no se veía ningún cartucho), y se retira al expulsar.
+
+### v13.3
 **El menú del cartucho ya no tiembla** (Josep, 21-11-2026).
 
 - El bloque de jugadores daba un salto, como un temblor, cada vez que el menú reajustaba su tamaño (al abrirlo, al cambiar un nivel o un jugador, al cargar las letras…): al cambiar el zoom, los botones animaban durante una décima de segundo el grosor de su borde y la posición de sus interruptores. Ahora, mientras se mide y se ajusta, las transiciones quedan anuladas, también en la botonera de abajo.
@@ -1081,7 +1087,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v13.3 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v13.4 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 

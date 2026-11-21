@@ -3777,7 +3777,7 @@ body.gm-modos #gmUI{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '13.3';
+    const APP_VERSION = '13.4';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -10156,7 +10156,10 @@ body.gm-modos #gmUI{display:none!important}
       function key(id) { if (id === 'power') { apaga(); return; } if (id === 'bitclaud') { const bc = ST.bitclaud; try { GAMES.SFX.play('key'); } catch (e) {} if (bc && !bc.userData.salta) { bc.userData.salta = 1; const y0 = bc.position.y; bc.position.y = y0 + .02; kick(); setTimeout(() => { bc.position.y = y0; bc.userData.salta = 0; kick(); }, 220); } return; } if (id === 'radio') { try { GAMES.radio(); } catch (e) {} return; } if (id === 'avhub') { location.href = 'https://avhub.mediaservi.com/'; return; } if (ST.seq) return; if (id === 'play') { pick(FIRST[Object.keys(FIRST)[(Math.random() * 8) | 0]]); return; } if (id === 'eject') { try { GAMES.SFX.play('carto'); } catch (e) {} return; } tvPush(() => { try { window.__gview(id, true); } catch (e) {} }); }
       function tvPush(done) { const A = { p: CAM.position.clone(), t: ST.home.t.clone(), fov: CAM.fov }, B = { p: TV.g.localToWorld(V3().set(0, TV.SY, .78)), t: TV.g.localToWorld(V3().set(0, TV.SY, 0)), fov: 38 }; ST.seq = { t0: performance.now(), dur: 650, shots: [{ a: 0, b: 1, cam: k => lerpPose(A, B, ease(k)) }], end: () => { ST.seq = null; ST.crt = true; done(); } }; document.body.classList.add('club-seq'); kick(); }
       function pick(ci, q0) { if (ST.seq || !built) return; if (CV[ci] && CV[ci].url) { abreWeb(CV[ci], q0); return; } if (CV[ci] && CV[ci].pronto) { proximo(CV[ci], q0); return; } const c = CV[ci], L = INST.cov[ci].userData.list, q = q0 || L.find(z => !z.tap) || INST.feat[ci] || L[0]; setVariant(c); window.__gmFix = c.sel ? { cart: c.g, sel: c.sel, val: c.val } : null;   /* v11.2 · cada cartucho es UNA variante: se abra como se abra, la pantalla no ofrece las demás */ unhover();
-        if (REDUCE) { finish(c); return; } startSeq(c, q); }
+        if (REDUCE) {   /* v13.4 · con «reducir movimiento» no hay cinemática, pero el cartucho queda igualmente metido en la consola (antes no se veía ninguno) */
+          try { if (ST.inserted && ST.inserted.parent) ST.inserted.parent.remove(ST.inserted); buildCase(c); const cart = CASE.cart; S.attach(cart); cart.quaternion.identity(); cart.scale.setScalar(1); cart.position.copy(CON.slotW).add(V3().set(0, CT.ins, 0)); cart.visible = true; CASE.g.visible = false; ST.inserted = cart; ST.last = { c, q: null }; TV.game = c.g;
+            CON.led.material.color.set(0x56f700); CON.ledS.material.color.set(0x56f700); CON.glow.material.color.set(0xffd23f); CON.glowS.material.color.set(0xffd23f); lcdDraw('▶ ' + GN[c.g], c.sub || ''); kick(); } catch (e) {}
+          finish(c); return; } startSeq(c, q); }
       /* v12.33 · las carátulas-enlace: la caja salta un poco, suena la tecla y se abre su web en otra pestaña */
       function abreWeb(c, q0) { const q = q0 || INST.feat[c.i]; try { GAMES.SFX.play('key'); } catch (e) {} if (q && !q.hidden) { setSlot(q, .05, 1); kick(); setTimeout(() => { setSlot(q, 0, 0); kick(); }, 260); }
         let w = null; try { w = window.open(c.url, '_blank', 'noopener'); } catch (e) {} if (!w) { try { showToast('↗ ' + c.url); } catch (e) {} } }
