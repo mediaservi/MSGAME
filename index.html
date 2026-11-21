@@ -3755,7 +3755,7 @@ body.gm-modos #gmUI{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '12.96';
+    const APP_VERSION = '12.97';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -8152,7 +8152,7 @@ body.gm-modos #gmUI{display:none!important}
         G.raf = requestAnimationFrame(loop);
       }
       /* v12.94 · nivel por jugador (Josep, 21-11-2026: «uno por jugador»). Cada jugador lleva su FÁCIL · MEDIO · DIFÍCIL a todos los juegos; por turnos cada turno se juega al nivel de quien tira y, cuando varios comparten la misma partida a la vez, manda el más fácil de los que juegan */
-      const NIVELES = ['easy', 'normal', 'hard'], NIVEL_N = { easy: 'Fácil', normal: 'Medio', hard: 'Difícil' }, NIVEL_C = ['hit', 'shoot', 'duck', 'race', 'bowl', 'hoop', 'ballhop', 'basket', 'osaka'];   // cartuchos que ya aplican el nivel
+      const NIVELES = ['easy', 'normal', 'hard'], NIVEL_N = { easy: 'Fácil', normal: 'Medio', hard: 'Difícil' }, NIVEL_C = ['hit', 'shoot', 'duck', 'race', 'bowl', 'hoop', 'ballhop', 'basket', 'osaka', 'walk'];   // cartuchos que ya aplican el nivel
       function nivelPartida() { const L = G.match && G.match.sim ? G.match.ids : [act]; return NIVELES[Math.max(0, Math.min.apply(null, L.map(i => NIVELES.indexOf((PLS[i] || {}).nv || 'normal'))))] || 'normal'; }
       function opts() { return { theme: ($g('hhTheme') || {}).value || 'halloween', mode: ($g('hhMode') || {}).value || 'laser', diff: ($g('hhDiff') || {}).value || 'normal', dur: +(($g('hhDur') || {}).value || 90), ink: !$g('hhInk') || $g('hhInk').checked, scene: ($g('shScene') || {}).value || 'western', ball: ($g('bwBall') || {}).value || 'widow', scr: !$g('bwScr') || $g('bwScr').checked, veh: ($g('rcVeh') || {}).value || 'runner', ddur: +(($g('dkDur') || {}).value || 60), ddiff: ($g('dkDiff') || {}).value || 'normal', hmode: ($g('hpMode') || {}).value || 'ballhop', hdur: +(($g('hpDur') || {}).value || 45) }; }
       function players() { const L2 = PLS.filter(p => p.on).map(p => p.i); return L2.length ? L2 : [act]; }
@@ -8290,7 +8290,7 @@ body.gm-modos #gmUI{display:none!important}
       const BMODO = {};
       function Borr(id, cont) { const nom = id === 'walk' ? 'WONDERWALK' : 'KRAZYGOLF', g = { id, name: nom, score: 0, combo: 0, maxc: 0, hits: 0, shots: 0, t: 0, dur: 0, borr: true };
         let o = document.getElementById('gmBorr'); if (o) o.remove(); o = document.createElement('div'); o.id = 'gmBorr'; o.style.cssText = 'position:fixed;inset:0;z-index:99990;background:#0b0b12';
-        o.innerHTML = '<iframe title="' + nom + '" src="borradores/' + (id === 'walk' ? 'wonderwalk' : 'krazygolf') + '.html?emb=1' + (window.MSGAME_LITE ? '&cal=0' : '') + (cont && BMODO[id] ? '&modo=' + encodeURIComponent(BMODO[id]) : '') + '" style="position:absolute;inset:0;width:100%;height:100%;border:0" allow="autoplay; fullscreen"></iframe><button type="button" aria-label="Salir" style="position:absolute;left:max(8px,env(safe-area-inset-left));top:max(8px,env(safe-area-inset-top));width:40px;height:40px;border-radius:50%;border:2px solid rgba(255,255,255,.7);background:rgba(10,10,18,.72);color:#fff;font:800 18px/1 system-ui,sans-serif;cursor:pointer;z-index:2">✕</button>';
+        o.innerHTML = '<iframe title="' + nom + '" src="borradores/' + (id === 'walk' ? 'wonderwalk' : 'krazygolf') + '.html?emb=1' + (window.MSGAME_LITE ? '&cal=0' : '') + (cont && BMODO[id] ? '&modo=' + encodeURIComponent(BMODO[id]) : id === 'walk' ? '&modo=' + ({ easy: 'facil', hard: 'dificil' }[nivelPartida()] || 'normal') : '')   /* v12.97 · WONDERWALK abre con el nivel del jugador ya marcado */ + '" style="position:absolute;inset:0;width:100%;height:100%;border:0" allow="autoplay; fullscreen"></iframe><button type="button" aria-label="Salir" style="position:absolute;left:max(8px,env(safe-area-inset-left));top:max(8px,env(safe-area-inset-top));width:40px;height:40px;border-radius:50%;border:2px solid rgba(255,255,255,.7);background:rgba(10,10,18,.72);color:#fff;font:800 18px/1 system-ui,sans-serif;cursor:pointer;z-index:2">✕</button>';
         const fr = o.firstChild, manda = m => { try { fr.contentWindow.postMessage(m, location.origin); } catch (e) {} }; let era = '', pau = false, vig = 0;
         const cierra = () => { o.remove(); removeEventListener('message', oye); document.removeEventListener('keydown', tecla, true); }, tecla = e => { if (e.key === 'Escape') { e.stopPropagation(); cierra(); if (G.cur === g) stop(); } };
         const oye = e => { const m = e.data; if (e.source !== fr.contentWindow || !m || typeof m !== 'object') return; if (m.t === 'pts') g.score = Math.max(0, m.v | 0); else if (m.t === 'modo') BMODO[id] = String(m.v).slice(0, 12); else if (m.t === 'fin') { g.score = Math.max(0, m.v | 0); cierra(); if (G.cur === g) end(g); } };

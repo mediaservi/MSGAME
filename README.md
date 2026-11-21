@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.96**
+**Versión actual: v12.97**
 
 ## Cómo se juega
 
@@ -36,14 +36,20 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.96)
+## Cambios de la versión actual (v12.97)
+**WONDERWALK abre con el nivel del jugador** (cierra el reparto del nivel por jugador, paso 2 del plan de MSGAME).
+
+- WONDERWALK ya tenía sus tres niveles en la portada del cuento; ahora llega marcado el del jugador (FÁCIL · MEDIO · DIFÍCIL) y se puede cambiar allí mismo como antes. El botón de nivel aparece en el menú de su cartucho.
+- Con esto el nivel por jugador está en PALOTERAPIA, PUNTERÍA, PATOPESCA, BEAT RACER, BOLERA, BALLHOP, ENCESTA, SHATEKI y WONDERWALK.
+- Sin nivel: GRAFFER y LA FORTUNA (no tienen dificultad) y KRAZYGOLF (en desarrollo; pendiente de decidir qué cambia en cada nivel).
+
+### v12.96
 **El nivel por jugador llega a BALLHOP, ENCESTA y SHATEKI** (paso 2 del plan de MSGAME).
 
 - **BALLHOP**: 11 bolas en FÁCIL, 9 en MEDIO y 7 en DIFÍCIL; el medidor de fuerza va más lento en FÁCIL y más rápido en DIFÍCIL.
 - **ENCESTA**: la meta de cada fase baja un 25 % en FÁCIL y sube un 25 % en DIFÍCIL; el medidor, igual que en BALLHOP.
 - **SHATEKI**: el pulso del rifle tiembla mucho menos en FÁCIL y el doble en DIFÍCIL; por turnos, cada uno dispara con su nivel.
 - El botón de nivel aparece ya en el menú de estos cartuchos.
-- Faltan los borradores WONDERWALK y KRAZYGOLF. GRAFFER y la RULETA no tienen dificultad.
 
 ### v12.95
 **El nivel por jugador llega a BEAT RACER y a la BOLERA** (paso 2 del plan de MSGAME: FÁCIL · MEDIO · DIFÍCIL en todos los juegos).
@@ -1032,7 +1038,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.96 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.97 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
