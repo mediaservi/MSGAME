@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.95**
+**Versión actual: v12.96**
 
 ## Cómo se juega
 
@@ -36,13 +36,21 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.95)
+## Cambios de la versión actual (v12.96)
+**El nivel por jugador llega a BALLHOP, ENCESTA y SHATEKI** (paso 2 del plan de MSGAME).
+
+- **BALLHOP**: 11 bolas en FÁCIL, 9 en MEDIO y 7 en DIFÍCIL; el medidor de fuerza va más lento en FÁCIL y más rápido en DIFÍCIL.
+- **ENCESTA**: la meta de cada fase baja un 25 % en FÁCIL y sube un 25 % en DIFÍCIL; el medidor, igual que en BALLHOP.
+- **SHATEKI**: el pulso del rifle tiembla mucho menos en FÁCIL y el doble en DIFÍCIL; por turnos, cada uno dispara con su nivel.
+- El botón de nivel aparece ya en el menú de estos cartuchos.
+- Faltan los borradores WONDERWALK y KRAZYGOLF. GRAFFER y la RULETA no tienen dificultad.
+
+### v12.95
 **El nivel por jugador llega a BEAT RACER y a la BOLERA** (paso 2 del plan de MSGAME: FÁCIL · MEDIO · DIFÍCIL en todos los juegos).
 
 - **BEAT RACER**: en FÁCIL la pista va más despacio y salen menos bombas, plátanos, conos y patrullas; en DIFÍCIL va más rápida y salen más. MEDIO queda como estaba.
 - **BOLERA**: cada turno se juega al nivel de quien tira. En FÁCIL la pista lleva **barreras** (la bola rebota en vez de irse al canal) y los medidores de fuerza y efecto van más lentos; en DIFÍCIL los medidores van más rápidos. MEDIO queda como estaba.
 - El botón de nivel aparece ya bajo cada jugador en el menú de estos dos cartuchos.
-- Faltan por aplicarlo: BALLHOP, ENCESTA, SHATEKI, y los borradores WONDERWALK y KRAZYGOLF. GRAFFER y la RULETA no tienen dificultad.
 
 ### v12.94
 **Nivel por jugador** (paso 1 del plan de MSGAME, ajustes globales; Josep, 21-11-2026: «uno por jugador»).
@@ -1024,7 +1032,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.95 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.96 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
