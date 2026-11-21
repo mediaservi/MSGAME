@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v12.88**
+**Versión actual: v12.89**
 
 ## Cómo se juega
 
@@ -36,7 +36,15 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v12.88)
+## Cambios de la versión actual (v12.89)
+**Tele con mando de flechas: se juega con el móvil** (paso 1 del plan de MSGAME, entrada).
+
+- En «¿Cómo juegas?», una tele en la que no se ha movido ningún puntero (mando de flechas, como en Android TV) propone ya el **móvil**, con su código QR a la vista; antes proponía el ratón y la partida empezaba sin forma de apuntar. Con un mando con puntero (webOS) o un ratón, en cuanto se mueve vuelve a proponer el ratón, también con el diálogo abierto. Lo que el jugador elija a mano se respeta. En ordenador, tableta y móvil no cambia nada.
+- `MSCAP.puntero()` dice si se ha movido de verdad un puntero.
+- Repasado con solo flechas, OK y Atrás: el inicio ligero, el menú del juego, «¿Cómo juegas?», la guía, la partida y el final se recorren enteros.
+
+### v12.88
+
 **Base técnica y versión ligera, primera parte** (paso 1 del plan de MSGAME, Josep, 21-11-2026).
 
 - **Arranca en teles con navegador antiguo.** La app usaba ocho construcciones modernas (`?.`, `??`) y tres expresiones regulares con `\p{Extended_Pictographic}` que en un Chrome anterior al 80 (webOS de 2021 y anteriores, Android TV sin actualizar) son un error de sintaxis: el navegador descartaba el programa entero y la pantalla se quedaba parada en el arranque. Ahora todo el código es válido en ES2018, y lo que le falta a esos navegadores (`flat`, `flatMap`, `replaceChildren`) se añade al cargar.
@@ -984,7 +992,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v12.88 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v12.89 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 

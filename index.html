@@ -1700,7 +1700,9 @@ body.gm-modos #gmUI{display:none!important}
       C = { tv: tv, mem: mem, cpu: cpu, gl: !!gl, gpu: gpu, maxT: maxT, chrome: cr ? +cr[1] : 0, motivo: m, tactil: tac, puntero: fino };
       return C; }
     /* nivel(): LITE si el aparato es flojo o si la app ha pasado a la carga ligera (pedida con ?lite, por lenta o por tardar) */
-    window.MSCAP = { datos: datos, nivel: function () { return window.MSGAME_LITE || datos().motivo ? 'LITE' : 'FULL'; } };
+    var visto = false;   /* v12.89 · ¿se ha movido de verdad un puntero (ratón o mando con puntero, como el de webOS)? En una tele con mando de flechas, nunca */
+    addEventListener('mousemove', function f(e) { if (e.isTrusted === false || (!e.movementX && !e.movementY)) return; visto = true; removeEventListener('mousemove', f, true); }, true);
+    window.MSCAP = { datos: datos, nivel: function () { return window.MSGAME_LITE || datos().motivo ? 'LITE' : 'FULL'; }, puntero: function () { return visto; } };
     /* si a los 12 s de cargar la página la app no ha arrancado (navegador demasiado antiguo o un error de carga), se dice en pantalla */
     addEventListener('load', function () { setTimeout(function () { var ok = false; try { ok = typeof GAMES !== 'undefined' && typeof I18N !== 'undefined'; } catch (e) {} if (ok || document.getElementById('msNoVa')) return;
       var l = String(navigator.language || 'es').slice(0, 2), T = { es: ['MSGAME no puede arrancar en este aparato', 'Su navegador es demasiado antiguo. Ábrelo en un ordenador, una tableta o un móvil, o conecta uno a esta pantalla.'], ca: ['MSGAME no pot arrencar en aquest aparell', 'El seu navegador és massa antic. Obre’l en un ordinador, una tauleta o un mòbil, o connecta’n un a aquesta pantalla.'], en: ['MSGAME can’t start on this device', 'Its browser is too old. Open it on a computer, a tablet or a phone, or connect one to this screen.'] }[l === 'es' || l === 'ca' ? l : 'en'];
@@ -3743,7 +3745,7 @@ body.gm-modos #gmUI{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '12.88';
+    const APP_VERSION = '12.89';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -5075,7 +5077,7 @@ body.gm-modos #gmUI{display:none!important}
       const modosJ = id => id === 'paint' || id === 'bowl' ? ['raton', 'movil'] : CUERPO_J.includes(id) ? ['raton', 'movil', 'mano', 'cuerpo'] : ['raton', 'movil', 'mano'];
       function modoDe(i, id) { const p = PLS[i]; if (!p) return 'raton'; id = id || (G.cur && G.cur.id) || window.__gmCtx || ''; if (id === 'hoop') id = 'ballhop'; const ok = modosJ(id);
         if (ok.includes(p.modo)) return p.modo; if (p.modo === 'cuerpo' && ok.includes('mano')) return 'mano';
-        if (p.conn && p.conn.open && !p.conn.gesto) return 'movil'; return 'raton'; }   // v12.42 · la cámara solo si la eliges
+        if (p.conn && p.conn.open && !p.conn.gesto) return 'movil'; return MSCAP.datos().tv && !MSCAP.puntero() && !GU_TOUCH ? 'movil' : 'raton'; }   // v12.42 · la cámara solo si la eliges · v12.89 · en una tele con mando de flechas (sin puntero), el móvil: con las flechas no se apunta
       const enJuego = () => G.match ? (G.match.sim ? G.match.ids : [act]) : [act];   // quién mueve ahora: todos a la vez (simultáneo) o el del turno
       const wrap = a => ((a + 540) % 360) - 180;
       function padTarget() { const c = raw.mano ? CAL_MANO : cal, dx = wrap(raw.y - c.yc) / c.ys, dy = (raw.p - c.pc) / c.ps; return [clamp(W / 2 + dx * W / 2, -W * .1, W * 1.1), clamp(H / 2 + dy * H / 2, -H * .1, H * 1.1)]; }
@@ -8007,7 +8009,7 @@ body.gm-modos #gmUI{display:none!important}
             '<div class="mo-acc"><button type="button" class="mo-go">▶ ' + h(TT('Jugar')) + '</button><button type="button" class="mo-x">✕ ' + h(TT('Salir')) + '</button></div><p class="mo-hint">' + h(TT('Enter, OK o el botón del móvil para empezar')) + '</p></div>';
           estado(true); }
         /* lo que pasa con el mando de cada uno, al momento: el móvil enlazado (o su código para enlazarlo), la cámara abriéndose, la mano o el cuerpo a la vista */
-        function estado(forz) { if (el.hidden && !forz) return; const e = gestosEst() || {}, ids = quien(), sim = !!(G.match && G.match.sim);
+        function estado(forz) { if (el.hidden && !forz) return; if (!forz && [].some.call(el.querySelectorAll('.mo-row'), r => { const c = r.querySelector('.mo-op[aria-checked="true"]'); return c && c.dataset.m !== modoDe(+r.dataset.pi, gid); })) { const f = document.activeElement && el.contains(document.activeElement); pinta(); if (f) { const b = el.querySelector('.mo-op[aria-checked="true"]'); if (b) b.focus({ preventScroll: true }); } return; }   /* v12.89 */ const e = gestosEst() || {}, ids = quien(), sim = !!(G.match && G.match.sim);
           el.querySelectorAll('.mo-row').forEach(r => { const i = +r.dataset.pi, p = PLS[i], m = modoDe(i, gid), st = r.querySelector('.mo-st'), qr = r.querySelector('.mo-qr'); let t = '', q = false;
             if (m === 'raton') t = TT(GU_TOUCH ? 'Con el dedo en la pantalla' : 'Con el ratón y el teclado');
             else if (m === 'movil') { if (p.conn && p.conn.open && !p.conn.gesto) t = '✓ ' + TT('Móvil enlazado'); else { t = TT('Escanea el código con tu móvil'); q = true; } }
