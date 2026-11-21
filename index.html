@@ -3749,7 +3749,7 @@ body.gm-modos #gmUI{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '12.90';
+    const APP_VERSION = '12.91';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -8453,8 +8453,11 @@ body.gm-modos #gmUI{display:none!important}
               if (window.QRCode) g.querySelectorAll('.mobp:not(.ok) .mobq').forEach(b => { try { qrLogo(b, padURL() + '&pl=' + (+b.dataset.pi + 1), 240); } catch (e) {} });
               CRT.mobFit(); clearTimeout(CRT.mobT); if (L.length && L.every(con)) CRT.mobT = setTimeout(() => { if (CRT.cur && CRT.cur.dataset.gview === 'padpl') crtBack(); }, 1800); },
             plSync() { const c = CRT.cur; if (!c) return; gsSync(); const pw = c.querySelector('.crt-pl'); if (!pw) return; const gm = $g('gmMode'), MS2 = [['auto', 'Auto'], ['solo', '1 jugador'], ['turns', 'Por turnos'], ['sim', 'Simultáneo']];
+              /* v12.91 · al repintar los botones se perdía el foco (con el mando de la tele había que pulsar otra flecha para recuperarlo): se devuelve al mismo botón */
+              const fa = document.activeElement, fk = fa && pw.contains(fa) ? ['pi', 'snd', 'pm'].map(k => fa.dataset[k] !== undefined ? '[data-' + k + '="' + fa.dataset[k] + '"]' : '').join('') : '', ftv = !!(fk && fa.classList.contains('tv-focused'));
               pw.querySelector('.pl-g').innerHTML = PLS.map(p => `<button class="plc tgl tv-focusable${p.on ? ' on' : ''}" data-pi="${p.i}" style="--pc:${p.c};--mswc:${p.c}" aria-pressed="${p.on}"><i class="tsw" aria-hidden="true"></i><i></i><b data-noi18n>${esc(p.n)}</b>${modoChip(p, c.dataset.cart)}<span>${p.i + 1}P</span></button>`).join('');
-              pw.querySelector('.pl-m').innerHTML = `<button class="plm snd tgl${$g('gmMusic').checked ? ' on' : ''}" data-snd="gmMusic" aria-pressed="${$g('gmMusic').checked}"><i class="tsw" aria-hidden="true"></i><b>♪</b> ${esc(TT('Música'))}</button><button class="plm snd tgl${$g('gmSfx').checked ? ' on' : ''}" data-snd="gmSfx" aria-pressed="${$g('gmSfx').checked}"><i class="tsw" aria-hidden="true"></i><b>${$g('gmSfx').checked ? '🔊' : '🔇'}</b> ${esc(TT('Sonidos'))}</button><i class="pl-sp"></i>` + MS2.filter(([v]) => v !== 'sim' || ['shoot', 'paint'].includes(c.dataset.cart)).map(([v, t]) => `<button class="plm tv-focusable${gm && gm.value === v ? ' on' : ''}" data-pm="${v}">${esc(TT(t))}</button>`).join(''); },
+              pw.querySelector('.pl-m').innerHTML = `<button class="plm snd tgl${$g('gmMusic').checked ? ' on' : ''}" data-snd="gmMusic" aria-pressed="${$g('gmMusic').checked}"><i class="tsw" aria-hidden="true"></i><b>♪</b> ${esc(TT('Música'))}</button><button class="plm snd tgl${$g('gmSfx').checked ? ' on' : ''}" data-snd="gmSfx" aria-pressed="${$g('gmSfx').checked}"><i class="tsw" aria-hidden="true"></i><b>${$g('gmSfx').checked ? '🔊' : '🔇'}</b> ${esc(TT('Sonidos'))}</button><i class="pl-sp"></i>` + MS2.filter(([v]) => v !== 'sim' || ['shoot', 'paint'].includes(c.dataset.cart)).map(([v, t]) => `<button class="plm tv-focusable${gm && gm.value === v ? ' on' : ''}" data-pm="${v}">${esc(TT(t))}</button>`).join('');
+              if (fk) { const nb = pw.querySelector(fk); if (nb) { try { nb.focus({ preventScroll: true }); } catch (e) { nb.focus(); } if (ftv) nb.classList.add('tv-focused'); } } },
             fix(card) {   // v9.1 · variante fijada desde la estantería: se oculta su selector y su tarjeta pasa a la cabecera, con el fondo de ese juego
               const lb = card.querySelector('.cart-label'); if (!lb || !card.classList.contains('cart')) return; const f = window.__gmFix; card.querySelectorAll('.crt-var.fixd').forEach(w => w.classList.remove('fixd')); let chip = lb.querySelector('.cv-chip');
               if (lb.dataset.bg0 === undefined) lb.dataset.bg0 = lb.style.backgroundImage || '';
