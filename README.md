@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v13.1**
+**Versión actual: v13.2**
 
 ## Cómo se juega
 
@@ -36,7 +36,15 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v13.1)
+## Cambios de la versión actual (v13.2)
+**Juego anunciado: EL MISTERIO DE EK CHUAH** (Josep, 21-11-2026).
+
+- Nueva carátula en la estantería y en la portada ligera, con el cartel del juego (`juegos/ekchuah.webp`) y la cinta **PRÓXIMO ESTRENO**. Ocupa el hueco donde se repetía PUNTERÍA · WESTERN.
+- Todavía no se juega: al elegirla, la caja da un salto, el monitor dice PRÓXIMO ESTRENO y el rótulo luminoso pone el título. En español, inglés y catalán («Coming soon», «Pròxima estrena»).
+- El juego será una aventura en primera persona por las ruinas mayas de Copán, con narrativa ramificada.
+- **Arreglo**: el interruptor POWER de la consola basculaba al revés (encendida, se hundía el lado de OFF); ahora, encendida, queda hundido ON.
+
+### v13.1
 **Menú del cartucho en dos pasos, cartucho nuevo y consola retocada** (Josep, 21-11-2026).
 
 - **Menú en dos pasos**: primero «1 Jugadores» (quién juega, su nivel y el modo) y después «2 Opciones» (las del juego), cada paso a pantalla completa y con la letra lo más grande que cabe, sin desplazar ni paginar. JUGAR se llama SIGUIENTE en el primer paso; VOLVER y la tecla atrás regresan del segundo al primero; RESTABLECER en el primer paso pone los niveles en MEDIO y el modo en Auto. Los cartuchos sin opciones siguen en un solo paso.
@@ -1067,7 +1075,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v13.1 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v13.2 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
