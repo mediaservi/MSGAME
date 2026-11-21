@@ -3,18 +3,20 @@ const CACHE = 'msgame-feria-v1';
 const CDN = /(^|\.)(fonts\.googleapis\.com|fonts\.gstatic\.com|unpkg\.com|cdnjs\.cloudflare\.com)$/;
 self.addEventListener('install', () => self.skipWaiting());
 self.addEventListener('activate', e => e.waitUntil(self.clients.claim()));
+/* v12.87 · sin caché: lo de la propia app se pide al servidor revalidando, sin pasar por la copia del navegador */
+const SIN = { cache: 'no-cache', credentials: 'same-origin' };
 const put = (req, res) => caches.open(CACHE).then(c => c.put(req, res)).catch(() => {});
 self.addEventListener('fetch', e => {
   const r = e.request; if (r.method !== 'GET') return;
   const u = new URL(r.url), same = u.origin === self.location.origin;
   if (!same && !CDN.test(u.hostname)) return;   // vídeos en línea, traducción y señalización del móvil: siempre por red
   if (same && (r.mode === 'navigate' || /\/$|\.html$/.test(u.pathname))) {   // la app: primero la red (para recibir actualizaciones) y, sin conexión, la copia guardada
-    e.respondWith(fetch(r).then(res => { if (res.ok) put(r, res.clone()); return res; })
+    e.respondWith(fetch(r.url, SIN).then(res => { if (res.ok) put(r, res.clone()); return res; })   // v12.87 · sin caché del navegador
       .catch(() => caches.match(r, { ignoreSearch: true }).then(m => m || caches.match(new URL('./', self.registration.scope).href)).then(m => m || caches.match(new URL('index.html', self.registration.scope).href))));
     return;
   }
   // resto: la copia guardada al instante y se actualiza en segundo plano
-  e.respondWith(caches.match(r).then(m => { const net = fetch(r).then(res => { if (res && (res.ok || res.type === 'opaque')) put(r, res.clone()); return res; }); if (m) { net.catch(() => {}); return m; } return net; }));
+  e.respondWith(caches.match(r).then(m => { const net = (same ? fetch(r.url, SIN) : fetch(r)).then(res => { if (res && (res.ok || res.type === 'opaque')) put(r, res.clone()); return res; }); if (m) { net.catch(() => {}); return m; } return net; }));
 });
 self.addEventListener('message', e => {
   const d = e.data || {}, port = e.ports && e.ports[0]; if (d.t !== 'pre' || !Array.isArray(d.urls)) return;
