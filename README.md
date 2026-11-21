@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v13.2**
+**Versión actual: v13.3**
 
 ## Cómo se juega
 
@@ -36,7 +36,13 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v13.2)
+## Cambios de la versión actual (v13.3)
+**El menú del cartucho ya no tiembla** (Josep, 21-11-2026).
+
+- El bloque de jugadores daba un salto, como un temblor, cada vez que el menú reajustaba su tamaño (al abrirlo, al cambiar un nivel o un jugador, al cargar las letras…): al cambiar el zoom, los botones animaban durante una décima de segundo el grosor de su borde y la posición de sus interruptores. Ahora, mientras se mide y se ajusta, las transiciones quedan anuladas, también en la botonera de abajo.
+- Repasados los 22 cartuchos en los 6 formatos, en los dos pasos: tras cada acción ya no se mueve nada por su cuenta (solo lo que debe: el interruptor que se pulsa y la flecha de «hay más»).
+
+### v13.2
 **Juego anunciado: EL MISTERIO DE EK CHUAH** (Josep, 21-11-2026).
 
 - Nueva carátula en la estantería y en la portada ligera, con el cartel del juego (`juegos/ekchuah.webp`) y la cinta **PRÓXIMO ESTRENO**. Ocupa el hueco donde se repetía PUNTERÍA · WESTERN.
@@ -1075,7 +1081,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v13.2 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v13.3 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
