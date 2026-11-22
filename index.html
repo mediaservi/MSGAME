@@ -3790,7 +3790,7 @@ body.gm-modos #gmUI{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '16.7';
+    const APP_VERSION = '16.8';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -9303,6 +9303,10 @@ body.gm-modos #gmUI{display:none!important}
         function tramado(x, col, a, paso) { x.save(); x.fillStyle = col; x.globalAlpha = a; for (let y = TOP; y < H; y += paso) for (let q = (Math.round(y / paso) % 2) * paso / 2; q < W; q += paso) { const r = paso * .34 * (y - TOP) / (H - TOP); x.beginPath(); x.arc(q, y, r, 0, TAU); x.fill(); } x.restore(); }
         function rayos(x, X, Y, c1, c2, n) { x.save(); x.fillStyle = c1; x.fillRect(0, TOP, W, H - TOP); x.fillStyle = c2; for (let i = 0; i < n; i += 2) { x.beginPath(); x.moveTo(X, Y); x.arc(X, Y, 900, i / n * TAU, (i + 1) / n * TAU); x.fill(); } const g = x.createRadialGradient(X, Y, 20, X, Y, 420); g.addColorStop(0, 'rgba(255,255,255,.5)'); g.addColorStop(1, 'rgba(0,0,0,.35)'); x.fillStyle = g; x.fillRect(0, TOP, W, H - TOP); x.restore(); }
         const oscuro = (x, y0, a) => { const g = x.createLinearGradient(0, y0, 0, H); g.addColorStop(0, 'rgba(10,4,24,0)'); g.addColorStop(1, `rgba(10,4,24,${a})`); x.fillStyle = g; x.fillRect(0, y0, W, H - y0); };
+        /* v16.8 · los carteles de Josep que traen el título pintado (DIANA y EK CHUAH) se leían mal en pequeño: encima va el rótulo oficial, con filete blanco, contorno oscuro y volumen 3D, en el mismo sitio y tamaño */
+        const TSOLO = { diana: [['DIANA', .5, .728, .86, 200]], ekchuah: [['EL MISTERIO DE', .5, .118, .62, 70], ['EK CHUAH', .5, .232, .84, 140]] };
+        function rotSolo(x, c, art) { const L = TSOLO[c.g]; if (!L) return; const ah = H - TOP, k = Math.max(W / art.width, ah / art.height), dw = art.width * k, dh = art.height * k, X0 = (W - dw) / 2, Y0 = TOP + (ah - dh) / 2, g = c.g, kk = KO[g] || '#1a0a00';
+          L.forEach(([t, u, v, mw, s], i) => logo(x, t, X0 + u * dw, Y0 + v * dh, { f: F[g][0], s, mw: W * mw, c: i === L.length - 1 ? GR[g] : ['#ffffff', '#fff6d0', '#ffe07a', '#ffb020'], k: kk, fil: '#fff', vol: kk, volN: .08, kw: .14, filK: .07 })); }
         function vivo(x, art) { const ah = H - TOP, k = Math.max(W / art.width, ah / art.height), dw = art.width * k, dh = art.height * k, X = (W - dw) / 2, Y = TOP + (ah - dh) / 2, D = () => x.drawImage(art, X, Y, dw, dh);
           const [b, q] = mk(48, 70); q.drawImage(art, 0, 0, 48, 70); let kS = 1; try { const d = q.getImageData(0, 0, 48, 70).data; let L = 0; for (let i = 0; i < d.length; i += 16) L += d[i] * .3 + d[i + 1] * .59 + d[i + 2] * .11; L /= (d.length / 16) * 255; kS = Math.max(.3, Math.min(1, (.6 - L) / .3)); } catch (e) {}   // las fotos ya claras se aclaran menos
           D(); x.save(); x.globalCompositeOperation = 'screen'; x.globalAlpha = .42 * kS; D();                             // levanta las sombras
@@ -9575,7 +9579,7 @@ body.gm-modos #gmUI{display:none!important}
             const P = CanvasRenderingContext2D.prototype; ['shadowBlur', 'shadowOffsetX', 'shadowOffsetY'].forEach(k => { const d = Object.getOwnPropertyDescriptor(P, k); Object.defineProperty(x, k, { set: v => d.set.call(x, v * K), get: () => d.get.call(x) / K }); });
             const f = Object.getOwnPropertyDescriptor(P, 'filter'); if (f) Object.defineProperty(x, 'filter', { set: v => f.set.call(x, String(v).replace(/(-?[\d.]+)px/g, (m, n) => n * K + 'px')), get: () => f.get.call(x) });
             x.scale(K, K); } x.fillStyle = '#140a26'; x.fillRect(0, 0, W, H); x.save(); x.beginPath(); x.rect(0, TOP, W, H - TOP); x.clip();
-          if (c.img && R.art) { if (c.solo) vivo(x, R.art); else fondoFoto(x, R.art, vf, c); } else if (ESC[c.g]) { try { ESC[c.g](x, vf, R, c); } catch (e) { console.error(e); } } x.restore();
+          if (c.img && R.art) { if (c.solo) { vivo(x, R.art); rotSolo(x, c, R.art); } else fondoFoto(x, R.art, vf, c); } else if (ESC[c.g]) { try { ESC[c.g](x, vf, R, c); } catch (e) { console.error(e); } } x.restore();
           if (R && R.fondo) return cv;   /* v13.1 · solo el fondo de la carátula (sin cabecera, rótulo ni pie): para la etiqueta del cartucho y la cabecera del menú, que llevan el rótulo encima */
           if (vt === 'J' && R.figs && R.figs[c.val]) { const im = R.figs[c.val], S = c.val === 'dirty' ? 300 : 262, Y = c.val === 'dirty' ? TOP + 262 : TOP + 250; x.save(); x.beginPath(); x.rect(0, TOP + 7, W, H - TOP - 7); x.clip(); x.shadowColor = c.val === 'dirty' ? 'rgba(255,200,120,.75)' : 'rgba(59,243,255,.85)'; x.shadowBlur = 22; x.drawImage(im, W / 2 - S / 2, Y - S, S, S); x.shadowBlur = 0; x.drawImage(im, W / 2 - S / 2, Y - S, S, S); x.restore(); }
           x.save(); x.beginPath(); x.rect(0, TOP + 7, W, H - TOP - 7); x.clip();
