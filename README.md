@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v15.2**
+**Versión actual: v15.3**
 
 ## Cómo se juega
 
@@ -36,7 +36,14 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v15.2)
+## Cambios de la versión actual (v15.3)
+**PUNTERÍA con las tres ideas aprobadas en su ficha.**
+
+- Diana de precisión: acertar en el centro del blanco vale el doble («¡DIANA!»).
+- Escopeta de bonus: cada 10 aciertos seguidos, tres disparos que abren en abanico y se llevan hasta tres blancos de golpe (se ve «ESCOPETA ×3» junto a las balas).
+- Jefe final en los últimos 25 s de cada escenario, con su barra de vida (6 / 8 / 12 impactos según el nivel) y +500 al abatirlo: el sheriff (WESTERN), la nave nodriza (GALAXY), el zombi gigante (ZOMBIELAND), el gran fantasma (HAUNTED), el oso (ALPINE) y el helicóptero (WARFRONT). De momento se dibujan con su emoji grande; se cambian por su modelo 3D cuando lo haya.
+
+### v15.2
 - Carátula-enlace de AVHUB nueva: la portada de avhub.mediaservi.com con su logo y el rack de las apps apilado, sin el contador, y sin título pintado encima (como la de mediaservi).
 
 ### v15.1
@@ -1203,7 +1210,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v15.2 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v15.3 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
