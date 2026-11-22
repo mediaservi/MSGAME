@@ -3867,7 +3867,7 @@ body.gm-modos #gmUI{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '18.2';
+    const APP_VERSION = '18.3';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -10310,8 +10310,13 @@ body.gm-modos #gmUI{display:none!important}
         lid.position.set(-w / 2, 0, CASE.HZ); g.add(lid); inkm(rbox(w, h, .018, .005), M.black, w / 2, 0, .009, lid); plane(w - .004, h - .004, MAT.cover[c.i], w / 2, 0, .0186, lid);
         const man = plane(w - .03, h - .03, toon({ map: ctex(manualCanvas(c)), ht: .6 }), w / 2, 0, -.0006, lid); man.rotation.y = Math.PI;
         CASE.CP = new T.Vector3(0, -.02, -.0035); const cart = cartMesh(c); cart.position.copy(CASE.CP); cart.scale.setScalar(CASE.CS); g.add(cart); CASE.cart = cart;
-        { g.updateMatrixWorld(true); const bb = new T.Box3().setFromObject(cart), ch = bb.max.y - bb.min.y, cw = bb.max.x - bb.min.x, hy = ch * .3, yc = bb.max.y - ch * .36, zc = -.0105 + .0045;   /* v18.2 · las pinzas abrazan la parte ancha del cartucho (no el conector, que es más estrecho) */   /* v18.1 · el soporte de dentro se mide con el cartucho de verdad (el de Meshy): dos pinzas a sus lados y un tope debajo */
-          [-1, 1].forEach(s => { inkm(new T.BoxGeometry(.008, hy, .009), M.black, s > 0 ? bb.max.x + .0036 : bb.min.x - .0036, yc, zc, g); inkm(new T.BoxGeometry(.0045, hy * .8, .0025), M.black, s > 0 ? bb.max.x - .0006 : bb.min.x + .0006, yc, zc + .0052, g); }); inkm(new T.BoxGeometry(cw * .62, .007, .009), M.black, (bb.min.x + bb.max.x) / 2, bb.min.y - .0037, zc, g); }
+        { g.updateMatrixWorld(true); const bb = new T.Box3().setFromObject(cart), cw = bb.max.x - bb.min.x, ch = bb.max.y - bb.min.y, mx = (bb.min.x + bb.max.x) / 2, z0 = -.0128, zf = bb.max.z, pl = toon({ color: 0x1c1a22, spec: .7, shin: 40, rim: .25 });   /* v18.3 · diseño de Josep: un «bolsillo» de plástico que tapa y protege los pines de la placa, y dos puntos de anclaje que encajan en las muescas de los laterales del cartucho */
+          const yb = bb.min.y, cy = yb + ch * .2 / 2 + .0012, pw = cw * .6 + .008, ph = ch * .2 + .0045, dz = zf - z0 + .0025, zc = (z0 + zf + .0025) / 2;
+          inkm(new T.BoxGeometry(pw, .003, dz), pl, mx, yb - .0015, zc, g); [-1, 1].forEach(s => inkm(new T.BoxGeometry(.003, ph, dz), pl, mx + s * (pw / 2 - .0015), yb + ph / 2 - .003, zc, g));
+          const fr = inkm(rbox(pw, ph - .003, .0022, .0012), pl, mx, yb + (ph - .003) / 2 - .0015, zf + .0021, g);   /* la tapa delantera del bolsillo: cubre los pines */
+          [-.25, 0, .25].forEach(k => inkm(new T.BoxGeometry(pw * .5, .0007, .0006), toon({ color: 0x34313d }), mx, yb + ph * (.45 + k * .5), zf + .0034, g));   /* estrías para el dedo */
+          const ny = yb + ch * .63;   /* la muesca de los laterales del cartucho */
+          [-1, 1].forEach(s => { const xe = s > 0 ? bb.max.x : bb.min.x; inkm(new T.BoxGeometry(.006, .011, zf - z0 + .002), pl, xe + s * .0032, ny, (z0 + zf + .002) / 2, g); const n = inkm(new T.CylinderGeometry(.0017, .0017, .0055, 12), pl, xe - s * .0005, ny, (zf + bb.min.z) / 2, g); n.rotation.z = Math.PI / 2; }); }   /* los anclajes: un taco a cada lado con su espiga, que entra en la muesca */
         shadowsOn(g); S.add(g); return g; }
 
       /* v12.44 · BITCLAUD: la «cinta» de Claude, una carátula con su monitor sonriente (el mismo del Memo AVHUB), tumbada en la mesa detrás del walkman */
