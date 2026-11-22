@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.7**
+**Versión actual: v18.8**
 
 ## Cómo se juega
 
@@ -37,7 +37,10 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 - **DIANA** *(en desarrollo)*: hachas y arco, dardos, el barreño de feria, tartazos y bomberos: cinco formas de acertar al centro.
 
-## Cambios de la versión actual (v18.7)
+## Cambios de la versión actual (v18.8)
+- DIANA · AL BARREÑO: la familia de Josep en versión juguete (Josep, Sonia, Héctor, Jaume y Roser), animada con Mixamo, pasea por la plaza de la feria: camina hasta los puestos, el tiovivo o las casas, se para a mirar alrededor y sigue. Tamaño según la profundidad, sombra en el suelo y un toque de luz de atardecer; quedan detrás del barreño. Héctor lleva en la camiseta la carita de mediaservi en gris.
+
+### v18.7
 - Edades recomendadas: cada cartucho lleva en su etiqueta un sello propio (+3, +7, +12 o +18; no es el de PEGI) y el aviso legal de MSGAME (y `LEGAL.md`) añade las edades de cada juego, que los menores juegan con la supervisión de un adulto, que no hay compras ni cajas de recompensa, que LA FORTUNA es +18 y sus premios dependen del organizador, y que nombres, récords y cámara no salen del dispositivo.
 - La palabra «publicidad» desaparece de toda la app y de los documentos: el apartado de AJUSTES y su título son «AVISOS EN LAS PANTALLAS», y el aviso legal ya no la nombra (MSGAME no tiene ingresos de ningún tipo).
 - AJUSTES · SONIDO: la música de los menús (y la radio TRONIK FM) tiene su propio interruptor, separado del de teclas, clics y efectos; los dos se recuerdan y RESTABLECER los vuelve a encender.
@@ -1354,7 +1357,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v18.7 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v18.8 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 

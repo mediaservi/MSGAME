@@ -188,7 +188,16 @@ function impacto(p) { const md = E.modo, M = MODOS[md]; p.hecho = true;
 
 /* ---------- bucle ---------- */
 let t0 = performance.now();
-function tick(now) { requestAnimationFrame(tick); const dt = Math.min(.05, (now - t0) / 1000); t0 = now; if (!E.pausa) actualiza(dt); dibuja(); }
+/* ---------- la familia de Josep (cartoon, animados en Mixamo) paseando por la feria y mirando los puestos: capa de relleno del barreño ---------- */
+const FAM = [['josep', 104, 1], ['sonia', 103, .95], ['hector', 94, 1], ['jaume', 112, .93], ['roser', 107, .86]].map(([n, w, k], i) => ({ n, w, k, im: img('../juegos/diana/fam-' + n + '.webp'), u: [.1, .3, .62, .9, .2][i], v: [.79, .74, .7, .77, .7][i], dir: i % 2 ? 1 : -1, m: i % 2 ? 'look' : 'walk', t: R(1, 5), f: R(0, 12), tu: 0, tv: 0 }));
+const FAM_PTO = [[.08, .8], [.2, .79], [.3, .75], [.37, .71], [.58, .69], [.7, .7], [.86, .78], [.95, .8], [.46, .68]];   // delante de los puestos, del tiovivo y de las casas
+function famMeta(p) { const q = FAM_PTO[Math.floor(Math.random() * FAM_PTO.length)]; p.tu = q[0] + R(-.02, .02); p.tv = q[1] + R(-.01, .01); p.m = 'walk'; }
+function famTick(dt) { FAM.forEach(p => { if (p.m === 'look') { p.f += dt * 3.2; p.t -= dt; if (p.t <= 0) famMeta(p); return; }
+    if (!p.tu) famMeta(p); const du = p.tu - p.u, dv = p.tv - p.v, d = Math.hypot(du, dv * 2.2), sp = .028 * (.6 + (p.v - .66) * 3);
+    if (d < .006) { p.m = 'look'; p.t = R(4, 9); p.f = 0; return; } p.u += du / d * sp * dt; p.v += dv / d * sp * dt / 2.2; p.dir = du > 0 ? 1 : -1; p.f += dt * 11; }); }
+function famDibuja() { FAM.slice().sort((a, b) => a.v - b.v).forEach(p => { const im = p.im; if (!im.complete || !im.naturalWidth) return; const [X, Y] = P(p.u, p.v), h = PS((.045 + (p.v - .68) * .8) * p.k), w = h * p.w / 180, wk = p.m === 'walk', fi = wk ? Math.floor(p.f) % 12 : 12 + Math.floor(p.f) % 16;
+    x.save(); x.fillStyle = 'rgba(40,20,10,.28)'; x.beginPath(); x.ellipse(X, Y, w * .32, h * .045, 0, 0, TAU); x.fill(); x.translate(X, Y); if (wk && p.dir > 0) x.scale(-1, 1); x.filter = 'saturate(.9) brightness(.92) sepia(.12)'; x.drawImage(im, fi * p.w, 0, p.w, 180, -w / 2, -h * .985, w, h); x.restore(); }); }   /* un pelín de tono de atardecer para que encajen con el fondo */
+function tick(now) { requestAnimationFrame(tick); const dt = Math.min(.05, (now - t0) / 1000); t0 = now; if (!E.pausa) { actualiza(dt); if (E.modo === 'barreno') famTick(dt); } dibuja(); }
 function actualiza(dt) { E.t += dt; E.cool = Math.max(0, E.cool - dt); const md = E.modo, M = MODOS[md];
   if (E.fase === 'juego') {
     E.tiros.forEach(p => { p.k += dt / p.d; if (p.ave && !p.hecho && p.k >= .62) { p.hecho = true; p.k = 9; const k = .62, X = p.x0 + (p.x1 - p.x0) * k, Y = p.y0 + (p.y1 - p.y0) * k - Math.sin(k * Math.PI) * H * .18, dir = Math.random() < .5 ? 1 : -1; E.ave = { t: 0, X, Y, dir }; SND.ave(); pop(T('ave'), X, Y - PS(.06), '#ffd23f', 1.2); manda({ t: 'pts', v: E.pts }); if (MODOS.barreno.n && E.n >= MODOS.barreno.n) setTimeout(termina, 1500); return; } if (p.k >= 1 && !p.hecho) impacto(p); }); E.tiros = E.tiros.filter(p => p.k < 1.05);
@@ -226,7 +235,7 @@ function dibuja() { x.clearRect(0, 0, W, H); const md = E.modo || 'hachas', M = 
   if (bg.complete && bg.naturalWidth) { const c = cover(); x.drawImage(bg, c.ox, c.oy, IW * c.k, IH * c.k); }
   if (E.fase === 'ini') return;
   if (md === 'hachas' || md === 'dardos' || md === 'barreno') { const [cx, cy] = P(M.tg[0], M.tg[1]), r = PS(M.tg[2]);
-    if (md === 'barreno') { escena('atras'); poste(cx, cy, r); }
+    if (md === 'barreno') { famDibuja(); escena('atras'); poste(cx, cy, r); }
     diana(cx, cy, r, md); (E.clavados || []).forEach(c => proyectil(c.tipo, cx + c.X * r, cy + c.Y * r + (c.tipo === 'dardo' ? r * .12 : r * .18), r * (c.tipo === 'dardo' ? .45 : .8), c.rot));
     if (md === 'hachas') { const vx = W * .08, vy = H * .2; x.save(); x.fillStyle = 'rgba(0,0,0,.45)'; x.fillRect(vx - PS(.05), vy - PS(.03), PS(.1), PS(.06)); x.fillStyle = '#fff'; x.font = `${PS(.016)}px BSC`; x.textAlign = 'center'; x.fillText(T('viento') + ' ' + (E.viento > 0 ? '→' : '←').repeat(1 + Math.round(Math.abs(E.viento) * 2)), vx, vy + PS(.006)); x.restore(); }
     if (md === 'barreno') { asiento(); sentada(); escena('delante'); aveDibuja(); choffDibuja(); }
