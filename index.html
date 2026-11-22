@@ -3867,7 +3867,7 @@ body.gm-modos #gmUI{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '18.3';
+    const APP_VERSION = '18.4';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -10315,8 +10315,10 @@ body.gm-modos #gmUI{display:none!important}
           inkm(new T.BoxGeometry(pw, .003, dz), pl, mx, yb - .0015, zc, g); [-1, 1].forEach(s => inkm(new T.BoxGeometry(.003, ph, dz), pl, mx + s * (pw / 2 - .0015), yb + ph / 2 - .003, zc, g));
           const fr = inkm(rbox(pw, ph - .003, .0022, .0012), pl, mx, yb + (ph - .003) / 2 - .0015, zf + .0021, g);   /* la tapa delantera del bolsillo: cubre los pines */
           [-.25, 0, .25].forEach(k => inkm(new T.BoxGeometry(pw * .5, .0007, .0006), toon({ color: 0x34313d }), mx, yb + ph * (.45 + k * .5), zf + .0034, g));   /* estrías para el dedo */
-          const ny = yb + ch * .63;   /* la muesca de los laterales del cartucho */
-          [-1, 1].forEach(s => { const xe = s > 0 ? bb.max.x : bb.min.x; inkm(new T.BoxGeometry(.006, .011, zf - z0 + .002), pl, xe + s * .0032, ny, (z0 + zf + .002) / 2, g); const n = inkm(new T.CylinderGeometry(.0017, .0017, .0055, 12), pl, xe - s * .0005, ny, (zf + bb.min.z) / 2, g); n.rotation.z = Math.PI / 2; }); }   /* los anclajes: un taco a cada lado con su espiga, que entra en la muesca */
+          const ny = yb + ch * .625;   /* v18.3 · anclajes: un triángulo de punta redondeada a cada lado, cuyo vértice entra en la muesca alta del cartucho */
+          [-1, 1].forEach(s => { const xe = s > 0 ? bb.max.x : bb.min.x, bw2 = .0068, hh2 = .0062, r = .0011, sh = new T.Shape(); sh.moveTo(0, -hh2); sh.lineTo(bw2 - r * 1.6, -r * .9); sh.quadraticCurveTo(bw2, 0, bw2 - r * 1.6, r * .9); sh.lineTo(0, hh2); sh.closePath();
+            const d = zf - z0 + .0015, geo = new T.ExtrudeGeometry(sh, { depth: d - .001, bevelEnabled: true, bevelThickness: .0005, bevelSize: .0005, bevelSegments: 2, curveSegments: 8 }); geo.translate(0, 0, -(d - .001) / 2); geo.computeVertexNormals();
+            const m = inkm(geo, pl, xe + s * (bw2 - .0024), ny, (z0 + zf + .0015) / 2, g); if (s > 0) m.rotation.z = Math.PI; }); }   /* el triángulo apunta hacia dentro y su vértice bloquea el hueco */
         shadowsOn(g); S.add(g); return g; }
 
       /* v12.44 · BITCLAUD: la «cinta» de Claude, una carátula con su monitor sonriente (el mismo del Memo AVHUB), tumbada en la mesa detrás del walkman */

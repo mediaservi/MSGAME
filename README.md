@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.3**
+**Versión actual: v18.4**
 
 ## Cómo se juega
 
@@ -37,7 +37,10 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 - **DIANA** *(en desarrollo)*: hachas y arco, dardos, el barreño de feria, tartazos y bomberos: cinco formas de acertar al centro.
 
-## Cambios de la versión actual (v18.3)
+## Cambios de la versión actual (v18.4)
+- Caja del cartucho: los anclajes laterales son un triángulo de punta redondeada a cada lado, cuyo vértice entra y bloquea la muesca alta del cartucho.
+
+### v18.3
 - Caja del cartucho, con el diseño de Josep: un bolsillo de plástico abajo que tapa y protege los pines de la placa (con estrías para el dedo) y, a los lados, dos anclajes con espiga que encajan en las muescas del cartucho.
 - DIANA · AL BARREÑO: fondo nuevo de Josep (la plaza vacía al atardecer) y el escenario dibujado encima: caseta de madera con su cartel y banderolas, asiento, tonel en dos capas con aros de hierro (Bonifacio cae dentro, tapado por el borde) y agua que se mueve y se agita al caer; la diana en su poste con el cable del asiento. El ave provisional es un águila (ya no la paloma).
 
@@ -1340,7 +1343,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v18.3 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v18.4 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
