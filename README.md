@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.10**
+**Versión actual: v18.11**
 
 ## Cómo se juega
 
@@ -37,7 +37,11 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 - **DIANA** *(en desarrollo)*: hachas y arco, dardos, el barreño de feria, tartazos y bomberos: cinco formas de acertar al centro.
 
-## Cambios de la versión actual (v18.10)
+## Cambios de la versión actual (v18.11)
+- DIANA · AL BARREÑO: Bonifacio es ahora el modelo 3D de verdad (three.js con su esqueleto de Mixamo, `juegos/diana/bonifacio.glb`): animaciones fluidas a la velocidad de la pantalla con fundidos (charla, aplauso burlón cada rato y caída), luz de golden hour, y al acertar cae de espaldas con gravedad dentro del agua y luego vuelve a subir al asiento. Si el 3D no carga, sale la imagen de antes.
+- La familia pisa solo por las dos zonas de suelo que marcó Josep (`diana-fondo-sunk-path.jpg`): delante de los puestos de la izquierda y entre el tiovivo y los puestos de la derecha, sin salirse al caminar, con el tamaño ajustado a la profundidad.
+
+### v18.10
 - DIANA · AL BARREÑO: Bonifacio ya no es una pegatina recortada: es el personaje 3D entero animado con Mixamo, sentado charlando (con fundido entre gestos), aplaudiendo burlón cada rato y cayendo de espaldas al agua cuando aciertas; con la misma luz de atardecer.
 - La familia ya no camina hacia atrás: mira siempre hacia donde va.
 - Para abrir directamente un modo: `borradores/diana.html?juega=barreno` (también hachas, dardos, tartazos y bomberos).
@@ -1365,7 +1369,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v18.10 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v18.11 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
