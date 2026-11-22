@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v14.1**
+**Versión actual: v14.2**
 
 ## Cómo se juega
 
@@ -36,7 +36,16 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v14.1)
+## Cambios de la versión actual (v14.2)
+**EL MISTERIO DE EK CHUAH ya se juega** (guion y material de Josep, 22-11-2026).
+
+- Aventura de vídeo interactivo para toda la familia, en su propio cartucho (`borradores/ekchuah.html`, vídeos e imágenes en `juegos/ekchuah/`): inicio ante el templo con el logotipo, elección de guía (el explorador o la exploradora), entrada al templo y tres pruebas con el cetro solar.
+- La bifurcación del guardián (arco del cacao o del jade), las tres vasijas, el medallón del Jaguar de jade y el cristal del santuario; zonas activas en los últimos 3 segundos y pausa final con barra de tiempo (10 s y 8 s).
+- 3 antorchas: cada fallo apaga una; con las tres apagadas, el guía anima a reintentar la misma prueba. Pantalla final con puntos, antorchas, título de explorador y «Volver a jugar».
+- Rayo de luz y partículas por código y sonidos sintetizados; español, inglés y catalán; se juega con ratón, táctil o el móvil como mando. Tecla D: modo calibración con las zonas en %.
+- Falta el vídeo `3b_final_jade.mp4`: mientras no esté, la ruta del jade termina con el final dorado en tono esmeralda.
+
+### v14.1
 **WONDERWALK: música nueva y cuento en inglés fuera de España y Latinoamérica** (22-11-2026).
 
 - El paseo suena con «Medieval Folk Music» (entrada, bucle y final) y las cuevas de sal con «Medieval Happy Music», que entra al cruzar la puerta secreta y vuelve al final del paseo al salir.
@@ -1145,7 +1154,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v14.1 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v14.2 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
