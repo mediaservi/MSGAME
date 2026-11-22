@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.0**
+**Versión actual: v18.1**
 
 ## Cómo se juega
 
@@ -37,7 +37,17 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 - **DIANA** *(en desarrollo)*: hachas y arco, dardos, el barreño de feria, tartazos y bomberos: cinco formas de acertar al centro.
 
-## Cambios de la versión actual (v18.0)
+## Cambios de la versión actual (v18.1)
+- AJUSTES: pestañas nuevas MANDO MÓVIL (QR para enlazar y calibrar), JUGADORES y RÉCORDS; «Publicidad» pasa a llamarse AVISOS («avisos en pantalla»).
+- Cuando Mevi enseña un juego en el monitor suena la música de ese juego: la radio TRONIK FM baja con un fundido, se queda en pausa y vuelve por donde iba. Mevi también recomienda EK CHUAH, DIANA y WARFRONT.
+- PUNTERÍA WARFRONT: sin aviones; helicópteros oscuros que cruzan de lado (con su rotor) y, de jefe final, el helicóptero verde grande de frente que dispara ráfagas con trazadoras desde el morro.
+- EL MISTERIO DE EK CHUAH: la música de la portada suena en bucle desde la pantalla del rótulo.
+- DIANA · AL BARREÑO: fondo nuevo de Josep (tonel de madera). Al borracho no se le puede dar: si le apuntas, pasa un ave y se lleva la bola en el pico. Solo cuenta la diana: el asiento se abate con su resorte y cae al tonel con un «¡CHOFF!» y salpicaduras. De momento sale el busto del borracho; cuando esté riggeado irá sentado entero.
+- PATOPESCA: el cartel del patito pescado es una etiqueta de feria que se balancea, con su número grande (dorada en los de oro, roja con calavera en los que restan).
+- Caja del cartucho: el soporte interior se ajusta al cartucho nuevo.
+- Vídeos de muestra del monitor regrabados con los personajes 3D: PATOPESCA, PALOTERAPIA ZOMBIES y BOLERA.
+
+### v18.0
 - Pantalla de carga nueva al estilo de los ZX Spectrum: rayas en el borde con los colores de MSGAME, y la calavera y el logo que se van construyendo por líneas (primero en blanco y negro, luego en color) mientras carga, con «CARGANDO / LOADING / CARREGANT» parpadeando en el idioma de cada uno. Sale en cuanto llega el principio de la página, también con el móvil en GSM, y no pesa nada (sin imágenes que descargar).
 - Arreglado: en el móvil en vertical, el fondo de AJUSTES tapaba la sala (v17.9).
 
@@ -1313,7 +1323,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v18.0 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v18.1 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 

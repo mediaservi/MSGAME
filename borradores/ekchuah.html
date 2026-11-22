@@ -172,7 +172,9 @@ function saltar(on, fn) { const b = $('saltar'); b.classList.toggle('on', !!on);
 const manda = m => { if (EMB) try { parent.postMessage(m, location.origin); } catch (e) {} };
 
 /* ---------- escenas ---------- */
-function inicio() { E.esc = 'ini'; panel('ini'); $('hud').classList.remove('on'); $('bg').style.backgroundImage = 'url(../juegos/ekchuah/templo.webp)'; $('bg').classList.add('on'); saltar(false); }
+function inicio() { E.esc = 'ini'; panel('ini'); $('hud').classList.remove('on'); $('bg').style.backgroundImage = 'url(../juegos/ekchuah/templo.webp)'; $('bg').classList.add('on'); saltar(false); portadaMus(); }
+/* v18.1 · en la pantalla del rótulo ya suena la portada en bucle (antes no sonaba nada hasta pulsar EMPEZAR); si el navegador aún no deja sonar, arranca con el primer toque o tecla */
+function portadaMus() { if (MUDO()) return; mus('portada', 1.2); const c = AC; if (c && c.state === 'suspended') { const go = () => { ac(); }; addEventListener('pointerdown', go, { once: true, capture: true }); addEventListener('keydown', go, { once: true, capture: true }); } }
 function intro() { mus('portada', .4); panel(''); E.esc = 'video'; reproduce('intro', eligeGuia); saltar(true, () => { const v = vid('intro'); v.currentTime = Math.max(0, v.duration - .05); }); }
 function eligeGuia() { saltar(false); E.esc = 'guias'; panel('guias'); }
 function conGuia(gu) { E.guia = gu; $('reNom').textContent = T(gu) + ': '; SND.boton(); panel(''); const im = '../juegos/ekchuah/guia-' + gu + '.webp'; $('hudGui').style.backgroundImage = 'url(' + im + ')'; $('reGui').src = im; $('finGui').src = im;
