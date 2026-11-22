@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v17.9**
+**Versión actual: v18.0**
 
 ## Cómo se juega
 
@@ -37,7 +37,11 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 - **DIANA** *(en desarrollo)*: hachas y arco, dardos, el barreño de feria, tartazos y bomberos: cinco formas de acertar al centro.
 
-## Cambios de la versión actual (v17.9)
+## Cambios de la versión actual (v18.0)
+- Pantalla de carga nueva al estilo de los ZX Spectrum: rayas en el borde con los colores de MSGAME, y la calavera y el logo que se van construyendo por líneas (primero en blanco y negro, luego en color) mientras carga, con «CARGANDO / LOADING / CARREGANT» parpadeando en el idioma de cada uno. Sale en cuanto llega el principio de la página, también con el móvil en GSM, y no pesa nada (sin imágenes que descargar).
+- Arreglado: en el móvil en vertical, el fondo de AJUSTES tapaba la sala (v17.9).
+
+### v17.9
 - Al tocar la pantalla del monitor sale la lista de todos los juegos: gira en bucle, con la carátula de cada uno y filas del tamaño de un dedo; se maneja también con las flechas del teclado o del mando y OK. Si nadie la toca en 8 s, se cierra y el monitor sigue con sus avances.
 - Las estanterías son solo para juegos: fuera las carátulas de MEDIASERVI y AVHUB. 24 juegos en los 25 huecos que se ven enteros. El casete BitClaud de la mesa lleva a mediaservi.com (AVHUB sigue en el cubo).
 - Cabecera con menos botones: JUEGOS, AJUSTES, sonido, avisar de un fallo y pantalla completa. El idioma, instalar la app, el modo feria, las teclas y el aviso legal pasan a AJUSTES → General.
@@ -1309,7 +1313,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v17.9 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v18.0 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
