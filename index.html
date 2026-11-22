@@ -3884,7 +3884,7 @@ body.gm-modos #gmUI{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '18.12';
+    const APP_VERSION = '18.13';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -5595,7 +5595,8 @@ body.gm-modos #gmUI{display:none!important}
           siren: d => { const n = Math.round((d || 8) / .55); for (let i = 0; i < n; i++) { const f = i % 2 ? 660 : 880, v = .05 + .1 * Math.min(1, i / (n * .45)); tone(f, f, .5, 'sawtooth', v * .5, i * .55); tone(f, f, .5, 'square', v * .35, i * .55); } },   // nee-naa que se acerca
           bust: () => { tone(220, 110, .5, 'square', .22); noise(.12, 3000, 1500, 2, .3, 'bandpass', .05); tone(1800, 1800, .03, 'square', .12, .3); tone(1600, 1600, .03, 'square', .12, .36); noise(.08, 4000, 2500, 3, .35, 'bandpass', .42); },   // clic de esposas
           whistle: () => { [[0, .16], [.22, .16], [.44, .55]].forEach(([d, l]) => { const t = ac.currentTime + d, o = ac.createOscillator(), m = ac.createOscillator(), mg = ac.createGain(), g2 = ac.createGain(); o.type = 'sine'; o.frequency.value = 2900; m.frequency.value = 38; mg.gain.value = 140; m.connect(mg); mg.connect(o.frequency); g2.gain.setValueAtTime(.0001, t); g2.gain.exponentialRampToValueAtTime(.22, t + .02); g2.gain.setValueAtTime(.22, t + l - .03); g2.gain.exponentialRampToValueAtTime(.0001, t + l); o.connect(g2); g2.connect(bus); o.start(t); m.start(t); o.stop(t + l + .02); m.stop(t + l + .02); }); },   // pito de policía con trino
-          laugh: () => { for (let i = 0; i < 6; i++) { const f = 180 - i * 9; tone(f * 1.6, f, .16, 'sawtooth', .16, i * .19); noise(.12, 900, 500, 2, .12, 'bandpass', i * .19); } },   // «je je je» grave
+          laugh: () => { for (let i = 0; i < 6; i++) { const f = 180 - i * 9; tone(f * 1.6, f, .16, 'sawtooth', .16, i * .19); noise(.12, 900, 500, 2, .12, 'bandpass', i * .19); } },
+          graz: () => { const n = 1 + Math.floor(Math.random() * 3); for (let i = 0; i < n; i++) { const d = i * .3; tone(820, 560, .22, 'sawtooth', .14, d); tone(1240, 900, .2, 'square', .04, d); noise(.2, 1900, 1300, 3, .2, 'bandpass', d); } },   /* v18.13 · graznido de cuervo («craa, craa») */   // «je je je» grave
           cash: () => { noise(.06, 5000, 5000, 4, .25, 'bandpass'); tone(2637, 2637, .25, 'sine', .14, .06); tone(3136, 3136, .35, 'sine', .1, .1); },
           splat: () => { noise(.38, 650, 110, .7, .6, 'lowpass'); tone(170, 55, .3, 'sine', .4); },
           boing: () => { tone(150, 640, .17, 'sine', .5); tone(640, 320, .1, 'sine', .42, .16); tone(320, 500, .09, 'sine', .32, .26); tone(500, 390, .14, 'sine', .22, .35); tone(300, 1280, .17, 'triangle', .1); },   // v7.6 · el salto de Mevi
@@ -7298,7 +7299,7 @@ body.gm-modos #gmUI{display:none!important}
           busy.add(o.slot = e.k); SFX.play(e.g ? 'tierra' : 'puerta', 0, 700); o.wk = pts; o.seg = 0; o.x = e.x; o.fy = e.y; o.zv = .17 * sp; o.sh = 1; o.k = 'z'; o.grave = e.g; o.rise = e.g ? 0 : 1; o.fi = !e.g; o.alpha = e.g ? 1 : 0; o.vx = 1e-3; o.D = Math.max(H * .05, M.zs * (o.fy - M.zh)); o.r = o.D / 1.81; o.y = o.fy - bot(o); return true; }
         function spawn() {
           const tot = SP.reduce((a, s) => a + s[5], 0); let q = Math.random() * tot, d = SP[0]; for (const s of SP) { q -= s[5]; if (q <= 0) { d = s; break; } }
-          const sp = df[0] * (1 + g.t / 90); let mode = d[4], o = mk(emo(d[0], { '🪿': '🦢' }[d[0]] || '🎯'), d[1], d[2], H * d[3] * 1.45); o.fx = d[6] || '💥'; o.e0 = d[0];
+          const sp = df[0] * (1 + g.t / 90); let mode = d[4], o = mk(emo(d[0], { '🪿': '🦢' }[d[0]] || '🎯'), d[1], d[2], H * d[3] * 1.45); o.fx = d[6] || '💥'; o.e0 = d[0]; if (sid === 'western' && d[0] === '🦅') SFX.play('graz');   /* v18.13 · el cuervo grazna al entrar */
           const free = L.win.map((w, i) => i).filter(i => !busy.has('w' + i)), sides = L.side.map((s, i) => i).filter(i => !busy.has('s' + i)), doors = (L.door || []).map((w, i) => i).filter(i => !busy.has('d' + i));
           /* v13.0 · cada figura sigue su lógica: lo que va por el suelo o se posa no sale volando; si en esta escena no tiene sitio, no sale */
           if (mode === 'pop' && !free.length && !sides.length && !doors.length) { if (!L.ground) return; mode = 'run'; }
@@ -7347,7 +7348,7 @@ body.gm-modos #gmUI{display:none!important}
           shootAt(best, true); }
         function shootAt(best, uno) {
           if (!best) { g.combo = 0; burst(pad.x, pad.y, ['#d8c8a8', '#8a7a62'], 8, H * .15); if (sid === 'western') casiW(); return; }
-          best.dead = true; g.hits++; if (best.k !== 'f') g.energy = Math.min(100, g.energy + 1); if (best.slot) busy.delete(best.slot); hitFx(best.x, best.y + (best.dy || 0), best.fx, best.r);
+          best.dead = true; g.hits++; if (best.k !== 'f') g.energy = Math.min(100, g.energy + 1); if (sid === 'western' && best.e0 === '🦅') SFX.play('graz'); if (best.slot) busy.delete(best.slot); hitFx(best.x, best.y + (best.dy || 0), best.fx, best.r);
           if (best.k === 'f') { SFX.play('bad'); if (best.e0 === '👒') SFX.play('dhit'); g.combo = 0; g.score = Math.max(0, g.score + best.pts); pop(TT('¡NO!') + ' ' + best.pts, best.x, best.y, '#ff4a4a', 22); shakeT = .25; burst(best.x, best.y, ['#ff4a4a', '#fff'], 20, H * .4); send({ t: 'hit', s: 1 }); return; }
           SFX.play(best.k === 'b' || best.k === 'c' ? 'coin' : 'ding'); if (best.e0 === '👩‍🦰') SFX.play('aquej'); if (isZomb(best.e)) SFX.play('zdie'); else if (best.e0 === '🐺') SFX.play('howl'); g.combo++; g.maxc = Math.max(g.maxc, g.combo); const mul = Math.min(8, 1 + Math.floor(g.combo / 5)), v = best.pts * mul * (best.diana ? 2 : 1); g.score += v;
           pop((best.diana ? TT('¡DIANA!') + ' ' : '') + '+' + v, best.x, best.y - best.r * .5, best.diana ? '#3bf3ff' : best.k === 'b' || best.k === 'c' ? '#ffd23f' : '#fff', best.diana ? 22 : best.k === 'b' ? 20 : 16); if (best.diana) SFX.play('coin');
