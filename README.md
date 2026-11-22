@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v17.8**
+**Versión actual: v17.9**
 
 ## Cómo se juega
 
@@ -37,7 +37,13 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 - **DIANA** *(en desarrollo)*: hachas y arco, dardos, el barreño de feria, tartazos y bomberos: cinco formas de acertar al centro.
 
-## Cambios de la versión actual (v17.8)
+## Cambios de la versión actual (v17.9)
+- Al tocar la pantalla del monitor sale la lista de todos los juegos: gira en bucle, con la carátula de cada uno y filas del tamaño de un dedo; se maneja también con las flechas del teclado o del mando y OK. Si nadie la toca en 8 s, se cierra y el monitor sigue con sus avances.
+- Las estanterías son solo para juegos: fuera las carátulas de MEDIASERVI y AVHUB. 24 juegos en los 25 huecos que se ven enteros. El casete BitClaud de la mesa lleva a mediaservi.com (AVHUB sigue en el cubo).
+- Cabecera con menos botones: JUEGOS, AJUSTES, sonido, avisar de un fallo y pantalla completa. El idioma, instalar la app, el modo feria, las teclas y el aviso legal pasan a AJUSTES → General.
+- AJUSTES con estética propia de MSGAME (consola morada y verde, rótulos grabados) y sin textos cortados.
+
+### v17.8
 - PUNTERÍA WARFRONT rehecho sobre las zonas que marcó Josep en el fondo: el soldado sale de cuerpo entero en las aperturas de las fachadas, los aviones y el helicóptero vuelan por el cielo y el jeep va por su carril.
 - El helicóptero se acerca desde el fondo, se queda en el aire, te ametralla, gira y se va de lado, con el sonido del rotor.
 - El jeep viene de frente haciendo eses para esquivar tus tiros y atropellarte; a veces entra por la calle de la izquierda y gira hacia ti. Lleva conductor (soldado enemigo con camuflaje urbano y la cinta roja) y su camuflaje es una mezcla del verde y el urbano. Suena el motor.
@@ -1303,7 +1309,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v17.8 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v17.9 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
