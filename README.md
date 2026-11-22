@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v13.9**
+**Versión actual: v14.0**
 
 ## Cómo se juega
 
@@ -36,7 +36,15 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v13.9)
+## Cambios de la versión actual (v14.0)
+**PUNTERÍA · HAUNTED y GALAXY con personajes 3D** (22-11-2026).
+
+- HAUNTED: el esqueleto anda en las puertas y asoma por las ventanas, y al acertarle cae al suelo; el fantasma es el del modelo 3D.
+- GALAXY: el marciano o el alien gris (al azar) asoman por las cúpulas y caen al acertarles; el platillo y el pulpo, con su modelo 3D, se balancean.
+- En las puertas, los personajes 3D quedan de pie en el umbral y en las ventanas se les ve de cintura para arriba.
+- PALOTERAPIA: el espantapájaros ya no anda como un zombi (solo los zombis andan así).
+
+### v13.9
 **PALOTERAPIA con personajes 3D, su rótulo también al empezar la partida y cinco temas más de música** (Josep, 22-11-2026).
 
 - **Personajes 3D animados en la partida** (esqueleto de Mixamo): el zombi, la zombia, el esqueleto, el espantapájaros-calabaza, el marciano y el alien gris andan hacia ti y, al golpearlos, caen de verdad; en ALIENS sale al azar el marciano o el alien gris. Cada uno es una tira de fotogramas (`juegos/hit3d/<personaje>-anim.webp`), así funciona igual en la sala 3D y en la versión ligera de las teles.
@@ -1131,7 +1139,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v13.9 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v14.0 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
