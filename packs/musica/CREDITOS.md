@@ -26,3 +26,5 @@ Temas elegidos por Josep (Drive, una carpeta por juego), nivelados y cortados co
 | `haunted-422354/` | PUNTERÍA · HAUNTED | `moodmode-pitch-darkness-422354.mp3` |
 | `western-576992/` | PUNTERÍA · WESTERN | `monume-american-western-country-576992.mp3` |
 | `zombies-614041/` | PALOTERAPIA · ZOMBIES | `serhii_kliets-spooky-video-game-chase-background-music-614041.mp3` |
+| `shateki-179961/` | SHATEKI | `diamond_tunes-an-emperorx27s-demand-japan-percussion-for-179961.mp3` |
+| `shateki-265815/` | SHATEKI | `oldways_music-night-osaka-265815.mp3` |

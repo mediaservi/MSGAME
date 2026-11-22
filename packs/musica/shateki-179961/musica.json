@@ -1,0 +1,20 @@
+{
+ "bpm": 133.5,
+ "tiempo": 0.44944,
+ "fase": 0.117,
+ "entrada": [
+  0,
+  18.994
+ ],
+ "juego": [
+  18.994,
+  62.338
+ ],
+ "final": [
+  90.093,
+  98.98
+ ],
+ "fundido": 0.25,
+ "nota": "SHATEKI: «An Emperor's Demand» (percusión japonesa, 133 bpm). entrada = el arranque; juego = bucle medido por repetición real; final = el cierre del tema.",
+ "fuente": "«An Emperor’s Demand – Japan Percussion» de Diamond_Tunes (Pixabay, n.º 179961)"
+}

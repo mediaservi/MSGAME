@@ -1,0 +1,20 @@
+{
+ "bpm": 120.25,
+ "tiempo": 0.49896,
+ "fase": 0.023,
+ "entrada": [
+  0,
+  11.999
+ ],
+ "juego": [
+  11.999,
+  59.999
+ ],
+ "final": [
+  95.248,
+  105.48
+ ],
+ "fundido": 0.25,
+ "nota": "SHATEKI: «Night Osaka» (120 bpm). entrada = el arranque; juego = bucle de 24 compases medido por repetición real; final = el cierre del tema.",
+ "fuente": "«Night Osaka» de oldways_music (Pixabay, n.º 265815)"
+}

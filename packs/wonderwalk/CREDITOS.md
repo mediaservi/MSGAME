@@ -46,3 +46,5 @@ Las flores nuevas de la pradera y los cardos del castillo (v12.71) salen de la b
 ## Voces del cuento (v12.78)
 
 `voz/`: 15 frases en MP3 (narrador `n1`–`n3` y hechicera `h1`–`h2`, en `-es`, `-en` y `-ca`). Voces sintéticas generadas por Josep el 16-11-2026 con el texto a voz de Microsoft Clipchamp: **Marcello Multilingual** (narrador) y **Vivienne Multilingual** (hechicera). Recortadas frase a frase, igualadas de volumen y pasadas a mono.
+
+| `sfx/golpe1.mp3` … `sfx/golpe3.mp3` | Golpes épicos al elegir nivel, al empezar el paseo y al volver al título (tres cortes de 2,4 s con fundido) | raspberrymusic · «Medieval Hero – Epic Cinematic Trailer» (Pixabay, n.º 319489) · licencia de contenido de Pixabay |
