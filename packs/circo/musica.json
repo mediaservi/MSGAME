@@ -1,0 +1,12 @@
+{
+ "bpm": 120,
+ "tiempo": 0.5,
+ "fase": 0.32,
+ "entrada": [0, 0],
+ "juego": [0.32, 29.8],
+ "tension": [0.32, 29.8],
+ "final": [29.8, 37.95],
+ "fundido": 0.25,
+ "nota": "El circo de BALLHOP para PATOPESCA y LA FORTUNA: el galop de «Bienvenue au cirque» (el mismo bucle que suena en las dos últimas bolas de BALLHOP) y su cierre. Sacado de packs/ballhop/musica.mp3 desde el segundo 86,6.",
+ "fuente": "«Bienvenue au cirque», Jean-Paul V (Pixabay, n.º 309565)"
+}

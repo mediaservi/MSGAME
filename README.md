@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v14.5**
+**Versión actual: v14.6**
 
 ## Cómo se juega
 
@@ -36,7 +36,19 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v14.5)
+## Cambios de la versión actual (v14.6)
+**BALLHOP y BASKET con las mejoras que marcó Josep** (post-it «BALLHOP: pruébalo y elige mejoras»).
+
+- BALLHOP: la bola sale del color del jugador y deja una estela más larga cuanto más fuerte se lanza; gira según su velocidad.
+- Agujero caliente: cada 4 tiros se enciende uno en rojo y vale el doble durante 2 bolas.
+- Cada aro suena distinto (agudo el de dentro, grave el de fuera) y las paredes, con un golpe sordo; la bola frena un poco en cada aro.
+- Bola extra al meter 3 seguidas de 40 o más; las luces de la máquina corren al encestar y suena la sirena en los 100.
+- Desde el nivel MEDIO, las tapas de los agujeros de 100 se abren y se cierran (más rápido en DIFÍCIL).
+- Al acabar BALLHOP y BASKET, la expendedora saca un ticket con los puntos y cuántos tickets valen, con su sonido de feria.
+- Música de circo («Bienvenue au cirque») también en LA FORTUNA y, una partida sí y otra al azar, en PATOPESCA (`packs/circo/`).
+- Pendiente del post-it: las bolas jugadas bajando por el canal (5) y «Trumpet Tumbles» en los fallos de KRAZYGOLF (12).
+
+### v14.5
 - BOLERA: la bola suena más fuerte y más aguda cuanto más rápido va, y el golpe contra los bolos suena más grande si llega con fuerza (propuesta 6).
 - BOLERA: brillo del aceite en la pista, con reflejos suaves de los focos en la zona aceitada (propuesta 5). Con esto queda hecho todo el post-it «Mejorar BOLERA» salvo el retorno por el canal, que Josep descartó.
 
@@ -1170,7 +1182,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v14.5 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v14.6 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
