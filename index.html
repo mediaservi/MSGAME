@@ -3790,7 +3790,7 @@ body.gm-modos #gmUI{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '16.0';
+    const APP_VERSION = '16.1';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -6474,6 +6474,10 @@ body.gm-modos #gmUI{display:none!important}
         monta(7);
         /* ---- el rifle de corchos: cañón, culata de madera y sus miras (alza con muesca y punto de mira); va unido a la cámara ---- */
         const rif = new THREE.Group(), MAD = MS({ color: 0x3d2010, roughness: .5, envMapIntensity: .3 }), ACE = MS({ color: 0x2a2c31, metalness: .85, roughness: .35, envMapIntensity: 1 }), LAT = MS({ color: 0xd9b24a, metalness: .9, roughness: .3 });
+        /* v16.1 · el rifle 3D de Meshy (packs/modelos/a3D-rifle.glb) en lugar del cañón y la culata dibujados; las miras (alza y punto de mira) siguen siendo las de siempre para apuntar igual */
+        try { if (THREE.GLTFLoader) { const L = new THREE.GLTFLoader(); if (window.MeshoptDecoder) L.setMeshoptDecoder(MeshoptDecoder); L.load('packs/modelos/a3D-rifle.glb?v=' + APP_VERSION, gl => { const o = gl.scene; o.rotation.y = -Math.PI / 2; const w = new THREE.Group(); w.add(o); let b = new THREE.Box3().setFromObject(w), sz = b.getSize(new THREE.Vector3()); const k = .98 / Math.max(sz.x, sz.z); w.scale.setScalar(k); b = new THREE.Box3().setFromObject(w);
+            w.position.set(-(b.min.x + b.max.x) / 2, -.03 - .02 - b.max.y + (b.max.y - b.min.y) * .07, -1.45 - b.min.z); o.traverse(m => { if (m.isMesh) { m.castShadow = false; if (m.material) m.material.envMapIntensity = .6; } });
+            rif.children.forEach(m => { if (m.isMesh && (m.material === MAD || (m.material === ACE && m.geometry && m.geometry.parameters && m.geometry.parameters.height === .7))) m.visible = false; }); rif.add(w); }); } } catch (e) {}
         { const add = (m, X, Y, Z) => { m.position.set(X, Y, Z); m.castShadow = false; rif.add(m); return m; }, BY = -.03;   /* nada del rifle queda a menos de 45 cm del ojo: se ve como al encarar, cañón y miras, sin tapar la caseta */
           const ca = add(new THREE.Mesh(new THREE.CylinderGeometry(.0078, .0088, .7, 16), ACE), 0, BY, -.8); ca.rotation.x = Math.PI / 2;
           add(new THREE.Mesh(new THREE.BoxGeometry(.02, .016, .3), MAD), 0, BY - .017, -.62);

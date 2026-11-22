@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v16.0**
+**Versión actual: v16.1**
 
 ## Cómo se juega
 
@@ -36,7 +36,10 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v16.0)
+## Cambios de la versión actual (v16.1)
+- SHATEKI: el rifle de corchos es el modelo 3D (packs/modelos/a3D-rifle.glb), con su culata de madera; las miras para apuntar siguen siendo las de siempre.
+
+### v16.0
 - Monitor de la sala: antes de cada juego enseña el rótulo oficial del cartucho (el mismo de la carátula, con su letra y su cinta) en vez de un título genérico.
 - BEAT RACER RUNNER: la corredora vuelve a llevar el dorsal a la espalda (los mismos textos que la matrícula).
 
@@ -1233,7 +1236,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v16.0 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v16.1 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
