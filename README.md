@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v14.6**
+**Versión actual: v14.7**
 
 ## Cómo se juega
 
@@ -36,7 +36,14 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v14.6)
+## Cambios de la versión actual (v14.7)
+**Dirección directa por juego**, para compartir y entrar directo al cartucho: `msgame.mediaservi.com/<juego>/`.
+
+- Una por cartucho: halloween, zombies, aliens, sports, disco, western, galaxy, zombieland, haunted, alpine, warfront, runner, dirty, graffer, fortuna, bolera, patopesca, ballhop, basket, wonderwalk, krazygolf, shateki y ekchuah; y las de saga: paloterapia, punteria, beatracer y encesta.
+- Cada una abre la sala y mete su cartucho (por dentro es `?juego=<nombre>`); también sin conexión.
+- Pendiente: editarlas desde el panel ADMIN.
+
+### v14.6
 **BALLHOP y BASKET con las mejoras que marcó Josep** (post-it «BALLHOP: pruébalo y elige mejoras»).
 
 - BALLHOP: la bola sale del color del jugador y deja una estela más larga cuanto más fuerte se lanza; gira según su velocidad.
@@ -1182,7 +1189,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v14.6 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v14.7 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 

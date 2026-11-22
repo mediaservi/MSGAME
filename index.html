@@ -3790,7 +3790,7 @@ body.gm-modos #gmUI{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '14.6';
+    const APP_VERSION = '14.7';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -10759,7 +10759,7 @@ body.gm-modos #gmUI{display:none!important}
       const idb = []; try { const db = await IDB.open(); await new Promise(r => { const q = db.transaction('files').objectStore('files').openCursor(); q.onsuccess = () => { const c = q.result; if (!c) return r(); if (typeof c.key === 'string' && JUEGO_IDB.test(c.key) && c.value instanceof Blob) idb.push([c.key, c.value]); c.continue(); }; q.onerror = () => r(); }); } catch (x) {}
       try { e.source.postMessage({ t: 'msgame-datos', ls, idb }, e.origin); } catch (x) {}
     });
-    if (ES_MSG) { const qs = new URLSearchParams(location.search); { const jg = { halloween: 0, zombies: 1, aliens: 2, sports: 3, disco: 4, western: 5, galaxy: 6, zombieland: 7, haunted: 8, alpine: 9, warfront: 10, runner: 11, dirty: 12, graffer: 13, fortuna: 14, bolera: 15, patopesca: 16, ballhop: 17, basket: 18, wonderwalk: 19, krazygolf: 20, shateki: 21 }[qs.get('juego')]; if (jg !== undefined) { const tj = setInterval(() => { if (window.CLUB && CLUB.pick && document.body.classList.contains('club3d')) { clearInterval(tj); setTimeout(() => { try { CLUB.pick(jg); } catch (e) {} }, 2500); } }, 400); } }   /* v11.1 · ?juego=zombieland (o cualquier otro cartucho) lo abre directamente */
+    if (ES_MSG) { const qs = new URLSearchParams(location.search); { const jg = { halloween: 0, zombies: 1, aliens: 2, sports: 3, disco: 4, western: 5, galaxy: 6, zombieland: 7, haunted: 8, alpine: 9, warfront: 10, runner: 11, dirty: 12, graffer: 13, fortuna: 14, bolera: 15, patopesca: 16, ballhop: 17, basket: 18, wonderwalk: 19, krazygolf: 20, shateki: 21, ekchuah: 22, paloterapia: 0, punteria: 5, beatracer: 11, encesta: 17 }[qs.get('juego')]; if (jg !== undefined) { const tj = setInterval(() => { if (window.CLUB && CLUB.pick && document.body.classList.contains('club3d')) { clearInterval(tj); setTimeout(() => { try { CLUB.pick(jg); } catch (e) {} }, 2500); } }, 400); } }   /* v11.1 · ?juego=zombieland (o cualquier otro cartucho) lo abre directamente */
       const limpia = () => { try { history.replaceState(null, '', location.pathname + location.hash); } catch (x) {} };
       if (qs.get('desde') === 'vjshow') { let hecho = false, k = 0;
         addEventListener('message', async e => { const d = e.data; if (hecho || !d || d.t !== 'msgame-datos' || !origenOK(e.origin, 'vjshow')) return; hecho = true; let n = 0;

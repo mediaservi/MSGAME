@@ -1,5 +1,5 @@
 /* MSGAME · service worker del «modo feria»: guarda la app, las imágenes, las fuentes y las librerías para usarla sin internet */
-const CACHE = 'msgame-feria-v1';
+const CACHE = 'msgame-feria-v1';   /* v14.7 · sin conexión, /bolera/ (y cada dirección directa) abre la sala con ?juego=bolera */
 const CDN = /(^|\.)(fonts\.googleapis\.com|fonts\.gstatic\.com|unpkg\.com|cdnjs\.cloudflare\.com)$/;
 self.addEventListener('install', () => self.skipWaiting());
 self.addEventListener('activate', e => e.waitUntil(self.clients.claim()));
@@ -12,7 +12,7 @@ self.addEventListener('fetch', e => {
   if (!same && !CDN.test(u.hostname)) return;   // vídeos en línea, traducción y señalización del móvil: siempre por red
   if (same && (r.mode === 'navigate' || /\/$|\.html$/.test(u.pathname))) {   // la app: primero la red (para recibir actualizaciones) y, sin conexión, la copia guardada
     e.respondWith(fetch(r.url, SIN).then(res => { if (res.ok) put(r, res.clone()); return res; })   // v12.87 · sin caché del navegador
-      .catch(() => caches.match(r, { ignoreSearch: true }).then(m => m || caches.match(new URL('./', self.registration.scope).href)).then(m => m || caches.match(new URL('index.html', self.registration.scope).href))));
+      .catch(() => caches.match(r, { ignoreSearch: true }).then(m => { if (m) return m; const sub = u.href.startsWith(self.registration.scope) && /^([a-z]+)\/(index\.html)?$/.exec(u.href.slice(self.registration.scope.length)); return sub ? Response.redirect(new URL('./?juego=' + sub[1], self.registration.scope).href, 302) : caches.match(new URL('./', self.registration.scope).href); }).then(m => m || caches.match(new URL('index.html', self.registration.scope).href))));
     return;
   }
   // resto: la copia guardada al instante y se actualiza en segundo plano
