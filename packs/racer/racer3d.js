@@ -135,7 +135,7 @@
         bib.position.set(wp.x, wp.y - .07, -.135); bib.rotation.y = Math.PI; cor.add(bib); sp.attach(bib); } } catch (e) {}
     /* v15.8 · la corredora de la imagen de Josep (Mixamo «Running», 16 fotogramas de espaldas): la cámara siempre va detrás, así que basta una lámina animada */
     const RS = { n: 16, ok: false }; { const tl = new T.TextureLoader(); tl.load('juegos/hit3d/corredora-run.webp?v=' + C.v, tx => { tx.encoding = T.sRGBEncoding; tx.repeat.set(1 / RS.n, 1); const asp = tx.image.width / RS.n / tx.image.height, hh = 1.78, pl = new T.Mesh(new T.PlaneGeometry(hh * asp, hh), new T.MeshBasicMaterial({ map: tx, transparent: true, alphaTest: .35, side: T.DoubleSide, fog: false }));
-        pl.position.set(0, hh / 2, 0); pl.rotation.y = Math.PI; runner.add(pl); RS.pl = pl; RS.tx = tx; RS.ok = true; cor.visible = false; }); }
+        pl.position.set(0, hh / 2, 0); pl.rotation.y = Math.PI; runner.add(pl); RS.pl = pl; RS.tx = tx; RS.ok = true; cor.visible = false; try { const bc = C.bib(), bt = new T.CanvasTexture(bc); bt.encoding = T.sRGBEncoding; const bw = .27, bib = new T.Mesh(new T.PlaneGeometry(bw, bw * bc.height / bc.width), new T.MeshBasicMaterial({ map: bt, side: T.DoubleSide, fog: false })); bib.position.set(0, hh * .66, -.06); bib.rotation.y = Math.PI; runner.add(bib); RS.bib = bib; } catch (e) {}   /* el dorsal, a la espalda */ }); }
     const sombra = new T.Mesh(new T.CircleGeometry(.42, 32), new T.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: .4, depthWrite: false })); sombra.rotation.x = -Math.PI / 2; sombra.position.y = .02; sc.add(sombra);
     // animaciones
     const mix = new T.AnimationMixer(cor), A = {};
@@ -193,7 +193,7 @@
       else if (g.slip > 0) pon('Roll', .08);
       else if (g.inv > 1.15) pon('Hit_Chest', .06);
       else { pon('Sprint_Loop', .14); if (A.Sprint_Loop) A.Sprint_Loop.setEffectiveTimeScale(Math.min(1.55, .9 + (g.speed - 1) * .55)); }
-      if (RS.ok) { RS.ph = (RS.ph || 0) + dt * (juega ? 1.6 * Math.min(1.55, .9 + ((g.speed || 1) - 1) * .55) : .5); const fi = (g.jt >= 0 && juega) ? 5 : Math.floor(RS.ph * RS.n) % RS.n; RS.tx.offset.x = fi / RS.n; RS.pl.rotation.z = g.slip > 0 ? Math.sin((g.t || 0) * 20) * .15 : 0; }
+      if (RS.ok) { RS.ph = (RS.ph || 0) + dt * (juega ? 1.6 * Math.min(1.55, .9 + ((g.speed || 1) - 1) * .55) : .5); const fi = (g.jt >= 0 && juega) ? 5 : Math.floor(RS.ph * RS.n) % RS.n; RS.tx.offset.x = fi / RS.n; RS.pl.rotation.z = g.slip > 0 ? Math.sin((g.t || 0) * 20) * .15 : 0; if (RS.bib) { RS.bib.position.y = 1.78 * .66 + Math.abs(Math.sin(RS.ph * Math.PI * 2)) * .025; RS.bib.position.x = Math.sin(RS.ph * Math.PI * 2) * .012; } }
       if (fase !== 'pause') mix.update(dt);
       traje.set(C.col());
       // los objetos
