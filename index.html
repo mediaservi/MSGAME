@@ -3790,7 +3790,7 @@ body.gm-modos #gmUI{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '14.4';
+    const APP_VERSION = '14.5';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -5530,7 +5530,7 @@ body.gm-modos #gmUI{display:none!important}
             [[392, .14, .5], [523, .14, .65], [659, .14, .8], [784, .3, .95], [659, .12, 1.3], [784, .7, 1.45]].forEach(([f, d, dl]) => N(f, d, dl));
             [523, 659, 784, 1046].forEach(f => N(f, 1.6, 2.2, .12)); tone(130, 130, 1.6, 'triangle', .22, 2.2); noise(1.6, 6000, 9000, .4, .14, 'highpass', 2.2); noise(.9, 5000, 8000, .5, .12, 'highpass', .95);
             for (let i = 0; i < 26; i++) tone(2400 + Math.random() * 2600, 2400 + Math.random() * 2600, .09, 'sine', .035, 2.3 + Math.random() * 1.6); },
-          roll: d => { const dd = Math.max(.8, d || 2); swell(dd, 210, .6, .42, 0, 'lowpass', .15); swell(dd, 95, 1.2, .3, 0, 'bandpass', .2); tone(54, 50, dd, 'sine', .2); },   // bola rodando sobre madera
+          roll: a => { const o = a && typeof a === 'object' ? a : { d: a, k: .5 }, dd = Math.max(.8, o.d || 2), k = Math.max(0, Math.min(1, o.k)), gk = .55 + .75 * k, fk = .8 + .5 * k; swell(dd, 210 * fk, .6, .42 * gk, 0, 'lowpass', .15); swell(dd, 95 * fk, 1.2, .3 * gk, 0, 'bandpass', .2); tone(54 * fk, 50 * fk, dd, 'sine', .2 * gk); },   /* v14.5 · {d, k}: la bola rueda más fuerte y más aguda cuanto más rápido va */   // bola rodando sobre madera
           pin: () => { const f = 1700 + Math.random() * 1300; noise(.07, f, f * .8, 5, .55, 'bandpass'); noise(.04, 4200, 3000, 1.5, .18, 'highpass'); tone(380 + Math.random() * 180, 300, .06, 'sine', .12); },   // golpe seco de bolo de arce
           strike: () => { for (let i = 0; i < 9; i++) setTimeout(() => S.pin(), i * 28 + Math.random() * 30); noise(.5, 1200, 500, .7, .32, 'bandpass', .05); cheer(2.2, .2); claps(1.8, 34, .35); },
           spare: () => { for (let i = 0; i < 4; i++) setTimeout(() => S.pin(), i * 40); cheer(1.3, .12); claps(1.2, 20, .2); },
@@ -7634,7 +7634,7 @@ body.gm-modos #gmUI{display:none!important}
           fr.forEach((v, i) => { const prev = fr[i - 1], fresh = i === 0 || prev === 10 || (i === 2 && fr[0] + fr[1] === 10 && fr[0] !== 10); out.push(v === 10 && fresh ? 'X' : (!fresh && prev + v === 10) ? '/' : v ? String(v) : '-'); }); return out; }
         function throwBall(power, hook) {
           const tx = g.aimX !== undefined ? g.aimX : g.pos * .3, dx = tx - g.pos, dz = LZ, d = Math.hypot(dx, dz), sp = 5.2 + clamp(power, 0, 1) * 4.6;
-          ball = { x: g.pos, z: 0, vx: dx / d * sp, vz: dz / d * sp, hook: clamp(hook, -1, 1), rot: 0, gut: false, done: false }; gutter = false; g.st = 'roll'; g.stT = 0; settle = 0; SFX.play('roll', LZ / Math.max(3, sp) + .6); standAt = pins.filter(p => p.up && !p.gone).length; send({ t: 'hit', s: .7 });
+          ball = { x: g.pos, z: 0, vx: dx / d * sp, vz: dz / d * sp, hook: clamp(hook, -1, 1), rot: 0, gut: false, done: false }; gutter = false; g.st = 'roll'; g.stT = 0; settle = 0; SFX.play('roll', { d: LZ / Math.max(3, sp) + .6, k: clamp(power, 0, 1) }); standAt = pins.filter(p => p.up && !p.gone).length; send({ t: 'hit', s: .7 });
         }
         function hitPair(a, ra, ma, b, rb, mb, e) { const dx = b.x - a.x, dz = b.z - a.z, d = Math.hypot(dx, dz); if (d >= ra + rb || d < 1e-6) return false; const nx = dx / d, nz = dz / d, ov = ra + rb - d;
           a.x -= nx * ov * mb / (ma + mb); a.z -= nz * ov * mb / (ma + mb); b.x += nx * ov * ma / (ma + mb); b.z += nz * ov * ma / (ma + mb);
@@ -7647,7 +7647,7 @@ body.gm-modos #gmUI{display:none!important}
             b.x += b.vx * dt; b.z += b.vz * dt; b.rot += Math.hypot(b.vx, b.vz) * dt / BR;
             if (!b.gut && Math.abs(b.x) > LW / 2 - BR * .25 && b.z < LZ - .2) { if (nvB() === 'easy') { b.x = Math.sign(b.x) * (LW / 2 - BR * .25); b.vx = -b.vx * .7; b.hook = 0; send({ t: 'hit', s: .3 }); } else { b.gut = true; gutter = true; b.x = Math.sign(b.x) * (LW / 2 + GW / 2); b.vx = 0; } }
             if (b.gut) b.x = Math.sign(b.x) * (LW / 2 + GW / 2);
-            if (!b.gut) pins.forEach(p => { if (p.gone) return; if (hitPair(b, BR, 7.2, p, PR, 1.5, .55)) { knock(p); send({ t: 'hit', s: .9 }); } });
+            if (!b.gut) pins.forEach(p => { if (p.gone) return; if (hitPair(b, BR, 7.2, p, PR, 1.5, .55)) { knock(p); send({ t: 'hit', s: .9 }); if (!b.hp) { b.hp = 1; const sp = Math.hypot(b.vx, b.vz), n = sp > 8 ? 4 : sp > 6.5 ? 3 : 2; for (let i = 1; i < n; i++) setTimeout(() => SFX.play('pin'), i * 38); } } });   /* v14.5 · el golpe suena más grande cuanto más fuerte llega la bola */
             if (b.z > LZ + 1.15) { b.done = true; } }
           pins.forEach((p, i) => { if (p.gone) return; const v = Math.hypot(p.vx, p.vz); if (v > .2) knock(p);
             p.x += p.vx * dt; p.z += p.vz * dt; const fr = Math.max(0, 1 - (p.up ? 6 : 1.6) * dt); p.vx *= fr; p.vz *= fr; if (!p.up) { p.fall = Math.min(1, p.fall + dt * 4.5); if (p.vh !== undefined) { p.hz += p.vh * dt; p.vh -= 9.8 * dt; if (p.hz < 0) { p.hz = 0; p.vh = Math.abs(p.vh) > .6 ? -p.vh * .32 : 0; } } if (p.spin) { p.ang += p.spin * dt; p.spin *= Math.max(0, 1 - 2.2 * dt); if (Math.abs(p.spin) < .2) p.spin = 0; } }
@@ -7769,6 +7769,7 @@ body.gm-modos #gmUI{display:none!important}
           x.strokeStyle = 'rgba(90,50,20,.22)'; x.lineWidth = 1; for (let i = 1; i < 39; i++) { const bx = L0 + LW * i / 39, a = P(bx, 0), b = P(bx, zEnd); x.beginPath(); x.moveTo(a[0], a[1]); x.lineTo(b[0], b[1]); x.stroke(); }
           for (let zz = 1; zz < LZ; zz += 1.83) { const a = P(L0, zz), b = P(L1, zz); x.strokeStyle = 'rgba(90,50,20,.12)'; x.beginPath(); x.moveTo(a[0], a[1]); x.lineTo(b[0], b[1]); x.stroke(); }
           const sh = x.createLinearGradient(P(L0, 0)[0], 0, P(L1, 0)[0], 0); sh.addColorStop(0, 'rgba(255,255,255,0)'); sh.addColorStop(.5, `rgba(255,240,220,${.16 + bass * .12})`); sh.addColorStop(1, 'rgba(255,255,255,0)'); x.fillStyle = sh; x.fillRect(0, far - 40, W, near - far + 40);
+          [2.4, 5.8, 9.2].forEach((zz, i) => { const c = P(off + Math.sin(g.t * .4 + i) * .12, zz), r = LW * .3 * c[2]; if (r < 2) return; x.save(); x.globalCompositeOperation = "lighter"; x.translate(c[0], c[1]); x.scale(1, .42 + zz * .03); const og = x.createRadialGradient(0, 0, 0, 0, 0, r); og.addColorStop(0, `rgba(255,244,220,${(mine ? .3 : .14) + bass * .1})`); og.addColorStop(1, 'rgba(255,248,230,0)'); x.fillStyle = og; x.beginPath(); x.arc(0, 0, r, 0, 6.283); x.fill(); x.restore(); });   /* v14.5 · brillo del aceite: reflejos de los focos en la zona aceitada */
           if (false && mine && g.scr && opt.scr && vjA.width) { const [a, b] = g.scr, top = P(0, LZ + .9)[1], bot = P(0, LZ - 6)[1]; x.save(); x.globalAlpha = .1 + bass * .06; x.translate(0, bot); x.scale(1, -1); try { x.drawImage(vjA, a[0], 0, b[0] - a[0], bot - top); } catch (e) {} x.restore(); }
           x.restore();
           [5, 10, 15, 20, 25, 30, 35].forEach((bd, i) => { const bx = L0 + LW * (bd - .5) / 39, zA = 4.57 + Math.abs(bd - 20) * .06; const t1 = P(bx, zA + .3), t2 = P(bx - .025, zA), t3 = P(bx + .025, zA); x.fillStyle = mine ? `hsla(${hue + i * 25},100%,60%,${.65 + bass * .35})` : 'rgba(40,20,10,.55)'; x.beginPath(); x.moveTo(t1[0], t1[1]); x.lineTo(t2[0], t2[1]); x.lineTo(t3[0], t3[1]); x.fill(); });

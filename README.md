@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v14.4**
+**Versión actual: v14.5**
 
 ## Cómo se juega
 
@@ -36,7 +36,11 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v14.4)
+## Cambios de la versión actual (v14.5)
+- BOLERA: la bola suena más fuerte y más aguda cuanto más rápido va, y el golpe contra los bolos suena más grande si llega con fuerza (propuesta 6).
+- BOLERA: brillo del aceite en la pista, con reflejos suaves de los focos en la zona aceitada (propuesta 5). Con esto queda hecho todo el post-it «Mejorar BOLERA» salvo el retorno por el canal, que Josep descartó.
+
+### v14.4
 **BOLERA más realista** (propuestas 1, 2, 3, 4, 8 y 9 del post-it «Mejorar BOLERA»).
 
 - Bola con efecto de verdad: la curva se cierra al final de la pista (zona seca) y la bola frena un poco.
@@ -45,7 +49,6 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - La pantalla central es el marcador oficial del jugador (10 frames con X y /, frame y puntos).
 - Bolas lisas, perladas o marmoladas en sus colores, sin dibujos ni logotipos.
 - Las pantallas de encima de las pistas ya no enseñan visuales de VJSHOW: carátulas de los cartuchos de MSGAME, los récords de la BOLERA y Mevi saludando con frases. La opción se llama ahora «Pantallas con carátulas, récords y Mevi».
-- Pendiente del post-it: el sonido de rodar según la velocidad (6).
 
 ### v14.3
 - EK CHUAH: llega el vídeo del final del jade (`3b_final_jade.mp4`, 720p). La ruta del jade ya tiene su propio final; el tono esmeralda sobre el final dorado queda solo como respaldo si el vídeo no carga.
@@ -1167,7 +1170,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v14.4 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v14.5 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
