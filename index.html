@@ -3790,7 +3790,7 @@ body.gm-modos #gmUI{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '14.7';
+    const APP_VERSION = '14.8';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -6316,7 +6316,7 @@ body.gm-modos #gmUI{display:none!important}
         const ballGeo = new THREE.SphereGeometry(BR, 32, 20), ballMat = MS({ color: new THREE.Color(pcol).lerp(new THREE.Color(0xffffff), .25), roughness: .22, metalness: 0, envMapIntensity: 1.3 }), fireMat = MS({ color: 0xff7a1a, emissive: 0xff4a00, emissiveIntensity: 1.4, roughness: .3 });
         const tray = []; for (let i = 0; i < 9; i++) { const b = new THREE.Mesh(ballGeo, ballMat); b.castShadow = true; b.position.set(LW + .2, .08 + laneY(AZ + .5 - i * (BR * 2.05)), AZ + .5 - i * (BR * 2.05)); sc.add(b); tray.push(b); }
         const trayM = new THREE.Mesh(new THREE.BoxGeometry(.16, .06, 1.3), MS({ color: 0x9aa3ab, metalness: .9, roughness: .3 })); trayM.position.set(LW + .2, .04 + laneY(AZ + .05), AZ + .05); trayM.rotation.x = Math.atan(.07); sc.add(trayM);
-        const aimBall = new THREE.Mesh(ballGeo, ballMat); aimBall.castShadow = true; sc.add(aimBall);
+        const aimBall = new THREE.Mesh(ballGeo, ballMat); aimBall.castShadow = true; sc.add(aimBall); const RET = [];
         const aimX = () => g.aimN() * (LW - BR - .01);
         /* v14.6 · agujero «caliente» (vale el doble 2 bolas, cada 4 tiros) y, desde el nivel MEDIO, tapas que abren y cierran los agujeros de 100 */
         const hotM = new THREE.Mesh(new THREE.TorusGeometry(.09, .024, 10, 40), neon('#ff3b1a', 3)); hotM.visible = false; board.add(hotM); g.hot = null; g.run = 0; g.chase = 0;
@@ -6362,8 +6362,9 @@ body.gm-modos #gmUI{display:none!important}
             else if (b.ph === 'board' || b.ph === 'gutter') b.m.position.copy(bp(b.u, b.w, BR + .005 + (b.salto > 0 ? Math.sin(b.salto / .16 * Math.PI) * .06 : 0)));
             else if (b.ph === 'sink') { const k = Math.min(1, b.t / .28); b.m.position.copy(bp(b.hole.u + (b.u - b.hole.u) * (1 - k), b.hole.v + (b.w - b.hole.v) * (1 - k), BR - k * BR * 2)); b.m.scale.setScalar(1 - k * .5); }
             { const sp = b.ph === 'board' ? Math.hypot(b.vu, b.vw) : b.v.length(); b.m.rotation.x -= dt * sp / BR * .9; } if (b.ph === 'lane' || b.ph === 'fly') { b.tr.push(b.m.position.clone()); if (b.tr.length > 4 + b.pw * 12) b.tr.shift(); } else if (b.tr.length) b.tr.shift(); if (b.fire && Math.random() < .5) { const [X, Y] = proj2(b.m.position, cam); ebits(X, Y, '🔥', 1, H * .05, { g: -.4, l0: .25, l1: .45, s0: H * .02, s1: H * .035 }); } });
-          g.balls = g.balls.filter(b => { if (b.done && (b.t > .9 || b.ph !== 'sink')) { sc.remove(b.m); return false; } return true; });
-          if (g.left <= 0 && !g.balls.length) { g.endT = (g.endT || 0) + dt; if (g.endT > 1 && ticketFx(g, dt)) return end(g); }
+          g.balls = g.balls.filter(b => { if (b.done && (b.t > .9 || b.ph !== 'sink')) { sc.remove(b.m); const m2 = new THREE.Mesh(ballGeo, b.m.material); m2.castShadow = true; sc.add(m2); RET.push({ m: m2, t: 0 }); return false; } return true; });
+          RET.forEach(q => { q.t += dt; const k = Math.min(1, q.t / 1.5), z = -5.2 + (AZ + .5 + 5.2) * k * k; q.m.position.set(LW + .2, .08 + laneY(z) + Math.max(0, .5 - q.t * 2) * .3, z); q.m.rotation.x -= dt * 22; if (k >= 1) { q.done = true; sc.remove(q.m); SFX.play('bank', 0, 120); } }); for (let i = RET.length - 1; i >= 0; i--) if (RET[i].done) RET.splice(i, 1);   /* v14.6 · la bola jugada baja rodando por el canal de retorno hasta la bandeja */
+          if (g.left <= 0 && !g.balls.length && !RET.length) { g.endT = (g.endT || 0) + dt; if (g.endT > 1 && ticketFx(g, dt)) return end(g); }
           { const M = G.match, ult = !M || M.sim || M.k >= M.ids.length - 1; MUS.parte(ult && g.left <= 2 ? 'tension' : 'juego'); }   // v12.22 · música: tensión en las dos últimas bolas de la partida
           stateTick(g); };
         g.draw = () => { const r = r3size(), bass = audioMetrics.bass || 0, beat = audioMetrics.beatHit; bgWall(g, 'ballhop', wall);
