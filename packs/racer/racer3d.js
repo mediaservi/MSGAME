@@ -54,16 +54,17 @@
     if (C.opt && C.opt.veh === 'dirty') return creaD(C);   // DIRTY: el todoterreno por el pinar (más abajo)
     await modelos(C.v); if (!C.vivo()) return; C.r3size();   // el renderizador y su entorno de reflejos ya listos
     const g = C.g, R3 = C.R3, sc = new T.Scene(), cam = new T.PerspectiveCamera(58, 16 / 9, .1, 320);
-    sc.fog = new T.Fog(0x3a1d52, 50, 165); sc.environment = C.T3.env || null;
-    sc.add(new T.HemisphereLight(0xc3b3ff, 0x3a2236, 1.05));
-    const sol = new T.DirectionalLight(0xffa36a, 1.7); sol.position.set(-14, 20, -70); sc.add(sol, sol.target);
-    const rel = new T.DirectionalLight(0x8fb9ff, .5); rel.position.set(8, 10, 24); sc.add(rel, rel.target);
+    /* v15.8 · RUNNER de noche cyberpunk, como la carátula original: niebla morada, luz fría y neones en las fachadas */
+    sc.fog = new T.Fog(0x170a32, 34, 150); sc.environment = C.T3.env || null;
+    sc.add(new T.HemisphereLight(0x8a7cff, 0x120a24, .85));
+    const sol = new T.DirectionalLight(0xff4fd8, .9); sol.position.set(-14, 20, -70); sc.add(sol, sol.target);
+    const rel = new T.DirectionalLight(0x5fe8ff, .75); rel.position.set(8, 10, 24); sc.add(rel, rel.target);
 
     /* la calle: asfalto que corre, rayas de neón y bordillos */
     let asf = null; M.ciu.scene.traverse(o => { if (!asf && o.material && /Asphalt/i.test(o.material.name || '') && o.material.map) asf = o.material.map; });
     const tA = asf ? asf.clone() : C.cvTex(512, 512, (q, w, h) => { q.fillStyle = '#2a272f'; q.fillRect(0, 0, w, h); for (let i = 0; i < 9000; i++) { const v = 30 + Math.random() * 40 | 0; q.fillStyle = `rgba(${v},${v},${v + 6},${Math.random() * .5})`; q.fillRect(Math.random() * w, Math.random() * h, 2, 2); } });
     tA.needsUpdate = true; tA.wrapS = tA.wrapT = T.RepeatWrapping; tA.repeat.set(2, LARGO / 4.6); tA.anisotropy = 8;
-    const calle = new T.Mesh(new T.PlaneGeometry(ACERA * 2, LARGO), new T.MeshStandardMaterial({ map: tA, color: 0x8d8796, roughness: .7, envMapIntensity: .5 })); calle.rotation.x = -Math.PI / 2; calle.position.set(0, 0, Z0 - LARGO / 2); sc.add(calle);
+    const calle = new T.Mesh(new T.PlaneGeometry(ACERA * 2, LARGO), new T.MeshStandardMaterial({ map: tA, color: 0x4a4458, roughness: .32, metalness: .25, envMapIntensity: 1.1 })); calle.rotation.x = -Math.PI / 2; calle.position.set(0, 0, Z0 - LARGO / 2); sc.add(calle);
     const raya = C.cvTex(32, 256, (q, w, h) => { q.clearRect(0, 0, w, h); q.fillStyle = '#fff'; q.fillRect(4, 0, w - 8, h * .55); }); raya.wrapS = raya.wrapT = T.RepeatWrapping; raya.repeat.set(1, LARGO / 7);
     const rayas = [[-.5, 0x3bf3ff], [0, 0xff3bd4], [.5, 0x3bf3ff]].map(([l, c]) => { const m = new T.Mesh(new T.PlaneGeometry(.13, LARGO), new T.MeshBasicMaterial({ map: raya, color: c, transparent: true, depthWrite: false, toneMapped: false, fog: true })); m.rotation.x = -Math.PI / 2; m.position.set(l * ESC, .012, Z0 - LARGO / 2); sc.add(m); return m; });
     [-1, 1].forEach(s => { const m = new T.Mesh(new T.PlaneGeometry(.12, LARGO), new T.MeshBasicMaterial({ color: 0xff2a6d, toneMapped: false })); m.rotation.x = -Math.PI / 2; m.position.set(s * (ESC * 1.18), .013, Z0 - LARGO / 2); sc.add(m); });
@@ -97,12 +98,17 @@
       if (n === 'MI_Trim_Green' && !m.userData.tono) { m.userData.tono = 1; m.color.set(0x7fb08a); }
       if (n === 'MI_Trim_Dark' && !m.userData.tono) { m.userData.tono = 1; m.color.set(0x55505a); }
       if (n === 'MI_RedBrick_Pale' && !m.userData.tono) { m.userData.tono = 1; m.color.set(0xe8d2c4); }
-      if (n === 'MI_Glass') { m.envMapIntensity = 1.2; } }); });
+      if (n === 'MI_Glass') { m.envMapIntensity = 1.2; }
+      if (!m.userData.cyber) { m.userData.cyber = 1; if (/FakeInterior/.test(n)) { m.emissive = new T.Color(/2$|4$/.test(n) ? 0xff7ad9 : 0x7fe6ff); } else if (m.color && n !== 'MI_Glass') { m.color.multiplyScalar(.32).lerp(new T.Color(0x2a1f55), .35); } } }); });
+    const NEO = [0x3bf3ff, 0xff2bd6, 0x9b5cff, 0x3bf3ff, 0xff2bd6], NEOM = {}; NEO.forEach(c => { NEOM[c] = NEOM[c] || new T.MeshBasicMaterial({ color: c, toneMapped: false }); });
     const EDIF = []; let semilla = 7; const az = () => (semilla = (semilla * 16807) % 2147483647) / 2147483647;
     function siguiente(s, zf) { const r0 = az(), t = TIPOS[TIPOS.length < 3 ? Math.floor(r0 * TIPOS.length) : r0 < .2 ? 0 : r0 < .6 ? 1 : 2], o = t.o.clone(true), w = t.x1 - t.x0, hu = .85 + az() * .3;
       o.scale.set(1, hu, 1); o.rotation.y = s < 0 ? Math.PI / 2 : -Math.PI / 2;
       // con el giro, el ancho del edificio queda a lo largo de la calle
-      const z = zf - (az() < .3 ? 2 + az() * 3 : .4); o.position.set(s * FACH, 0, s < 0 ? z + t.x0 : z - t.x1); o.userData.zf = z - w; o.userData.s = s; sc.add(o); EDIF.push(o); return o.userData.zf; }
+      const z = zf - (az() < .3 ? 2 + az() * 3 : .4); o.position.set(s * FACH, 0, s < 0 ? z + t.x0 : z - t.x1); o.userData.zf = z - w; o.userData.s = s; sc.add(o); EDIF.push(o);
+      { o.updateMatrixWorld(true); const nT = 2 + Math.floor(az() * 3), hT = t.h * hu; for (let k = 0; k < nT; k++) { const col = NEO[Math.floor(az() * NEO.length)], vert = az() < .7, L = vert ? 3 + az() * Math.max(3, hT - 4) : 2 + az() * (w - 2), b = new T.Mesh(vert ? new T.BoxGeometry(.12, L, .12) : new T.BoxGeometry(.12, .5, L), NEOM[col]);
+          b.position.set(s * (FACH - .1), vert ? 1.5 + L / 2 + az() * Math.max(0, hT - L - 2) : 3 + az() * Math.max(1, hT - 5), z - .5 - az() * Math.max(.5, w - 1) - (vert ? 0 : L / 2 - .5)); sc.add(b); o.attach(b); } }
+      return o.userData.zf; }
     [-1, 1].forEach(s => { let zf = Z0 + 18; while (zf > Z0 - 175) zf = siguiente(s, zf); });
 
     /* la corredora */
@@ -127,6 +133,9 @@
     try { const bc = C.bib(), bt = new T.CanvasTexture(bc); bt.encoding = T.sRGBEncoding; bt.anisotropy = 4; cor.updateMatrixWorld(true);
       const sp = cuerpo && cuerpo.skeleton.bones.find(b => b.name === 'spine_03'); if (sp) { const wp = new T.Vector3(); sp.getWorldPosition(wp); cor.worldToLocal(wp); const asp = bc.width / bc.height, hh = .17, bib = new T.Mesh(new T.PlaneGeometry(hh * asp, hh), new T.MeshStandardMaterial({ map: bt, roughness: .75, side: T.DoubleSide }));
         bib.position.set(wp.x, wp.y - .07, -.135); bib.rotation.y = Math.PI; cor.add(bib); sp.attach(bib); } } catch (e) {}
+    /* v15.8 · la corredora de la imagen de Josep (Mixamo «Running», 16 fotogramas de espaldas): la cámara siempre va detrás, así que basta una lámina animada */
+    const RS = { n: 16, ok: false }; { const tl = new T.TextureLoader(); tl.load('juegos/hit3d/corredora-run.webp?v=' + C.v, tx => { tx.encoding = T.sRGBEncoding; tx.repeat.set(1 / RS.n, 1); const asp = tx.image.width / RS.n / tx.image.height, hh = 1.78, pl = new T.Mesh(new T.PlaneGeometry(hh * asp, hh), new T.MeshBasicMaterial({ map: tx, transparent: true, alphaTest: .35, side: T.DoubleSide, fog: false }));
+        pl.position.set(0, hh / 2, 0); pl.rotation.y = Math.PI; runner.add(pl); RS.pl = pl; RS.tx = tx; RS.ok = true; cor.visible = false; }); }
     const sombra = new T.Mesh(new T.CircleGeometry(.42, 32), new T.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: .4, depthWrite: false })); sombra.rotation.x = -Math.PI / 2; sombra.position.y = .02; sc.add(sombra);
     // animaciones
     const mix = new T.AnimationMixer(cor), A = {};
@@ -147,7 +156,13 @@
 
     /* el cielo de atardecer se pinta en 2D detrás (con el sol al final de la calle) */
     const estrellas = Array.from({ length: 80 }, () => [Math.random(), Math.random() * .5, Math.random()]);
+    const TORRES = Array.from({ length: 34 }, (_, i) => [i / 34 + Math.random() * .02, .02 + Math.random() * .025, .25 + Math.random() * .7, Math.random()]);
     function cielo(x, W, H, hy, bass, t) {
+      { const gg = x.createLinearGradient(0, 0, 0, hy); gg.addColorStop(0, '#02010a'); gg.addColorStop(.6, '#160733'); gg.addColorStop(.92, '#3d1068'); gg.addColorStop(1, '#7a1d8a'); x.fillStyle = gg; x.fillRect(0, 0, W, Math.max(0, hy) + 2);
+        estrellas.forEach(s => { x.fillStyle = `rgba(200,220,255,${.12 + s[2] * .35})`; x.fillRect(s[0] * W, s[1] * hy * .7, 1.2, 1.2); });
+        TORRES.forEach(([u, w2, h2, r]) => { const tw = w2 * W, th = h2 * hy * .55, tx = u * W, ty = hy - th; x.fillStyle = '#0a0518'; x.fillRect(tx, ty, tw, th + 2); x.fillStyle = r < .5 ? 'rgba(59,243,255,.55)' : 'rgba(255,43,214,.55)'; x.fillRect(tx + tw * .45, ty, Math.max(1, tw * .08), th); if (r > .7) { x.fillRect(tx, ty + th * .2, tw, 2); } });
+        const hz = x.createLinearGradient(0, hy - H * .06, 0, hy + 2); hz.addColorStop(0, 'rgba(59,243,255,0)'); hz.addColorStop(1, `rgba(59,243,255,${.25 + bass * .3})`); x.fillStyle = hz; x.fillRect(0, hy - H * .06, W, H * .06 + 2);
+        x.fillStyle = '#170a32'; x.fillRect(0, hy, W, H - hy); return; }
       const gg = x.createLinearGradient(0, 0, 0, hy); gg.addColorStop(0, '#0b0420'); gg.addColorStop(.55, '#3a1258'); gg.addColorStop(1, '#ff4f7b'); x.fillStyle = gg; x.fillRect(0, 0, W, Math.max(0, hy) + 2);
       estrellas.forEach(s => { x.fillStyle = `rgba(255,255,255,${.2 + s[2] * .6 * (.6 + .4 * Math.sin(t * 3 + s[0] * 40))})`; x.fillRect(s[0] * W, s[1] * hy, 1.6, 1.6); });
       const r = H * (.16 + bass * .015), cy = hy - r * .2; x.save(); x.beginPath(); x.rect(0, 0, W, hy); x.clip(); const sg = x.createLinearGradient(0, cy - r, 0, cy + r); sg.addColorStop(0, '#ffe36b'); sg.addColorStop(.55, '#ff6a3d'); sg.addColorStop(1, '#ff2a8a'); x.fillStyle = sg; x.beginPath(); x.arc(W / 2, cy, r, 0, 6.283); x.fill();
@@ -178,6 +193,7 @@
       else if (g.slip > 0) pon('Roll', .08);
       else if (g.inv > 1.15) pon('Hit_Chest', .06);
       else { pon('Sprint_Loop', .14); if (A.Sprint_Loop) A.Sprint_Loop.setEffectiveTimeScale(Math.min(1.55, .9 + (g.speed - 1) * .55)); }
+      if (RS.ok) { RS.ph = (RS.ph || 0) + dt * (juega ? 1.6 * Math.min(1.55, .9 + ((g.speed || 1) - 1) * .55) : .5); const fi = (g.jt >= 0 && juega) ? 5 : Math.floor(RS.ph * RS.n) % RS.n; RS.tx.offset.x = fi / RS.n; RS.pl.rotation.z = g.slip > 0 ? Math.sin((g.t || 0) * 20) * .15 : 0; }
       if (fase !== 'pause') mix.update(dt);
       traje.set(C.col());
       // los objetos

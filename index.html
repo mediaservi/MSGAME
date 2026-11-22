@@ -3790,7 +3790,7 @@ body.gm-modos #gmUI{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '15.7';
+    const APP_VERSION = '15.8';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -5911,7 +5911,13 @@ body.gm-modos #gmUI{display:none!important}
         if (logoImg.complete && logoImg.naturalWidth) { q.save(); q.beginPath(); q.arc(34, H2 - 26, 20, 0, 6.283); q.clip(); q.drawImage(logoImg, 14, H2 - 46, 40, 40); q.restore(); q.strokeStyle = '#fff'; q.lineWidth = 2; q.beginPath(); q.arc(34, H2 - 26, 20, 0, 6.283); q.stroke(); }
         q.fillStyle = 'rgba(0,0,0,.18)'; [[10, 10], [W2 - 10, 10], [10, H2 - 10], [W2 - 10, H2 - 10]].forEach(([px, py]) => { q.beginPath(); q.arc(px, py, 4, 0, 6.283); q.fill(); });   // imperdibles
         BIB.key = k; BIB.c = c; return c; }
-      function runner(X, Y, u, ph, lean, trim) {   // corredora vista de espaldas, en carrera al ritmo
+      /* v15.8 · la corredora es la de la imagen de Josep (modelo 3D de Meshy animado en Mixamo con «Running»): 16 fotogramas vista de espaldas para la carrera y uno de frente para la carátula */
+      const RUNSPR = new Image(), RUNFR = new Image(); RUNSPR.src = 'juegos/hit3d/corredora-run.webp?v=' + APP_VERSION; RUNFR.src = 'juegos/hit3d/corredora-front.webp?v=' + APP_VERSION;
+      function runner(X, Y, u, ph, lean, trim, frente) {   // corredora vista de espaldas, en carrera al ritmo
+        { const sp = frente ? RUNFR : RUNSPR; if (sp.complete && sp.naturalWidth) { x.save(); x.fillStyle = 'rgba(0,0,0,.45)'; x.beginPath(); x.ellipse(X, Y, u * .13, u * .025, 0, 0, 6.283); x.fill(); x.translate(X, Y); x.rotate(lean); const hh = u * .97;
+            if (frente) { const ww = hh * sp.naturalWidth / sp.naturalHeight; x.drawImage(sp, -ww / 2, -hh, ww, hh); }
+            else { const n = 16, fw = sp.naturalWidth / n, fi = Math.floor(((ph / 6.2832) % 1 + 1) % 1 * n), ww = hh * fw / sp.naturalHeight; x.drawImage(sp, fi * fw, 0, fw, sp.naturalHeight, -ww / 2, -hh, ww, hh); }
+            x.restore(); return; } }
         const bob = Math.abs(Math.sin(ph)) * u * .025, L = Math.sin(ph), Rr = Math.sin(ph + Math.PI);
         x.save(); x.fillStyle = 'rgba(0,0,0,.45)'; x.beginPath(); x.ellipse(X, Y, u * .13, u * .025, 0, 0, 6.283); x.fill();
         x.translate(X, Y - bob); x.rotate(lean); x.lineCap = 'round'; x.lineJoin = 'round';
@@ -7431,7 +7437,7 @@ body.gm-modos #gmUI{display:none!important}
       /* ---------- carátulas de los cartuchos (ilustraciones originales dibujadas en canvas) ---------- */
       /* v10.5 · la corredora y el todoterreno de BEAT RACER, pintados aparte (lienzo cuadrado de lado S) para las carátulas de la sala */
       function figura(tipo, S) { const c = document.createElement('canvas'); c.width = c.height = S; const x0 = x; x = c.getContext('2d');
-        try { if (tipo === 'dirty') drawCar(S / 2, S * .9, S * .7, { t: .4, dirt: .3, squash: 0, lean: 0, speed: 0, air: false, brake: false }); else runner(S / 2, S * .97, S * .92, 1.1, 0, '#3bf3ff'); } catch (e) { console.warn(e); } x = x0; return c; }
+        try { if (tipo === 'dirty') drawCar(S / 2, S * .9, S * .7, { t: .4, dirt: .3, squash: 0, lean: 0, speed: 0, air: false, brake: false }); else runner(S / 2, S * .97, S * .92, 1.1, 0, '#3bf3ff', true); } catch (e) { console.warn(e); } x = x0; return c; }
       const CARTART = (() => {
         const cache = {};
         function em(x, e, X, Y, S, a) { x.save(); if (a) { x.translate(X, Y); x.rotate(a); X = 0; Y = 0; } x.font = `${S}px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif`; x.textAlign = 'center'; x.textBaseline = 'middle'; x.shadowColor = 'rgba(0,0,0,.45)'; x.shadowBlur = S * .12; x.shadowOffsetY = S * .05; x.fillText(e, X, Y); x.restore(); }

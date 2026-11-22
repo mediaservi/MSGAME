@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v15.7**
+**Versión actual: v15.8**
 
 ## Cómo se juega
 
@@ -36,7 +36,11 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v15.7)
+## Cambios de la versión actual (v15.8)
+- BEAT RACER RUNNER: la corredora es la de la imagen de Josep (su modelo 3D, animado en Mixamo con «Running»): corre de espaldas en la carrera y sale de frente en la carátula.
+- RUNNER vuelve a ser cyberpunk, como la carátula original: noche morada, fachadas oscuras con ventanas frías y tiras de neón cian, magenta y violeta, torres con neones en el horizonte y asfalto mojado que refleja las luces.
+
+### v15.7
 - PATOPESCA con los patitos 3D (render de sus modelos de Meshy, `juegos/patos/`): amarillo, rosa, azul, verde, dorado (con su brillo) y el pirata con su sombrero y su parche. Si las imágenes no cargan, sale el dibujo de antes.
 
 ### v15.6
@@ -1222,7 +1226,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v15.7 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v15.8 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
