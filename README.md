@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v15.0**
+**Versión actual: v15.1**
 
 ## Cómo se juega
 
@@ -36,7 +36,10 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v15.0)
+## Cambios de la versión actual (v15.1)
+- Sala: al expulsar, la caja y el cartucho se deshacen en píxeles que suben, viajan hasta el hueco de su estante y allí se recompone la caja (la vuelta dura 2,5 s en vez de 1,75).
+
+### v15.0
 - Mevi recomienda con vídeo también BALLHOP, BASKET, SHATEKI, WONDERWALK y EL MISTERIO DE EK CHUAH: partidas de verdad grabadas en la propia app (7 s, 512 × 384, en `juegos/demo/`). La de BOLERA, regrabada con las pantallas y las bolas nuevas.
 
 ### v14.9
@@ -1197,7 +1200,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v15.0 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v15.1 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
