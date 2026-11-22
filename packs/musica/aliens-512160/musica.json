@@ -1,0 +1,20 @@
+{
+ "bpm": 145.0,
+ "tiempo": 0.41379,
+ "fase": 0.133,
+ "entrada": [
+  0,
+  45.65
+ ],
+ "juego": [
+  45.65,
+  125.098
+ ],
+ "final": [
+  131.715,
+  140.83
+ ],
+ "fundido": 0.25,
+ "nota": "Música de PALOTERAPIA · ALIENS: bucle de 48 compases que se repite tal cual en el tema (afinado a mano por repetición del audio); final = el cierre del tema.",
+ "fuente": "«reganati-alien-virus-experimental-electronic-music-512160» (Pixabay)"
+}

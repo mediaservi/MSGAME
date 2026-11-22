@@ -21,3 +21,8 @@ Temas elegidos por Josep (Drive, una carpeta por juego), nivelados y cortados co
 | `western-136896/` | PUNTERÍA · WESTERN | `music_for_creators-cowboy-country-136896.mp3` |
 | `western-432166/` | PUNTERÍA · WESTERN | `soundtracklegends-cowboy-funny-hill-running-432166.mp3` |
 | `zombies-547192/` | PALOTERAPIA · ZOMBIES | `tolsetmusic-halloween-night-halloween-holiday-background-music-547192.mp3` |
+| `aliens-512160/` | PALOTERAPIA · ALIENS | `reganati-alien-virus-experimental-electronic-music-512160.mp3` |
+| `halloween-169809/` | PALOTERAPIA · HALLOWEEN | `hd-studio-halloween-monsters-169809.mp3` |
+| `haunted-422354/` | PUNTERÍA · HAUNTED | `moodmode-pitch-darkness-422354.mp3` |
+| `western-576992/` | PUNTERÍA · WESTERN | `monume-american-western-country-576992.mp3` |
+| `zombies-614041/` | PALOTERAPIA · ZOMBIES | `serhii_kliets-spooky-video-game-chase-background-music-614041.mp3` |

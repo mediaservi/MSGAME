@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v13.8**
+**Versión actual: v13.9**
 
 ## Cómo se juega
 
@@ -36,7 +36,21 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v13.8)
+## Cambios de la versión actual (v13.9)
+**PALOTERAPIA con personajes 3D, su rótulo también al empezar la partida y cinco temas más de música** (Josep, 22-11-2026).
+
+- **Personajes 3D animados en la partida** (esqueleto de Mixamo): el zombi, la zombia, el esqueleto, el espantapájaros-calabaza, el marciano y el alien gris andan hacia ti y, al golpearlos, caen de verdad; en ALIENS sale al azar el marciano o el alien gris. Cada uno es una tira de fotogramas (`juegos/hit3d/<personaje>-anim.webp`), así funciona igual en la sala 3D y en la versión ligera de las teles.
+- Los que no tienen forma humana se mueven por código: el fantasma flota, el pulpo se estira, el platillo se ladea y el cóctel se tambalea; el balón sigue girando.
+- Los que aún no tienen modelo (murciélago, araña, cerebro, hueso, bidón, meteorito, planeta, el resto de pelotas y de objetos de DISCO) siguen con su emoji hasta que lo tengan.
+- **«¿Cómo juegas?»** lleva el mismo rótulo que la carátula del cartucho, en todos los juegos.
+- **Cinco temas más de música dinámica** (los que quedaron fuera de la v13.7):
+
+  - afinados a mano buscando dónde se repite de verdad el audio de cada tema, en vez de fiarlo al compás;
+  - PALOTERAPIA · ALIENS (ya son 3 temas), HALLOWEEN (3) y ZOMBIES (2);
+  - PUNTERÍA · HAUNTED (2) y WESTERN (5).
+- Sigue fuera un tema de HAUNTED (orquestal, sin batería): no tiene ninguna repetición que cierre un bucle limpio.
+
+### v13.8
 **Logo propio de PALOTERAPIA** (opción A, elegida por Josep; 22-11-2026).
 
 - Las cinco carátulas (HALLOWEEN, ZOMBIES, ALIENS, SPORTS y DISCO) llevan el logo de la saga: PALO y TERAPIA apilados, el bate haciendo de «I», el golpe de cómic en la O y el sable láser y la espada cruzados (`juegos/logo_paloterapia.svg`).
@@ -1117,7 +1131,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v13.8 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v13.9 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 

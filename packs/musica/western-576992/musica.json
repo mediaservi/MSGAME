@@ -1,0 +1,20 @@
+{
+ "bpm": 135.78,
+ "tiempo": 0.44189,
+ "fase": 0.428,
+ "entrada": [
+  0,
+  30.035
+ ],
+ "juego": [
+  30.035,
+  111.343
+ ],
+ "final": [
+  122.137,
+  131.11
+ ],
+ "fundido": 0.25,
+ "nota": "Música de PUNTERÍA · WESTERN: bucle de 46 compases que se repite en el tema (afinado a mano por repetición del audio); final = el cierre del tema.",
+ "fuente": "«monume-american-western-country-576992» (Pixabay)"
+}
