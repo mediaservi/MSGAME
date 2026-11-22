@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v15.4**
+**Versión actual: v15.5**
 
 ## Cómo se juega
 
@@ -36,7 +36,10 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v15.4)
+## Cambios de la versión actual (v15.5)
+- Cada personaje anda y cae a su manera (antes todos con el andar y la muerte de zombi): el marciano anda sigiloso y cae de espaldas; el alien, con el andar y la muerte de mutante; el esqueleto, la calabaza y la zombia caen de espaldas. El zombi conserva su andar y su muerte de zombi.
+
+### v15.4
 - PUNTERÍA GALAXY: el robot vuelve, ya animado con Mixamo: anda con un paso normal (no de zombi) y cae de espaldas al recibir el disparo (`juegos/hit3d/robot-anim.webp`).
 
 ### v15.3
@@ -1213,7 +1216,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v15.4 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v15.5 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
