@@ -3790,7 +3790,7 @@ body.gm-modos #gmUI{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '17.1';
+    const APP_VERSION = '17.2';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -4823,7 +4823,7 @@ body.gm-modos #gmUI{display:none!important}
         $('btnLang').addEventListener('click', e => { e.stopPropagation(); m.classList.toggle('hidden'); });
         document.addEventListener('click', e => { if (!e.target.closest('.langwrap')) m.classList.add('hidden'); });
         new MutationObserver(ms => { for (const m of ms) { if (m.type === 'characterData') node(m.target, false); else if (m.type === 'attributes') { if (!m.target.closest || !m.target.closest(SKIP)) attrs(m.target); } else m.addedNodes.forEach(a => { if (a.nodeType === 3) node(a, false); else if (a.nodeType === 1) walk(a); }); } }).observe(document.body, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ['title', 'placeholder', 'aria-label'] });
-        let s = null; try { s = localStorage.getItem('VJSHOW_LANG'); } catch (e) {}
+        let s = (location.search.match(/[?&]lang=(es|en|ca)\b/) || [])[1] || null; if (!s) try { s = localStorage.getItem('VJSHOW_LANG'); } catch (e) {}   /* v17.2 · ?lang=ca (o es, en) en el enlace abre la sala en ese idioma */
         setLang(LANGS.some(l => l[0] === s) ? s : pick());
       }
             return { init, setLang, T };
