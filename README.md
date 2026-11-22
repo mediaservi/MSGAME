@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v16.2**
+**Versión actual: v16.3**
 
 ## Cómo se juega
 
@@ -36,7 +36,10 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v16.2)
+## Cambios de la versión actual (v16.3)
+- Juego nuevo anunciado: **DIANA** (lanzar flechas, hachas y dardos a la diana, y un modo KRAZY con huevos, pasteles de nata, el barreño de agua y la manguera de bombero). Carátula en la estantería con la cinta PRÓXIMO ESTRENO; todavía no se juega.
+
+### v16.2
 - SHATEKI ya tiene música: «An Emperor’s Demand» (percusión japonesa) y «Night Osaka», una al azar en cada partida, con su entrada, bucle medido y final (`packs/musica/shateki-*`).
 - WONDERWALK: golpes épicos («Medieval Hero – Epic Cinematic Trailer», tres cortes) al elegir nivel, al empezar el paseo y al volver al título; y la música del paseo entra clara desde el principio (antes salía muy apagada y se abría poco a poco).
 
@@ -1240,7 +1243,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v16.2 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v16.3 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
