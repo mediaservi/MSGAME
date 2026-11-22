@@ -3790,7 +3790,7 @@ body.gm-modos #gmUI{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '16.4';
+    const APP_VERSION = '16.5';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -7809,13 +7809,23 @@ body.gm-modos #gmUI{display:none!important}
           catch (e) { const gg = x.createLinearGradient(a[0], a[1], b[0], b[1]); gg.addColorStop(0, `hsl(${hue},90%,45%)`); gg.addColorStop(1, `hsl(${hue + 120},90%,30%)`); x.fillStyle = gg; x.fillRect(a[0], a[1], w, h); }
           x.save(); x.globalCompositeOperation = 'lighter'; x.shadowColor = `hsl(${hue},100%,60%)`; x.shadowBlur = 20 + bass * 40; x.strokeStyle = `hsla(${hue},100%,65%,${.5 + bass * .5})`; x.lineWidth = 2; x.strokeRect(a[0] - w * .02, a[1] - h * .04, w * 1.04, h * 1.08); x.restore();
           return [a, b]; }
+        var PINSPR = PINSPR || (() => { let c = null; return () => { if (c) return c; const Wd = 120, Hd = 380; c = document.createElement('canvas'); c.width = Wd; c.height = Hd; const q = c.getContext('2d'), im = q.createImageData(Wd, Hd), d = im.data;
+          // perfil reglamentario (altura 0..1 desde la base → radio relativo al vientre)
+          const PF = [[0, .42], [.015, .47], [.06, .64], [.12, .82], [.2, .96], [.29, 1], [.37, .96], [.45, .84], [.52, .68], [.58, .53], [.63, .43], [.68, .385], [.72, .39], [.77, .45], [.83, .53], [.88, .555], [.925, .53], [.96, .45], [.985, .3], [1, 0]];
+          const rad = t => { if (t <= 0) return PF[0][1]; for (let i = 1; i < PF.length; i++) if (t <= PF[i][0]) { const a = PF[i - 1], b = PF[i], u = (t - a[0]) / (b[0] - a[0]), p0 = PF[Math.max(0, i - 2)][1], p3 = PF[Math.min(PF.length - 1, i + 1)][1], u2 = u * u, u3 = u2 * u; return .5 * (2 * a[1] + (-p0 + b[1]) * u + (2 * p0 - 5 * a[1] + 4 * b[1] - p3) * u2 + (-p0 + 3 * a[1] - 3 * b[1] + p3) * u3); } return 0; };
+          const top = PF[PF.length - 2][0], L = [-.55, .45, .7], ln = Math.hypot(...L); L.forEach((v, i) => L[i] = v / ln);
+          for (let y = 0; y < Hd; y++) { let t = 1 - (y + .5) / Hd; let r = rad(t); if (t > top) { const k = (t - top) / (1 - top); r = rad(top) * Math.sqrt(Math.max(0, 1 - k * k)); } if (r <= .001) continue; const dr = (rad(t + .004) - rad(t - .004)) / .008 * (Wd / 2) / Hd;
+            const red = (t > .615 && t < .64) || (t > .662 && t < .687);
+            for (let xx = 0; xx < Wd; xx++) { const u = (xx + .5 - Wd / 2) / (Wd / 2) / r; if (Math.abs(u) > 1) continue; const nz0 = Math.sqrt(1 - u * u); let nx = u, ny = dr * nz0, nz = nz0; const nl = Math.hypot(nx, ny, nz); nx /= nl; ny /= nl; nz /= nl;
+              const dif = Math.max(0, nx * L[0] + ny * L[1] + nz * L[2]), hz = nz + L[2], hx = nx + L[0], hy = ny + L[1], hl = Math.hypot(hx, hy, hz), sp = Math.pow(Math.max(0, (nx * hx + ny * hy + nz * hz) / hl), 60), env = .5 + .5 * ny, ao = Math.min(1, .55 + t * 3.5), fr = Math.pow(1 - nz, 3);
+              let cr, cg, cb; if (red) { cr = 205; cg = 18; cb = 28; } else { cr = 246; cg = 244; cb = 238; }
+              const sh = (.28 + .72 * dif) * ao * (.9 + .1 * env); let R = cr * sh + 255 * sp * .9 + 60 * fr * env, G = cg * sh + 255 * sp * .9 + 70 * fr * env, B = cb * sh + 255 * sp * .9 + 90 * fr * env;
+              const ed = Math.min(1, (1 - Math.abs(u)) * r * Wd * .5), o = (y * Wd + xx) * 4; d[o] = Math.min(255, R); d[o + 1] = Math.min(255, G); d[o + 2] = Math.min(255, B); d[o + 3] = 255 * ed; } }
+          q.putImageData(im, 0, 0); return c; }; })();
         function drawPin(p) { const [sx, sy, k] = P(p.x, p.z, 0), hh = .38 * k, ww = .121 * k; if (ww < .6) return;
           x.save(); x.translate(sx, sy); x.fillStyle = 'rgba(0,0,0,.35)'; x.beginPath(); x.ellipse(0, 0, ww * .7, ww * .18, 0, 0, 6.283); x.fill();
           if (p.hz) x.translate(0, -p.hz * k); if (!p.up) { const f = p.fall, lf = .45 + .55 * Math.abs(Math.cos(p.ang || 0)); x.rotate(p.fd * f * Math.PI / 2 * .95); x.scale(1, (1 - f * .35) * (1 - f + f * lf)); }
-          const prof = [[0, .4], [.05, .55], [.11, 1], [.2, .72], [.25, .36], [.29, .38], [.33, .54], [.37, .35], [.38, 0]];
-          x.beginPath(); x.moveTo(-ww * prof[0][1] / 2, 0); prof.forEach(([h, r]) => x.lineTo(-ww * r / 2, -h / .38 * hh)); for (let i = prof.length - 1; i >= 0; i--) x.lineTo(ww * prof[i][1] / 2, -prof[i][0] / .38 * hh); x.closePath();
-          const gg = x.createLinearGradient(-ww / 2, 0, ww / 2, 0); gg.addColorStop(0, '#9aa0a8'); gg.addColorStop(.35, '#ffffff'); gg.addColorStop(.7, '#e6e8ec'); gg.addColorStop(1, '#8a9098'); x.fillStyle = gg; x.fill();
-          x.fillStyle = '#d0141e'; x.fillRect(-ww * .2, -hh * (.245 / .38), ww * .4, hh * .018 + .6); x.fillRect(-ww * .19, -hh * (.268 / .38), ww * .38, hh * .018 + .6); x.restore(); }
+          const spr = PINSPR(); x.drawImage(spr, -ww / 2, -hh * 1.01, ww, hh * 1.01); x.restore(); }   /* v16.5 · bolo de verdad: silueta reglamentaria suave, sombreado de torno (brillo, reflejo y oclusión) y las dos franjas rojas que rodean el cuello */
         function drawBall(b) { const [sx, sy, k] = P(b.x, b.z, 0), r = BR * k; x.save(); x.fillStyle = 'rgba(0,0,0,.45)'; x.beginPath(); x.ellipse(sx, sy, r * 1.1, r * .3, 0, 0, 6.283); x.fill();
           x.save(); x.beginPath(); x.arc(sx, sy - r, r, 0, 6.283); x.clip(); { const tx = BALLSKIN.real(opt.ball || 'widow'), off = ((b.rot % 6.283) + 6.283) % 6.283 / 6.283 * r * 2; for (let k2 = 0; k2 < 2; k2++) x.drawImage(tx, sx - r, sy - r * 2 - off + k2 * r * 2, r * 2, r * 2); const sh = x.createRadialGradient(sx - r * .35, sy - r * 1.35, r * .1, sx, sy - r, r * 1.05); sh.addColorStop(0, 'rgba(255,255,255,.25)'); sh.addColorStop(.45, 'rgba(255,255,255,0)'); sh.addColorStop(1, 'rgba(0,0,0,.6)'); x.fillStyle = sh; x.fillRect(sx - r, sy - r * 2, r * 2, r * 2); }
           const hp = Math.cos(b.rot); if (hp > -.2) { x.fillStyle = 'rgba(0,0,0,.75)'; [[-.18, 0], [.18, 0], [0, .3]].forEach(([ox, oy]) => { x.beginPath(); x.ellipse(sx + ox * r, sy - r + (oy - .25 + (1 - hp) * .5) * r, r * .09, r * .09 * Math.max(.2, hp), 0, 0, 6.283); x.fill(); }); } x.restore();
