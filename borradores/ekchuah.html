@@ -26,7 +26,13 @@
   .esq{position:absolute;top:calc(var(--u)*1.4);right:calc(var(--u)*1.4);display:flex;gap:calc(var(--u)*.8)}
   #saltar{position:absolute;right:calc(var(--u)*1.6);bottom:calc(var(--u)*1.6);display:none;opacity:.8}
   #saltar.on{display:block}
-  #guias .cards{display:flex;gap:calc(var(--u)*5)}
+  #guias{justify-content:flex-start;padding-top:calc(var(--u)*2.2)}
+  #guias .cards{position:absolute;left:calc(var(--u)*3);right:calc(var(--u)*3);top:calc(var(--u)*9.5);display:flex;justify-content:space-between;align-items:stretch;pointer-events:none}   /* v17.6 · dos tarjetas iguales y simétricas a los lados; la puerta del templo queda a la vista en el centro */
+  #guias .card{pointer-events:auto;width:calc(var(--u)*27);box-sizing:border-box;padding:calc(var(--u)*1) calc(var(--u)*1.2) calc(var(--u)*1.2)}
+  #guias .card img{height:calc(var(--u)*25)}
+  #guias .card b{font-size:calc(var(--u)*3)}
+  #guias .card span{font-size:calc(var(--u)*1.45);line-height:1.2;text-align:center;min-height:2.4em;white-space:normal;max-width:100%}
+  #guias .card b{white-space:normal}
   .card{display:flex;flex-direction:column;align-items:center;gap:calc(var(--u)*.6);background:linear-gradient(rgba(20,40,20,.72),rgba(10,20,8,.86));border:calc(var(--u)*.3) solid #c9a13a;border-radius:calc(var(--u)*1.6);padding:calc(var(--u)*1.2) calc(var(--u)*2.4) calc(var(--u)*1.4);box-shadow:0 0 calc(var(--u)*3) rgba(255,200,80,.35);text-transform:none;color:#ffe9a8}
   .card img{height:calc(var(--u)*24);filter:drop-shadow(0 calc(var(--u)*.4) calc(var(--u)*.8) rgba(0,0,0,.7))}
   .card b{font-size:calc(var(--u)*2.2)}
@@ -67,14 +73,14 @@
   <div class="pan" id="guias">
     <h2 data-t="elige">¿Quién te acompaña?</h2>
     <div class="cards">
-      <button type="button" class="card" data-g="chico"><img src="../juegos/ekchuah/guia-chico.webp" alt=""><b data-t="chico">El explorador</b><span data-t="chicoD">Con su amuleto de diente de tiburón</span></button>
-      <button type="button" class="card" data-g="chica"><img src="../juegos/ekchuah/guia-chica.webp" alt=""><b data-t="chica">La exploradora</b><span data-t="chicaD">Con su guacamaya roja</span></button>
+      <button type="button" class="card" data-g="chico"><img src="../juegos/ekchuah/guia-chico.webp" alt=""><b data-t="chico">Eduardo</b><span data-t="chicoD">El explorador del amuleto de diente de tiburón</span></button>
+      <button type="button" class="card" data-g="chica"><img src="../juegos/ekchuah/guia-chica.webp" alt=""><b data-t="chica">Naomi</b><span data-t="chicaD">La exploradora de la guacamaya roja</span></button>
     </div>
   </div>
   <div class="pan" id="reint">
     <img class="gui" id="reGui" alt="">
     <h2 data-t="norinda">¡No te rindas!</h2>
-    <p class="sub" data-t="norindaD">La luz de Ek Chuah nos da otra oportunidad.</p>
+    <p class="sub"><b id="reNom"></b><span data-t="norindaD">La luz de Ek Chuah nos da otra oportunidad.</span></p>
     <button type="button" id="recarga" data-t="recarga">Encender las antorchas</button>
   </div>
   <div class="pan" id="fin">
@@ -88,19 +94,19 @@
 'use strict';
 /* ---------- textos (español, inglés y catalán) ---------- */
 const TX = {
-  es: { saltar: 'Saltar ▸', empezar: 'Comenzar aventura', elige: '¿Quién te acompaña?', chico: 'El explorador', chicoD: 'Con su amuleto de diente de tiburón', chica: 'La exploradora', chicaD: 'Con su guacamaya roja',
+  es: { saltar: 'Saltar ▸', empezar: 'Comenzar aventura', elige: '¿Quién te acompaña?', chico: 'Eduardo', chicoD: 'El explorador del amuleto de diente de tiburón', chica: 'Naomi', chicaD: 'La exploradora de la guacamaya roja',
     norinda: '¡No te rindas!', norindaD: 'La luz de Ek Chuah nos da otra oportunidad.', recarga: 'Encender las antorchas', victoria: '¡Lo has conseguido!', puntos: 'Puntos', antorchas: 'Antorchas', ruta: 'Ruta',
     otra: 'Volver a jugar (prueba la otra ruta)', terminar: 'Terminar', rutaSol: 'Cacao dorado', rutaJade: 'Camino de jade',
     apunta: '¡Apunta con el cetro y dispara!', arcos: 'Elige un camino: dispara a un arco', vasijas: 'Ilumina la vasija del sol', medallon: 'Apunta al medallón de jade', cristal: 'Ilumina el cristal del altar',
     noVasija: '¡Esa no es la vasija solar! Inténtalo de nuevo', noMedallon: '¡Apunta al medallón de jade en su pecho!', noCristal: '¡Apunta al cristal del centro del altar!', tiempo: '¡Se acabó el tiempo!', porIzq: 'El guardián te guía por el arco del cacao',
     t1: 'Aprendiz del templo', t2: 'Explorador de Copán', t3: 'Guardián del cacao', t4: 'Gran sabio de Ek Chuah', titJade: 'Amigo del Jaguar de Jade' },
-  en: { saltar: 'Skip ▸', empezar: 'Start the adventure', elige: 'Who comes with you?', chico: 'The explorer', chicoD: 'With his shark-tooth amulet', chica: 'The explorer', chicaD: 'With her red macaw',
+  en: { saltar: 'Skip ▸', empezar: 'Start the adventure', elige: 'Who comes with you?', chico: 'Eduardo', chicoD: 'The explorer with the shark-tooth amulet', chica: 'Naomi', chicaD: 'The explorer with the red macaw',
     norinda: "Don't give up!", norindaD: 'The light of Ek Chuah gives us another chance.', recarga: 'Light the torches', victoria: 'You did it!', puntos: 'Points', antorchas: 'Torches', ruta: 'Path',
     otra: 'Play again (try the other path)', terminar: 'Finish', rutaSol: 'Golden cacao', rutaJade: 'Jade path',
     apunta: 'Aim the sceptre and shoot!', arcos: 'Choose a path: shoot an arch', vasijas: 'Light up the sun vessel', medallon: 'Aim at the jade medallion', cristal: 'Light up the altar crystal',
     noVasija: "That's not the sun vessel! Try again", noMedallon: 'Aim at the jade medallion on its chest!', noCristal: 'Aim at the crystal in the centre of the altar!', tiempo: "Time's up!", porIzq: 'The guardian leads you through the cacao arch',
     t1: 'Temple apprentice', t2: 'Copán explorer', t3: 'Cacao guardian', t4: 'Great sage of Ek Chuah', titJade: 'Friend of the Jade Jaguar' },
-  ca: { saltar: 'Salta ▸', empezar: "Comença l'aventura", elige: "Qui t'acompanya?", chico: "L'explorador", chicoD: "Amb el seu amulet de dent de tauró", chica: "L'exploradora", chicaD: 'Amb el seu guacamai vermell',
+  ca: { saltar: 'Salta ▸', empezar: "Comença l'aventura", elige: "Qui t'acompanya?", chico: 'Eduardo', chicoD: "L'explorador de l'amulet de dent de tauró", chica: 'Naomi', chicaD: "L'exploradora del guacamai vermell",
     norinda: "No et rendeixis!", norindaD: "La llum d'Ek Chuah ens dona una altra oportunitat.", recarga: 'Encén les torxes', victoria: "Ho has aconseguit!", puntos: 'Punts', antorchas: 'Torxes', ruta: 'Camí',
     otra: "Torna a jugar (prova l'altre camí)", terminar: 'Acaba', rutaSol: 'Cacau daurat', rutaJade: 'Camí de jade',
     apunta: 'Apunta amb el ceptre i dispara!', arcos: 'Tria un camí: dispara a un arc', vasijas: 'Il·lumina la gerra del sol', medallon: 'Apunta al medalló de jade', cristal: "Il·lumina el cristall de l'altar",
@@ -125,6 +131,18 @@ const SND = { tiro() { tono(520, 1900, .22, 'sine', .14); tono(780, 2600, .18, '
   bien() { [1318, 1661, 1976, 2637].forEach((f, i) => tono(f, f * 1.002, .9, 'sine', .11, i * .07)); ruido(.4, 9000, .03); },
   piedra() { tono(140, 45, .5, 'sine', .35); ruido(.45, 420, .35); },
   boton() { tono(880, 1320, .08, 'square', .05); } };
+
+/* ---------- música dinámica (v17.6): los dos temas de Josep repartidos por la aventura, con fundidos entre tramos (packs/ekchuah/musica.json) ---------- */
+const MUS = { j: null, buf: {}, s: null, g: null, k: '', filt: null, vol: .55 };
+async function musCarga() { if (MUS.j) return; const c = ac(); if (!c) return; try { MUS.j = await fetch('../packs/ekchuah/musica.json?v=' + VQ).then(r => r.json()); await Promise.all(Object.keys(MUS.j.fuentes).map(async n => { MUS.buf[n] = await fetch('../packs/ekchuah/' + n + '.mp3?v=' + VQ).then(r => r.arrayBuffer()).then(a => c.decodeAudioData(a)); })); } catch (e) { MUS.j = null; } }
+async function mus(k, fade) { if (MUS.k === k) return; MUS.k = k; await musCarga(); if (MUS.k !== k || !MUS.j) return; const c = ac(), tr = MUS.j.tramos[k]; if (!c || !tr || !MUS.buf[tr[0]]) return; const t = c.currentTime, f = fade || 1.6;
+  if (MUS.s) { const g0 = MUS.g, s0 = MUS.s; g0.gain.cancelScheduledValues(t); g0.gain.setValueAtTime(g0.gain.value, t); g0.gain.linearRampToValueAtTime(0, t + f); try { s0.stop(t + f + .05); } catch (e) {} }
+  const s = c.createBufferSource(), g = c.createGain(), fl = c.createBiquadFilter(); s.buffer = MUS.buf[tr[0]]; if (tr[2] != null) { s.loop = true; s.loopStart = tr[2]; s.loopEnd = tr[3]; } fl.type = 'lowpass'; fl.frequency.value = 20000; g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(MUDO() ? 0 : MUS.vol, t + f); s.connect(fl); fl.connect(g); g.connect(c.destination); s.start(t, tr[1]); MUS.s = s; MUS.g = g; MUS.filt = fl;
+  if (tr[2] == null) s.onended = () => { if (MUS.s === s) { MUS.s = null; MUS.k = ''; } }; }
+function musApaga(on) { if (!MUS.filt || !AC) return; const t = AC.currentTime; MUS.filt.frequency.cancelScheduledValues(t); MUS.filt.frequency.setTargetAtTime(on ? 700 : 20000, t, .25); MUS.g.gain.setTargetAtTime(MUDO() ? 0 : on ? MUS.vol * .6 : MUS.vol, t, .25); }   /* al perder: la música se apaga y suena lejana hasta que vuelves a encender las antorchas */
+function musPara(f) { if (!MUS.s || !AC) return; const t = AC.currentTime; MUS.g.gain.setTargetAtTime(0, t, (f || .8) / 3); try { MUS.s.stop(t + (f || .8)); } catch (e) {} MUS.s = null; MUS.k = ''; }
+/* JUEGO AMPLIABLE (Josep, 22-11): para una escena nueva, añadir su vídeo en VID y NEXT, su prueba en PRUEBA y aquí qué tramo de música le toca (o un tramo nuevo en musica.json) */
+const TRAMO = { alux: 'acertijo', cacao: 'galerias', jade: 'galerias', santuario: 'santuario' };
 
 /* ---------- vídeos: uno por escena, con el siguiente ya cargado ---------- */
 const VID = { intro: '00_intro_titulo', chico: '0a_intro_chico', chica: '0a_intro_chica', tunel: '0b_descenso_tunel', alux: '1a_acertijo_alux', cacao: '2a_pasadizo_cacao', jade: '2b_galeria_jade', santuario: '3a_santuario_ekchuah', finSol: '3b_final_victoria', finJade: '3b_final_jade' };
@@ -155,28 +173,28 @@ const manda = m => { if (EMB) try { parent.postMessage(m, location.origin); } ca
 
 /* ---------- escenas ---------- */
 function inicio() { E.esc = 'ini'; panel('ini'); $('hud').classList.remove('on'); $('bg').style.backgroundImage = 'url(../juegos/ekchuah/templo.webp)'; $('bg').classList.add('on'); saltar(false); }
-function intro() { panel(''); E.esc = 'video'; reproduce('intro', eligeGuia); saltar(true, () => { const v = vid('intro'); v.currentTime = Math.max(0, v.duration - .05); }); }
+function intro() { mus('portada', .4); panel(''); E.esc = 'video'; reproduce('intro', eligeGuia); saltar(true, () => { const v = vid('intro'); v.currentTime = Math.max(0, v.duration - .05); }); }
 function eligeGuia() { saltar(false); E.esc = 'guias'; panel('guias'); }
-function conGuia(gu) { E.guia = gu; SND.boton(); panel(''); const im = '../juegos/ekchuah/guia-' + gu + '.webp'; $('hudGui').style.backgroundImage = 'url(' + im + ')'; $('reGui').src = im; $('finGui').src = im;
+function conGuia(gu) { E.guia = gu; $('reNom').textContent = T(gu) + ': '; SND.boton(); panel(''); const im = '../juegos/ekchuah/guia-' + gu + '.webp'; $('hudGui').style.backgroundImage = 'url(' + im + ')'; $('reGui').src = im; $('finGui').src = im;
   E.esc = 'video'; reproduce(gu, () => { E.esc = 'video'; reproduce('tunel', () => empiezaJuego()); saltar(true, () => { const v = vid('tunel'); v.currentTime = Math.max(0, v.duration - .05); }); }); saltar(true, () => { const v = vid(gu); v.currentTime = Math.max(0, v.duration - .05); }); }
 function empiezaJuego() { saltar(false); E.ant = 3; antorchas(); puntos(0); $('hud').classList.add('on'); prueba('alux'); }
-function prueba(k) { const P = PRUEBA[k]; E.prueba = k; E.armado = false; E.tPrueba = 0; E.tMax = P.t; E.esc = 'prueba'; saltar(false); marcosCal();
+function prueba(k) { mus(TRAMO[k] || 'acertijo'); const P = PRUEBA[k]; E.prueba = k; E.armado = false; E.tPrueba = 0; E.tMax = P.t; E.esc = 'prueba'; saltar(false); marcosCal();
   const v = reproduce(k, () => { E.armado = true; E.congelado = true; aviso(T(P.msg), 2600); });
   E.congelado = false; v.ontimeupdate = () => { if (!E.armado && v.duration && v.currentTime >= v.duration - 3) { E.armado = true; aviso(T(P.msg), 2600); } }; }
 function acierto(z) { const P = PRUEBA[E.prueba]; E.armado = false; SND.bien(); puntos(z.pts || 0); estallido(z, z.col || '#ffd23f', 90); if (z.ruta) E.ruta = z.ruta;
-  const k = z.ir; setTimeout(() => { if (k === 'finSol' || k === 'finJade') { if (k === 'finJade') E.ruta = 'jade'; else if (!E.ruta) E.ruta = 'sol'; E.esc = 'video'; reproduce(k, final); saltar(true, () => { const v = vid(k); v.currentTime = Math.max(0, v.duration - .05); }); } else prueba(k); }, 700); }
+  const k = z.ir; setTimeout(() => { if (k === 'finSol' || k === 'finJade') { if (k === 'finJade') E.ruta = 'jade'; else if (!E.ruta) E.ruta = 'sol'; E.esc = 'video'; mus('final', 1.2); reproduce(k, final); saltar(true, () => { const v = vid(k); v.currentTime = Math.max(0, v.duration - .05); }); } else prueba(k); }, 700); }
 function fallo(clave) { if (E.bloq > 0) return; E.bloq = 1.1; SND.piedra(); temblor = .45; E.ant = Math.max(0, E.ant - 1); antorchas(); aviso(T(clave), 2400); E.tPrueba = 0;
-  if (E.ant <= 0) { E.armado = false; setTimeout(() => { E.esc = 'reint'; panel('reint'); }, 900); } }
-function recarga() { SND.bien(); E.ant = 3; antorchas(); panel(''); E.esc = 'prueba'; E.armado = true; E.tPrueba = 0; aviso(T(PRUEBA[E.prueba].msg), 2400); }
+  if (E.ant <= 0) { E.armado = false; setTimeout(() => { E.esc = 'reint'; panel('reint'); musApaga(true); }, 900); } }
+function recarga() { musApaga(false); SND.bien(); E.ant = 3; antorchas(); panel(''); E.esc = 'prueba'; E.armado = true; E.tPrueba = 0; aviso(T(PRUEBA[E.prueba].msg), 2400); }
 function agotado() { const P = PRUEBA[E.prueba]; if (P.alAgotar) { const z = P.zonas.find(q => q.id === P.alAgotar); aviso(T('porIzq'), 2400); acierto(z); return; } aviso(T('tiempo'), 1200); setTimeout(() => fallo(P.malAgotar), 500); }
-function final() { saltar(false); E.esc = 'fin'; E.armado = false; const bonus = E.ant * 100; puntos(bonus); $('finPts').textContent = E.pts; $('finAnt').textContent = E.ant + ' / 3'; $('finRuta').textContent = T(RUTA[E.ruta] || 'rutaSol');
+function final() { mus('cierre', 2.5); saltar(false); E.esc = 'fin'; E.armado = false; const bonus = E.ant * 100; puntos(bonus); $('finPts').textContent = E.pts; $('finAnt').textContent = E.ant + ' / 3'; $('finRuta').textContent = T(RUTA[E.ruta] || 'rutaSol');
   $('finTit').textContent = E.ruta === 'jade' ? T('titJade') : T(E.pts >= 1100 ? 't4' : E.pts >= 800 ? 't3' : E.pts >= 500 ? 't2' : 't1'); panel('fin'); SND.bien(); manda({ t: 'pts', v: E.pts }); }
 function otraVez() { SND.boton(); E.pts = 0; E.ruta = ''; puntos(0); E.ant = 3; antorchas(); panel(''); prueba('alux'); }
 $('empezar').addEventListener('click', e => { e.stopPropagation(); ac(); SND.boton(); intro(); });
 document.querySelectorAll('.card').forEach(b => b.addEventListener('click', e => { e.stopPropagation(); conGuia(b.dataset.g); }));
 $('recarga').addEventListener('click', e => { e.stopPropagation(); recarga(); });
 $('otra').addEventListener('click', e => { e.stopPropagation(); otraVez(); });
-$('terminar').addEventListener('click', e => { e.stopPropagation(); SND.boton(); if (EMB) manda({ t: 'fin', v: E.pts }); else inicio(); });
+$('terminar').addEventListener('click', e => { e.stopPropagation(); SND.boton(); musPara(1); if (EMB) manda({ t: 'fin', v: E.pts }); else inicio(); });
 $('full').addEventListener('click', e => { e.stopPropagation(); try { if (document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen(); } catch (er) {} });
 
 /* ---------- el cetro, el rayo y las partículas ---------- */
@@ -200,7 +218,7 @@ addEventListener('keydown', e => { if (e.key === 'd' || e.key === 'D') { documen
 let padD = false; addEventListener('message', e => { const m = e.data; if (!m || typeof m !== 'object' || e.source !== parent) return; const r = st.getBoundingClientRect();
   if (m.t === 'pad') { PTR.x = m.x; PTR.y = m.y; if (m.d && !padD) toque(r.left + m.x * r.width, r.top + m.y * r.height, true); padD = !!m.d; }
   else if (m.t === 'fire') toque(r.left + PTR.x * r.width, r.top + PTR.y * r.height, true);
-  else if (m.t === 'pausa') { E.pausa = !!m.v; if (actual) { if (E.pausa) actual.pause(); else if (actual.dataset.want) actual.play().catch(() => {}); } } });
+  else if (m.t === 'pausa') { E.pausa = !!m.v; if (AC) { if (E.pausa) AC.suspend(); else AC.resume(); } if (actual) { if (E.pausa) actual.pause(); else if (actual.dataset.want) actual.play().catch(() => {}); } } });
 /* modo calibración (tecla D): las zonas de disparo con sus coordenadas en % */
 function marcosCal() { document.querySelectorAll('.cal').forEach(n => n.remove()); if (!document.body.classList.contains('cal') || !E.prueba) return; PRUEBA[E.prueba].zonas.forEach(z => { const d = document.createElement('div'); d.className = 'cal'; d.style.left = z.r[0] + '%'; d.style.top = z.r[1] + '%'; d.style.width = (z.r[2] - z.r[0]) + '%'; d.style.height = (z.r[3] - z.r[1]) + '%'; d.textContent = E.prueba + '.' + z.id + ' [' + z.r.join(', ') + ']'; st.appendChild(d); }); }
 

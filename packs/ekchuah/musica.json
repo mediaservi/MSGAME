@@ -1,0 +1,15 @@
+{
+ "nota": "Música de EL MISTERIO DE EK CHUAH, repartida por la aventura (v17.6). Cada tramo: [archivo, empieza, bucle desde, bucle hasta]; sin bucle = suena una vez.",
+ "fuentes": {
+  "aventura": "«The Jungle Citadel · Epic Tribal & Adventure Music» de onecinematicstudio (Pixabay, 529077)",
+  "templo": "«Temple of the Sun · Grand Ethnic & Solar Orchestral Music» de onecinematicstudio (Pixabay, 529083)"
+ },
+ "tramos": {
+  "portada": ["aventura", 0, 42.364, 97.222],
+  "acertijo": ["aventura", 102.231, 102.231, 186.847],
+  "galerias": ["aventura", 197.282, 197.282, 233.91],
+  "santuario": ["templo", 0, 41.285, 80.256],
+  "final": ["templo", 104, null, null],
+  "cierre": ["templo", 192, null, null]
+ }
+}

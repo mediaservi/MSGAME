@@ -33,3 +33,5 @@ Temas elegidos por Josep (Drive, una carpeta por juego), nivelados y cortados co
 | `../diana/barreno/` | DIANA · BARRENO | «Comedy Circus» · top_sue · Pixabay 482529 |
 | `../diana/tartazos/` | DIANA · TARTAZOS | «Show» · kulakovka · Pixabay 295893 |
 | `../diana/bomberos/` | DIANA · BOMBEROS | «Fire» · alexrockbeat · Pixabay 591020 |
+| `../ekchuah/aventura.mp3` | EK CHUAH · portada, acertijo y galerías | «The Jungle Citadel · Epic Tribal & Adventure Music» · onecinematicstudio · Pixabay 529077 |
+| `../ekchuah/templo.mp3` | EK CHUAH · santuario, final y cierre | «Temple of the Sun · Grand Ethnic & Solar Orchestral Music» · onecinematicstudio · Pixabay 529083 |
