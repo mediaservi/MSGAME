@@ -55,14 +55,14 @@
 /* ---------- textos ---------- */
 const TX = {
   es: { elige: 'Elige cómo quieres acertar al centro', facil: 'Fácil', normal: 'Normal', dificil: 'Difícil', otra: 'Otra vez', modos: 'Elegir modo', puntos: 'puntos', fin: '¡Fin de la ronda!',
-    hachas: 'HACHAS Y ARCO', hachasD: 'Hacha y flecha, por turnos. Ojo con el viento', dardos: 'DARDOS', dardosD: 'Dobles, triples y el centro: 50', barreno: 'AL BARREÑO', barrenoD: 'Da en la diana y ¡al agua!', tartazos: 'TARTAZOS', tartazosD: 'Pasteles de nata y huevos a la cara que asoma', bomberos: 'BOMBEROS', bomberosD: 'Mantén pulsado y apaga los fuegos',
-    diana: '¡DIANA!', agua: '¡AL AGUA!', viento: 'Viento', lanzas: 'Lanzamientos', tiempo: 'Tiempo', fuegos: 'Fuegos', apaga: '¡APAGADO!', ayuda: 'Apunta y toca para lanzar', ayudaB: 'Mantén pulsado para echar agua', quema: '¡El edificio arde!', ronda: 'Ronda' },
+    hachas: 'HACHAS Y ARCO', hachasD: 'Hacha y flecha, por turnos. Ojo con el viento', dardos: 'DARDOS', dardosD: 'Partida de 301: déjalo en 0 justo', barreno: 'AL BARREÑO', barrenoD: 'Da en la diana y ¡al agua!', tartazos: 'TARTAZOS', tartazosD: 'Pasteles de nata y huevos a la cara que asoma', bomberos: 'BOMBEROS', bomberosD: 'Mantén pulsado y apaga los fuegos',
+    diana: '¡DIANA!', agua: '¡AL AGUA!', viento: 'Viento', lanzas: 'Lanzamientos', tiempo: 'Tiempo', fuegos: 'Fuegos', apaga: '¡APAGADO!', ayuda: 'Apunta y toca para lanzar', ayudaB: 'Mantén pulsado para echar agua', quema: '¡El edificio arde!', ronda: 'Ronda', quedan: 'Quedan', pasado: '¡TE PASASTE!' },
   en: { elige: 'Choose how to hit the bullseye', facil: 'Easy', normal: 'Normal', dificil: 'Hard', otra: 'Play again', modos: 'Choose mode', puntos: 'points', fin: 'Round over!',
-    hachas: 'AXES & BOW', hachasD: 'Axe and arrow in turns. Mind the wind', dardos: 'DARTS', dardosD: 'Doubles, trebles and the bull: 50', barreno: 'DUNK TANK', barrenoD: 'Hit the target and splash!', tartazos: 'PIE IN THE FACE', tartazosD: 'Cream pies and eggs at the faces that pop up', bomberos: 'FIREFIGHTERS', bomberosD: 'Hold down and put out the fires',
-    diana: 'BULLSEYE!', agua: 'SPLASH!', viento: 'Wind', lanzas: 'Throws', tiempo: 'Time', fuegos: 'Fires', apaga: 'PUT OUT!', ayuda: 'Aim and tap to throw', ayudaB: 'Hold down to spray water', quema: 'The building burns!', ronda: 'Round' },
+    hachas: 'AXES & BOW', hachasD: 'Axe and arrow in turns. Mind the wind', dardos: 'DARTS', dardosD: '301 game: finish exactly on 0', barreno: 'DUNK TANK', barrenoD: 'Hit the target and splash!', tartazos: 'PIE IN THE FACE', tartazosD: 'Cream pies and eggs at the faces that pop up', bomberos: 'FIREFIGHTERS', bomberosD: 'Hold down and put out the fires',
+    diana: 'BULLSEYE!', agua: 'SPLASH!', viento: 'Wind', lanzas: 'Throws', tiempo: 'Time', fuegos: 'Fires', apaga: 'PUT OUT!', ayuda: 'Aim and tap to throw', ayudaB: 'Hold down to spray water', quema: 'The building burns!', ronda: 'Round', quedan: 'Left', pasado: 'BUST!' },
   ca: { elige: 'Tria com vols encertar el centre', facil: 'Fàcil', normal: 'Normal', dificil: 'Difícil', otra: 'Una altra', modos: 'Tria mode', puntos: 'punts', fin: 'Fi de la ronda!',
-    hachas: 'DESTRALS I ARC', hachasD: 'Destral i fletxa, per torns. Compte amb el vent', dardos: 'DARDS', dardosD: 'Dobles, triples i el centre: 50', barreno: 'A LA GALLEDA', barrenoD: 'Encerta la diana i a l\'aigua!', tartazos: 'PASTISSADES', tartazosD: 'Pastissos de nata i ous a la cara que surt', bomberos: 'BOMBERS', bomberosD: 'Mantén premut i apaga els focs',
-    diana: 'DIANA!', agua: 'A L\'AIGUA!', viento: 'Vent', lanzas: 'Llançaments', tiempo: 'Temps', fuegos: 'Focs', apaga: 'APAGAT!', ayuda: 'Apunta i toca per llançar', ayudaB: 'Mantén premut per tirar aigua', quema: 'L\'edifici crema!', ronda: 'Ronda' } };
+    hachas: 'DESTRALS I ARC', hachasD: 'Destral i fletxa, per torns. Compte amb el vent', dardos: 'DARDS', dardosD: 'Partida de 301: deixa-ho a 0 just', barreno: 'A LA GALLEDA', barrenoD: 'Encerta la diana i a l\'aigua!', tartazos: 'PASTISSADES', tartazosD: 'Pastissos de nata i ous a la cara que surt', bomberos: 'BOMBERS', bomberosD: 'Mantén premut i apaga els focs',
+    diana: 'DIANA!', agua: 'A L\'AIGUA!', viento: 'Vent', lanzas: 'Llançaments', tiempo: 'Temps', fuegos: 'Focs', apaga: 'APAGAT!', ayuda: 'Apunta i toca per llançar', ayudaB: 'Mantén premut per tirar aigua', quema: 'L\'edifici crema!', ronda: 'Ronda', quedan: 'Queden', pasado: 'T\'HAS PASSAT!' } };
 const LG = (() => { const q = (location.search.match(/[?&]lang=(\w+)/) || [])[1]; let l = q || ''; if (!l) try { l = (parent.document.documentElement.lang || '') } catch (e) {} if (!l) l = navigator.language || 'es'; l = l.slice(0, 2).toLowerCase(); return TX[l] ? l : (/^(es|gl|eu)/.test(l) ? 'es' : 'en'); })();
 const T = k => TX[LG][k] || TX.es[k] || k; document.documentElement.lang = LG;
 const EMB = /[?&]emb=1/.test(location.search), VQ = (location.search.match(/[?&]v=([\w.]+)/) || [])[1] || '1';
@@ -77,7 +77,7 @@ const img = u => { const i = new Image(); i.src = u + '?v=' + VQ; return i; };
 /* ---------- modos: fondo, música y dónde está la diana (coordenadas de la imagen, 0..1) ---------- */
 const MODOS = {
   hachas: { f: 'axes', m: 'hachas', tg: [.5, .45, .075], n: 10 },
-  dardos: { f: 'darts', m: 'dardos', tg: [.5, .383, .088], n: 12 },
+  dardos: { f: 'darts', m: 'dardos', tg: [.5, .383, .088], n: 24 },   /* partida de 301: 8 rondas de 3 dardos para dejarlo en 0 justo */
   barreno: { f: 'sunk', m: 'barreno', tg: [.695, .43, .05], n: 8 },
   tartazos: { f: 'tartazos', m: 'tartazos', dur: 45, huecos: [[.332, .384], [.501, .378], [.668, .384], [.417, .663], [.584, .663]], rh: .052 },
   bomberos: { f: 'bomberos', m: 'bomberos', dur: 60 } };
@@ -126,7 +126,7 @@ function menu() { E.fase = 'ini'; $('tElige').textContent = T('elige'); const m 
   const n = $('niv'); n.innerHTML = ''; ['facil', 'normal', 'dificil'].forEach(k => { const b = document.createElement('button'); b.type = 'button'; b.textContent = T(k); b.className = E.niv === k ? 'sel' : ''; b.onclick = e => { e.stopPropagation(); E.niv = k; SND.boton(); manda({ t: 'modo', v: k }); menu(); }; n.appendChild(b); });
   panel('pIni'); paraMusica(.5); MUS.k = ''; }
 function panel(id) { document.querySelectorAll('.pan').forEach(p => p.classList.toggle('on', p.id === id)); }
-function empieza(k) { SND.boton(); A(); E.modo = k; E.fase = 'juego'; E.pts = 0; E.t = 0; E.n = 0; E.tiros = []; E.pop = []; E.part = []; E.arma = 0; E.cool = .3; E.viento = R(-1, 1); E.dunk = null; E.caras = []; E.fuegos = []; E.agua = []; E.apag = 0; E.dardos = []; panel(''); musica(MODOS[k].m); manda({ t: 'pts', v: 0 }); }
+function empieza(k) { SND.boton(); A(); E.modo = k; E.fase = 'juego'; E.pts = 0; E.t = 0; E.n = 0; E.tiros = []; E.pop = []; E.part = []; E.arma = 0; E.cool = .3; E.viento = R(-1, 1); E.dunk = null; E.q = 301; E.qR = 301; E.caras = []; E.fuegos = []; E.agua = []; E.apag = 0; E.dardos = []; panel(''); musica(MODOS[k].m); manda({ t: 'pts', v: 0 }); }
 function termina() { if (E.fase !== 'juego') return; E.fase = 'fin'; chorro(false); finMusica(); SND.ovacion(); $('fTit').textContent = T('fin'); $('fPts').textContent = E.pts; $('fSub').textContent = T(E.modo) + ' · ' + E.pts + ' ' + T('puntos'); $('bOtra').textContent = T('otra'); $('bModos').textContent = T('modos'); panel('pFin'); manda({ t: 'pts', v: E.pts }); if (EMB) setTimeout(() => { if (E.fase === 'fin') manda({ t: 'fin', v: E.pts }); }, 6000); }
 $('bOtra').onclick = e => { e.stopPropagation(); empieza(E.modo); }; $('bModos').onclick = e => { e.stopPropagation(); if (EMB) { manda({ t: 'fin', v: E.pts }); return; } menu(); };
 $('bPausa').onclick = e => { e.stopPropagation(); if (E.fase === 'juego') E.pausa = !E.pausa; };
@@ -158,13 +158,15 @@ function proyectil(tipo, X, Y, s, rot) { x.save(); x.translate(X, Y); x.rotate(r
   x.restore(); }
 function lanza() { if (E.fase !== 'juego' || E.pausa || E.cool > 0) return; const md = E.modo, M = MODOS[md]; if (md === 'bomberos') return; if (M.n && E.n >= M.n) return; const [ax, ay] = pide(); const sw = sway(); const tx = ax + sw[0], ty = ay + sw[1];
   const tipo = md === 'hachas' ? (E.arma % 2 ? 'flecha' : 'hacha') : md === 'dardos' ? 'dardo' : md === 'barreno' ? 'bola' : E.arma % 3 === 2 ? 'huevo' : 'pastel'; E.arma++; E.n++; E.cool = md === 'tartazos' ? .45 : .7;
+  if (md === 'dardos' && (E.n - 1) % 3 === 0) { E.qR = E.q; E.pR = E.pts; }   /* al empezar cada ronda se guarda lo que queda: si te pasas, vuelve ahí */
   const vt = tipo === 'flecha' ? E.viento * PS(.03) * NIV[E.niv] : 0; E.tiros.push({ tipo, x0: W * .5, y0: H * 1.05, x1: tx + vt, y1: ty, k: 0, d: tipo === 'flecha' ? .35 : tipo === 'dardo' ? .3 : .5, hecho: false }); SND.silba(); }
 function sway() { const k = NIV[E.niv] * PS(.012), t = E.t; return E.modo === 'bomberos' ? [0, 0] : [Math.sin(t * 1.7) * k + Math.sin(t * 3.1) * k * .4, Math.cos(t * 1.3) * k * .8 + Math.sin(t * 2.7) * k * .35]; }
 
 /* ---------- impactos ---------- */
 function impacto(p) { const md = E.modo, M = MODOS[md]; p.hecho = true;
   if (md === 'hachas' || md === 'dardos' || md === 'barreno') { const [cx, cy] = P(M.tg[0], M.tg[1]), r = PS(M.tg[2]), dx = p.x1 - cx, dy = p.y1 - cy, d = Math.hypot(dx, dy) / r;
-    if (md === 'dardos') { const [v, lab] = dardoPts(dx, dy, r); if (v) { E.pts += v; SND.dardo(); pop((lab === 'BULL' ? T('diana') + ' ' : '') + '+' + v, p.x1, p.y1 - r * .25, lab === 'BULL' ? '#ffd23f' : lab[0] === 'T' ? '#3bf3ff' : '#fff', lab === 'BULL' ? 1.4 : 1); if (lab === 'BULL') SND.campana(); E.clavados = (E.clavados || []).concat([{ tipo: 'dardo', X: dx / r, Y: dy / r, rot: R(-.3, .3) }]); } else { SND.falla(); pop('0', p.x1, p.y1, '#ff6a6a'); }
+    if (md === 'dardos') { const [v, lab] = dardoPts(dx, dy, r); if (v && E.q - v < 0) { SND.falla(); pop(T('pasado'), W / 2, H * .45, '#ff6a6a', 1.4); E.q = E.qR; E.pts = E.pR || 0; E.n = Math.ceil(E.n / 3) * 3; setTimeout(() => { E.clavados = []; }, 900); manda({ t: 'pts', v: E.pts }); if (E.n >= M.n) setTimeout(termina, 1500); return; }
+      if (v) { E.q -= v; if (E.q === 0) { E.pts += 500; pop('301! +500', W / 2, H * .42, '#ffd23f', 1.8); SND.ovacion(); chispas(cx, cy, ['#ffd23f', '#fff', '#3bf3ff'], 40); E.n = M.n; } } if (v) { E.pts += v; SND.dardo(); pop((lab === 'BULL' ? T('diana') + ' ' : '') + '+' + v, p.x1, p.y1 - r * .25, lab === 'BULL' ? '#ffd23f' : lab[0] === 'T' ? '#3bf3ff' : '#fff', lab === 'BULL' ? 1.4 : 1); if (lab === 'BULL') SND.campana(); E.clavados = (E.clavados || []).concat([{ tipo: 'dardo', X: dx / r, Y: dy / r, rot: R(-.3, .3) }]); } else { SND.falla(); pop('0', p.x1, p.y1, '#ff6a6a'); }
       if (E.n % 3 === 0) setTimeout(() => { E.clavados = []; }, 900); }
     else { const v = aro(d); if (v) { E.pts += v; if (md === 'hachas') { SND.clava(); E.clavados = (E.clavados || []).slice(-5).concat([{ tipo: p.tipo, X: dx / r, Y: dy / r, rot: p.tipo === 'hacha' ? R(-.5, .2) : R(-.15, .15) }]); } else SND.clava(); pop((v === 100 ? T('diana') + ' ' : '') + '+' + v, p.x1, p.y1 - r * .4, v === 100 ? '#ffd23f' : '#fff', v === 100 ? 1.4 : 1); if (v === 100) { SND.campana(); chispas(cx, cy, ['#ffd23f', '#fff', '#ff6a00'], 24); } }
       else { SND.falla(); chispas(p.x1, p.y1, ['#c9a56a', '#8a6a3a'], 8, H * .2); }
@@ -224,7 +226,7 @@ function sentada() { const im = SENT; if (!im.complete || !im.naturalWidth) retu
 function texto(t, X, Y, s, col, al) { x.save(); x.font = `${s}px LG`; x.textAlign = al || 'center'; x.textBaseline = 'middle'; x.lineJoin = 'round'; x.strokeStyle = '#2a0a00'; x.lineWidth = s * .22; x.strokeText(t, X, Y); x.fillStyle = col; x.fillText(t, X, Y); x.restore(); }
 function hud() { const md = E.modo, M = MODOS[md], s = PS(.026); x.save(); x.fillStyle = 'rgba(0,0,0,.5)'; x.fillRect(0, 0, W, s * 2.1); x.restore();
   texto(E.pts + ' ' + T('puntos'), EMB ? s * 2.4 : s * .6, s * 1.05, s, '#ffd23f', 'left');
-  const der = M.dur ? T('tiempo') + ' ' + Math.max(0, Math.ceil(M.dur - E.t)) : md === 'dardos' ? T('ronda') + ' ' + Math.min(4, Math.floor(E.n / 3) + 1) + '/4 · ' + (12 - E.n) : T('lanzas') + ' ' + (M.n - E.n);
+  const der = M.dur ? T('tiempo') + ' ' + Math.max(0, Math.ceil(M.dur - E.t)) : md === 'dardos' ? T('ronda') + ' ' + Math.min(8, Math.floor(E.n / 3) + 1) + '/8 · ' + T('quedan') + ' ' + E.q : T('lanzas') + ' ' + (M.n - E.n);
   texto(der + (md === 'bomberos' ? '   ' + T('fuegos') + ' ' + E.fuegos.length + '/8' : ''), W - s * 5.5, s * 1.05, s * .8, '#fff', 'right');
   texto(T(md), W / 2, s * 1.05, s * .8, '#3bf3ff');
   if (E.t < 4) texto(md === 'bomberos' ? T('ayudaB') : T('ayuda'), W / 2, H * .92, s * .75, '#fff'); }
