@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.8**
+**Versión actual: v18.9**
 
 ## Cómo se juega
 
@@ -37,7 +37,10 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 - **DIANA** *(en desarrollo)*: hachas y arco, dardos, el barreño de feria, tartazos y bomberos: cinco formas de acertar al centro.
 
-## Cambios de la versión actual (v18.8)
+## Cambios de la versión actual (v18.9)
+- DIANA · AL BARREÑO: la familia y Bonifacio con luz de golden hour (tono cálido de atardecer, más oscuro hacia los pies y brillo dorado arriba) en lugar de la piel blanquita; cada fotograma apoya los pies en el suelo y nadie se queda en la plataforma del tiovivo.
+
+### v18.8
 - DIANA · AL BARREÑO: la familia de Josep en versión juguete (Josep, Sonia, Héctor, Jaume y Roser), animada con Mixamo, pasea por la plaza de la feria: camina hasta los puestos, el tiovivo o las casas, se para a mirar alrededor y sigue. Tamaño según la profundidad, sombra en el suelo y un toque de luz de atardecer; quedan detrás del barreño. Héctor lleva en la camiseta la carita de mediaservi en gris.
 
 ### v18.7
@@ -1357,7 +1360,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v18.8 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v18.9 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
