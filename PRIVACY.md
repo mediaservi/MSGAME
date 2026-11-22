@@ -8,7 +8,7 @@ El autor del proyecto: mediaservi.com, proyecto personal de un desarrollador par
 
 ## Lo esencial
 
-- **No hay registro de usuarios, ni publicidad, ni analítica, ni seguimiento.**
+- **No hay registro de usuarios, ni analítica, ni seguimiento.**
 - La aplicación **no instala cookies propias**.
 - Tus ajustes se guardan **en tu propio navegador** (almacenamiento local) y no se envían al autor.
 - El único dato que llega al autor es el que envías tú, voluntariamente, con el **botón rojo de aviso de fallos**.

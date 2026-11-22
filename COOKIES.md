@@ -4,7 +4,7 @@
 
 ## Cookies propias
 
-**MSGAME no instala cookies propias**: ni de publicidad, ni de analítica, ni de seguimiento.
+**MSGAME no instala cookies propias**: ni de analítica ni de seguimiento.
 
 ## Almacenamiento local
 

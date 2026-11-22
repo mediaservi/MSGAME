@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.4**
+**Versión actual: v18.7**
 
 ## Cómo se juega
 
@@ -17,7 +17,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
   - antes de cada partida, cada jugador elige cómo juega: ratón (o dedo), móvil, mano o cuerpo (estos dos con la cámara).
 - **AJUSTES:**
   - formato de salida y cada pantalla en su monitor;
-  - sala de juegos: el juego en la frontal, récords y turnos con QR y publicidad en las laterales, tele retro en la trasera;
+  - sala de juegos: el juego en la frontal, récords y turnos con QR y avisos en las laterales, tele retro en la trasera;
   - mezcla de bordes, corrección, mapeo y fuente de audio;
   - cámara para jugar con gestos, sin móvil (Intel RealSense o cualquier webcam).
 - **Sin internet:** desde la ayuda se prepara el «modo feria» o se descarga una copia offline.
@@ -37,7 +37,18 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 - **DIANA** *(en desarrollo)*: hachas y arco, dardos, el barreño de feria, tartazos y bomberos: cinco formas de acertar al centro.
 
-## Cambios de la versión actual (v18.4)
+## Cambios de la versión actual (v18.7)
+- Edades recomendadas: cada cartucho lleva en su etiqueta un sello propio (+3, +7, +12 o +18; no es el de PEGI) y el aviso legal de MSGAME (y `LEGAL.md`) añade las edades de cada juego, que los menores juegan con la supervisión de un adulto, que no hay compras ni cajas de recompensa, que LA FORTUNA es +18 y sus premios dependen del organizador, y que nombres, récords y cámara no salen del dispositivo.
+- La palabra «publicidad» desaparece de toda la app y de los documentos: el apartado de AJUSTES y su título son «AVISOS EN LAS PANTALLAS», y el aviso legal ya no la nombra (MSGAME no tiene ingresos de ningún tipo).
+- AJUSTES · SONIDO: la música de los menús (y la radio TRONIK FM) tiene su propio interruptor, separado del de teclas, clics y efectos; los dos se recuerdan y RESTABLECER los vuelve a encender.
+
+### v18.6
+- Mevi con personalidad propia: no para quieta. Cambia de sitio (las dos esquinas de delante y asomada detrás de la mesa, a los lados de la tele, recortada por el tablero), se agacha y reaparece en otro lado («¡Cucú!»), pasea, comenta cosas y, si no te decides, cuenta chistes para todas las edades. En castellano, inglés y catalán (en inglés, chistes propios que funcionan en ese idioma).
+
+### v18.5
+- Pantalla de carga: suena el zumbido de la cinta del Spectrum (tono guía con las franjas anchas, ráfagas de datos con las finas) y se funde al aparecer la sala. Respeta SONIDO OFF; si el navegador no deja sonar sin un gesto, arranca con el primer toque.
+
+### v18.4
 - Caja del cartucho: los anclajes laterales son un triángulo de punta redondeada a cada lado, cuyo vértice entra y bloquea la muesca alta del cartucho.
 
 ### v18.3
@@ -58,7 +69,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - BEAT RACER: ya no se personalizan dorsal ni matrícula. RUNNER sin dorsal; en DIRTY la matrícula lleva el nombre del jugador en grande y MEDIASERVI en pequeño.
 
 ### v18.1
-- AJUSTES: pestañas nuevas MANDO MÓVIL (QR para enlazar y calibrar), JUGADORES y RÉCORDS; «Publicidad» pasa a llamarse AVISOS («avisos en pantalla»).
+- AJUSTES: pestañas nuevas MANDO MÓVIL (QR para enlazar y calibrar), JUGADORES y RÉCORDS; la pestaña de mensajes de las pantallas se llama AVISOS («avisos en las pantallas»).
 - Cuando Mevi enseña un juego en el monitor suena la música de ese juego: la radio TRONIK FM baja con un fundido, se queda en pausa y vuelve por donde iba. Mevi también recomienda EK CHUAH, DIANA y WARFRONT.
 - PUNTERÍA WARFRONT: sin aviones; helicópteros oscuros que cruzan de lado (con su rotor) y, de jefe final, el helicóptero verde grande de frente que dispara ráfagas con trazadoras desde el morro.
 - EL MISTERIO DE EK CHUAH: la música de la portada suena en bucle desde la pantalla del rótulo.
@@ -972,7 +983,7 @@ Correcciones de la auditoría en el móvil en vertical (412 × 839, 390 × 844 y
 - **Colores de los jugadores:** nunca se repiten. Si un móvil trae el color de otro jugador, se queda con el suyo; si en la lista eliges un color que ya tiene otro, os lo intercambiáis. Un móvil que llega con el nombre por defecto de otro puesto («Jugador 2» en el puesto 1) toma el de su puesto.
 - **Ambiente en todos los juegos:** cada juego lleva dos capas sutiles de movimiento según su fondo y su temática (niebla, nubes, humo, polvo en la luz, ascuas, nieve, vapor, pétalos, destellos, haces de focos, sombras de nubes…), por encima del escenario y por debajo de los marcadores, sin tapar la jugada (`lib/ambiente.js`).
 - **Música de los menús dinámica:** la de siempre, cortada en entrada, bucles y final (`packs/menu/`). Cambia de bucle en la siguiente barra según dónde estés: la sala o AJUSTES, jugadores y récords (más tranquila). Al elegir un cartucho suena su propio tema arcade (`packs/cartucho/`) hasta que empieza el juego.
-- **AJUSTES más limpios, con la estética de los menús de los juegos:** solo queda lo que usan los juegos, en tres apartados: PANTALLAS (cuántas, salidas y qué muestra cada una), PUBLICIDAD y SONIDO. Fuera lo heredado de VJSHOW: mezcla, edge blending, corrección, mapeo, salida avanzada, formato, fuente de audio y ritmo (lo quitado queda siempre en sus valores de fábrica).
+- **AJUSTES más limpios, con la estética de los menús de los juegos:** solo queda lo que usan los juegos, en tres apartados: PANTALLAS (cuántas, salidas y qué muestra cada una), AVISOS y SONIDO. Fuera lo heredado de VJSHOW: mezcla, edge blending, corrección, mapeo, salida avanzada, formato, fuente de audio y ritmo (lo quitado queda siempre en sus valores de fábrica).
 
 ### v12.11
 
@@ -1343,10 +1354,10 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v18.4 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v18.7 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
 Software gratuito y de código abierto, hecho con pasión por un aficionado en su tiempo libre. No es un producto profesional. Se ofrece «tal cual», sin garantías de ningún tipo; los resultados son orientativos y hay que comprobarlos siempre; se usa bajo la responsabilidad de cada cual, hasta donde lo permita la ley aplicable. El aviso completo (es/en/ca) está en la propia app, en el enlace «Aviso legal» que acompaña a la línea de crédito. Licencia GPL-3.0.
 
-Documentos legales del repositorio: [`LEGAL.md`](LEGAL.md) (aviso legal), [`DISCLAIMER.md`](DISCLAIMER.md) (garantías y responsabilidad), [`PRIVACY.md`](PRIVACY.md) (privacidad), [`COOKIES.md`](COOKIES.md) (cookies y almacenamiento local) y [`LICENSE`](LICENSE) (GPL-3.0). Sin publicidad, afiliación ni ingresos de ningún tipo.
+Documentos legales del repositorio: [`LEGAL.md`](LEGAL.md) (aviso legal), [`DISCLAIMER.md`](DISCLAIMER.md) (garantías y responsabilidad), [`PRIVACY.md`](PRIVACY.md) (privacidad), [`COOKIES.md`](COOKIES.md) (cookies y almacenamiento local) y [`LICENSE`](LICENSE) (GPL-3.0). Sin afiliación ni ingresos de ningún tipo.
