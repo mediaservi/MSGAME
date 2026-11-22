@@ -42,6 +42,8 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - BOLERA suena con TRONIK FM: temas al azar, uno tras otro y sin fin.
 - Las pantallas de la BOLERA son como teles: cada una cambia a su ritmo con un chispazo de estática, nunca hay dos iguales a la vez, la de al lado procura ser de otro tipo y alternan vídeos de partidas de MSGAME (sin sonido) con carátulas, récords y Mevi. En la carga ligera, sin vídeos.
 - DIANA · AL BARREÑO: el cuervo, a escala con la escena; el fondo cobra vida: farolillos que respiran, el tiovivo con su corona de bombillas que corren, la noria girando sus luces, ventanas encendidas, algún destello y feriantes atendiendo los puestos.
+- DIANA · AL BARREÑO: si le das al cuervo, grazna, da un salto soltando plumas y pierdes una bola (te lo dice). El ambiente de fondo es ahora el paseo del parque que eligió Josep (freesound_community, Pixabay), en bucle sin corte.
+- Arreglado: con «OTRA VEZ» a media caída, Bonifacio empezaba en la postura de caer; ahora vuelve a estar sentado.
 
 ### v18.15
 - El cuervo que vuela es ahora el mismo cuervo realista del barreño (generado en Meshy con las alas abiertas) con un aleteo por código de 12 posturas (las alas suben y bajan doblando las puntas y el cuerpo acompaña), visto de tres cuartos y con luz de atardecer; en DIANA y en PUNTERÍA WESTERN.
