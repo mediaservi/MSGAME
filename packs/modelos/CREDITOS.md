@@ -6,3 +6,6 @@ Se cargan con GLTFLoader + MeshoptDecoder. Escala de origen: lado mayor de unas 
 
 - `a3D-mevi.glb`: Mevi, la mascota.
 - El resto: personajes y objetos de los cartuchos (inventario «Assets 3D»).
+
+## Armas (v18.1)
+Fusil de asalto «AssaultRifle_1» del **Ultimate Gun Pack** (julio de 2019) de **Quaternius** — licencia **CC0 1.0** (dominio público). Lo lleva en la mano el soldado de PUNTERÍA WARFRONT (`juegos/hit3d/soldado-anim.webp`). El pack completo está en la carpeta «comunes» de Josep.
