@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.13**
+**Versión actual: v18.14**
 
 ## Cómo se juega
 
@@ -37,7 +37,11 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 - **DIANA** *(en desarrollo)*: hachas y arco, dardos, el barreño de feria, tartazos y bomberos: cinco formas de acertar al centro.
 
-## Cambios de la versión actual (v18.13)
+## Cambios de la versión actual (v18.14)
+- DIANA · AL BARREÑO: el cuervo se lleva en el pico la misma bola amarilla que has lanzado (antes, una roja).
+- Si la bola le da a alguien de la familia: «¡ay!» (el sonido de Josep), se para y se gira hacia ti, y resta 50 puntos (¡AY! / OUCH! / AI!).
+
+### v18.13
 - DIANA · AL BARREÑO, todo en 3D: la familia es ahora 3D de verdad (`juegos/diana/fam-*.glb`, andar y mirar de Mixamo) en una escena con la cámara a la altura de los ojos y el horizonte del fondo, así la perspectiva cuadra sola (los de lejos, pequeños; los de cerca, grandes) y cada uno gira hacia donde camina.
 - Bonifacio: piel del cuello y la cara alisada y el cuello gira la mitad (sin pliegues). La caída, rehecha: el «twiiing» del muelle al soltar el asiento, cae por su peso agitando los brazos, al tocar el agua el chapuzón (golpe sordo, chapoteo y gotas que vuelven a caer) con gotas de agua con brillo, ondas y burbujas que revientan; sale secándose la cara y trepa otra vez al asiento.
 - El cuervo grazna: en el barreño al lanzarse a por la bola y, posado, de vez en cuando; en PUNTERÍA WESTERN al entrar y al acertarle.
@@ -1378,7 +1382,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v18.13 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v18.14 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
