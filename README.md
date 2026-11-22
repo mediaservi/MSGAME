@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v17.6**
+**Versión actual: v17.8**
 
 ## Cómo se juega
 
@@ -37,7 +37,15 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 - **DIANA** *(en desarrollo)*: hachas y arco, dardos, el barreño de feria, tartazos y bomberos: cinco formas de acertar al centro.
 
-## Cambios de la versión actual (v17.6)
+## Cambios de la versión actual (v17.8)
+- PUNTERÍA WARFRONT rehecho sobre las zonas que marcó Josep en el fondo: el soldado sale de cuerpo entero en las aperturas de las fachadas, los aviones y el helicóptero vuelan por el cielo y el jeep va por su carril.
+- El helicóptero se acerca desde el fondo, se queda en el aire, te ametralla, gira y se va de lado, con el sonido del rotor.
+- El jeep viene de frente haciendo eses para esquivar tus tiros y atropellarte; a veces entra por la calle de la izquierda y gira hacia ti. Lleva conductor (soldado enemigo con camuflaje urbano y la cinta roja) y su camuflaje es una mezcla del verde y el urbano. Suena el motor.
+- Estanterías de la sala: los títulos fuertes arriba y a la vista (EK CHUAH, DIANA, WONDERWALK, KRAZYGOLF, BOLERA, SHATEKI…); los repetidos, donde tapan la mesa, el teléfono o Mevi.
+- Mevi ya no tapa siempre los mismos cartuchos: cada 30 s sale a pasear hasta el centro y da un consejo («Cámbiala con el casete», «Pulsa el teléfono rojo y escanea el QR») y vuelve a su esquina. Su bocadillo ya no se corta por el borde.
+- WONDERWALK: la pirotecnia suena con una grabación real de cohetes y estallidos (y los que revientan cerca, con su propio estallido), en lugar del sonido sintético.
+
+### v17.6
 - EL MISTERIO DE EK CHUAH con música propia repartida por la aventura: «The Jungle Citadel» en la portada y la entrada al templo, su parte rítmica en el acertijo de los Aluxes, su tramo épico en las galerías del cacao y del jade, y «Temple of the Sun» en el santuario, el final y el cierre, con fundidos entre tramos. Al perder las antorchas la música suena apagada y lejana hasta que vuelves a encenderlas.
 - Los guías se llaman Eduardo y Naomi (en pantalla y cuando te animan). Al elegir guía, las dos tarjetas son iguales y van a los lados, con la puerta del templo a la vista en el centro.
 - Juego preparado para ampliarse con escenas nuevas (vídeo, prueba y tramo de música).
@@ -1295,7 +1303,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v17.6 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v17.8 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
