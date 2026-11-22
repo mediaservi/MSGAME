@@ -3790,7 +3790,7 @@ body.gm-modos #gmUI{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '15.6';
+    const APP_VERSION = '15.7';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -6005,7 +6005,15 @@ body.gm-modos #gmUI{display:none!important}
         c.restore();
       }
       /* ---------- PATOPESCA: pesca de patitos de goma en el canal de la feria ---------- */
+      /* v15.7 · PATOPESCA con los patitos 3D (render de sus modelos de Meshy): amarillo, rosa, azul, verde, dorado y pirata; si no han cargado, el dibujo de antes */
+      const DUCKSPR = {}; ['amarillo', 'rosa', 'azul', 'verde', 'oro', 'pirata'].forEach(n => { const im = new Image(); im.src = 'juegos/patos/' + n + '.webp?v=' + APP_VERSION; DUCKSPR[n] = im; });
+      const DUCKCOL = { '#ffd23f': 'amarillo', '#ff7ad9': 'rosa', '#48c6ff': 'azul', '#7dff6a': 'verde' };
       function rubberDuck(X, Y, D, dir, col, t, kind) {   // patito de goma dibujado (dir 1 = mira a la derecha)
+        const sp = DUCKSPR[kind === 'gold' ? 'oro' : kind === 'pirate' ? 'pirata' : DUCKCOL[col] || 'amarillo'];
+        if (sp && sp.complete && sp.naturalWidth) { const hh = D * (kind === 'pirate' ? 1.12 : 1), ww = hh * sp.naturalWidth / sp.naturalHeight; x.save(); x.translate(X, Y); x.scale(dir, 1); x.drawImage(sp, D * .24 - ww * .54, D * .22 - hh, ww, hh);
+          if (kind === 'gold') { const a = .35 + .35 * Math.sin(t * 6); x.globalCompositeOperation = 'lighter'; const gl = x.createRadialGradient(D * .1, -D * .4, 0, D * .1, -D * .4, D * .6); gl.addColorStop(0, `rgba(255,230,120,${a})`); gl.addColorStop(1, 'rgba(255,230,120,0)'); x.fillStyle = gl; x.fillRect(-D * .6, -D, D * 1.4, D * 1.2); }
+          x.restore(); }
+        else {
         x.save(); x.translate(X, Y); x.scale(dir, 1); const gold = kind === 'gold', pir = kind === 'pirate';
         const body = gold ? (() => { const g2 = x.createLinearGradient(-D * .5, -D * .5, D * .5, D * .3); g2.addColorStop(0, '#fff3a8'); g2.addColorStop(.45, '#ffcf2e'); g2.addColorStop(1, '#b8860b'); return g2; })() : col;
         const sh = x.createRadialGradient(-D * .15, -D * .35, D * .05, 0, -D * .1, D * .7); sh.addColorStop(0, 'rgba(255,255,255,.55)'); sh.addColorStop(.5, 'rgba(255,255,255,0)'); sh.addColorStop(1, 'rgba(0,0,0,.25)');
@@ -6015,10 +6023,10 @@ body.gm-modos #gmUI{display:none!important}
         x.fillStyle = '#111'; x.beginPath(); x.arc(D * .3, -D * .55, D * .045, 0, 6.283); x.fill(); x.fillStyle = '#fff'; x.beginPath(); x.arc(D * .315, -D * .565, D * .015, 0, 6.283); x.fill();
         if (pir) { x.fillStyle = '#111'; x.beginPath(); x.ellipse(D * .3, -D * .55, D * .07, D * .06, 0, 0, 6.283); x.fill(); x.strokeStyle = '#111'; x.lineWidth = D * .02; x.beginPath(); x.moveTo(D * .08, -D * .66); x.lineTo(D * .44, -D * .5); x.stroke(); x.fillStyle = '#e8e8e8'; x.font = `${D * .14}px ${EF}`; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText('☠', -D * .12, -D * .05); }
         x.strokeStyle = 'rgba(0,0,0,.18)'; x.lineWidth = D * .025; x.beginPath(); x.arc(-D * .1, -D * .08, D * .2, -2.6, -.6); x.stroke();   // ala
-        x.restore();
+        x.restore(); }
         // aro metálico en la cabeza (donde engancha el anzuelo)
         const rx = X + dir * D * .24, ry = Y - D * .76; x.save(); x.strokeStyle = '#d9dde2'; x.lineWidth = Math.max(1.5, D * .04); x.beginPath(); x.ellipse(rx, ry, D * .085, D * .1, 0, 0, 6.283); x.stroke(); x.strokeStyle = 'rgba(0,0,0,.35)'; x.lineWidth = Math.max(1, D * .015); x.beginPath(); x.ellipse(rx, ry, D * .085, D * .1, 0, .3, 2.6); x.stroke(); x.restore();
-        if (gold) sparkle(rx + D * .2, Y - D * .45 + Math.sin(t * 5) * D * .1, D * .12, t, '#fff6c2');
+        if (kind === 'gold') sparkle(rx + D * .2, Y - D * .45 + Math.sin(t * 5) * D * .1, D * .12, t, '#fff6c2');
         return [rx, ry]; }
       function DuckFish(opt) {
         const df = { easy: [.75, 1.3], normal: [1, 1], hard: [1.35, .8] }[opt.diff] || [1, 1];

@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v15.6**
+**Versión actual: v15.7**
 
 ## Cómo se juega
 
@@ -36,7 +36,10 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v15.6)
+## Cambios de la versión actual (v15.7)
+- PATOPESCA con los patitos 3D (render de sus modelos de Meshy, `juegos/patos/`): amarillo, rosa, azul, verde, dorado (con su brillo) y el pirata con su sombrero y su parche. Si las imágenes no cargan, sale el dibujo de antes.
+
+### v15.6
 - Carátulas de PALOTERAPIA ZOMBIES y ALIENS: el personaje ya no sale en pose T. El zombi, con los brazos por delante andando; el marciano, a media zancada. La calabaza-espantapájaros de HALLOWEEN se queda con los brazos abiertos.
 
 ### v15.5
@@ -1219,7 +1222,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v15.6 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v15.7 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
