@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v16.8**
+**Versión actual: v16.9**
 
 ## Cómo se juega
 
@@ -37,7 +37,10 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 - **DIANA** *(en desarrollo)*: hachas y arco, dardos, el barreño de feria, tartazos y bomberos: cinco formas de acertar al centro.
 
-## Cambios de la versión actual (v16.8)
+## Cambios de la versión actual (v16.9)
+- WONDERWALK: la hechicera del camino y la del banquete es la de Josep (Meshy, animada con Mixamo), con sus gestos de siempre.
+
+### v16.8
 - Carátulas de DIANA y EL MISTERIO DE EK CHUAH: el título se lee también en pequeño. Encima del cartel va el rótulo oficial con filete blanco, contorno oscuro y volumen 3D, en el mismo sitio.
 - WONDERWALK: el público del banquete son ya los personajes de Josep (aldeano, aldeana, bufón y herrero, de Meshy, animados con Mixamo): saltan, aplauden, saludan y se sientan a la mesa. Si no cargan, salen los de antes.
 
@@ -1267,7 +1270,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v16.8 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v16.9 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
