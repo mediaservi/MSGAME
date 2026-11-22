@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v14.8**
+**Versión actual: v14.9**
 
 ## Cómo se juega
 
@@ -36,7 +36,10 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v14.8)
+## Cambios de la versión actual (v14.9)
+- KRAZYGOLF: «Trumpet Tumbles» (los metales cómicos de BALLHOP) suena en los golpes raros —bola que choca con el robot, se la lleva el viento, rebota cinco veces o se queda corta— y en la burla final cuando se acaban los golpes. Tres compases distintos al azar (`packs/krazygolf/sfx/trompeta-1…3`). Con esto queda hecho todo el post-it de BALLHOP salvo los varios jugadores a la vez, que Josep descartó.
+
+### v14.8
 - BALLHOP: cada bola jugada baja rodando por el canal de retorno, junto a la pista, hasta la bandeja (propuesta 5). La partida acaba cuando ha vuelto la última.
 
 ### v14.7
@@ -56,7 +59,6 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - Desde el nivel MEDIO, las tapas de los agujeros de 100 se abren y se cierran (más rápido en DIFÍCIL).
 - Al acabar BALLHOP y BASKET, la expendedora saca un ticket con los puntos y cuántos tickets valen, con su sonido de feria.
 - Música de circo («Bienvenue au cirque») también en LA FORTUNA y, una partida sí y otra al azar, en PATOPESCA (`packs/circo/`).
-- Pendiente del post-it: «Trumpet Tumbles» en los fallos de KRAZYGOLF (12).
 
 ### v14.5
 - BOLERA: la bola suena más fuerte y más aguda cuanto más rápido va, y el golpe contra los bolos suena más grande si llega con fuerza (propuesta 6).
@@ -1192,7 +1194,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v14.8 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v14.9 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 

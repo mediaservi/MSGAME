@@ -13,6 +13,7 @@ Solo los propios del golf; los genéricos (victoria, fallo, público, sorpresa, 
 | `golpe.mp3` | Palo contra la bola | freesound_community · golf-12 · 94166 |
 | `swing.mp3` | Barrido del palo | floraphonic · swing-whoosh-5 · 198498 |
 | `hoyo.mp3` | Bola dentro del hoyo | freesound_community · minigolf-putt-right-into-the-hole · 96699 |
+| `trompeta-1.mp3` … `trompeta-3.mp3` | Metales cómicos para los golpes raros y el final sin hoyo (un compás cada uno, con fundido) | Pixabay · Trumpet Tumbles - Comedy Brass · 530221 (el mismo tema de BALLHOP) |
 
 ## Modelos 3D (`modelos/`)
 
