@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v16.3**
+**Versión actual: v16.4**
 
 ## Cómo se juega
 
@@ -35,8 +35,19 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **SHATEKI:** galería de tiro japonesa en 3D con rifle de corchos; solo te llevas lo que cae del estante.
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
+- **DIANA** *(en desarrollo)*: hachas y arco, dardos, el barreño de feria, tartazos y bomberos: cinco formas de acertar al centro.
 
-## Cambios de la versión actual (v16.3)
+## Cambios de la versión actual (v16.4)
+- **DIANA ya se juega** (primera versión): cinco modos con los fondos, la música y la carátula de Josep.
+  - **HACHAS Y ARCO:** hacha y flecha por turnos contra la diana de madera; la flecha se desvía con el viento. 10 lanzamientos.
+  - **DARDOS:** diana de pub con sus 20 sectores, dobles, triples, 25 y el centro (50). 4 rondas de 3 dardos.
+  - **AL BARREÑO:** la corredora sentada en la tabla; si das cerca del centro de la diana del poste, cae al agua (+200).
+  - **TARTAZOS:** las caras (rey, reina, bufón, aldeanos…) asoman por los agujeros; pastel de nata a la cara antes de que se escondan. 45 s.
+  - **BOMBEROS:** se prenden fuegos en las ventanas; mantén pulsado para echar agua con la manguera. Si llegan a 8, el edificio arde. 60 s.
+  - El punto de mira tiembla como el pulso (más en Difícil). Ratón, pantalla táctil, teclado o el móvil como mando. Español, inglés y catalán.
+  - Cartucho jugable en la sala (sin la cinta PRÓXIMO ESTRENO), dirección directa `/diana/` y `?juego=diana`.
+
+### v16.3
 - Juego nuevo anunciado: **DIANA** (lanzar flechas, hachas y dardos a la diana, y un modo KRAZY con huevos, pasteles de nata, el barreño de agua y la manguera de bombero). Carátula en la estantería con la cinta PRÓXIMO ESTRENO; todavía no se juega.
 
 ### v16.2
@@ -1243,7 +1254,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v16.3 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v16.4 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 

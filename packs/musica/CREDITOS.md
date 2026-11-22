@@ -28,3 +28,8 @@ Temas elegidos por Josep (Drive, una carpeta por juego), nivelados y cortados co
 | `zombies-614041/` | PALOTERAPIA · ZOMBIES | `serhii_kliets-spooky-video-game-chase-background-music-614041.mp3` |
 | `shateki-179961/` | SHATEKI | `diamond_tunes-an-emperorx27s-demand-japan-percussion-for-179961.mp3` |
 | `shateki-265815/` | SHATEKI | `oldways_music-night-osaka-265815.mp3` |
+| `../diana/hachas/` | DIANA · HACHAS | «Against All Gods» · joelfazhari · Pixabay 464889 |
+| `../diana/dardos/` | DIANA · DARDOS | «Irish Jig» · musictown · Pixabay 99533 |
+| `../diana/barreno/` | DIANA · BARRENO | «Comedy Circus» · top_sue · Pixabay 482529 |
+| `../diana/tartazos/` | DIANA · TARTAZOS | «Show» · kulakovka · Pixabay 295893 |
+| `../diana/bomberos/` | DIANA · BOMBEROS | «Fire» · alexrockbeat · Pixabay 591020 |

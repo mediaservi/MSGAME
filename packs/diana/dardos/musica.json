@@ -1,0 +1,20 @@
+{
+ "bpm": 125.0,
+ "tiempo": 0.48,
+ "fase": 0.208,
+ "entrada": [
+  0,
+  50.608
+ ],
+ "juego": [
+  50.608,
+  112.048
+ ],
+ "final": [
+  122.125,
+  127.92
+ ],
+ "fundido": 0.25,
+ "nota": "DIANA · DARDOS: «Irish Jig» de musictown (Pixabay, 99533)",
+ "fuente": "«Irish Jig» de musictown (Pixabay, 99533)"
+}

@@ -1,0 +1,20 @@
+{
+ "bpm": 128.0,
+ "tiempo": 0.46875,
+ "fase": 0.225,
+ "entrada": [
+  0,
+  41.006
+ ],
+ "juego": [
+  41.006,
+  101.006
+ ],
+ "final": [
+  116.007,
+  125.63
+ ],
+ "fundido": 0.25,
+ "nota": "DIANA · BOMBEROS: «Fire» de alexrockbeat (Pixabay, 591020)",
+ "fuente": "«Fire» de alexrockbeat (Pixabay, 591020)"
+}
