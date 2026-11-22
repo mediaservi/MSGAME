@@ -321,7 +321,7 @@ function aveDibuja() { const PZ = P(.635, .19), s = PS(.07), a = E.ave; if (a &&
     else { const k = Math.min(1, (t - 1.6) / .5); X = X + Math.sin(k * 6) * s * .02 * (1 - k); ala = 1 - k; } }
   else { Y += Math.abs(Math.sin(E.t * 1.3)) * s * .03; if ((E.t % 5) > 4.6) dir = 1; }
   x.save(); x.translate(X, Y); x.scale(-dir, 1);
-  if (ala && CUV.complete && CUV.naturalWidth) { const L = s * 1.9, fi = Math.floor(E.t * 13) % 8; x.drawImage(CUV, fi * 180, 0, 180, 180, -L / 2, -L / 2, L, L); }   /* v18.12 · el cuervo 3D: vuela aleteando… */
+  if (ala && CUV.complete && CUV.naturalWidth) { const L = s * 1.9, fi = Math.floor(E.t * 16) % 12; x.drawImage(CUV, fi * 180, 0, 180, 180, -L / 2, -L / 2, L, L); }   /* v18.12 · el cuervo 3D: vuela aleteando… */
   else if (!ala && CUP.complete && CUP.naturalWidth) { const h = s * 1.15, w = h * 217 / 160, fi = [0, 0, 1, 2, 3, 2, 1, 0, 0, 6, 7, 6, 0, 0][Math.floor(E.t * 1.4) % 14]; x.drawImage(CUP, fi * 217, 0, 217, 160, -w / 2, s * .52 - h, w, h); }   /* …y posado mira alrededor y picotea */
   else { x.font = s + 'px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText('🐦‍⬛', 0, 0); }
   if (bola) { const gb = x.createRadialGradient(-s * .45, s * .04, s * .01, -s * .42, s * .08, s * .13); gb.addColorStop(0, '#fff6c8'); gb.addColorStop(1, '#e0a800'); x.fillStyle = gb; x.beginPath(); x.arc(-s * .42, s * .08, s * .13, 0, TAU); x.fill(); }   /* v18.14 · la misma bola amarilla que has lanzado */ x.restore(); }

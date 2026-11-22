@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.14**
+**Versión actual: v18.15**
 
 ## Cómo se juega
 
@@ -37,7 +37,10 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 - **DIANA** *(en desarrollo)*: hachas y arco, dardos, el barreño de feria, tartazos y bomberos: cinco formas de acertar al centro.
 
-## Cambios de la versión actual (v18.14)
+## Cambios de la versión actual (v18.15)
+- El cuervo que vuela es ahora el mismo cuervo realista del barreño (generado en Meshy con las alas abiertas) con un aleteo por código de 12 posturas (las alas suben y bajan doblando las puntas y el cuerpo acompaña), visto de tres cuartos y con luz de atardecer; en DIANA y en PUNTERÍA WESTERN.
+
+### v18.14
 - DIANA · AL BARREÑO: el cuervo se lleva en el pico la misma bola amarilla que has lanzado (antes, una roja).
 - Si la bola le da a alguien de la familia: «¡ay!» (el sonido de Josep), se para y se gira hacia ti, y resta 50 puntos (¡AY! / OUCH! / AI!).
 
@@ -1382,7 +1385,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v18.14 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v18.15 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
