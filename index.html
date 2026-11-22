@@ -3790,7 +3790,7 @@ body.gm-modos #gmUI{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '15.1';
+    const APP_VERSION = '15.2';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -9074,7 +9074,7 @@ body.gm-modos #gmUI{display:none!important}
         ['shoot', 'shScene', 'western', 'shoot_western'], ['shoot', 'shScene', 'galaxy', 'shoot_galaxy'], ['shoot', 'shScene', 'zombieland', 'shoot_zombieland'], ['shoot', 'shScene', 'haunted', 'shoot_haunted'], ['shoot', 'shScene', 'alpine', 'shoot_alpine'], ['shoot', 'shScene', 'warfront', 'shoot_warfront'],
         ['race', 'rcVeh', 'runner', 'racer_runner'], ['race', 'rcVeh', 'dirty', 'racer_dirty'], ['paint'], ['wheel', null, null, 'fortuna'], ['bowl'], ['duck'], ['hoop', 'hpMode', 'ballhop'], ['hoop', 'hpMode', 'basket'], ['walk', null, null, 'wonderwalk'], ['golf'], ['osaka'], ['ekchuah', null, null, 'ekchuah'], ['mservi', null, null, 'enlace_mediaservi'], ['avhubw', null, null, 'enlace_avhub']]   /* v11.5 · dos cartuchos nuevos, todavía en borrador · v12.33 · y dos carátulas que parecen juegos pero abren una web */
         .map(([g, sel, val, img], i) => ({ i, g, sel, val, img, sub: val ? val.toUpperCase() : '' }));
-      const WEB = { mservi: ['https://mediaservi.com/', 'ESTUDIO AUDIOVISUAL', 1], avhubw: ['https://avhub.mediaservi.com/', 'TOOLS FOR AV PEOPLE'] };   /* v12.35 · la de mediaservi es tu material (cara y rótulo de neón MEDIASERVI.com): sin título pintado encima */
+      const WEB = { mservi: ['https://mediaservi.com/', 'ESTUDIO AUDIOVISUAL', 1], avhubw: ['https://avhub.mediaservi.com/', 'TOOLS FOR AV PEOPLE', 1] };   /* v15.2 · la de AVHUB es la portada de la landing (logo y rack apilado, sin contador): tampoco lleva título encima */   /* v12.35 · la de mediaservi es tu material (cara y rótulo de neón MEDIASERVI.com): sin título pintado encima */
       CV.forEach(c => { if (WEB[c.g]) { c.url = WEB[c.g][0]; c.sub = WEB[c.g][1]; c.solo = !!WEB[c.g][2]; } });
       const PRONTO = {};   /* v14.2 · EL MISTERIO DE EK CHUAH ya se juega (antes: { ekchuah: ['PRÓXIMO ESTRENO', …] }) */   /* v13.2 · juegos anunciados: tienen su carátula en la estantería, pero todavía no se juegan */
       CV.forEach(c => { if (c.g === 'ekchuah') c.solo = true; if (PRONTO[c.g]) { c.pronto = PRONTO[c.g][1]; c.sub = PRONTO[c.g][0]; c.solo = true; } });   /* la carátula es el cartel de Josep (juegos/ekchuah.webp), que ya trae su título: encima solo va la cinta */
