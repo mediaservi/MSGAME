@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v14.0**
+**Versión actual: v14.1**
 
 ## Cómo se juega
 
@@ -36,7 +36,13 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 
-## Cambios de la versión actual (v14.0)
+## Cambios de la versión actual (v14.1)
+**WONDERWALK: música nueva y cuento en inglés fuera de España y Latinoamérica** (22-11-2026).
+
+- El paseo suena con «Medieval Folk Music» (entrada, bucle y final) y las cuevas de sal con «Medieval Happy Music», que entra al cruzar la puerta secreta y vuelve al final del paseo al salir.
+- Con un idioma del aparato que no se habla en España ni en Latinoamérica (francés, alemán, italiano…), el cuento sale en inglés; con euskera, gallego, portugués y demás, en español.
+
+### v14.0
 **PUNTERÍA · HAUNTED y GALAXY con personajes 3D** (22-11-2026).
 
 - HAUNTED: el esqueleto anda en las puertas y asoma por las ventanas, y al acertarle cae al suelo; el fantasma es el del modelo 3D.
@@ -1139,7 +1145,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v14.0 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v14.1 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
