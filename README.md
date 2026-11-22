@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.1**
+**Versión actual: v18.2**
 
 ## Cómo se juega
 
@@ -37,12 +37,25 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 - **DIANA** *(en desarrollo)*: hachas y arco, dardos, el barreño de feria, tartazos y bomberos: cinco formas de acertar al centro.
 
-## Cambios de la versión actual (v18.1)
+## Cambios de la versión actual (v18.2)
+- Caja del cartucho: las pinzas laterales abrazan la parte ancha del cartucho nuevo.
+- SHATEKI: una sola mira, la del propio rifle (fuera la doble que se despegaba al disparar); el corcho va adonde apunta su punto de mira. «¡Pop!» del corcho más sonoro.
+- DIANA:
+  - Atrás (✕ o Esc) dentro de una modalidad vuelve al menú de modalidades; desde ahí, fuera. Al acabar ya no te saca sola de la partida.
+  - Cada modalidad explica qué hay que hacer, en tu idioma.
+  - AL BARREÑO: el ave vive posada en el tejadillo; si apuntas a Bonifacio, baja, se lleva la bola y vuelve a posarse.
+  - HACHAS Y ARCO: el hacha y el arco están en el banco central; eliges uno y esa partida es solo con ese.
+  - TARTAZOS: munición contada en una mesa en primer plano: 3 tartas (la sirvienta trae más de una en una), cesta de huevos y sacos de harina que se reponen poco a poco.
+  - BOMBEROS: cada fuego tiene su origen (columna de humo, cigarrillo olvidado en una ventana, chispazos en el cuadro eléctrico o explosión); si lo atajas a tiempo, menos puntos pero sin fuego. Al apagarlo queda la carbonilla en la fachada. El nombre del jugador, grabado en la piedra de la entrada.
+- Menos espera para jugar: la cinemática de la caja y el cartucho solo sale la primera vez; después el cartucho entra directo en la consola.
+- BEAT RACER: ya no se personalizan dorsal ni matrícula. RUNNER sin dorsal; en DIRTY la matrícula lleva el nombre del jugador en grande y MEDIASERVI en pequeño.
+
+### v18.1
 - AJUSTES: pestañas nuevas MANDO MÓVIL (QR para enlazar y calibrar), JUGADORES y RÉCORDS; «Publicidad» pasa a llamarse AVISOS («avisos en pantalla»).
 - Cuando Mevi enseña un juego en el monitor suena la música de ese juego: la radio TRONIK FM baja con un fundido, se queda en pausa y vuelve por donde iba. Mevi también recomienda EK CHUAH, DIANA y WARFRONT.
 - PUNTERÍA WARFRONT: sin aviones; helicópteros oscuros que cruzan de lado (con su rotor) y, de jefe final, el helicóptero verde grande de frente que dispara ráfagas con trazadoras desde el morro.
 - EL MISTERIO DE EK CHUAH: la música de la portada suena en bucle desde la pantalla del rótulo.
-- DIANA · AL BARREÑO: fondo nuevo de Josep (tonel de madera). Al borracho no se le puede dar: si le apuntas, pasa un ave y se lleva la bola en el pico. Solo cuenta la diana: el asiento se abate con su resorte y cae al tonel con un «¡CHOFF!» y salpicaduras. De momento sale el busto del borracho; cuando esté riggeado irá sentado entero.
+- DIANA · AL BARREÑO: fondo nuevo de Josep (tonel de madera). A Bonifacio no se le puede dar: si le apuntas, pasa un ave y se lleva la bola en el pico. Solo cuenta la diana: el asiento se abate con su resorte y cae al tonel con un «¡CHOFF!» y salpicaduras. De momento sale el busto de Bonifacio; cuando esté riggeado irá sentado entero.
 - PATOPESCA: el cartel del patito pescado es una etiqueta de feria que se balancea, con su número grande (dorada en los de oro, roja con calavera en los que restan).
 - Caja del cartucho: el soporte interior se ajusta al cartucho nuevo.
 - Vídeos de muestra del monitor regrabados con los personajes 3D: PATOPESCA, PALOTERAPIA ZOMBIES y BOLERA.
@@ -1323,7 +1336,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v18.1 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v18.2 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
