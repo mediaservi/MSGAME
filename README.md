@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.15**
+**Versión actual: v18.16**
 
 ## Cómo se juega
 
@@ -37,7 +37,13 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 - **DIANA** *(en desarrollo)*: hachas y arco, dardos, el barreño de feria, tartazos y bomberos: cinco formas de acertar al centro.
 
-## Cambios de la versión actual (v18.15)
+## Cambios de la versión actual (v18.16)
+- BOLERA con sonidos de verdad: la bola rodando (dura lo que su tirada y suena más aguda cuanto más rápida), el golpe de cada bolo (cada uno un poco distinto) y el strike. Grabaciones de Pixabay (freesound_community).
+- BOLERA suena con TRONIK FM: temas al azar, uno tras otro y sin fin.
+- Las pantallas de la BOLERA son como teles: cada una cambia a su ritmo con un chispazo de estática, nunca hay dos iguales a la vez, la de al lado procura ser de otro tipo y alternan vídeos de partidas de MSGAME (sin sonido) con carátulas, récords y Mevi. En la carga ligera, sin vídeos.
+- DIANA · AL BARREÑO: el cuervo, a escala con la escena; el fondo cobra vida: farolillos que respiran, el tiovivo con su corona de bombillas que corren, la noria girando sus luces, ventanas encendidas, algún destello y feriantes atendiendo los puestos.
+
+### v18.15
 - El cuervo que vuela es ahora el mismo cuervo realista del barreño (generado en Meshy con las alas abiertas) con un aleteo por código de 12 posturas (las alas suben y bajan doblando las puntas y el cuerpo acompaña), visto de tres cuartos y con luz de atardecer; en DIANA y en PUNTERÍA WESTERN.
 
 ### v18.14
@@ -1385,7 +1391,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v18.15 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v18.16 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
