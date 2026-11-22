@@ -3790,7 +3790,7 @@ body.gm-modos #gmUI{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '16.9';
+    const APP_VERSION = '17.0';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -7103,12 +7103,12 @@ body.gm-modos #gmUI{display:none!important}
         const bg = document.createElement('canvas'), bx = bg.getContext('2d'), FX = { smoke: [], dust: [], bolt: 0, boom: [], tw: null, zp: [] };
         let L = null, key = '';
         function build() { const cu = shCustom(sid), k = W + 'x' + H + (cu ? 'c' : ''); if (k === key) return; key = k; const dpr = Math.min(1.5, window.devicePixelRatio || 1); bg.width = Math.round(W * dpr); bg.height = Math.round(H * dpr); bx.setTransform(dpr, 0, 0, dpr, 0, 0);
-          if (cu) { const s = Math.max(W / cu.width, H / cu.height); bx.drawImage(cu, (W - cu.width * s) / 2, (H - cu.height * s) / 2, cu.width * s, cu.height * s); L = { win: [], side: [], perch: [], lake: [], bush: [], sky: [H * .16, H * .45], ground: [H * .78, H * .92], fx: {}, gen: true }; if (SHM[sid] && Math.abs(cu.width / cu.height - 16 / 9) < .02) L = mapaL(SHM[sid], cu.width, cu.height, s); }
+          if (cu) { const s = Math.max(W / cu.width, H / cu.height); bx.drawImage(cu, (W - cu.width * s) / 2, H - cu.height * s, cu.width * s, cu.height * s);   /* v17.0 · el fondo va anclado al suelo: si sobra imagen, se recorta el cielo, nunca el suelo (Josep, 22-11) */ L = { win: [], side: [], perch: [], lake: [], bush: [], sky: [H * .16, H * .45], ground: [H * .78, H * .92], fx: {}, gen: true }; if (SHM[sid] && Math.abs(cu.width / cu.height - 16 / 9) < .02) L = mapaL(SHM[sid], cu.width, cu.height, s); }
           else { L = SHP[sid](bx, W, H, shRng(1234 + sid.length * 97)); L.lake = L.lake || []; L.bush = L.bush || []; }
           { const hb = Math.round(Math.min(W, H * 1.78) / 6.4) * .36 + H * .05; if (L.sky) L.sky = [Math.max(L.sky[0], hb), Math.max(L.sky[1], hb + H * .08)]; L.win = (L.win || []).filter(w => w[1] > hb - H * .03); L.perch = (L.perch || []).filter(p => p[1] > hb + H * .04);
             if (L.map) { const dentro = r => r[2] > W * .01 && r[0] < W * .99; L.win = L.win.filter(dentro); L.door = L.door.filter(r => dentro(r) && r[1] > hb - H * .03); L.perch = L.perch.filter(p => p[0] > W * .02 && p[0] < W * .98); L.side = L.side.filter(c => c[0] > W * .04 && c[0] < W * .96); L.map.t = L.map.t.filter(p => p[0] > W * .04 && p[0] < W * .96 && p[1] > hb + H * .1); L.map.a = L.map.a.filter(a => a[1] > W * .03 && a[0] < W * .97); } } }
         /* v12.47 · el mapa en píxeles: la imagen se dibuja «cubriendo» la pantalla, así que cada punto pasa por la misma escala y el mismo recorte */
-        function mapaL(M, iw, ih, s) { const ox = (W - iw * s) / 2, oy = (H - ih * s) / 2, IH = ih * s, X = f => ox + f * iw * s, Y = f => oy + f * IH, R4 = r => [X(r[0]), Y(r[1]), X(r[2]), Y(r[3])];
+        function mapaL(M, iw, ih, s) { const ox = (W - iw * s) / 2, oy = H - ih * s, IH = ih * s, X = f => ox + f * iw * s, Y = f => oy + f * IH, R4 = r => [X(r[0]), Y(r[1]), X(r[2]), Y(r[3])];
           const fr = M.fr ? 'shoot_' + sid + '_frente' : ''; if (fr) JBG.get(fr);
           return { win: (M.v || []).map(R4), door: (M.p || []).map(R4), side: (M.cu || []).map(c => [X(c[0]), Y(c[1]), c[2], c[3] * IH]), perch: (M.po || []).map(q => [X(q[0]), Y(q[1])]), lake: [], bush: [], sky: [Y(M.c[0]), Y(M.c[1])], ground: M.s ? [Y(M.s[0]), Y(M.s[1])] : null, fx: {}, gen: true,
             map: { t: (M.t || []).map(q => [X(q[0]), Y(q[1])]), a: (M.a || []).map(q => [X(q[0]), X(q[1]), Y(q[2])]), va: M.va ? { y0: Y(M.va[0]), y1: Y(M.va[1]) } : null, nj: (M.nj || []).map(q => [X(q[0]), X(q[1])]), lx: !!M.lx, sx: M.sx ? [X(M.sx[0]), X(M.sx[1])] : [0, W],
