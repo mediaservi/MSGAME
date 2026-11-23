@@ -452,7 +452,7 @@ function b3Carga() { if (B3.st) return; B3.st = 1; const sc = u => new Promise((
     const pp = hp.clone().project(cam); Object.assign(B3, { st: 2, cuello, T, r, S, m, mx, A, cam, cv3, ax: (pp.x + 1) / 2, ay: (1 - pp.y) / 2, alto: sz.y, Hc: H, act: A.charla, ult: performance.now(), ap: 0, dk0: -1 }); }).catch(e => { B3.st = 3; console.warn('Bonifacio 3D', e); }); }
 function b3Pon(n, f, t0) { const a = B3.A[n]; if (B3.act === a) return; a.reset(); if (t0) a.time = t0; a.play(); B3.act.crossFadeTo(a, f, false); B3.act = a; }
 function sentada() { if (B3.st !== 2) { b3Carga(); return sentada0(); } const now = performance.now(), dt = Math.min(.05, (now - B3.ult) / 1000); B3.ult = now;
-  const [sx, sy0] = P(.495, .545), [wx, wy] = P(.495, .625), hH = PS(.252), ar = 1, w = hH * ar, D = E.dunk;   /* alto en pantalla de todo el encuadre */
+  const [sx, sy0] = P(.495, .52), [wx, wy] = P(.495, .625), hH = PS(.252), ar = 1, w = hH * ar, D = E.dunk;   /* alto en pantalla de todo el encuadre */
   /* v18.13 · la caída: el muelle suelta el asiento, cae por su peso (gravedad de verdad) agitando los brazos, al tocar el agua salta el chapuzón, se hunde frenado por el agua, sale secándose la cara y vuelve a trepar al asiento */
   let dy = 0, clip = false; const Dc = (wy - sy0) + hH * .03, tg = .3, g = 2 * Dc / (tg * tg), sink = Math.max(hH * .62, g * tg * .2);
   if (D) { const t = D.t, tau = t - .1; clip = t > .1;
