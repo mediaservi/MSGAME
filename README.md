@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.18**
+**Versión actual: v18.19**
 
 ## Cómo se juega
 
@@ -37,7 +37,12 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 - **DIANA** *(en desarrollo)*: hachas y arco, dardos, el barreño de feria, tartazos y bomberos: cinco formas de acertar al centro.
 
-## Cambios de la versión actual (v18.18)
+## Cambios de la versión actual (v18.19)
+- Sala: Mevi asomada detrás de la mesa ya no sale más grande que delante (la perspectiva manda); al coger un juego de las baldas bajas ya no se ve un brazo larguísimo cruzando la pantalla; el cubo de Rubik abre AVHUB en una pestaña nueva.
+- DIANA · DARDOS: las pizarras nunca se salen: cuando se llenan, se borra la línea de arriba y las demás suben.
+- DIANA · HACHAS Y ARCO: el herrero espera junto a la tienda de la derecha mientras se tira, de pie en el suelo con su sombra y con movimiento propio (mira alrededor, anda); fuera el indicador del viento (ya lo dicen las hojas).
+
+### v18.18
 - DIANA · HACHAS Y ARCO: con «OTRA VEZ» entra el herrero, arranca de la diana una a una las hachas y flechas clavadas y se va; mientras limpia no se lanza. Clima: hojas y polvo que vuelan con el viento (la misma dirección y fuerza que desvía la flecha) y relámpagos lejanos en la zona clara del cielo, con truenos que suenan más fuertes cuanto más se acerca la tormenta.
 - DIANA · DARDOS: cada ronda se apunta con tiza en las dos pizarras de la pared (ronda y tanto a la izquierda, lo que queda a la derecha tachando lo anterior), con el chirrido de la tiza.
 - Arreglado: al pasar de HACHAS a DARDOS, las hachas y flechas ya no se quedan clavadas en la diana nueva.
@@ -1404,7 +1409,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v18.18 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v18.19 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
