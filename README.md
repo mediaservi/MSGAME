@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.37**
+**Versión actual: v18.38**
 
 ## Cómo se juega
 
@@ -37,7 +37,10 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 - **DIANA** *(en desarrollo)*: hachas y arco, dardos, el barreño de feria, tartazos y bomberos: cinco formas de acertar al centro.
 
-## Cambios de la versión actual (v18.37)
+## Cambios de la versión actual (v18.38)
+- WONDERWALK: los dos ladrones del cuento (página 1, escabulléndose por el bosque) ya no van agachados ni llevan los sacos que flotaban separados de ellos: andan normal mirando a los lados. El ladrón de reserva (si el modelo 3D no llega a cargar) tampoco lleva saco.
+
+### v18.37
 - **Mevi nueva, en alta calidad:** regenerada de cero (Meshy 7.1, a partir de su imagen oficial) con la cara lisa y vuelta a riggear en Mixamo; conserva todas sus animaciones. Los ojos y la boca ya no vienen pintados en el modelo: los pone el juego desde una hoja de expresiones (ojos de estrella, raya de parpadeo, ojos felices y sorpresa; boca cerrada, entreabierta, abierta y en O), dentro del propio sombreado, con su misma luz y sin pegatinas. Pelo azul marino, como en la imagen original.
 - Sala: Mevi parpadea (la estrella se cambia por una raya un instante) y mueve la boca mientras escribe sus bocadillos. Lo mismo en la cinemática del cartucho.
 - WONDERWALK: la Mevi de los bocadillos, la de la portada y la del paseo son la nueva; parpadea, habla con la boca y en la fiesta pone ojos felices.
