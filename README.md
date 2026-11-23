@@ -40,6 +40,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 ## Cambios de la versión actual (v18.20)
 - PUNTERÍA con capas de ambiente: WESTERN con polvo que arrastra el viento y plantas rodadoras, ALPINE con vilanos al aire y bandadas lejanas, GALAXY con estrellas que titilan y estrellas fugaces, HAUNTED con niebla baja que se arrastra (WARFRONT y ZOMBIELAND ya tenían humo).
 - Sala: al coger un juego de cualquier balda, el brazo de Mevi entra por el borde junto a la mano y nunca cruza la pantalla.
+- DIANA · AL BARREÑO: Bonifacio y el cuervo apoyados justo sobre la tabla, y el herrero recortado por el canto inclinado del mostrador.
 - DIANA · HACHAS Y ARCO: el herrero, en primer plano abajo a la derecha; al elegir arma recorre el banco y retira la que no se usa, y con «OTRA VEZ» las vuelve a colocar. La diana se limpia con una ráfaga de viento y un halo dorado de los dioses que tapa la vista; al pasar, ya no queda nada clavado.
 
 ### v18.19
