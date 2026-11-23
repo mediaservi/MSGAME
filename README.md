@@ -38,7 +38,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **DIANA** *(en desarrollo)*: hachas y arco, dardos, el barreño de feria, tartazos y bomberos: cinco formas de acertar al centro.
 
 ## Cambios de la versión actual (v18.19)
-- Sala: Mevi asomada detrás de la mesa ya no sale más grande que delante (la perspectiva manda); al coger un juego de las baldas bajas ya no se ve un brazo larguísimo cruzando la pantalla; el cubo de Rubik abre AVHUB en una pestaña nueva.
+- Sala: Mevi ya no se teletransporta de un lado al otro: se va andando por el borde de la pantalla y, al cabo de unos segundos, se asoma detrás de la mesa por ese mismo lado (y al revés); para cambiar de lado cruza andando. Mevi asomada detrás de la mesa ya no sale más grande que delante (la perspectiva manda); al coger un juego de las baldas bajas ya no se ve un brazo larguísimo cruzando la pantalla; el cubo de Rubik abre AVHUB en una pestaña nueva.
 - DIANA · DARDOS: las pizarras nunca se salen: cuando se llenan, se borra la línea de arriba y las demás suben.
 - DIANA · HACHAS Y ARCO: el herrero espera junto a la tienda de la derecha mientras se tira, de pie en el suelo con su sombra y con movimiento propio (mira alrededor, anda); fuera el indicador del viento (ya lo dicen las hojas).
 
