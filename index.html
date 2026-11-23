@@ -3884,7 +3884,7 @@ body.gm-modos #gmUI{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '18.26';
+    const APP_VERSION = '18.27';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -7247,7 +7247,7 @@ body.gm-modos #gmUI{display:none!important}
         /* v14.0 · personajes 3D de PUNTERÍA (render de los modelos de packs/modelos; los que tienen esqueleto, animados: andar y caer) */
         const P3D = { haunted: { '💀': [{ u: 'esqueleto-anim', w: 168, h: 200, n: [12, 12], fps: 11 }], '👻': [{ u: 'fantasma' }], '🎃': [{ u: 'calabaza' }] },
           galaxy: { '👽': [{ u: 'marciano-anim', w: 154, h: 200, n: [12, 12], fps: 11 }, { u: 'alien-anim', w: 162, h: 200, n: [12, 12], fps: 11 }], '🛸': [{ u: 'platillovolante' }], '👾': [{ u: 'pulpalien' }], '🤖': [{ u: 'robot-anim', w: 126, h: 200, n: [12, 12], fps: 10 }] },
-          zombieland: { '🧟': [{ u: 'zombio-anim', w: 148, h: 200, n: [16, 12], fps: 9 }], '🧟‍♀️': [{ u: 'zombia-anim', w: 131, h: 200, n: [12, 12], fps: 11 }], '💀': [{ u: 'esqueleto-anim', w: 168, h: 200, n: [12, 12], fps: 11 }] },
+          zombieland: { '🧟': [{ u: 'zombio-anim', w: 148, h: 200, n: [16, 12], fps: 9 }], '🧟‍♂️': [{ u: 'zmovil-anim', w: 147, h: 200, n: [12, 12], fps: 9 }],   /* v18.27 · el zombi adolescente que no suelta el móvil (Meshy + Mixamo, con el móvil de neón en la mano) */ '🧟‍♀️': [{ u: 'zombia-anim', w: 131, h: 200, n: [12, 12], fps: 11 }], '💀': [{ u: 'esqueleto-anim', w: 168, h: 200, n: [12, 12], fps: 11 }] },
           warfront: { '🪖': [{ u: 'soldado-anim', w: 153, h: 200, n: [12, 12], fps: 4 }]   /* v18.1 · con el fusil del «Ultimate Gun Pack» de Quaternius (CC0), en la mano */, '🚁': [{ u: 'heli3', w: 420, h: 214, v3: 1 }], '🛩️': [{ u: 'heli3n', w: 420, h: 214, v3: 1 }], '🚘': [{ u: 'jeep3', w: 309, h: 300, v3: 1 }] },   /* v18.1 · WARFRONT: helicópteros oscuros de lado; el verde grande es el jefe, de frente */   /* v17.5 · el soldado de 3Dworks, animado en Mixamo */
           alpine: { '🧑‍🌾': [{ u: 'granjero-anim', w: 143, h: 200, n: [12, 12], fps: 10 }] },
           western: { '🦅': [{ u: 'cuervo-vuela', w: 180, h: 180, n: [12, 6], fps: 16 }] } }[sid] || {}, P3 = {};   /* v18.12 · WESTERN: el cuervo 3D aleteando (y dando vueltas al caer) en lugar del águila */   /* v17.3 · el granjero de 3Dworks, animado en Mixamo: anda y, si le das, cae de espaldas */   /* v16.6 · repaso de 3Dworks: ZOMBIELAND con los zombis y el esqueleto 3D animados, y WARFRONT con el helicóptero y el jeep de Meshy */
@@ -10711,24 +10711,11 @@ body.gm-modos #gmUI{display:none!important}
         const cmxPose = (P, k, z) => { const e = ease(k), p = P.t.clone().add(P.p.clone().sub(P.t).multiplyScalar(1 - z * e)); return { p, t: P.t.clone(), fov: P.fov }; };
         const cmxSinManos = () => { hg.visible = false; if (HAND.g2) { HAND.g2.visible = false; HAND.g2.matrixAutoUpdate = true; } };
         ST.seq = { t0: performance.now(), dur: 6900, c, q, shots: [
-          /* v18.26 · VIÑETAS DE CÓMIC (pedido por Josep, 23-11-2026): en vez de un brazo que se estira hasta el estante y unas manos que sostienen la caja,
-             tres planos cortos con corte seco y destello: 1) la caja sale sola del estante; 2) en la mesa, la carátula se abre; 3) primerísimo plano del cartucho
-             que sube. Ninguna mano ni brazo en estos planos, así que nada se estira. Después siguen el de la consola y el de la tele, como antes. */
-          { a: 0, b: 1.25, cam: k => cmxPose(shotShelf, k, .1), act: s => {
-            cmxCorte(s, 0); cmxSinManos(); if (FG.on) fgSet(false);
-            const k1 = ease(sg(s, .22, .95)), w = Math.sin(sg(s, .22, .95) * Math.PI) * .045; cg.quaternion.copy(caseFront).multiply(qe(-.06 * k1, w * side, 0));
-            cg.position.copy(boxP).addScaledVector(nrm, .3 * k1).add(V3().set(0, .03 * Math.sin(k1 * Math.PI), 0)); lid.rotation.y = 0; if (s > .25) paso('cajasale'); } },
-          { a: 1.25, b: 2.85, cam: k => cmxPose(shotTable, k, .12), act: s => {
-            const l = s - 1.25; cmxCorte(s, 1.25); cmxSinManos();
-            const caer = ease(sg(l, 0, .22)); cg.quaternion.copy(tableQ); cg.position.copy(table).add(V3().set(0, .05 * (1 - caer), 0));
-            const ab = ease(sg(l, .35, 1.1)); lid.rotation.y = -.98 * ab; if (cart.parent !== cg) { cg.attach(cart); } cart.position.copy(CASE.CP); cart.rotation.set(0, 0, 0); cart.scale.setScalar(CASE.CS); if (l > .35) paso('cajaabre'); } },
-          { a: 2.85, b: 4.35, cam: k => { const cp = CASE.CP.clone().applyQuaternion(tableQ).add(table); return cmxPose({ p: cp.clone().add(V3().set(-.06, .34, .5).applyQuaternion(tableQ)), t: cp.clone().add(V3().set(0, .17, 0)), fov: 34 }, k, .12); }, act: s => {
-            const l = s - 2.85; cmxCorte(s, 2.85); cmxSinManos(); cg.quaternion.copy(tableQ); cg.position.copy(table); lid.rotation.y = -.98;
-            const cartP = CASE.CP.clone().applyQuaternion(cg.quaternion).add(cg.position), sube = ease(sg(l, .2, 1.15)); if (cart.parent !== S) S.attach(cart);
-            cart.position.copy(cartP).add(V3().set(0, .2 * sube + .004 * Math.sin(l * 20) * (1 - sube), 0)); cart.quaternion.copy(cg.quaternion).slerp(cartUpQ, ease(sg(l, .45, 1.2))); cart.scale.setScalar(CASE.CS + (1 - CASE.CS) * sube);
-            if (l > .2) paso('cartsale'); } },
+          /* v18.27 · como lo pidió Josep: 1) zoom al juego en la estantería (sin brazos que se estiren); corte → 2) primer plano: las manos de Mevi cogen la caja, la abren y sacan el cartucho; corte → 3) las manos, ya delante de la consola, lo meten: ¡clac!; 4) la tele */
+          { a: 0, b: 1.1, cam: k => lerpPose(H0, shotShelf, ease(sg(k * 1.1, 0, 1))), act: s => { cmxSinManos(); if (FG.on) fgSet(false); cg.position.copy(boxP); cg.quaternion.copy(caseFront); lid.rotation.y = 0; } },
+          { a: 2.25, b: 4.35, cam: k => ({ p: PA.p.clone().add(V3().set(0, 0, -.05 * ease(k))), t: PA.t, fov: PA.fov }), act: aireAct, sinTel: 1, brz: [.3, -.4, .04], na: 1.1 },
           { a: 4.35, b: 5.75, cam: k => { const P = lerpPose(shotCon, { p: shotCon.p.clone().add(V3().set(-.05, .03, -.1)), t: shotCon.t, fov: 40 }, ease(k)), ba = k * 1.4 - 1.08; if (ba > 0 && ba < .3) P.p.add(V3().set(Math.sin(ba * 90) * .005, Math.cos(ba * 77) * .004, 0).multiplyScalar(1 - ba / .3)); return P; }, act: s => {   // consola: mete el cartucho en la ranura
-            cmxCorte(s, 4.35); const l = s - 4.35, k1 = ease(sg(l, 0, .55)), k2 = ease(sg(l, .55, .95)); paso('cajaabre'); paso('cartsale');   /* si un fotograma lento se saltó el paso, suena igual */ if (FG.on || cart.parent !== S) dejaCaja(); cart.quaternion.copy(cartUpQ); cart.scale.setScalar(1); const above = slot.clone().add(V3().set(0, .12, 0)), from = slot.clone().add(V3().set(.16, .2, .12));
+            const l = s - 4.35, k1 = ease(sg(l, 0, .55)), k2 = ease(sg(l, .55, .95)); paso('cajaabre'); paso('cartsale');   /* si un fotograma lento se saltó el paso, suena igual */ if (FG.on || cart.parent !== S) dejaCaja(); cart.quaternion.copy(cartUpQ); cart.scale.setScalar(1); const above = slot.clone().add(V3().set(0, .12, 0)), from = slot.clone().add(V3().set(.16, .2, .12));
             // baja el cartucho cogido por arriba, lo deja apoyado en la ranura, abre la mano y lo termina de meter empujando con la palma: ¡clac!
             const emp = ease(sg(l, 1.0, 1.1)), cp = from.clone().lerp(above, k1).lerp(slot.clone().add(V3().set(0, CT.ins + .025, 0)), k2).add(V3().set(0, -.025 * emp, 0)).add(V3().set(-Math.sin(k2 * Math.PI * 2) * .004 * (1 - k2), Math.sin(k1 * Math.PI) * .03 * (1 - k2), 0)); cart.position.copy(cp);   /* v12.27 · baja en arco y lo encaja con un vaivén, como se hace de verdad */
             if (l < .97) { puno(true); punoEn(cp.clone().add(V3().set(0, CT.grip, 0)), qCart); }
@@ -10739,6 +10726,7 @@ body.gm-modos #gmUI{display:none!important}
           { a: 5.75, b: 6.9, cam: k => lerpPose(shotCon, shotTV, ease(k)), act: s => { const l = s - 5.75; paso('cartsale'); if (!ST.seq.ins) { ST.seq.ins = 1; try { GAMES.SFX.play('cartin'); } catch (e) {} } hg.visible = false; ST.burst.visible = false; if (l < .35) tvScreen('boot', ease(sg(l, .05, .35))); else if (TV.mode !== 'game') { tvScreen('game'); try { GAMES.SFX.play('crton'); } catch (e) {} } } }],
           end: () => { try { cmxFl.style.opacity = 0; dejaCaja(); cart.quaternion.copy(cartUpQ); cart.scale.setScalar(1); cart.position.copy(slot).add(V3().set(0, CT.ins, 0)); cart.visible = true; hg.visible = false; if (!ST.seq.ins) { CON.led.material.color.set(0x56f700); CON.ledS.material.color.set(0x56f700); CON.glow.material.color.set(0xffd23f); CON.glowS.material.color.set(0xffd23f); lcdDraw('▶ ' + GN[c.g], c.sub || ''); } } catch (e) {}   /* pase lo que pase (también en aparatos lentos que se saltan planos), el final es el mismo: cartucho en la ranura y caja en la mesa */
             ST.inserted = cart; finish(c); } };
+        { const SH = ST.seq.shots; let t = 0; ST.seq.shots = SH.map((o, i) => { const a0 = o.a, d = o.b - o.a, a = i === 0 ? 0 : t; t = a + d; if (a === a0) return o; const act = o.act, cam = o.cam; return Object.assign({}, o, { a, b: a + d, act: act && (s => { cmxCorte(s, a); act(s - a + a0); }), cam }); }); ST.seq.dur = Math.round(t * 1000); }   /* v18.27 · cada plano se recoloca detrás del anterior; los cortes llevan destello */
         document.body.classList.add('club-seq'); kick(); }
       /* v11.7 · evaporación digital: el objeto se convierte en un mosaico de píxeles con los colores de su carátula, que se deshace de arriba abajo y sube apagándose */
       function evapora(mw, cv, nx, ny, x0, x1, y0, y1, z, tg) { try { const [c2, q2] = canvas(nx, ny); q2.drawImage(cv, 0, 0, nx, ny); const d = q2.getImageData(0, 0, nx, ny).data, n = nx * ny, uu = new Float32Array(n), ww = new Float32Array(n), pos = new Float32Array(n * 3), col = new Float32Array(n * 3), base = new Float32Array(n * 3), del = new Float32Array(n), vel = new Float32Array(n * 3), v = V3(), k = new T.Color(), lin = R.outputEncoding === T.sRGBEncoding && k.convertSRGBToLinear;

@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.26**
+**Versión actual: v18.27**
 
 ## Cómo se juega
 
@@ -37,7 +37,11 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 - **DIANA** *(en desarrollo)*: hachas y arco, dardos, el barreño de feria, tartazos y bomberos: cinco formas de acertar al centro.
 
-## Cambios de la versión actual (v18.26)
+## Cambios de la versión actual (v18.27)
+- Sala: la cinemática de la primera elección queda así: zoom al juego en la estantería; corte a primer plano, donde las manos de Mevi cogen la caja, la abren y sacan el cartucho; corte a las manos delante de la consola, que meten el cartucho (¡clac!); y la tele. El cartucho ya no vuela solo y nada se estira ni atraviesa la caja.
+- PUNTERÍA ZOMBIELAND: nuevo zombi adolescente que no suelta el móvil (3D animado, anda y cae), en el lugar del tercer zombi.
+
+### v18.26
 - Sala: la primera vez que eliges un juego, la cinemática ya no estira el brazo de Mevi hasta el estante ni sostiene la caja en el aire. Ahora son tres viñetas tipo cómic, con corte seco y un destello breve: la caja sale sola de su hueco, se abre en la mesa y el cartucho sube en primer plano. Después la mano lo mete en la consola y la cámara va a la tele, como antes.
 - PUNTERÍA ALPINE: el abuelo sale de casa, pasea por el prado entre sus ocas, se para a mirar y se vuelve (comprobado en partida).
 
@@ -1440,7 +1444,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v18.26 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v18.27 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
