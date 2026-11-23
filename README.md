@@ -38,7 +38,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **DIANA** *(en desarrollo)*: hachas y arco, dardos, el barreño de feria, tartazos y bomberos: cinco formas de acertar al centro.
 
 ## Cambios de la versión actual (v18.18)
-- DIANA · HACHAS Y ARCO: con «OTRA VEZ» entra el herrero, arranca de la diana una a una las hachas y flechas clavadas y se va; mientras limpia no se lanza. Clima: hojas y polvo que vuelan con el viento (la misma dirección y fuerza que desvía la flecha) y una tormenta que se acerca con relámpagos y truenos.
+- DIANA · HACHAS Y ARCO: con «OTRA VEZ» entra el herrero, arranca de la diana una a una las hachas y flechas clavadas y se va; mientras limpia no se lanza. Clima: hojas y polvo que vuelan con el viento (la misma dirección y fuerza que desvía la flecha) y relámpagos lejanos en la zona clara del cielo, con truenos que suenan más fuertes cuanto más se acerca la tormenta.
 - DIANA · DARDOS: cada ronda se apunta con tiza en las dos pizarras de la pared (ronda y tanto a la izquierda, lo que queda a la derecha tachando lo anterior), con el chirrido de la tiza.
 - Arreglado: al pasar de HACHAS a DARDOS, las hachas y flechas ya no se quedan clavadas en la diana nueva.
 
