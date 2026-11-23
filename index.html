@@ -3884,7 +3884,7 @@ body.gm-modos #gmUI{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '18.31';
+    const APP_VERSION = '18.32';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -7247,7 +7247,7 @@ body.gm-modos #gmUI{display:none!important}
         /* v14.0 · personajes 3D de PUNTERÍA (render de los modelos de packs/modelos; los que tienen esqueleto, animados: andar y caer) */
         const P3D = { haunted: { '💀': [{ u: 'esqueleto-anim', w: 168, h: 200, n: [12, 12], fps: 11 }], '👻': [{ u: 'fantasma' }], '🎃': [{ u: 'calabaza' }] },
           galaxy: { '👽': [{ u: 'marciano-anim', w: 154, h: 200, n: [12, 12], fps: 11 }, { u: 'alien-anim', w: 162, h: 200, n: [12, 12], fps: 11 }], '🛸': [{ u: 'platillovolante' }], '👾': [{ u: 'pulpalien' }], '🤖': [{ u: 'robot-anim', w: 126, h: 200, n: [12, 12], fps: 10 }] },
-          zombieland: { '🧟': [{ u: 'zombio-anim', w: 148, h: 200, n: [16, 12], fps: 9 }], '🧟‍♂️': [{ u: 'zmovil-anim', w: 147, h: 200, n: [12, 12], fps: 9 }],   /* v18.27 · el zombi adolescente que no suelta el móvil (Meshy + Mixamo, con el móvil de neón en la mano) */ '🧟‍♀️': [{ u: 'zombia-anim', w: 131, h: 200, n: [12, 12], fps: 11 }], '💀': [{ u: 'esqueleto-anim', w: 168, h: 200, n: [12, 12], fps: 11 }] },
+          zombieland: { '🧟': [{ u: 'zombio-anim', w: 148, h: 200, n: [16, 12], fps: 9 }], '🧟‍♂️': [{ u: 'zmovil-anim', w: 128, h: 200, n: [12, 12], fps: 9 }],   /* v18.27 · el zombi adolescente que no suelta el móvil (Meshy + Mixamo, con el móvil de neón en la mano) */ '🧟‍♀️': [{ u: 'zombia-anim', w: 131, h: 200, n: [12, 12], fps: 11 }], '💀': [{ u: 'esqueleto-anim', w: 168, h: 200, n: [12, 12], fps: 11 }] },
           warfront: { '🪖': [{ u: 'soldado-anim', w: 153, h: 200, n: [12, 12], fps: 4 }]   /* v18.1 · con el fusil del «Ultimate Gun Pack» de Quaternius (CC0), en la mano */, '🚁': [{ u: 'heli3', w: 420, h: 214, v3: 1 }], '🛩️': [{ u: 'heli3n', w: 420, h: 214, v3: 1 }], '🚘': [{ u: 'jeep3', w: 309, h: 300, v3: 1 }] },   /* v18.1 · WARFRONT: helicópteros oscuros de lado; el verde grande es el jefe, de frente */   /* v17.5 · el soldado de 3Dworks, animado en Mixamo */
           alpine: { '🧑‍🌾': [{ u: 'granjero-anim', w: 143, h: 200, n: [12, 12], fps: 10 }], '🦅': [{ u: 'cuervo-vuela', w: 180, h: 180, n: [12, 6], fps: 16 }] },   /* v18.31 · el cuervo 3D en lugar del águila */
           western: { '🦅': [{ u: 'cuervo-vuela', w: 180, h: 180, n: [12, 6], fps: 16 }] } }[sid] || {}, P3 = {};   /* v18.12 · WESTERN: el cuervo 3D aleteando (y dando vueltas al caer) en lugar del águila */   /* v17.3 · el granjero de 3Dworks, animado en Mixamo: anda y, si le das, cae de espaldas */   /* v16.6 · repaso de 3Dworks: ZOMBIELAND con los zombis y el esqueleto 3D animados, y WARFRONT con el helicóptero y el jeep de Meshy */
