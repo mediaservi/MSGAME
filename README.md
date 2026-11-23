@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.27**
+**Versión actual: v18.28**
 
 ## Cómo se juega
 
@@ -37,7 +37,10 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 - **DIANA** *(en desarrollo)*: hachas y arco, dardos, el barreño de feria, tartazos y bomberos: cinco formas de acertar al centro.
 
-## Cambios de la versión actual (v18.27)
+## Cambios de la versión actual (v18.28)
+- DIANA · AL BARREÑO: fuera el perro, que se veía gigante. En su lugar, una ardilla a su tamaño real junto a la familia: cruza la feria a saltitos y se para a mirar erguida.
+
+### v18.27
 - Sala: la cinemática de la primera elección queda así: zoom al juego en la estantería; corte a primer plano, donde las manos de Mevi cogen la caja, la abren y sacan el cartucho; corte a las manos delante de la consola, que meten el cartucho (¡clac!); y la tele. El cartucho ya no vuela solo y nada se estira ni atraviesa la caja.
 - PUNTERÍA ZOMBIELAND: nuevo zombi adolescente que no suelta el móvil (3D animado, anda y cae), en el lugar del tercer zombi.
 
@@ -1444,7 +1447,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v18.27 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v18.28 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
