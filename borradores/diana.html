@@ -330,11 +330,13 @@ function climaDibuja() { const C = E.clima; if (!C || !C.ray) return; const Rr =
 function hojasDibuja() { const C = E.clima; if (!C) return; C.hojas.forEach(h => { x.save(); x.translate(h.x, h.y); x.rotate(h.a); x.fillStyle = h.c; x.globalAlpha = h.p ? .45 : .9; x.beginPath(); if (h.p) x.arc(0, 0, h.r * .5, 0, TAU); else x.ellipse(0, 0, h.r, h.r * .45, 0, 0, TAU); x.fill(); x.restore(); }); }
 function limpiaTick(dt) { const L = E.limpia; if (!L) return; L.t += dt; const n = (E.clavados || []).length, tq = 1.6 + .45 * (L.n || 0) + .5;
   if (L.t >= 1.6 && n && L.t >= 1.6 + .45 * (L.n0 - n)) { const M = MODOS.hachas, [cx, cy] = P(M.tg[0], M.tg[1]), r = PS(M.tg[2]), c = E.clavados.shift(); L.vuela.push({ tipo: c.tipo, x0: cx + c.X * r, y0: cy + c.Y * r, rot: c.rot, t: 0 }); fxd(c.tipo === 'flecha' ? 'flecha' : 'hacha', .45) || SND.clava(); }
-  L.vuela.forEach(v => v.t += dt); L.vuela = L.vuela.filter(v => v.t < .45); if (L.t > tq + 1.5) E.limpia = null; }
-function limpiaDibuja() { const L = E.limpia; if (!L) return; const tq = 1.6 + .45 * (L.n || 0) + .5, e3 = q => q * q * (3 - 2 * q); let u, an = 'mira', rot = -1.2;
-  if (L.t < 1.6) { u = 1.1 - (1.1 - .655) * e3(L.t / 1.6); an = 'anda'; rot = -Math.PI / 2; } else if (L.t < tq) u = .655; else { u = .655 + (1.1 - .655) * e3(Math.min(1, (L.t - tq) / 1.5)); an = 'anda'; rot = Math.PI / 2; }
-  const [X, Yp] = P(u, .655), hH = PS(.17); h3Pinta(X, Yp, hH, rot, an);
-  const [hx, hy] = [X - hH * .12, Yp - hH * .55]; L.vuela.forEach(v => { const k = Math.min(1, v.t / .45), xx = v.x0 + (hx - v.x0) * k, yy = v.y0 + (hy - v.y0) * k - Math.sin(k * Math.PI) * hH * .25; proyectil(v.tipo, xx, yy, PS(.075) * .8 * (1 - k * .3), v.rot + k * 4); }); }
+  L.vuela.forEach(v => v.t += dt); L.vuela = L.vuela.filter(v => v.t < .45); if (L.t > tq + 1.6) E.limpia = null; }
+function limpiaDibuja() { const L = E.limpia, U0 = .905, V0 = .668, e3 = q => q * q * (3 - 2 * q);   /* v18.18 · mientras se tira, el herrero espera junto a la entrada de la tienda de la derecha (la más cercana); para limpiar va a la diana y vuelve */
+  if (!L) { const [X, Yp] = P(U0, V0); h3Pinta(X, Yp, PS(.17), -.45, 'mira'); return; }
+  const tq = 1.6 + .45 * (L.n || 0) + .5; let u, v, an = 'mira', rot = -1.2, k = 0;
+  if (L.t < 1.6) { k = e3(L.t / 1.6); an = 'anda'; rot = -Math.PI / 2 - .25; } else if (L.t < tq) k = 1; else { k = 1 - e3(Math.min(1, (L.t - tq) / 1.5)); an = L.t - tq < 1.5 ? 'anda' : 'mira'; rot = an === 'anda' ? Math.PI / 2 + .25 : -.45; }
+  u = U0 + (.655 - U0) * k; v = V0 + (.655 - V0) * k; const [X, Yp] = P(u, v), hH = PS(.17); h3Pinta(X, Yp, hH, rot, an);
+  const [hx, hy] = [X - hH * .12, Yp - hH * .55]; L.vuela.forEach(q => { const kk = Math.min(1, q.t / .45), xx = q.x0 + (hx - q.x0) * kk, yy = q.y0 + (hy - q.y0) * kk - Math.sin(kk * Math.PI) * hH * .25; proyectil(q.tipo, xx, yy, PS(.075) * .8 * (1 - kk * .3), q.rot + kk * 4); }); }
 function cuervoGolpe(X, Y) { if (E.ave || (E.cuervoG && E.cuervoG.t < 1.2)) return false; const PZ = P(.635, .19), s = PS(.03); if (Math.hypot(X - PZ[0], Y - (PZ[1] - s * .45)) > s * 1.1) return false;
   E.cuervoG = { t: 0 }; SND.graz(3); E.n = Math.min(MODOS.barreno.n, E.n + 1); pop(T('cuervoD'), W / 2, H * .45, '#ff6a6a', 1.6); chispas(PZ[0], PZ[1] - s * .4, ['#111', '#2a2a30', '#3a3a44'], 14, H * .15); return true; }
 window.__dianaCG = cuervoGolpe;   // para las pruebas
