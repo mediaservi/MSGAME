@@ -3884,7 +3884,7 @@ body.gm-modos #gmUI{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '18.19';
+    const APP_VERSION = '18.20';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -7449,6 +7449,22 @@ body.gm-modos #gmUI{display:none!important}
             for (let i = 0; i < 5; i++) { const sp2 = 9 + i * 4, ww = W * (.5 + (i % 2) * .25), xx = ((t * sp2 + i * W * .41) % (W + ww * 2)) - ww, yy = H * (.3 + i * .09);
               x.globalAlpha = .38 + (i % 3) * .06; x.save(); x.translate(xx, yy); x.scale(1, .3); x.drawImage(puffSpr(i % 2 ? '96,86,74' : '62,58,54'), -ww, -ww, ww * 2, ww * 2); x.restore(); }
             x.restore(); }
+          /* v18.20 · capas de ambiente (realismo de fondo, sin tapar el juego): WESTERN polvo con el viento y plantas rodadoras; ALPINE vilanos al aire y bandadas lejanas; GALAXY estrellas que titilan y estrellas fugaces; HAUNTED niebla baja que se arrastra */
+          if (sid === 'western') { x.save(); const t = g.t;
+            for (let i = 0; i < 6; i++) { const ww = W * (.35 + (i % 3) * .12), xx = ((t * (40 + i * 18) + i * W * .37) % (W + ww * 2)) - ww, yy = H * (.78 + (i % 3) * .06); x.globalAlpha = .24 + (i % 2) * .08; x.save(); x.translate(xx, yy); x.scale(1, .22); x.drawImage(puffSpr('196,156,104'), -ww, -ww, ww * 2, ww * 2); x.restore(); }
+            for (let j = 0; j < 2; j++) { const per = 11 + j * 6, p = ((t + j * 5.3) % per) / per; if (p < .75) { const k = p / .75, r = H * (.03 + j * .012), xx = -r * 2 + (W + r * 4) * k, yy = H * (.9 - j * .07) - Math.abs(Math.sin(k * Math.PI * 7)) * H * .05; x.globalAlpha = .9; x.save(); x.translate(xx, yy); x.rotate(k * 40); x.strokeStyle = '#8a6438'; x.lineWidth = Math.max(1, r * .08); for (let a = 0; a < 9; a++) { x.beginPath(); x.ellipse(0, 0, r, r * (.35 + (a % 3) * .2), a * .7, 0, 6.283); x.stroke(); } x.restore(); } }
+            x.restore(); }
+          if (sid === 'alpine') { x.save(); const t = g.t; x.fillStyle = 'rgba(255,255,255,.85)';
+            for (let i = 0; i < 26; i++) { const xx = ((i * 97.3 + t * (14 + i % 5 * 4)) % (W + 40)) - 20, yy = (H * (.15 + (i * .37) % .7) + Math.sin(t * .8 + i) * H * .02); x.globalAlpha = .35 + .3 * Math.sin(t * 2 + i); x.beginPath(); x.arc(xx, yy, Math.max(1, H * .0025), 0, 6.283); x.fill(); }
+            const per = 14, p = (t % per) / per; if (p < .6) { const k = p / .6; x.globalAlpha = .55; x.strokeStyle = '#2b2b33'; x.lineWidth = Math.max(1, H * .002); for (let b = 0; b < 5; b++) { const bx = -W * .05 + W * 1.1 * k + b * W * .025, by = H * (.12 + b % 2 * .02 + b * .006), fl = Math.sin(t * 12 + b) * H * .006; x.beginPath(); x.moveTo(bx - H * .01, by + fl); x.quadraticCurveTo(bx - H * .004, by - H * .004, bx, by); x.quadraticCurveTo(bx + H * .004, by - H * .004, bx + H * .01, by + fl); x.stroke(); } }
+            x.restore(); }
+          if (sid === 'galaxy') { x.save(); const t = g.t; x.globalCompositeOperation = 'lighter';
+            for (let i = 0; i < 40; i++) { const xx = (i * 211.7) % W, yy = (i * 97.1) % (H * .6), tw = .5 + .5 * Math.sin(t * (1.5 + i % 4) + i * 2.3); x.globalAlpha = tw * .7; x.fillStyle = i % 5 ? '#ffffff' : '#9fd8ff'; x.fillRect(xx, yy, 1.5 + (i % 3 === 0 ? 1 : 0), 1.5 + (i % 3 === 0 ? 1 : 0)); }
+            const per = 6.5, p = (t % per) / per; if (p < .14) { const k = p / .14, sx2 = W * (.15 + ((Math.floor(t / per) * .37) % .6)), sy2 = H * .06, ex = sx2 + W * .25, ey = sy2 + H * .18, cx2 = sx2 + (ex - sx2) * k, cy2 = sy2 + (ey - sy2) * k, gg = x.createLinearGradient(cx2, cy2, cx2 - W * .08, cy2 - H * .058); gg.addColorStop(0, `rgba(255,255,255,${1 - k})`); gg.addColorStop(1, 'rgba(160,210,255,0)'); x.globalAlpha = 1; x.strokeStyle = gg; x.lineWidth = 2; x.beginPath(); x.moveTo(cx2, cy2); x.lineTo(cx2 - W * .08, cy2 - H * .058); x.stroke(); }
+            x.restore(); }
+          if (sid === 'haunted') { x.save(); const t = g.t;
+            for (let i = 0; i < 7; i++) { const ww = W * (.4 + (i % 3) * .1), xx = ((t * (10 + i * 5) + i * W * .29) % (W + ww * 2)) - ww, yy = H * (.84 + (i % 3) * .05); x.globalAlpha = .22 + (i % 2) * .08; x.save(); x.translate(xx, yy); x.scale(1, .25); x.drawImage(puffSpr('150,160,185'), -ww, -ww, ww * 2, ww * 2); x.restore(); }
+            x.restore(); }
           if (FX.bolt > 0 && f.interior) {} else if (FX.bolt > 0) { x.save(); x.fillStyle = `rgba(220,210,255,${FX.bolt * .5})`; x.fillRect(0, 0, W, H * .8); x.strokeStyle = `rgba(255,255,255,${FX.bolt * 2.5})`; x.lineWidth = 3; x.beginPath(); let bx2 = FX.bx, by = 0; x.moveTo(bx2, by); const s2 = shRng(Math.floor(FX.bx)); while (by < H * .5) { bx2 += (s2() - .5) * W * .05; by += H * .05; x.lineTo(bx2, by); } x.stroke(); x.restore(); }
         }
         function drawFxFront() {
@@ -10675,7 +10691,7 @@ body.gm-modos #gmUI{display:none!important}
             const grab = boxP.clone().addScaledVector(nrm, .075).addScaledVector(rt, ld * (BOX.w / 2 - .012)).add(V3().set(0, -BOX.h * .14, 0)), from = grab.clone().addScaledVector(nrm, .3).addScaledVector(rt, ld * .1).add(V3().set(0, -.22, 0)), k1 = ease(sg(s, .55, 1.2)), k2 = ease(sg(s, 1.25, 1.85)), k3 = ease(sg(s, 1.85, 2.25));
             const hp = from.clone().lerp(grab, k1).add(V3().set(0, Math.sin(k1 * Math.PI) * .035, 0)); if (k2 > 0) { const d = out.clone().sub(boxP).multiplyScalar(k2 - .03 * Math.sin(Math.PI * sg(s, 1.25, 1.42)));   /* v12.27 · la mano llega en arco y, antes de sacar la caja, la empuja un pelín (peso) */ hp.copy(grab).add(d); cg.position.copy(boxP).add(d); } if (k3 > 0) { const bj = V3().set(-side * .05 * k3, -.12 * k3, .08 * k3); hp.add(bj); cg.position.add(bj); }
             if (k2 > 0) { const GL = grab.clone().sub(boxP).applyQuaternion(caseFront.clone().invert()), kg = ease(sg(s, 1.3, 2.1)); cg.quaternion.copy(caseFront).multiply(qe(-.16 * kg, -ld * .62 * kg, -ld * .1 * kg)); cg.position.copy(hp).sub(GL.applyQuaternion(cg.quaternion)); } else cg.quaternion.copy(caseFront);   // v9.0 · al sacarla, la caja gira en la mano (se ve en perspectiva, no de frente), sujeta siempre por el mismo canto
-            handAt(hp, .25, ry, ld * 1.5, 'YXZ'); pose(lerp(.1, .85, ease(sg(s, 1.0, 1.25))), lerp(.1, .8, ease(sg(s, 1.0, 1.25)))); puno(s > 1.16); hg.visible = s > .5; if (s > 1.25) paso('cajasale'); if (bajo) { const hc = hp.clone().sub(CAM.position).applyQuaternion(CAM.quaternion.clone().invert()); BRZ.o = [hc.x + .2, hc.y - .17, hc.z + .1]; }   /* v18.19 · en las baldas bajas el hombro va justo fuera de la imagen, junto a la mano: se ve un trozo de brazo, no uno larguísimo cruzando la pantalla */ } },
+            handAt(hp, .25, ry, ld * 1.5, 'YXZ'); pose(lerp(.1, .85, ease(sg(s, 1.0, 1.25))), lerp(.1, .8, ease(sg(s, 1.0, 1.25)))); puno(s > 1.16); hg.visible = s > .5; if (s > 1.25) paso('cajasale'); { const hc = hp.clone().sub(CAM.position).applyQuaternion(CAM.quaternion.clone().invert()); BRZ.o = [hc.x + .2, hc.y - .17, hc.z + .1]; }   /* v18.20 · en todas las baldas el hombro va justo fuera de la imagen, junto a la mano: se ve un trozo de brazo, nunca uno larguísimo cruzando la pantalla */ } },
           /* v11.7 · primer plano: Mevi sostiene la caja delante, centrada y de frente, con una mano a cada lado; la abre como un libro (el lomo queda en el centro), y una mano saca el cartucho */
           { a: 2.25, b: 4.35, cam: k => ({ p: PA.p.clone().add(V3().set(0, 0, -.05 * ease(k))), t: PA.t, fov: PA.fov }), act: aireAct, sinTel: 1, brz: [.3, -.4, .04] },
           { a: 4.35, b: 5.75, cam: k => { const P = lerpPose(shotCon, { p: shotCon.p.clone().add(V3().set(-.05, .03, -.1)), t: shotCon.t, fov: 40 }, ease(k)), ba = k * 1.4 - 1.08; if (ba > 0 && ba < .3) P.p.add(V3().set(Math.sin(ba * 90) * .005, Math.cos(ba * 77) * .004, 0).multiplyScalar(1 - ba / .3)); return P; }, act: s => {   // consola: mete el cartucho en la ranura

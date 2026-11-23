@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.19**
+**Versión actual: v18.20**
 
 ## Cómo se juega
 
@@ -37,7 +37,12 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 - **DIANA** *(en desarrollo)*: hachas y arco, dardos, el barreño de feria, tartazos y bomberos: cinco formas de acertar al centro.
 
-## Cambios de la versión actual (v18.19)
+## Cambios de la versión actual (v18.20)
+- PUNTERÍA con capas de ambiente: WESTERN con polvo que arrastra el viento y plantas rodadoras, ALPINE con vilanos al aire y bandadas lejanas, GALAXY con estrellas que titilan y estrellas fugaces, HAUNTED con niebla baja que se arrastra (WARFRONT y ZOMBIELAND ya tenían humo).
+- Sala: al coger un juego de cualquier balda, el brazo de Mevi entra por el borde junto a la mano y nunca cruza la pantalla.
+- DIANA · HACHAS Y ARCO: el herrero, en primer plano abajo a la derecha; al elegir arma recorre el banco y retira la que no se usa, y con «OTRA VEZ» las vuelve a colocar. La diana se limpia con una ráfaga de viento y un halo dorado de los dioses que tapa la vista; al pasar, ya no queda nada clavado.
+
+### v18.19
 - Sala: Mevi ya no se teletransporta de un lado al otro: se va andando por el borde de la pantalla y, al cabo de unos segundos, se asoma detrás de la mesa por ese mismo lado (y al revés); para cambiar de lado cruza andando. Mevi asomada detrás de la mesa ya no sale más grande que delante (la perspectiva manda); al coger un juego de las baldas bajas ya no se ve un brazo larguísimo cruzando la pantalla; el cubo de Rubik abre AVHUB en una pestaña nueva.
 - DIANA · AL BARREÑO: el herrero del puesto, a escala: la cabeza queda por debajo del toldo. Bonifacio, bien sentado sobre la tabla (antes parecía flotar). El cuervo se posa en la tabla, a la izquierda de Bonifacio, y sale volando un momento cuando el asiento cae. Si le das un pelotazo al herrero, te grita «¡EH, TÚ!» y te devuelve la bola: viene hacia ti hasta llenar casi toda la pantalla, con golpe y temblor.
 - DIANA · DARDOS: las pizarras nunca se salen: cuando se llenan, se borra la línea de arriba y las demás suben.
@@ -1410,7 +1415,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v18.19 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v18.20 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
