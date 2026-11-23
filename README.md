@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.30**
+**Versión actual: v18.31**
 
 ## Cómo se juega
 
@@ -37,7 +37,11 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 - **DIANA** *(en desarrollo)*: hachas y arco, dardos, el barreño de feria, tartazos y bomberos: cinco formas de acertar al centro.
 
-## Cambios de la versión actual (v18.30)
+## Cambios de la versión actual (v18.31)
+- PUNTERÍA ALPINE: si le disparas al abuelo suena la sirena de la policía y pierdes 500 puntos. El águila de emoji pasa a ser el cuervo 3D que vuela y grazna. El jabalí (una cabeza suelta) se sustituye por un zorro en 3D, y el lobo también pasa a 3D (modelos CC0 de Quaternius).
+- DIANA · AL BARREÑO: la ardilla ladrona es más grande, claramente mayor que la bola.
+
+### v18.30
 - DIANA · AL BARREÑO: la ardilla pasa ahora en primera línea, del tamaño de la bola: si tardas en tirar, viene a por ella y se la lleva (−1 bola); si tiras antes de que llegue, se asusta y huye. El cuervo ya no vuela hacia la cámara: se aparta revoloteando y vuelve a posarse. El chapuzón suena mucho más fuerte. La vuelta de Bonifacio al asiento queda tapada por un destello del sol de la tarde.
 
 ### v18.29
@@ -1453,7 +1457,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v18.30 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v18.31 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
