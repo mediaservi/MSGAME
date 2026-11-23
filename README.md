@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.35**
+**Versión actual: v18.36**
 
 ## Cómo se juega
 
@@ -26,7 +26,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 - **PALOTERAPIA:** corta y golpea al ritmo con sable láser, espada o bate; 5 temáticas.
 - **PUNTERÍA:** galería de tiro con el móvil como pistola y 6 escenarios.
-- **BEAT RACER:** carrera al ritmo en 3D, a pie (RUNNER) o en todoterreno (DIRTY).
+- **CITY RUNNER y DUSTY RUN:** carreras al ritmo en 3D, a pie (CITY RUNNER) o en todoterreno (DUSTY RUN).
 - **GRAFFER:** pinta las formas sin salirte y cuidado con la policía.
 - **LA FORTUNA:** ruleta de premios para eventos, con existencias reales.
 - **BOLERA:** bolos con física real y pantallas con visuales.
@@ -37,7 +37,15 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 - **DIANA** *(en desarrollo)*: hachas y arco, dardos, el barreño de feria, tartazos y bomberos: cinco formas de acertar al centro.
 
-## Cambios de la versión actual (v18.35)
+## Cambios de la versión actual (v18.36)
+- Vuelven las dos marcas de las carátulas: cuántos juegan abajo a la izquierda y el sello de edad por colores abajo a la derecha (verde +3, lima +7, ámbar +12 y rojo +18). La pegatina única de la v18.35 se retira porque se entendía peor.
+- Los títulos, variantes y lemas se quedan por encima de las dos marcas: ninguna pisa ya un rótulo o un cartel. El sello de la carátula es algo más pequeño y va más pegado a la esquina.
+- BEAT RACER se separa en dos juegos con nombre propio: **CITY RUNNER** (la corredora, con la letra de BEAT RACER) y **DUSTY RUN** (el todoterreno, con letra de rally, colores de tierra y nubes de polvo). Nuevos nombres en carátulas, cartuchos, menús, consola, récords, mando del móvil y textos.
+- PALOTERAPIA COLECCIÓN lleva el logo de la saga (el del bate) con la palabra COLECCIÓN en una cinta, como las demás carátulas de PALOTERAPIA.
+- WONDERWALK: en los bocadillos de diálogo habla la Mevi 3D, que parpadea y abre y cierra la boca mientras dura el texto.
+- WONDERWALK: Mevi ya pisa el suelo (flotaba medio cuerpo por encima), lleva la varita siempre a media altura apuntando al frente, y en la portada sale también la Mevi 3D, que saluda, en lugar de la imagen fija. El ladrón encapuchado tiene algo de luz propia para que se distinga de noche.
+
+### v18.35
 - Pegatina nueva de juego (diseño de Josep): una sola placa morada con cuántos juegan y la edad recomendada, abajo a la derecha de cada carátula y de la etiqueta de cada cartucho. Sustituye al «1–4» de la esquina izquierda y al sello cuadrado de edad. Iconos «display_group» y «child_care» de Material Symbols (Apache-2.0).
 - Carátulas y etiquetas: los títulos, variantes y lemas de la parte de abajo suben para que la pegatina no los pise.
 - Icono nuevo de la app (pestaña del navegador y app instalada), en el estilo de placa de la familia AVHUB: placa con degradado negro a morado, filete negro y sombra verde, con la calavera de MSGAME rellena en magenta.
@@ -1474,7 +1482,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v18.35 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v18.36 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
