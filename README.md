@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.24**
+**Versión actual: v18.26**
 
 ## Cómo se juega
 
@@ -37,7 +37,19 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 - **DIANA** *(en desarrollo)*: hachas y arco, dardos, el barreño de feria, tartazos y bomberos: cinco formas de acertar al centro.
 
-## Cambios de la versión actual (v18.24)
+## Cambios de la versión actual (v18.26)
+- Sala: la primera vez que eliges un juego, la cinemática ya no estira el brazo de Mevi hasta el estante ni sostiene la caja en el aire. Ahora son tres viñetas tipo cómic, con corte seco y un destello breve: la caja sale sola de su hueco, se abre en la mesa y el cartucho sube en primer plano. Después la mano lo mete en la consola y la cámara va a la tele, como antes.
+- PUNTERÍA ALPINE: el abuelo sale de casa, pasea por el prado entre sus ocas, se para a mirar y se vuelve (comprobado en partida).
+
+### v18.25
+- Sala: PUNTERÍA COLECCIÓN y PALOTERAPIA COLECCIÓN (COLLECTION / COL·LECCIÓ según el idioma), un cartucho por juego que reúne todas sus variantes (se elige en Opciones), con carátula de cartel de película con un protagonista por variante; ocupan dos huecos de repetidos. Sello de edad también en las carátulas. Mevi mueve la boca al hablar y parpadea a ratos. El teléfono rojo suena como uno de los 80 al pasar por encima. El brazo de Mevi en las baldas bajas se ve corto.
+- DIANA · AL BARREÑO: caseta y tonel con la luz del fondo, sin huecos en el borde, sin el Bonifacio recortado al cargar; el cuervo vuela hacia la cámara y tapa la vuelta de Bonifacio; pajarillos al fondo y un perro que pasea y ladra.
+- DIANA · HACHAS Y ARCO: armas tumbadas en el banco con sombra, muesca al clavar y el arma se desvanece, hacha de frente, el herrero lleva las armas en la mano y las deja en el suelo. Primera persona en todos los modos (mango del hacha, arco, dardo, tarta, bola y la manguera que apunta a las ventanas). TARTAZOS: la sirvienta anda de verdad y te mira.
+- KRAZYGOLF: nueva flecha de tiro, nueva portada y la foto de familia en sepia en el marco del despacho.
+- PUNTERÍA: el enemigo que te dispara hace fogonazo y suena su disparo; los hombres sueltan un «¡agh!» corto al recibir. ALPINE: se cazan lobos y jabalíes; patos, ocas, gallinas, el perro y el granjero restan.
+- SHATEKI: por defecto se juega a puntos; los premios reales con existencias se activan en Opciones. Arreglado el emoji doble del premio.
+
+### v18.24
 - DIANA: las armas ya son 3D (modelos de Meshy): hacha, arco y flecha en el banco y en vuelo, dardo, tarta, huevo y saco de harina, y la manguera de BOMBEROS abajo, de donde sale el chorro. Si no han cargado aún, se ven los dibujos de antes.
 
 ### v18.23
@@ -1428,7 +1440,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v18.24 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v18.26 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 

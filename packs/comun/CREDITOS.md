@@ -58,3 +58,4 @@ Fallo cómico 835112 YoshikaMiyafuji · campanita 879808 Qvantor · pop 878245 Q
 
 ## Sonniss · GDC 2026 Game Audio Bundle (libre de derechos, sin obligación de citar)
 Monedas (Cinematic Sound Design, «Ting Coins») · premio (Epic Stock Media, Anime Game) · explosión (Epic Stock Media, Anime Game).
+- Quejidos cortos de hombre al recibir un impacto (ay1–ay8): «Short Male Pain Grunts», unfa, Freesound 610991, CC0.

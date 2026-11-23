@@ -230,10 +230,13 @@ function decora(TM, pon, ph, cil, esf, cub) { const { T, hoyo: g, m } = G3, PI =
     const fle = m('#e9c46a'); for (let i = 0; i < 38; i++) [-1, 1].forEach(k => pon(cub(.3, .012, .05), fle, k < 0 ? -.42 : 10.42, .006, -.2 + i * .16, { sin: 1 }));
     pon(cub(.5, .3, 1.2), ph('#1b1d24', { shininess: 80 }), -2.2, .15, 4.9, { r: [0, .3, 0] }); } }
 /* v12.2 · piezas de packs alrededor del campo: castillo y puerta en el jardín del CLÁSICO; muebles y objetos de casa en el KRAZY */
+/* v18.25 · en el marco del despacho, la foto de familia de Josep (pareja en B/N, sin el perro, virada a sepia para el tono de la escena) */
+function fotoMarco(o) { if (!o || !G3.ok) return; const T = G3.T; new T.TextureLoader().load('../juegos/krazygolf-foto.webp', tx => { tx.encoding = T.sRGBEncoding; if ('colorSpace' in tx) tx.colorSpace = T.SRGBColorSpace; const fw = .28, fh = .39, ar = tx.image.width / tx.image.height, rx = Math.min(1, fw / (fh * ar)), ry = Math.min(1, (fh * ar) / fw); tx.repeat.set(rx, ry); tx.offset.set((1 - rx) / 2, (1 - ry) / 2);
+  const m = new T.Mesh(new T.PlaneGeometry(fw, fh), new T.MeshStandardMaterial({ map: tx, emissiveMap: tx, emissive: 0x6a5a48, roughness: .5, metalness: 0 })); m.position.set(0, .335, .031); m.rotation.x = -.347; m.receiveShadow = true; o.add(m); }); }
 function adorna(kz, TM) { const { T, hoyo: g } = G3, pon = (n, alto, X, Z, ry, Y) => { const o = modelo(n, alto); if (!o) return null; o.position.set(X, Y || 0, Z); o.rotation.y = ry || 0; g.add(o); o.updateMatrixWorld(true); const bb = new T.Box3().setFromObject(o); if (!bb.isEmpty()) o.position.y += (Y || 0) - bb.min.y; return o; };   /* v12.22 · cada pieza apoyada en el suelo: ni hundida ni flotando */
   if (!kz) { pon('castillo', 1.5, 12.5, 2.9, -Math.PI / 2); return; }
   if (TM === 0) { pon('cactus', 1.3, 13.4, 7.0, .4); pon('marco2', 1.4, 11.9, 3.7, -.9); }   /* v12.22 · el cactus, fuera de la cuchara de palo */
-  else if (TM === 1) { pon('libros', 1.1, -2.4, -1.6, -.5);   /* v12.22 · los libros, lejos del ventilador y del ratón */ pon('cactus', 1.0, 11.2, -1.3, .3); pon('marco', 1.5, 8.6, -1.5, -.25); }
+  else if (TM === 1) { pon('libros', 1.1, -2.4, -1.6, -.5);   /* v12.22 · los libros, lejos del ventilador y del ratón */ pon('cactus', 1.0, 11.2, -1.3, .3); fotoMarco(pon('marco', 1.5, 8.6, -1.5, -.25)); }
   else { pon('sillon', 3.6, 15.0, -3.6, -Math.PI / 4); pon('estante', 4.2, 16.9, 2.4, -Math.PI / 2); pon('cactus2', 2.2, -3.4, 7.4, .5); } }   /* v12.22 · sillón, estantería y cactus sin pisarse con el sofá, la planta ni la mesita */
 function talla3d() { if (!G3.ok) return; const { r, cam, T } = G3; r.setSize(W, H, false); cam.aspect = W / H; if (E.modo === 'sim' && G3.sim && G3.sim.visible) { cam.fov = W >= H ? 46 : 64; cam.updateProjectionMatrix(); return; } const cx = FW * .005, cz = FH * .005;
   if (W >= H) { cam.fov = 40; const d = Math.max(10.4, 7.2 / (cam.aspect * .364)); cam.position.set(cx, d * .68, cz + d * .76); cam.lookAt(cx, 0, cz - .35); }
@@ -255,22 +258,23 @@ function pinta3d() { const { r, sc, cam, bola: bo, T } = G3, b = E.bola, S = .01
     pg.visible = !!dir; if (dir) { const back = (rr / S + 16) * S; pg.position.set(P[0] * S - dir[0] * back, G3.paloH + .01, P[1] * S - dir[1] * back); pg.rotation.y = Math.atan2(dir[0], dir[1]); pg.rotation.x = ang; } }
   if (G3.aspas) G3.aspas.rotation.z = E.t * (kz ? 17 : 3); if (G3.tronco && h.robot) { G3.tronco.position.set(h.robot.x * S, kz ? 0 : .15, h.robot.y * S); if (kz) { G3.tronco.rotation.y = h.robot.d > 0 ? 0 : Math.PI; if (G3.led) G3.led.visible = Math.sin(E.t * 9) > -.3; } } r.render(sc, cam); }
 /* v12.29 · flecha de tiro en 3D, pegada al césped: cuerpo con chevrones que corren, punta y una estela de puntos que marca la dirección; el color va de verde a rojo con la fuerza */
+/* v18.25 · flecha de tiro nueva (Josep no quería la de chevrones): una sola pieza afilada que nace en la bola y se ensancha hacia la punta, con contorno blanco, sombra suave y color de la fuerza (verde → amarillo → rojo); delante, la estela de puntos que marca la dirección y, alrededor de la bola, un anillo que se llena con la fuerza */
 function flecha3d(dt) { const { T, sc } = G3, b = E.bola, S = .01;
-  if (!G3.fl) { const g = new T.Group(), cvc = document.createElement('canvas'); cvc.width = 64; cvc.height = 32; const q = cvc.getContext('2d'); q.strokeStyle = '#fff'; q.lineWidth = 7; q.lineCap = 'round'; q.lineJoin = 'round'; q.beginPath(); q.moveTo(18, 6); q.lineTo(38, 16); q.lineTo(18, 26); q.stroke();
-    const tx = new T.CanvasTexture(cvc); tx.wrapS = T.RepeatWrapping; const mb = o => new T.MeshBasicMaterial(Object.assign({ transparent: true, depthWrite: false }, o));
-    const somb = new T.Mesh(new T.PlaneGeometry(1, 1), mb({ color: '#000', opacity: .35 })), cuerpo = new T.Mesh(new T.PlaneGeometry(1, 1), mb({ color: '#7dff5a', opacity: .62 })), chev = new T.Mesh(new T.PlaneGeometry(1, 1), mb({ map: tx, opacity: .95 }));
-    const tri = new T.Shape(); tri.moveTo(0, -.5); tri.lineTo(1, 0); tri.lineTo(0, .5); tri.closePath(); const punta = new T.Mesh(new T.ShapeGeometry(tri), mb({ color: '#7dff5a', opacity: .9 })), puntaS = new T.Mesh(new T.ShapeGeometry(tri), mb({ color: '#000', opacity: .35 }));
-    [somb, cuerpo, chev, punta, puntaS].forEach(m => { m.rotation.x = -Math.PI / 2; g.add(m); }); somb.position.y = .006; puntaS.position.y = .006; cuerpo.position.y = .008; chev.position.y = .009; punta.position.y = .009;
-    const pts = []; for (let i = 0; i < 9; i++) { const d = new T.Mesh(new T.CircleGeometry(1, 16), mb({ color: '#fff', opacity: .8 })); d.rotation.x = -Math.PI / 2; d.position.y = .008; g.add(d); pts.push(d); }
-    g.renderOrder = 3; sc.add(g); G3.fl = { g, somb, cuerpo, chev, punta, puntaS, pts, tx }; }
-  const F = G3.fl; let ok = false;
+  if (!G3.fl) { const g = new T.Group(), mb = o => new T.MeshBasicMaterial(Object.assign({ transparent: true, depthWrite: false }, o)), pl = (mat, y) => { const m = new T.Mesh(new T.BufferGeometry(), mat); m.rotation.x = -Math.PI / 2; m.position.y = y; g.add(m); return m; };
+    const somb = pl(mb({ color: '#000', opacity: .3 }), .006), borde = pl(mb({ color: '#fff', opacity: .95 }), .008), cuerpo = pl(mb({ color: '#7dff5a', opacity: .96 }), .009), brillo = pl(mb({ color: '#fff', opacity: .35 }), .010);
+    const aro = new T.Mesh(new T.RingGeometry(.9, 1, 48, 1, 0, Math.PI * 2), mb({ color: '#fff', opacity: .35 })), aroF = new T.Mesh(new T.RingGeometry(.9, 1, 48, 1, 0, .01), mb({ color: '#7dff5a', opacity: .95 })); [aro, aroF].forEach(m => { m.rotation.x = -Math.PI / 2; m.position.y = .008; g.add(m); });
+    const pts = []; for (let i = 0; i < 8; i++) { const d = new T.Mesh(new T.CircleGeometry(1, 18), mb({ color: '#fff', opacity: .8 })); d.rotation.x = -Math.PI / 2; d.position.y = .008; g.add(d); pts.push(d); }
+    g.renderOrder = 3; sc.add(g); G3.fl = { g, somb, borde, cuerpo, brillo, aro, aroF, pts, ultP: -1 }; }
+  const F = G3.fl, forma = (L, w0, w1, hl, hw, e) => { const sh = new T.Shape(); sh.moveTo(0, -(w0 + e)); sh.lineTo(L - hl, -(w1 + e)); sh.lineTo(L - hl - e * .4, -(hw + e)); sh.lineTo(L + e * 1.6, 0); sh.lineTo(L - hl - e * .4, hw + e); sh.lineTo(L - hl, w1 + e); sh.lineTo(0, w0 + e); sh.closePath(); return new T.ShapeGeometry(sh); };
+  let ok = false;
   if (E.fase === 'apunta' && E.arr && b) { const dx = b.x - E.arr[0], dy = b.y - E.arr[1], d = Math.hypot(dx, dy); if (d >= 6) { ok = true;
-    const f = Math.min(260, d), pot = f / 260, L = (f * 1.7 + 40) * S, a = -Math.atan2(dy, dx), col = new T.Color().setHSL(lim(.33 - pot * .33, 0, .33), 1, .55), w = .22, hl = .32, hw = .5, r0 = (BOLAS[E.tipo].r + 6) * S;
-    F.g.position.set(b.x * S, 0, b.y * S); F.g.rotation.y = a; const sl = Math.max(.05, L - hl - r0);
-    F.cuerpo.scale.set(sl, w, 1); F.cuerpo.position.x = r0 + sl / 2; F.somb.scale.set(sl + .03, w + .04, 1); F.somb.position.x = r0 + sl / 2 + .015; F.chev.scale.set(sl, w, 1); F.chev.position.x = r0 + sl / 2;
-    F.punta.scale.set(hl, hw, 1); F.punta.position.x = r0 + sl; F.puntaS.scale.set(hl + .05, hw + .07, 1); F.puntaS.position.x = r0 + sl - .015;
-    F.cuerpo.material.color.copy(col); F.punta.material.color.copy(col); F.tx.repeat.x = Math.max(1, sl / .16); F.tx.offset.x -= dt * (1.2 + pot * 3);
-    F.pts.forEach((p, i) => { const x0 = r0 + sl + hl + .12 + i * .22 * (1 + pot) * (NV === 'easy' ? 2.4 : 1); p.position.x = x0; const rr = .045 * (1 - i / 11); p.scale.set(rr, rr, 1); p.material.opacity = (.75 - i * .08) * (.6 + .4 * Math.sin(E.t * 8 - i * .9)); }); } }
+    const f = Math.min(260, d), pot = f / 260, L = (f * 1.7 + 40) * S, a = -Math.atan2(dy, dx), col = new T.Color().setHSL(lim(.33 - pot * .33, 0, .33), 1, .52), r0 = (BOLAS[E.tipo].r + 7) * S, hl = .42, hw = .3;
+    F.g.position.set(b.x * S, 0, b.y * S); F.g.rotation.y = a;
+    const q = Math.round(pot * 60); if (q !== F.ultP) { F.ultP = q; const Ln = Math.max(hl + .1, L - r0); [[F.somb, .06], [F.borde, .045], [F.cuerpo, 0]].forEach(([m, e]) => { m.geometry.dispose(); m.geometry = forma(Ln, .05, .13, hl, hw, e); }); F.brillo.geometry.dispose(); F.brillo.geometry = forma(Ln * .82, .012, .035, .001, .001, 0); F.aroF.geometry.dispose(); F.aroF.geometry = new T.RingGeometry(.9, 1, 48, 1, Math.PI / 2, Math.max(.01, pot * Math.PI * 2)); }
+    F.somb.position.x = r0 + .03; F.somb.position.z = .03; F.borde.position.x = F.cuerpo.position.x = r0; F.brillo.position.x = r0 + .05; F.brillo.position.z = -.03;
+    F.cuerpo.material.color.copy(col); F.aroF.material.color.copy(col); const rr = (BOLAS[E.tipo].r + 4) * S; F.aro.scale.setScalar(rr); F.aroF.scale.setScalar(rr);
+    F.cuerpo.material.opacity = .9 + .1 * Math.sin(E.t * 10);
+    F.pts.forEach((p, i) => { const x0 = r0 + Math.max(hl + .1, L - r0) + .2 + i * .24 * (1 + pot) * (NV === 'easy' ? 2.4 : 1), ph = ((E.t * 1.6 - i * .14) % 1 + 1) % 1; p.position.x = x0; const s2 = .05 * (1 - i / 10); p.scale.set(s2, s2, 1); p.material.opacity = (.85 - i * .09) * (.55 + .45 * Math.sin(ph * Math.PI * 2)); }); } }
   F.g.visible = ok && NV !== 'hard'; }
 const p3 = q => { const v = new G3.T.Vector3(q[0] * .01, .03, q[1] * .01).project(G3.cam); return [(v.x * .5 + .5) * W, (-v.y * .5 + .5) * H]; };
 function texto(t, X, Y, s, c, w, al) { x.font = `${w || 700} ${s}px system-ui,Segoe UI,Arial`; x.textAlign = al || 'center'; x.textBaseline = 'middle'; x.fillStyle = c || '#fff'; x.fillText(t, X, Y); }
