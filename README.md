@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.20**
+**Versión actual: v18.21**
 
 ## Cómo se juega
 
@@ -37,7 +37,10 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 - **DIANA** *(en desarrollo)*: hachas y arco, dardos, el barreño de feria, tartazos y bomberos: cinco formas de acertar al centro.
 
-## Cambios de la versión actual (v18.20)
+## Cambios de la versión actual (v18.21)
+- DIANA · AL BARREÑO: Sonia de la familia, regenerada en alta definición (modelo nuevo con textura 2K en lugar de 512): cara, gafas y blusa nítidas, con su paseo y su mirada alrededor.
+
+### v18.20
 - PUNTERÍA con capas de ambiente: WESTERN con polvo que arrastra el viento y plantas rodadoras, ALPINE con vilanos al aire y bandadas lejanas, GALAXY con estrellas que titilan y estrellas fugaces, HAUNTED con niebla baja que se arrastra (WARFRONT y ZOMBIELAND ya tenían humo).
 - Sala: al coger un juego de cualquier balda, el brazo de Mevi entra por el borde junto a la mano y nunca cruza la pantalla.
 - DIANA · AL BARREÑO: el cuervo en vuelo, del mismo tamaño que posado (antes encogía a la mitad). Bonifacio y el cuervo apoyados justo sobre la tabla, y el herrero recortado por el canto inclinado del mostrador.
@@ -1416,7 +1419,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v18.20 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v18.21 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
