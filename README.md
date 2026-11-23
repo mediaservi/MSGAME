@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.33**
+**Versión actual: v18.34**
 
 ## Cómo se juega
 
@@ -37,7 +37,13 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 - **DIANA** *(en desarrollo)*: hachas y arco, dardos, el barreño de feria, tartazos y bomberos: cinco formas de acertar al centro.
 
-## Cambios de la versión actual (v18.33)
+## Cambios de la versión actual (v18.34)
+- WONDERWALK · Mevi en 3D: la protagonista es ahora el modelo 3D con esqueleto (el mismo de mediaservi.com) en todo el juego: camina, espera, apunta con la varita al frente, levanta el brazo con cada rayo y baila en el banquete. Conserva la varita en la mano y la mochila a la espalda.
+- WONDERWALK · camino a la puerta secreta: Mevi y la hechicera ya no se deslizan a toda velocidad; van andando a ritmo normal y la escena se ve a vista de dron, por encima de sus cabezas, con el castillo de fondo. Se han quitado los dos pinos que crecían justo en ese paso.
+- WONDERWALK · Adalés y su pretendiente, como Romeo y Julieta: él la llama desde el pie de la muralla, se hablan por gestos y se lanzan corazones y besos que vuelan de uno a otro. El balcón de Adalés tiene ahora suelo y baranda de piedra.
+- WONDERWALK · soldado rubio de la puerta: cara limpia (fuera las púas negras junto a los ojos y las grietas; ojos ovalados, piel lisa con su rubor) y sombreado suave.
+
+### v18.33
 - DIANA · AL BARREÑO: la ardilla ladrona se dibuja ahora desde su modelo 3D, animada (salta con la cola ondeando) y a buen tamaño; se lleva la bola abrazada.
 
 ### v18.32
@@ -1463,7 +1469,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v18.33 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v18.34 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
