@@ -821,5 +821,23 @@
   "juegos": [
    "todos: fin de partida ganada"
   ]
+ },
+ "telefono-timbre": {
+  "archivo": "telefono-timbre.mp3",
+  "dur": 4.6,
+  "autor": "blukotek",
+  "titulo": "old phone ringtone Poland",
+  "id": "245445",
+  "origen": "Freesound (CC0)",
+  "etiquetas": [
+   "teléfono",
+   "timbre",
+   "campanas",
+   "bucle"
+  ],
+  "juegos": [
+   "sala MSGAME (teléfono rojo: mando móvil)",
+   "WONDERWALK (llamadas)"
+  ]
  }
 }

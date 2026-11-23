@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.36**
+**Versión actual: v18.37**
 
 ## Cómo se juega
 
@@ -37,7 +37,16 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 - **DIANA** *(en desarrollo)*: hachas y arco, dardos, el barreño de feria, tartazos y bomberos: cinco formas de acertar al centro.
 
-## Cambios de la versión actual (v18.36)
+## Cambios de la versión actual (v18.37)
+- **Mevi nueva, en alta calidad:** regenerada de cero (Meshy 7.1, a partir de su imagen oficial) con la cara lisa y vuelta a riggear en Mixamo; conserva todas sus animaciones. Los ojos y la boca ya no vienen pintados en el modelo: los pone el juego desde una hoja de expresiones (ojos de estrella, raya de parpadeo, ojos felices y sorpresa; boca cerrada, entreabierta, abierta y en O), dentro del propio sombreado, con su misma luz y sin pegatinas. Pelo azul marino, como en la imagen original.
+- Sala: Mevi parpadea (la estrella se cambia por una raya un instante) y mueve la boca mientras escribe sus bocadillos. Lo mismo en la cinemática del cartucho.
+- WONDERWALK: la Mevi de los bocadillos, la de la portada y la del paseo son la nueva; parpadea, habla con la boca y en la fiesta pone ojos felices.
+- Sala: el teléfono rojo suena con un timbre de teléfono antiguo de verdad (Freesound 245445, CC0); si no carga, el timbre sintético de siempre.
+- DIANA: el hacha se ve en primera persona agarrada de frente, apuntando a la diana, y el dardo en la mano también apunta a la diana. Los dardos y las flechas, en el aire y clavados, se ven desde detrás y rectos, con las plumas en cruz (imágenes sacadas de los modelos 3D).
+- WONDERWALK: los ladrones encapuchados ya no se quedan en el sitio moviendo los pies: caminan de verdad por el sendero hacia Mevi, mirando a un lado y a otro. Fuera el objeto robado que se pintaba flotando suelto a su lado.
+- WONDERWALK: de la puerta del castillo a la puerta secreta suena la parte central de la música del paseo (del 1:26 al 3:04), que no se usaba; antes ese tramo se quedaba casi en silencio.
+
+### v18.36
 - Vuelven las dos marcas de las carátulas: cuántos juegan abajo a la izquierda y el sello de edad por colores abajo a la derecha (verde +3, lima +7, ámbar +12 y rojo +18). La pegatina única de la v18.35 se retira porque se entendía peor.
 - Los títulos, variantes y lemas se quedan por encima de las dos marcas: ninguna pisa ya un rótulo o un cartel. El sello de la carátula es algo más pequeño y va más pegado a la esquina.
 - BEAT RACER se separa en dos juegos con nombre propio: **CITY RUNNER** (la corredora, con la letra de BEAT RACER) y **DUSTY RUN** (el todoterreno, con letra de rally, colores de tierra y nubes de polvo). Nuevos nombres en carátulas, cartuchos, menús, consola, récords, mando del móvil y textos.
