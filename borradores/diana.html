@@ -201,11 +201,18 @@ const FAM = [['josep', 104, 1], ['sonia', 103, .95], ['hector', 94, 1], ['jaume'
 const FAM_ZONA = [[[0, .87], [.295, .707], [.302, .657], [.404, .643], [.2375, 1], [0, 1]], [[.585, .652], [.654, .648], [.672, .704], [.802, .713], [.81, .741], [1, .843], [1, 1], [.833, 1]]];
 const dentro = (z, u, v) => { let c = false; for (let i = 0, j = z.length - 1; i < z.length; j = i++) { const [xi, yi] = z[i], [xj, yj] = z[j]; if ((yi > v) !== (yj > v) && u < (xj - xi) * (v - yi) / (yj - yi) + xi) c = !c; } return c; };
 const segOk = (z, a, b, c, d) => { for (let k = 1; k < 8; k++) { const t = k / 8; if (!dentro(z, a + (c - a) * t, b + (d - b) * t)) return false; } return true; };
-function famMeta(p) { const z = FAM_ZONA[p.z]; for (let n = 0; n < 60; n++) { const u = R(0, 1), v = R(.66, .86); if (dentro(z, u, v) && segOk(z, p.u, p.v, u, v)) { p.tu = u; p.tv = v; p.m = 'walk'; return; } } p.m = 'look'; p.t = R(2, 4); }   /* el siguiente sitio, siempre dentro de su zona y sin salirse por el camino */
-function famTick(dt) { FAM.forEach(p => { if (p.m === 'look') { p.f += dt * 3.2; p.t -= dt; if (p.t <= 0) famMeta(p); return; }
+/* v18.17 · nadie se cruza ni se funde con otro: distancia en el suelo (de la perspectiva), sitios libres al elegir destino y, si se van a chocar, uno se para y busca otro camino */
+const famW = (u, v) => { const Zp = 1 / Math.max(.02, v - FAM_HZ); return [(u - .5) * Zp, Zp]; }, famD = (a, b, c, d) => { const A = famW(a, b), B = famW(c, d); return Math.hypot(A[0] - B[0], (A[1] - B[1]) * .55); }, FAM_MIN = .5;
+const famLibre = (p, u, v, k) => FAM.every(q => q === p || (famD(u, v, q.u, q.v) > FAM_MIN * k && (q.m !== 'walk' || !q.tu || famD(u, v, q.tu, q.tv) > FAM_MIN * k)));
+function famMeta(p) { const z = FAM_ZONA[p.z]; for (let n = 0; n < 60; n++) { const u = R(0, 1), v = R(.66, .86); if (dentro(z, u, v) && segOk(z, p.u, p.v, u, v) && famLibre(p, u, v, 1.6)) { p.tu = u; p.tv = v; p.m = 'walk'; return; } } p.m = 'look'; p.t = R(2, 4); }   /* el siguiente sitio, siempre dentro de su zona y sin salirse por el camino */
+function famTick(dt) { FAM.forEach((p, i) => FAM.forEach((q, j) => { if (j <= i || p.z !== q.z) return; const d = famD(p.u, p.v, q.u, q.v); if (d < FAM_MIN * .9) { const s2 = (p.u < q.u ? -1 : 1) * dt * .02; if (p.m !== 'walk') p.u += s2; if (q.m !== 'walk') q.u -= s2; } }));
+  FAM.forEach(p => { if (p.m === 'look') { p.f += dt * 3.2; p.t -= dt; if (p.t <= 0) famMeta(p); return; }
     if (!p.tu) famMeta(p); const du = p.tu - p.u, dv = p.tv - p.v, d = Math.hypot(du, dv * 2.2), sp = .075 * (p.v - FAM_HZ);   /* v18.13 · velocidad en pantalla proporcional a la cercanía (perspectiva) */
-    if (d < .006) { p.m = 'look'; p.t = R(4, 9); p.f = 0; return; } p.u += du / d * sp * dt; p.v += dv / d * sp * dt / 2.2; p.dir = du > 0 ? 1 : -1; p.f += dt * 11; }); }
+    if (d < .006) { p.m = 'look'; p.t = R(4, 9); p.f = 0; return; } const nu = p.u + du / d * sp * dt, nv = p.v + dv / d * sp * dt / 2.2;
+    if (FAM.some(q => q !== p && famD(nu, nv, q.u, q.v) < FAM_MIN && famD(nu, nv, q.u, q.v) < famD(p.u, p.v, q.u, q.v))) { p.m = 'look'; p.t = R(.8, 1.8); p.tu = 0; return; }   /* se acercaría demasiado a otro: se para un momento y luego elige otro sitio */
+    p.u = nu; p.v = nv; p.dir = du > 0 ? 1 : -1; p.f += dt * 11; }); }
 const FAM_HZ = .6;
+window.__fam = FAM;   // para las pruebas
 /* v18.14 · si la bola le da a alguien de la familia: «¡ay!» (el sonido de Josep), se para, se gira hacia ti y resta puntos */
 function famGolpe(X, Y) { const p = FAM.find(q => q.sb && X > q.sb[0] && X < q.sb[2] && Y > q.sb[1] && Y < q.sb[3]); if (!p) return false;
   ouch(); p.m = 'look'; p.t = 3; p.mira = 0; p.tu = 0; E.pts = Math.max(0, E.pts - 50); pop(T('ay') + ' -50', X, Y - PS(.03), '#ff6a6a', 1.3); chispas(X, Y, ['#fff6c8', '#e0a800'], 10, H * .2); manda({ t: 'pts', v: E.pts }); return true; }
