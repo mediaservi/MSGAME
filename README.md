@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.22**
+**Versión actual: v18.23**
 
 ## Cómo se juega
 
@@ -37,7 +37,10 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 - **DIANA** *(en desarrollo)*: hachas y arco, dardos, el barreño de feria, tartazos y bomberos: cinco formas de acertar al centro.
 
-## Cambios de la versión actual (v18.22)
+## Cambios de la versión actual (v18.23)
+- DIANA · TARTAZOS: la sirvienta ya es 3D. Entra andando por la derecha con la tarta en las manos, la deja en la punta de la mesa y se vuelve, sin tapar las caras.
+
+### v18.22
 - DIANA · AL BARREÑO: toda la familia regenerada en alta definición como Sonia (Josep, Jaume, Roser y Héctor, textura 2K). Héctor lleva en la camiseta la carita de mediaservi en gris en lugar del logo de One Piece.
 
 ### v18.21
@@ -1422,7 +1425,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v18.22 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v18.23 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
