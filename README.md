@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.34**
+**Versión actual: v18.35**
 
 ## Cómo se juega
 
@@ -37,7 +37,12 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 - **DIANA** *(en desarrollo)*: hachas y arco, dardos, el barreño de feria, tartazos y bomberos: cinco formas de acertar al centro.
 
-## Cambios de la versión actual (v18.34)
+## Cambios de la versión actual (v18.35)
+- Pegatina nueva de juego (diseño de Josep): una sola placa morada con cuántos juegan y la edad recomendada, abajo a la derecha de cada carátula y de la etiqueta de cada cartucho. Sustituye al «1–4» de la esquina izquierda y al sello cuadrado de edad. Iconos «display_group» y «child_care» de Material Symbols (Apache-2.0).
+- Carátulas y etiquetas: los títulos, variantes y lemas de la parte de abajo suben para que la pegatina no los pise.
+- Icono nuevo de la app (pestaña del navegador y app instalada), en el estilo de placa de la familia AVHUB: placa con degradado negro a morado, filete negro y sombra verde, con la calavera de MSGAME rellena en magenta.
+
+### v18.34
 - WONDERWALK · Mevi en 3D: la protagonista es ahora el modelo 3D con esqueleto (el mismo de mediaservi.com) en todo el juego: camina, espera, apunta con la varita al frente, levanta el brazo con cada rayo y baila en el banquete. Conserva la varita en la mano y la mochila a la espalda.
 - WONDERWALK · camino a la puerta secreta: Mevi y la hechicera ya no se deslizan a toda velocidad; van andando a ritmo normal y la escena se ve a vista de dron, por encima de sus cabezas, con el castillo de fondo. Se han quitado los dos pinos que crecían justo en ese paso.
 - WONDERWALK · Adalés y su pretendiente, como Romeo y Julieta: él la llama desde el pie de la muralla, se hablan por gestos y se lanzan corazones y besos que vuelan de uno a otro. El balcón de Adalés tiene ahora suelo y baranda de piedra.
@@ -1469,7 +1474,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v18.34 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v18.35 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
