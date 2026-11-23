@@ -51,3 +51,10 @@ Efectos que comparten todos los juegos (`packs/comun/fx/`). Recortados (sin sile
 | `sorpresa.mp3` | voz, reacción | KRAZYGOLF; WONDERWALK (ladrón); LA FORTUNA | Pixabay · universfield · shock-gasp-female · 383751 |
 | `splat.mp3` | impacto, cómico | KRAZYGOLF; PALOTERAPIA; GRAFFER | Pixabay · universfield · cartoon-splat · 310479 |
 | `victoria.mp3` | victoria, fanfarria | todos: fin de partida ganada | Pixabay · pw23check · winning · 218995 |
+
+
+## Freesound (CC0, sin obligación de citar) · v18.17
+Fallo cómico 835112 YoshikaMiyafuji · campanita 879808 Qvantor · pop 878245 Qvantor · golpe de aire 422513 Nightflame · choque 807437 Logicogonist · público 651646 Krizin · quejido 761568 stuniverso · mordisco 540128 aidansamuel · alarma 524909 Engineer_815 · montar el arma 182275 martian · plaf 719131 sebastientate · esposas 349864 jtnewlin13 · caja registradora 83915 cognito perceptu · flecha 521552 omerbhatti34 · hacha 386224 ldezem · huevo 336614 Anthousai · fuego 860690 drdock · manguera 137241 xenognosis · sirena de bomberos 819369 sapperlapje · chapuzón 867457 qubodup · gallo 435508 BenjaminNelan · águila 381200 kaydinhamby · pato 749445 dumnezilla · oca 805297 jahjahjahjah · perro 277058 kwahmah_02 · gato 110011 tuberatanka · paloma 735366 haulaway · grito de hombre 859347 qubodup · grito de mujer 220814 EricSueiro · WARFRONT: ametralladora 165394 ShawnyBoy y 482121 qubodup, fusil 710084 felix.blume y 163460 LeMudCrab, explosión 869468 SignatureSoundsOrg y 165911 Deganoth, sirena 382611 nooly.
+
+## Sonniss · GDC 2026 Game Audio Bundle (libre de derechos, sin obligación de citar)
+Monedas (Cinematic Sound Design, «Ting Coins») · premio (Epic Stock Media, Anime Game) · explosión (Epic Stock Media, Anime Game).

@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.16**
+**Versión actual: v18.17**
 
 ## Cómo se juega
 
@@ -37,7 +37,13 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 - **DIANA** *(en desarrollo)*: hachas y arco, dardos, el barreño de feria, tartazos y bomberos: cinco formas de acertar al centro.
 
-## Cambios de la versión actual (v18.16)
+## Cambios de la versión actual (v18.17)
+- Sonidos reales en lugar de los sintéticos en todos los juegos: fallo cómico, campanita de acierto, pop, golpe de aire, choque, público, quejido, mordisco, alarma, montar el arma, plaf, esposas y caja registradora (Freesound, CC0), y monedas, premio y explosión (bundle GDC 2026 de Sonniss, libre de derechos).
+- PUNTERÍA: los animales y la gente suenan al darles (gallo, águila, pato, oca, perro, gato, paloma, grito de hombre y de mujer). WARFRONT: ráfagas de ametralladora del helicóptero jefe, fusil cuando te disparan, explosiones al volar el jeep, el avión o el helicóptero y sirena de ataque aéreo al llegar el jefe.
+- DIANA: la flecha y el hacha se clavan con su sonido, el huevo se rompe, el chapuzón del barreño suena a agua de verdad, y en BOMBEROS el fuego crepita, la manguera suena y la sirena es la de un camión de bomberos.
+- DIANA · AL BARREÑO: la familia ya no se cruza ni se funde (cada uno guarda su distancia, elige sitios libres y, si va a chocar, se para y busca otro camino); fuera los feriantes dibujados: atiende el puesto de la derecha el herrero en 3D de WONDERWALK.
+
+### v18.16
 - BOLERA con sonidos de verdad: la bola rodando (dura lo que su tirada y suena más aguda cuanto más rápida), el golpe de cada bolo (cada uno un poco distinto) y el strike. Grabaciones de Pixabay (freesound_community).
 - BOLERA suena con TRONIK FM: temas al azar, uno tras otro y sin fin.
 - Las pantallas de la BOLERA son como teles: cada una cambia a su ritmo con un chispazo de estática, nunca hay dos iguales a la vez, la de al lado procura ser de otro tipo y alternan vídeos de partidas de MSGAME (sin sonido) con carátulas, récords y Mevi. En la carga ligera, sin vídeos.
@@ -1267,7 +1273,7 @@ Sigue de la v9.4:
 - **Sin nombres ni marcas de otros.** La descripción del juego de cortar al ritmo ya no menciona otro juego; el mensaje de compartir de LA FORTUNA habla de «prize wheel» en inglés; el efecto de texto de VJSHOW se llama «Créditos en perspectiva».
 - **Rótulo SONIA con letra propia** (palo seco en cursiva, muy espaciada), grabado y hundido en el plástico del monitor.
 - **Tipografía:** los títulos usan solo Audiowide, de licencia libre.
-- **Música y efectos:** proceden de Pixabay, bajo su licencia de contenido.
+- **Música y efectos:** proceden de Pixabay (bajo su licencia de contenido), de Freesound (solo sonidos CC0, sin obligación de citar; la lista con autor y número está en `packs/comun/CREDITOS.md`) y del GDC 2026 Game Audio Bundle de Sonniss (libres de derechos y de uso comercial, sin obligación de citar).
 
 Sigue de la v9.3:
 
@@ -1393,7 +1399,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v18.16 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v18.17 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
