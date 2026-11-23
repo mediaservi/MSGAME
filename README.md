@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.23**
+**Versión actual: v18.24**
 
 ## Cómo se juega
 
@@ -37,7 +37,10 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 - **DIANA** *(en desarrollo)*: hachas y arco, dardos, el barreño de feria, tartazos y bomberos: cinco formas de acertar al centro.
 
-## Cambios de la versión actual (v18.23)
+## Cambios de la versión actual (v18.24)
+- DIANA: las armas ya son 3D (modelos de Meshy): hacha, arco y flecha en el banco y en vuelo, dardo, tarta, huevo y saco de harina, y la manguera de BOMBEROS abajo, de donde sale el chorro. Si no han cargado aún, se ven los dibujos de antes.
+
+### v18.23
 - DIANA · TARTAZOS: la sirvienta ya es 3D. Entra andando por la derecha con la tarta en las manos, la deja en la punta de la mesa y se vuelve, sin tapar las caras.
 
 ### v18.22
@@ -1425,7 +1428,7 @@ Sigue de la v7.3:
 Código abierto bajo la licencia **GNU GPL v3** (ver `LICENSE`): puedes usarlo, modificarlo y distribuirlo, también en eventos comerciales, siempre que las versiones modificadas que distribuyas sigan siendo abiertas con esta misma licencia.
 
 ---
-*MSGAME v18.23 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
+*MSGAME v18.24 es un proyecto hecho con ⚙ by [mediaservi.com](https://mediaservi.com)*
 
 ## Aviso
 
