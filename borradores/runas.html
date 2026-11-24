@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0">
+<title>RUNAS · MSGAME</title>
+<!-- RUNAS · la magia de Mevi: se dibujan runas en el aire con la mano (pellizco), el ratón o el móvil para deshacer a las sombras · MSGAME · mediaservi.com · GPL-3.0
+     La cámara se procesa en este equipo con MediaPipe (lib/manos.js): no se graba ni se envía ninguna imagen. En pantalla solo salen las siluetas de neón. -->
+<style>
+  @font-face{font-family:LG;src:url(../fuentes/luckiest-guy.woff2) format("woff2")}
+  @font-face{font-family:AW;src:url(../fuentes/audiowide.woff2) format("woff2")}
+  @font-face{font-family:BSC;src:url(../fuentes/barlow-semi-condensed-700.woff2) format("woff2")}
+  html,body{margin:0;height:100%;background:#05030c;overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none;font-family:BSC,"Segoe UI",Arial,sans-serif;color:#fff}
+  #st{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);aspect-ratio:16/9;width:min(100vw,177.78vh);overflow:hidden;--u:calc(min(100vw,177.78vh)/100);background:#05030c;cursor:crosshair}
+  canvas{position:absolute;inset:0;width:100%;height:100%}
+  .pan{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;gap:calc(var(--u)*1.1);background:radial-gradient(ellipse at center,rgba(8,4,24,.55),rgba(3,1,10,.92));cursor:default}
+  .pan.on{display:flex}
+  h1{margin:0;font:400 calc(var(--u)*9)/1 AW,sans-serif;letter-spacing:.08em;background:linear-gradient(180deg,#fff 10%,#b9f6ff 40%,#b46bff 75%,#ff3bd4);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 calc(var(--u)*1.2) rgba(150,90,255,.8))}
+  .sub{font:400 calc(var(--u)*2.1)/1 LG,sans-serif;letter-spacing:.04em;color:#ffd23f;text-shadow:0 0 calc(var(--u)*.8) rgba(255,180,0,.6)}
+  .runas{display:grid;grid-template-columns:repeat(6,1fr);gap:calc(var(--u)*1);width:74%;margin-top:calc(var(--u)*.6)}
+  .runa{display:flex;flex-direction:column;align-items:center;gap:calc(var(--u)*.3);padding:calc(var(--u)*.6) 0;border-radius:calc(var(--u)*1);background:rgba(255,255,255,.06);border:calc(var(--u)*.15) solid rgba(255,255,255,.14)}
+  .runa canvas{position:static;width:calc(var(--u)*6);height:calc(var(--u)*6)}
+  .runa b{font:700 calc(var(--u)*1.25)/1 BSC,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#e8e4ff}
+  .modos{display:flex;gap:calc(var(--u)*2.2);font:700 calc(var(--u)*1.35)/1.35 BSC,sans-serif;color:#d8d4ef;text-align:center;max-width:82%}
+  .modos div{flex:1}.modos i{display:block;font-style:normal;font-size:calc(var(--u)*2.3);margin-bottom:calc(var(--u)*.2)}
+  .fila{display:flex;gap:calc(var(--u)*1.2);align-items:center;margin-top:calc(var(--u)*.6)}
+  button{font:700 calc(var(--u)*1.7)/1 BSC,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#14062a;background:linear-gradient(#fff6b0,#ffd23f 55%,#e09a00);border:calc(var(--u)*.22) solid #5a2a00;border-radius:calc(var(--u)*1);padding:calc(var(--u)*.9) calc(var(--u)*2.4);cursor:pointer;box-shadow:0 calc(var(--u)*.4) 0 #5a2a00}
+  button:hover,button:focus-visible{outline:calc(var(--u)*.3) solid #3bf3ff;outline-offset:calc(var(--u)*.2)}
+  button.sec{color:#fff;background:linear-gradient(#5b3fa8,#2c1666);border-color:#12052e;box-shadow:0 calc(var(--u)*.4) 0 #12052e}
+  button.sec.on{background:linear-gradient(#22d3ee,#0e7490);color:#021014}
+  .cam{position:relative;width:calc(var(--u)*24);aspect-ratio:16/9;border-radius:calc(var(--u)*.8);overflow:hidden;border:calc(var(--u)*.2) solid rgba(255,255,255,.2);background:#000}
+  .cam canvas{position:absolute;inset:0}
+  .est{font:600 calc(var(--u)*1.15)/1.3 BSC,sans-serif;color:#aab;max-width:60%;text-align:center;min-height:calc(var(--u)*1.5)}
+  .grande{font:400 calc(var(--u)*7)/1 LG,sans-serif;color:#ffd23f;text-shadow:0 0 calc(var(--u)*1.5) rgba(255,160,0,.7)}
+</style>
+</head>
+<body>
+<div id="st">
+  <canvas id="cv"></canvas>
+  <div class="pan" id="ini">
+    <h1>RUNAS</h1>
+    <div class="sub" data-t="sub"></div>
+    <div class="runas" id="leyenda"></div>
+    <div class="modos">
+      <div><i>🤏</i><span data-t="mMano"></span></div>
+      <div><i>📱</i><span data-t="mMovil"></span></div>
+      <div><i>🖱️</i><span data-t="mRaton"></span></div>
+    </div>
+    <div class="fila">
+      <div class="cam"><canvas id="cvCam" width="384" height="216"></canvas></div>
+      <div style="display:flex;flex-direction:column;gap:calc(var(--u)*1)">
+        <button id="bJugar" data-t="jugar"></button>
+        <button id="bCam" class="sec" data-t="camara"></button>
+        <div class="fila" style="margin:0;gap:calc(var(--u)*.6)" id="niveles"></div>
+      </div>
+    </div>
+    <div class="est" id="est"></div>
+  </div>
+  <div class="pan" id="fin">
+    <div class="grande" data-t="fin"></div>
+    <div class="sub" id="finPts"></div>
+    <div class="fila"><button id="bOtra" data-t="otra"></button><button id="bSal" class="sec" data-t="salir"></button></div>
+  </div>
+</div>
+<script src="../lib/mevi2d.js"></script>
+<script>
+'use strict';
+/* ---------------- textos (es · en · ca) ---------------- */
+const TX = {
+  es: { sub: 'La magia de Mevi', jugar: '¡A jugar!', camara: 'Cámara', camSi: 'Cámara: sí', camNo: 'Cámara: no', facil: 'Fácil', normal: 'Normal', dificil: 'Difícil',
+    mMano: 'Junta pulgar e índice y dibuja en el aire', mMovil: 'Mantén el botón del móvil y muévelo', mRaton: 'Arrastra con el ratón o el dedo',
+    fin: '¡FIN DEL HECHIZO!', otra: 'Otra vez', salir: 'Salir', puntos: 'puntos', tiempo: 'Tiempo', combo: 'COMBO',
+    abriendo: 'Abriendo la cámara…', cargando: 'Cargando el detector de manos…', teVeo: 'Te veo: {n} mano(s). Pellizca para dibujar.', ponte: 'Ponte delante de la cámara, a 1,5–3 m, con luz de frente.',
+    sinCam: 'Sin cámara: juega con el ratón o el móvil.', sinPermiso: 'Sin permiso para la cámara: juega con el ratón o el móvil.', errDet: 'No se pudo cargar el detector de manos.',
+    m_ini: '¡Las sombras vienen a por el cristal! Dibuja la runa que llevan.', m_jefe: '¡El Señor de las Sombras! Dibuja sus runas en orden.', m_super: '¡Supermagia lista! Levanta los dos brazos.', m_superM: '¡Supermagia lista! Pulsa el botón o la barra.',
+    m_nuevas: '¡Runas nuevas! El círculo y el rayo.', m_ultima: '¡Último ataque!', m_bien: '¡Así se hace!', m_ay: '¡Cuidado con el cristal!',
+    r_h: 'Raya', r_v: 'Palo', r_V: 'Uve', r_A: 'Tejado', r_O: 'Círculo', r_Z: 'Rayo', superMagia: '¡SUPERMAGIA!', ya: '¡YA!', jefe: 'SEÑOR DE LAS SOMBRAS', nada: '¿Qué runa es?', cristal: 'Cristal' },
+  en: { sub: 'Mevi\'s magic', jugar: 'Play!', camara: 'Camera', camSi: 'Camera: on', camNo: 'Camera: off', facil: 'Easy', normal: 'Normal', dificil: 'Hard',
+    mMano: 'Pinch thumb and index and draw in the air', mMovil: 'Hold the phone button and move it', mRaton: 'Drag with the mouse or your finger',
+    fin: 'SPELL OVER!', otra: 'Play again', salir: 'Exit', puntos: 'points', tiempo: 'Time', combo: 'COMBO',
+    abriendo: 'Opening the camera…', cargando: 'Loading the hand detector…', teVeo: 'I can see {n} hand(s). Pinch to draw.', ponte: 'Stand in front of the camera, 1.5–3 m away, with light on your face.',
+    sinCam: 'No camera: play with the mouse or the phone.', sinPermiso: 'No camera permission: play with the mouse or the phone.', errDet: 'The hand detector could not be loaded.',
+    m_ini: 'The shadows are after the crystal! Draw the rune they carry.', m_jefe: 'The Lord of Shadows! Draw his runes in order.', m_super: 'Super magic ready! Raise both arms.', m_superM: 'Super magic ready! Press the button or the space bar.',
+    m_nuevas: 'New runes! The circle and the lightning.', m_ultima: 'Final attack!', m_bien: 'Well done!', m_ay: 'Watch the crystal!',
+    r_h: 'Line', r_v: 'Stick', r_V: 'Vee', r_A: 'Roof', r_O: 'Circle', r_Z: 'Lightning', superMagia: 'SUPER MAGIC!', ya: 'GO!', jefe: 'LORD OF SHADOWS', nada: 'Which rune?', cristal: 'Crystal' },
+  ca: { sub: 'La màgia de la Mevi', jugar: 'A jugar!', camara: 'Càmera', camSi: 'Càmera: sí', camNo: 'Càmera: no', facil: 'Fàcil', normal: 'Normal', dificil: 'Difícil',
+    mMano: 'Ajunta polze i índex i dibuixa a l\'aire', mMovil: 'Mantén el botó del mòbil i mou-lo', mRaton: 'Arrossega amb el ratolí o el dit',
+    fin: 'FI DE L\'ENCANTERI!', otra: 'Una altra', salir: 'Sortir', puntos: 'punts', tiempo: 'Temps', combo: 'COMBO',
+    abriendo: 'Obrint la càmera…', cargando: 'Carregant el detector de mans…', teVeo: 'Et veig: {n} mà(ns). Pessiga per dibuixar.', ponte: 'Posa\'t davant de la càmera, a 1,5–3 m, amb llum de cara.',
+    sinCam: 'Sense càmera: juga amb el ratolí o el mòbil.', sinPermiso: 'Sense permís per a la càmera: juga amb el ratolí o el mòbil.', errDet: 'No s\'ha pogut carregar el detector de mans.',
+    m_ini: 'Les ombres volen el cristall! Dibuixa la runa que porten.', m_jefe: 'El Senyor de les Ombres! Dibuixa les seves runes en ordre.', m_super: 'Supermàgia a punt! Aixeca els dos braços.', m_superM: 'Supermàgia a punt! Prem el botó o la barra.',
+    m_nuevas: 'Runes noves! El cercle i el llamp.', m_ultima: 'Últim atac!', m_bien: 'Així es fa!', m_ay: 'Compte amb el cristall!',
+    r_h: 'Ratlla', r_v: 'Pal', r_V: 'Ve', r_A: 'Teulada', r_O: 'Cercle', r_Z: 'Llamp', superMagia: 'SUPERMÀGIA!', ya: 'JA!', jefe: 'SENYOR DE LES OMBRES', nada: 'Quina runa és?', cristal: 'Cristall' } };
+const LG = (() => { const q = (location.search.match(/[?&]lang=(\w+)/) || [])[1]; let l = q || ''; if (!l) try { l = parent.document.documentElement.lang || ''; } catch (e) {} if (!l) l = navigator.language || 'es'; l = l.slice(0, 2).toLowerCase(); return TX[l] ? l : (/^(es|gl|eu)/.test(l) ? 'es' : 'en'); })();
+const T = (k, o) => { let s = TX[LG][k] || TX.es[k] || k; if (o) for (const p in o) s = s.replace('{' + p + '}', o[p]); return s; }; document.documentElement.lang = LG;
+document.querySelectorAll('[data-t]').forEach(e => { e.textContent = T(e.dataset.t); });
+const EMB = /[?&]emb=1/.test(location.search), manda = m => { if (EMB) try { parent.postMessage(m, location.origin); } catch (e) {} };
+const $ = id => document.getElementById(id), st = $('st'), cv = $('cv'), x = cv.getContext('2d');
+const R = (a, b) => a + Math.random() * (b - a), lim = (v, a, b) => Math.max(a, Math.min(b, v)), TAU = Math.PI * 2;
+let W = 0, H = 0, DPR = 1;
+function tam() { const r = st.getBoundingClientRect(); DPR = Math.min(2, devicePixelRatio || 1); W = r.width; H = r.height; cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR); x.setTransform(DPR, 0, 0, DPR, 0, 0); FONDO = null; }
+addEventListener('resize', tam);
+
+/* ---------------- las runas ---------------- */
+const RUNAS = {
+  h: { col: '#3bf3ff', p: [[0, .5], [1, .5]] }, v: { col: '#ffd23f', p: [[.5, 0], [.5, 1]] },
+  V: { col: '#7dff3a', p: [[0, 0], [.5, 1], [1, 0]] }, A: { col: '#ff3bd4', p: [[0, 1], [.5, 0], [1, 1]] },
+  O: { col: '#b98bff', p: null }, Z: { col: '#ff8a1a', p: [[0, 0], [1, 0], [0, 1], [1, 1]] } };
+const BASICAS = ['h', 'v', 'V', 'A'], TODAS = ['h', 'v', 'V', 'A', 'O', 'Z'];
+function glifo(c, k, cx, cy, s, col, lw, a) {
+  const g = RUNAS[k]; c.save(); c.globalAlpha = a === undefined ? 1 : a; c.strokeStyle = col || g.col; c.lineWidth = lw || s * .14; c.lineCap = c.lineJoin = 'round'; c.shadowColor = col || g.col; c.shadowBlur = s * .35; c.beginPath();
+  if (!g.p) c.arc(cx, cy, s * .42, 0, TAU); else g.p.forEach(([u, v], i) => { const X = cx + (u - .5) * s * .84, Y = cy + (v - .5) * s * .84; if (i) c.lineTo(X, Y); else c.moveTo(X, Y); });
+  c.stroke(); c.restore(); }
+
+/* ---------------- reconocimiento ($1 de Wobbrock, Wilson y Li, 2007, sin girar: la orientación cuenta) ---------------- */
+const N = 48;
+function largo(P) { let d = 0; for (let i = 1; i < P.length; i++) d += Math.hypot(P[i][0] - P[i - 1][0], P[i][1] - P[i - 1][1]); return d; }
+function remuestrea(P0) { const I = largo(P0) / (N - 1), P = P0.map(p => p.slice()), o = [P[0].slice()]; let D = 0;
+  for (let i = 1; i < P.length; i++) { const d = Math.hypot(P[i][0] - P[i - 1][0], P[i][1] - P[i - 1][1]);
+    if (D + d >= I && d > 0) { const t = (I - D) / d, q = [P[i - 1][0] + t * (P[i][0] - P[i - 1][0]), P[i - 1][1] + t * (P[i][1] - P[i - 1][1])]; o.push(q); P.splice(i, 0, q); D = 0; } else D += d; }
+  while (o.length < N) o.push(P[P.length - 1].slice()); return o.slice(0, N); }
+function normaliza(P) { let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9; P.forEach(([a, b]) => { x0 = Math.min(x0, a); y0 = Math.min(y0, b); x1 = Math.max(x1, a); y1 = Math.max(y1, b); });
+  const w = Math.max(1e-6, x1 - x0), h = Math.max(1e-6, y1 - y0); const Q = P.map(([a, b]) => [(a - x0) / w, (b - y0) / h]); const cx = Q.reduce((s, p) => s + p[0], 0) / N, cy = Q.reduce((s, p) => s + p[1], 0) / N; return Q.map(([a, b]) => [a - cx, b - cy]); }
+const gira = (P, t) => { const c = Math.cos(t), s = Math.sin(t); return P.map(([a, b]) => [a * c - b * s, a * s + b * c]); };
+const dist = (A, B) => { let d = 0; for (let i = 0; i < N; i++) d += Math.hypot(A[i][0] - B[i][0], A[i][1] - B[i][1]); return d / N; };
+function plantillas() { const L = [];
+  const add = (k, P) => { L.push({ k, P: normaliza(remuestrea(P)) }); L.push({ k, P: normaliza(remuestrea(P.slice().reverse())) }); };
+  ['V', 'A', 'Z'].forEach(k => add(k, RUNAS[k].p));
+  for (let s = 0; s < 4; s++) { const C = []; for (let i = 0; i <= 40; i++) { const a = -Math.PI / 2 + s * Math.PI / 2 + i / 40 * TAU; C.push([.5 + Math.cos(a) * .5, .5 + Math.sin(a) * .5]); } add('O', C); }
+  return L; }
+const PLANT = plantillas();
+/* devuelve { k, s } (runa y parecido 0–1) o null */
+function reconoce(P) {
+  if (!P || P.length < 5) return null;
+  P = P.map((p, i) => { const a = P[Math.max(0, i - 1)], c = P[Math.min(P.length - 1, i + 1)]; return [(a[0] + p[0] * 2 + c[0]) / 4, (a[1] + p[1] * 2 + c[1]) / 4]; });   // se suaviza el temblor de la mano
+  const L = largo(P); let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9; P.forEach(([a, b]) => { x0 = Math.min(x0, a); y0 = Math.min(y0, b); x1 = Math.max(x1, a); y1 = Math.max(y1, b); });
+  const w = x1 - x0, h = y1 - y0, M = Math.max(w, h); if (M < .05 || L < .07) return null;
+  const cuerda = Math.hypot(P[P.length - 1][0] - P[0][0], P[P.length - 1][1] - P[0][1]);
+  /* una raya: alargada y casi recta (lo que mide el trazo apenas pasa de la distancia entre los extremos) */
+  const a0 = P[0], a1 = P[P.length - 1], dv = Math.max(...P.map(p => Math.abs((a1[0] - a0[0]) * (a0[1] - p[1]) - (a0[0] - p[0]) * (a1[1] - a0[1])) / Math.max(cuerda, 1e-6)));   // lo que se aparta de la recta entre los extremos
+  if (Math.min(w, h) / M < .32 && L / Math.max(cuerda, 1e-6) < 1.45 && dv / Math.max(cuerda, 1e-6) < .13) return { k: w > h ? 'h' : 'v', s: 1 - Math.min(w, h) / M };
+  const Q = normaliza(remuestrea(P)); let mejor = null;
+  PLANT.forEach(t => { let a = -.3, b = .3; const f = th => dist(gira(Q, th), t.P); const g = .618; let x1g = g * a + (1 - g) * b, x2g = (1 - g) * a + g * b, f1 = f(x1g), f2 = f(x2g);
+    for (let i = 0; i < 8; i++) { if (f1 < f2) { b = x2g; x2g = x1g; f2 = f1; x1g = g * a + (1 - g) * b; f1 = f(x1g); } else { a = x1g; x1g = x2g; f1 = f2; x2g = (1 - g) * a + g * b; f2 = f(x2g); } }
+    const d = Math.min(f1, f2, f(0)); if (!mejor || d < mejor.d) mejor = { k: t.k, d }; });
+  const s = 1 - mejor.d / .5; return s >= .58 ? { k: mejor.k, s } : null; }
+
+/* ---------------- sonido (sintetizado: funciona sin archivos) y música ---------------- */
+let AC = null, MUDO = false, MUS = null; const ac = () => { if (!AC) try { AC = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) {} if (AC && AC.state === 'suspended') AC.resume().catch(() => {}); return AC; };
+function tono(f, d, tipo, v, f2, ret) { const a = ac(); if (!a || MUDO) return; const t = a.currentTime + (ret || 0), o = a.createOscillator(), g = a.createGain(); o.type = tipo || 'sine'; o.frequency.setValueAtTime(f, t); if (f2) o.frequency.exponentialRampToValueAtTime(f2, t + d); g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(v || .2, t + .01); g.gain.exponentialRampToValueAtTime(.001, t + d); o.connect(g); g.connect(a.destination); o.start(t); o.stop(t + d + .05); }
+function ruido(d, v, f) { const a = ac(); if (!a || MUDO) return; const n = a.sampleRate * d | 0, b = a.createBuffer(1, n, a.sampleRate), q = b.getChannelData(0); for (let i = 0; i < n; i++) q[i] = (Math.random() * 2 - 1) * (1 - i / n); const s = a.createBufferSource(), fl = a.createBiquadFilter(), g = a.createGain(); fl.type = 'lowpass'; fl.frequency.value = f || 1200; g.gain.value = v || .3; s.buffer = b; s.connect(fl); fl.connect(g); g.connect(a.destination); s.start(); }
+const SFX = { zap: k => { const b = { h: 660, v: 740, V: 880, A: 990, O: 523, Z: 1175 }[k] || 700; tono(b, .25, 'triangle', .18, b * 2); tono(b * 1.5, .3, 'sine', .1, b * 3, .05); },
+  boom: () => { ruido(.45, .35, 900); tono(110, .4, 'sawtooth', .12, 40); }, fallo: () => tono(220, .25, 'square', .07, 140), ay: () => { ruido(.5, .4, 500); tono(90, .6, 'sawtooth', .2, 45); },
+  super: () => { [523, 659, 784, 1047, 1319].forEach((f, i) => tono(f, .6, 'triangle', .14, f * 1.5, i * .07)); ruido(1.2, .35, 3000); }, traza: () => tono(1400 + Math.random() * 300, .05, 'sine', .025) };
+async function musica() {
+  const a = ac(); if (!a || MUS) return; MUS = { on: true };
+  try { const [j, b] = await Promise.all([fetch('../packs/musica/haunted-256804/musica.json').then(r => r.json()), fetch('../packs/musica/haunted-256804/musica.mp3').then(r => r.arrayBuffer())]);
+    const buf = await a.decodeAudioData(b), s = a.createBufferSource(), g = a.createGain(); s.buffer = buf; s.loop = true; s.loopStart = j.juego[0]; s.loopEnd = j.juego[1]; g.gain.value = MUDO ? 0 : .5; s.connect(g); g.connect(a.destination); s.start(0, j.entrada[0]);
+    Object.assign(MUS, { s, g, j, buf }); } catch (e) {} }
+function paraMusica() { if (!MUS || !MUS.g || !AC) { MUS = null; return; } const m = MUS; MUS = null; try { m.g.gain.setTargetAtTime(0, AC.currentTime, .25); m.s.stop(AC.currentTime + 1.2); } catch (e) {} }
+
+/* ---------------- estado ---------------- */
+const NIV = { facil: { vel: .62, vidas: 5, ritmo: .7 }, normal: { vel: 1, vidas: 4, ritmo: 1 }, dificil: { vel: 1.35, vidas: 3, ritmo: 1.3 } };
+const DUR = 150, JEFES = [70, 128];
+const E = { fase: 'ini', niv: 'normal', t: 0, pts: 0, vidas: 4, combo: 0, comboT: 0, superE: 0, enem: [], part: [], trazos: [], rayos: [], textos: [], pausa: false, sacude: 0, jefes: 0, sigue: 2, mevi: null, nuevas: false, ultima: false, jug: '' };
+const COLV = ['#3bf3ff', '#ff3bd4', '#ffd23f', '#7dff3a'];
+/* varitas: el ratón o el dedo, el móvil y cada mano de la cámara (h0–h3) */
+const VAR = {}; const varita = (id, col) => VAR[id] || (VAR[id] = { id, col, pts: [], down: false, x: .5, y: .5, visto: 0 });
+function empiezaTrazo(v) { v.down = true; v.pts = [[v.x, v.y]]; }
+function sigueTrazo(v) { if (!v.down) return; const p = v.pts[v.pts.length - 1]; if (Math.hypot(v.x - p[0], (v.y - p[1]) * H / W) > .004) { v.pts.push([v.x, v.y]); if (v.pts.length % 4 === 0) SFX.traza(); chispa(v.x * W, v.y * H, v.col, 1); } }
+function acabaTrazo(v) { if (!v.down) return; v.down = false; const P = v.pts; v.pts = []; if (P.length < 2) return;
+  E.trazos.push({ P: P.map(p => p.slice()), col: v.col, t: 0 }); if (E.fase !== 'juego' || E.pausa) return;
+  /* el trazo se mide en proporción a la pantalla (16:9): x en anchos y en altos para que un círculo sea redondo */
+  const r = reconoce(P.map(([a, b]) => [a * 16 / 9, b])); const c = P.reduce((s, p) => [s[0] + p[0] / P.length, s[1] + p[1] / P.length], [0, 0]);
+  if (!r) { SFX.fallo(); texto(T('nada'), c[0] * W, c[1] * H, '#aab', .9); return; }
+  hechizo(r.k, c[0] * W, c[1] * H, v.col); }
+
+/* ---------------- las sombras ---------------- */
+function nuevaSombra() { const disp = E.t > 45 || E.niv === 'dificil' ? TODAS : BASICAS, n = E.t < 25 ? 1 : E.t < 60 ? (Math.random() < .55 ? 1 : 2) : (Math.random() < .35 ? 1 : Math.random() < .7 ? 2 : 3);
+  const r = H * R(.045, .06), runas = []; for (let i = 0; i < n; i++) runas.push(disp[Math.random() * disp.length | 0]);
+  E.enem.push({ x: R(.1, .9) * W, y: -r * 2, r, runas, vy: H * R(.035, .055) * NIV[E.niv].vel * (1 + E.t / 260), ph: R(0, TAU), hue: R(250, 300), t: 0, golpe: 0 }); }
+function nuevoJefe() { const disp = TODAS, n = E.niv === 'facil' ? 5 : E.niv === 'dificil' ? 9 : 7, runas = []; for (let i = 0; i < n; i++) runas.push(disp[Math.random() * disp.length | 0]);
+  E.enem.push({ x: W / 2, y: -H * .2, r: H * .13, runas, vy: H * .018 * NIV[E.niv].vel, ph: 0, hue: 280, t: 0, golpe: 0, jefe: true }); di('m_jefe', 4); }
+function hechizo(k, X, Y, col) {
+  E.combo = E.comboT > 0 ? E.combo + 1 : 1; E.comboT = 2.6; SFX.zap(k); glifoGrande(k, X, Y);
+  let dio = 0, mata = 0;
+  E.enem.forEach(o => { if (o.runas[0] !== k || o.y < -o.r) return; o.runas.shift(); o.golpe = .35; dio++; E.rayos.push({ x0: X, y0: Y, x1: o.x, y1: o.y, col: RUNAS[k].col, t: 0 });
+    if (!o.runas.length) { mata++; muere(o); } else { const v = (o.jefe ? 150 : 50) * Math.min(5, E.combo); E.pts += v; texto('+' + v, o.x, o.y - o.r * 1.4, RUNAS[k].col, .8); } });
+  if (!dio) { E.combo = 0; E.comboT = 0; SFX.fallo(); return; }
+  if (mata > 1) texto(T('combo') + ' ×' + mata, W / 2, H * .3, '#ffd23f', 1.6);
+  manda({ t: 'pts', v: E.pts }); }
+function muere(o) { const v = (o.jefe ? 2500 : 120) * Math.min(5, Math.max(1, E.combo)); E.pts += v; texto('+' + v, o.x, o.y - o.r, '#fff', o.jefe ? 2.2 : 1.1);
+  for (let i = 0; i < (o.jefe ? 160 : 40); i++) chispa(o.x, o.y, `hsl(${o.hue + R(-30, 30)},100%,70%)`, o.jefe ? 3 : 1.6);
+  SFX.boom(); o.muerta = true; E.superE = Math.min(1, E.superE + (o.jefe ? .4 : .075)); if (E.superE >= 1 && !E.superAv) { E.superAv = true; di(CAM.on ? 'm_super' : 'm_superM', 4); }
+  if (o.jefe) { E.sacude = .6; di('m_bien', 2.5); } }
+function supermagia() { if (E.superE < 1 || E.fase !== 'juego') return; E.superE = 0; E.superAv = false; SFX.super(); E.flash = 1; E.sacude = .8; texto(T('superMagia'), W / 2, H * .42, '#fff', 2.4);
+  E.enem.forEach(o => { if (o.jefe) { o.runas.splice(0, Math.min(3, o.runas.length - 1)); o.golpe = .5; } else muere(o); }); for (let i = 0; i < 220; i++) chispa(W / 2, H * .55, `hsl(${R(180, 320)},100%,70%)`, 4); }
+
+/* ---------------- efectos ---------------- */
+function chispa(X, Y, col, f) { E.part.push({ x: X, y: Y, vx: R(-1, 1) * H * .25 * f, vy: R(-1, 1) * H * .25 * f - H * .05, t: 0, d: R(.4, .9), col, r: R(1.5, 3.5) * (W / 1000) * Math.max(1, f * .7) }); if (E.part.length > 1400) E.part.splice(0, E.part.length - 1400); }
+function texto(s, X, Y, col, k) { E.textos.push({ s, x: X, y: Y, col, k: k || 1, t: 0 }); }
+function glifoGrande(k, X, Y) { E.textos.push({ g: k, x: X, y: Y, t: 0, k: 1 }); }
+function di(k, d) { E.mevi = { s: T(k), t: 0, d: d || 3 }; }
+
+/* ---------------- entradas: ratón / dedo, teclado y móvil ---------------- */
+const enSt = (cx, cy) => { const r = st.getBoundingClientRect(); return [(cx - r.left) / r.width, (cy - r.top) / r.height]; };
+st.addEventListener('pointerdown', e => { if (e.target.closest('button,.pan.on')) return; ac(); const v = varita('raton', '#ffffff'); [v.x, v.y] = enSt(e.clientX, e.clientY); v.visto = performance.now(); empiezaTrazo(v); });
+st.addEventListener('pointermove', e => { const v = varita('raton', '#ffffff'); [v.x, v.y] = enSt(e.clientX, e.clientY); v.visto = performance.now(); sigueTrazo(v); });
+addEventListener('pointerup', () => acabaTrazo(varita('raton', '#ffffff'))); addEventListener('pointercancel', () => acabaTrazo(varita('raton', '#ffffff')));
+addEventListener('keydown', e => { if (e.key === ' ' || e.key === 'Enter') { if (E.fase === 'juego') { supermagia(); e.preventDefault(); } else if (E.fase === 'ini') { empieza(); e.preventDefault(); } }
+  else if (e.key === 'm' || e.key === 'M') { MUDO = !MUDO; if (MUS && MUS.g) MUS.g.gain.value = MUDO ? 0 : .5; } else if (e.key === 'p' || e.key === 'P') E.pausa = !E.pausa; });
+let padD = false;
+addEventListener('message', e => { const m = e.data; if (!m || typeof m !== 'object' || e.source !== parent) return;
+  if (m.t === 'pad') { const v = varita('movil', '#ffd23f'); v.x = lim(+m.x || 0, 0, 1); v.y = lim(+m.y || 0, 0, 1); v.visto = performance.now(); if (m.d && !padD) empiezaTrazo(v); else if (!m.d && padD) acabaTrazo(v); else sigueTrazo(v); padD = !!m.d; }
+  else if (m.t === 'fire') { if (E.fase === 'ini') empieza(); else supermagia(); }
+  else if (m.t === 'pausa') E.pausa = !!m.v;
+  else if (m.t === 'jug') E.jug = String(m.n || '').slice(0, 14); });
+
+/* ---------------- la cámara (lib/manos.js · MediaPipe en este equipo) ---------------- */
+const CAM = { msMax: 60, tP: 0, on: false, quiere: true, v: null, s: null, M: null, manos: null, cuerpo: null, res: null, pose: null, tV: -1, tH: 0, ms: 0, n: 0, est: '', J: [null, null, null, null], fil: {} };
+try { const c = JSON.parse(localStorage.getItem('MSGAME_RUNAS') || '{}'); if (c.cam === false) CAM.quiere = false; if (c.niv && NIV[c.niv]) E.niv = c.niv; } catch (e) {}
+const guarda = () => { try { localStorage.setItem('MSGAME_RUNAS', JSON.stringify({ cam: CAM.quiere, niv: E.niv })); } catch (e) {} };
+function estado(s) { CAM.est = s; $('est').textContent = s; }
+async function abreCam() {
+  if (CAM.s || !CAM.quiere) return; if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { estado(T('sinCam')); return; }
+  estado(T('abriendo')); let dev = ''; try { dev = (JSON.parse(localStorage.getItem('MSGAME_GESTOS') || '{}').col) || ''; } catch (e) {}
+  try { const q = { width: { ideal: 960 }, height: { ideal: 540 }, frameRate: { ideal: 60 } }; if (dev) q.deviceId = { ideal: dev };
+    CAM.s = await navigator.mediaDevices.getUserMedia({ video: q, audio: false }); }
+  catch (e) { CAM.s = null; estado(e && e.name === 'NotAllowedError' ? T('sinPermiso') : T('sinCam')); return; }
+  if (!CAM.quiere) { cierraCam(); return; }
+  const v = CAM.v = document.createElement('video'); v.muted = v.playsInline = true; v.srcObject = CAM.s; v.play().catch(() => {});
+  estado(T('cargando'));
+  try { CAM.M = CAM.M || await import('../lib/manos.js'); CAM.manos = CAM.manos || await CAM.M.manos(4); CAM.on = true; estado(T('ponte')); }
+  catch (e) { estado(T('errDet')); return; }
+  try { CAM.cuerpo = CAM.cuerpo || await CAM.M.cuerpo({ n: 4 }); } catch (e) { CAM.cuerpo = null; } }
+function cierraCam() { CAM.on = false; if (CAM.s) CAM.s.getTracks().forEach(t => t.stop()); CAM.s = null; CAM.v = null; CAM.res = null; CAM.pose = null; ['h0', 'h1', 'h2', 'h3'].forEach(k => { if (VAR[k]) { acabaTrazo(VAR[k]); delete VAR[k]; } }); CAM.J = [null, null, null, null]; }
+addEventListener('pagehide', cierraCam);
+const ZONA = (u, v) => [lim((u - .12) / .76, 0, 1), lim((v - .08) / .74, 0, 1)];
+function camara(now) {
+  const v = CAM.v; if (!CAM.on || !v || v.readyState < 2 || v.currentTime === CAM.tV) return; const paso = Math.max(28, Math.min(120, CAM.ms * 1.6)); if (now - CAM.tH < paso) return;
+  CAM.tV = v.currentTime; CAM.tH = now; const a = performance.now();
+  try { CAM.res = CAM.manos.detecta(v, now); } catch (e) { return; }
+  CAM.n++; if (CAM.cuerpo && CAM.n % 3 === 0 && CAM.ms < CAM.msMax) { try { CAM.pose = CAM.cuerpo.detecta(v, now); CAM.tP = now; } catch (e) { CAM.pose = null; } }
+  CAM.ms = CAM.ms ? CAM.ms * .9 + (performance.now() - a) * .1 : performance.now() - a;
+  const asp = v.videoWidth / (v.videoHeight || 1), L = CAM.res.multiHandLandmarks || [];
+  /* cada mano: la punta del dibujo es el punto medio entre pulgar e índice (no salta al juntar los dedos) */
+  const det = L.slice(0, 4).map(M => { const u = 1 - (M[4].x + M[8].x) / 2, w = (M[4].y + M[8].y) / 2; return { M, u, v: w }; });
+  const vivos = [0, 1, 2, 3].filter(q => CAM.J[q] && now - CAM.J[q].t < 500), par = [], libH = det.map((h, i) => i), libJ = vivos.slice(), cand = [];
+  det.forEach((h, i) => vivos.forEach(q => cand.push([Math.hypot(h.u - CAM.J[q].u, h.v - CAM.J[q].v), i, q]))); cand.sort((p, q) => p[0] - q[0]);
+  cand.forEach(([d, i, q]) => { if (d < .35 && libH.includes(i) && libJ.includes(q)) { par.push([det[i], q]); libH.splice(libH.indexOf(i), 1); libJ.splice(libJ.indexOf(q), 1); } });
+  libH.forEach(i => { const q = [0, 1, 2, 3].find(k => !vivos.includes(k) && !par.some(p => p[1] === k)); if (q !== undefined) par.push([det[i], q]); });
+  par.forEach(([h, q]) => { const j = CAM.J[q] || (CAM.J[q] = {}); j.u = h.u; j.v = h.v; j.t = now; j.M = h.M;
+    const id = 'h' + q, wv = varita(id, COLV[q]), F = CAM.fil[id] || (CAM.fil[id] = [new CAM.M.UnEuro(1.4, .03), new CAM.M.UnEuro(1.4, .03)]), [zx, zy] = ZONA(h.u, h.v);
+    wv.x = F[0].f(zx, now); wv.y = F[1].f(zy, now); wv.visto = now; wv.mano = true;
+    const pin = CAM.M.pellizco(h.M, asp, wv.down); if (pin && !wv.down) empiezaTrazo(wv); else if (!pin && wv.down) acabaTrazo(wv); else sigueTrazo(wv); });
+  [0, 1, 2, 3].forEach(q => { const id = 'h' + q, wv = VAR[id]; if (wv && now - wv.visto > 350) { acabaTrazo(wv); if (now - wv.visto > 1500) { delete VAR[id]; CAM.J[q] = null; if (CAM.fil[id]) CAM.fil[id].forEach(f => f.reset()); } } });
+  /* los dos brazos arriba (muñecas por encima de la nariz): supermagia */
+  if (CAM.pose && E.superE >= 1) CAM.pose.poses.forEach(P => { const ok = i => P[i] && (P[i].visibility === undefined || P[i].visibility > .5); if (ok(0) && ok(15) && ok(16) && P[15].y < P[0].y - .04 && P[16].y < P[0].y - .04) supermagia(); });
+  if (E.fase === 'ini') estado(L.length ? T('teVeo', { n: L.length }) : T('ponte')); }
+
+/* ---------------- el fondo (se pinta una vez por tamaño) ---------------- */
+let FONDO = null; const EST = Array.from({ length: 160 }, () => [Math.random(), Math.random() * .7, Math.random() * 1.5 + .3, Math.random() * TAU]);
+function fondo() { const c = document.createElement('canvas'); c.width = Math.max(2, W * DPR | 0); c.height = Math.max(2, H * DPR | 0); const f = c.getContext('2d'); f.scale(DPR, DPR);
+  const g = f.createLinearGradient(0, 0, 0, H); g.addColorStop(0, '#04020e'); g.addColorStop(.55, '#140a36'); g.addColorStop(1, '#2a0f45'); f.fillStyle = g; f.fillRect(0, 0, W, H);
+  const r = f.createRadialGradient(W / 2, H * 1.05, 0, W / 2, H * 1.05, H * .8); r.addColorStop(0, 'rgba(160,90,255,.45)'); r.addColorStop(1, 'rgba(160,90,255,0)'); f.fillStyle = r; f.fillRect(0, 0, W, H);
+  f.fillStyle = '#07041a'; f.beginPath(); f.moveTo(0, H * .78); for (let i = 0; i <= 24; i++) f.lineTo(W * i / 24, H * (.74 + Math.sin(i * 1.7) * .02 + Math.sin(i * .6) * .025)); f.lineTo(W, H); f.lineTo(0, H); f.fill();
+  FONDO = c; }
+const LINEA = () => H * .84;
+function pintaFondo(t) { if (!FONDO) fondo(); x.drawImage(FONDO, 0, 0, W, H);
+  x.save(); x.globalCompositeOperation = 'lighter'; for (let b = 0; b < 3; b++) { x.beginPath(); for (let i = 0; i <= 40; i++) { const X = W * i / 40, Y = H * (.16 + b * .07) + Math.sin(i * .35 + t * (.3 + b * .1) + b) * H * .05; if (i) x.lineTo(X, Y); else x.moveTo(X, Y); } x.strokeStyle = `hsla(${170 + b * 50},100%,60%,${.07 + .03 * Math.sin(t + b)})`; x.lineWidth = H * (.05 - b * .01); x.stroke(); }
+  EST.forEach(([a, b, s, p]) => { x.fillStyle = `rgba(255,255,255,${.35 + .35 * Math.sin(t * s + p)})`; x.fillRect(a * W, b * H, s, s); }); x.restore();
+  /* el círculo mágico del suelo, con el cristal en el centro */
+  const cy = LINEA() + H * .07; x.save(); x.translate(W / 2, cy); x.scale(1, .22); x.rotate(t * .15); x.strokeStyle = 'rgba(185,139,255,.55)'; x.lineWidth = W * .002; x.shadowColor = '#b98bff'; x.shadowBlur = 14;
+  [.36, .3].forEach(k => { x.beginPath(); x.arc(0, 0, W * k, 0, TAU); x.stroke(); }); for (let i = 0; i < 12; i++) { x.save(); x.rotate(i * TAU / 12); x.translate(W * .33, 0); x.rotate(Math.PI / 2); glifo(x, TODAS[i % 6], 0, 0, W * .03, 'rgba(210,180,255,.6)', W * .002); x.restore(); } x.restore();
+  x.save(); x.setLineDash([W * .01, W * .008]); x.strokeStyle = `rgba(255,80,140,${.25 + .15 * Math.sin(t * 3)})`; x.lineWidth = 2; x.beginPath(); x.moveTo(0, LINEA()); x.lineTo(W, LINEA()); x.stroke(); x.restore(); }
+function cristal(t) { const X = W / 2, Y = LINEA() + H * .02, s = H * .07, k = E.vidas / NIV[E.niv].vidas;
+  x.save(); x.translate(X, Y + Math.sin(t * 2) * s * .06); x.shadowColor = '#7ef9ff'; x.shadowBlur = s * (.6 + .4 * Math.sin(t * 3)); const g = x.createLinearGradient(0, -s, 0, s); g.addColorStop(0, '#e9feff'); g.addColorStop(.5, `hsl(${190 + (1 - k) * 160},90%,60%)`); g.addColorStop(1, '#3a1a8a');
+  x.fillStyle = g; x.beginPath(); x.moveTo(0, -s); x.lineTo(s * .45, -s * .2); x.lineTo(s * .3, s * .7); x.lineTo(0, s); x.lineTo(-s * .3, s * .7); x.lineTo(-s * .45, -s * .2); x.closePath(); x.fill();
+  x.fillStyle = 'rgba(255,255,255,.5)'; x.beginPath(); x.moveTo(0, -s); x.lineTo(s * .12, -s * .2); x.lineTo(0, s * .8); x.lineTo(-s * .2, -s * .2); x.fill(); x.restore();
+  for (let i = 0; i < NIV[E.niv].vidas; i++) { const vx = X + (i - (NIV[E.niv].vidas - 1) / 2) * s * .5, vy = Y + s * 1.25; x.fillStyle = i < E.vidas ? '#7ef9ff' : 'rgba(255,255,255,.15)'; x.beginPath(); x.moveTo(vx, vy - s * .14); x.lineTo(vx + s * .1, vy); x.lineTo(vx, vy + s * .14); x.lineTo(vx - s * .1, vy); x.fill(); } }
+
+/* ---------------- cuerpos de neón: cada jugador se ve dentro de la pantalla como un espíritu de luz (sus 33 puntos, nunca la imagen) ---------------- */
+const HUESOS = [[11, 13], [13, 15], [12, 14], [14, 16], [11, 23], [12, 24], [23, 25], [25, 27], [24, 26], [26, 28], [15, 19], [16, 20]];
+function siluetas(now) { const P = CAM.pose; if (!P || !P.poses || !P.poses.length || now - CAM.tP > 900) return; const ve = (L, i) => L[i] && (L[i].visibility === undefined || L[i].visibility > .45);
+  const pt = (L, i) => [((1 - L[i].x) - .12) / .76 * W, (L[i].y - .08) / .74 * H];
+  x.save(); x.globalCompositeOperation = 'lighter'; x.lineCap = x.lineJoin = 'round';
+  P.poses.forEach((L, k) => { if (!ve(L, 11) || !ve(L, 12)) return; const col = COLV[k % 4], [a, b] = [pt(L, 11), pt(L, 12)], hw = Math.hypot(a[0] - b[0], a[1] - b[1]), lw = lim(hw * .06, H * .005, H * .016);
+    /* el tronco, relleno muy suave */
+    if (ve(L, 23) && ve(L, 24)) { const c = pt(L, 24), d = pt(L, 23); x.fillStyle = col; x.globalAlpha = .05; x.beginPath(); x.moveTo(a[0], a[1]); x.lineTo(b[0], b[1]); x.lineTo(c[0], c[1]); x.lineTo(d[0], d[1]); x.closePath(); x.fill(); }
+    [[lw * 3, .08], [lw, .3], [lw * .3, .6]].forEach(([w, al], i) => { x.globalAlpha = al; x.strokeStyle = i === 2 ? '#fff' : col; x.lineWidth = w; x.shadowColor = col; x.shadowBlur = i === 0 ? lw * 2 : 0;
+      x.beginPath(); HUESOS.concat([[11, 12], [23, 24]]).forEach(([p, q]) => { if (!ve(L, p) || !ve(L, q)) return; const u = pt(L, p), v = pt(L, q); x.moveTo(u[0], u[1]); x.lineTo(v[0], v[1]); }); x.stroke(); });
+    if (ve(L, 0)) { const n = pt(L, 0); x.globalAlpha = .35; x.strokeStyle = col; x.lineWidth = lw * .5; x.shadowColor = col; x.shadowBlur = lw * 2; x.beginPath(); x.arc(n[0], n[1], hw * .38, 0, TAU); x.stroke(); x.globalAlpha = .05; x.fillStyle = col; x.fill(); } });
+  x.restore(); }
+/* ---------------- dibujo ---------------- */
+function sombra(o, t) { const b = Math.sin(t * 2 + o.ph) * o.r * .08, X = o.x + Math.sin(t * 1.3 + o.ph) * o.r * .25, Y = o.y + b, r = o.r * (1 + o.golpe * .4);
+  x.save(); x.translate(X, Y); const g = x.createRadialGradient(0, 0, 0, 0, 0, r * 1.6); g.addColorStop(0, `hsla(${o.hue},90%,55%,.55)`); g.addColorStop(1, `hsla(${o.hue},90%,40%,0)`); x.fillStyle = g; x.beginPath(); x.arc(0, 0, r * 1.6, 0, TAU); x.fill();
+  x.fillStyle = o.golpe > 0 ? '#fff' : '#120624'; x.beginPath(); x.arc(0, -r * .15, r, Math.PI, 0); for (let i = 0; i <= 6; i++) { const ax = r - i * r / 3, ay = r * .7 + Math.sin(t * 6 + i + o.ph) * r * .12 * (i % 2 ? 1 : -1); x.lineTo(ax, ay); } x.closePath(); x.fill();
+  if (o.jefe) { x.fillStyle = '#120624'; [-1, 1].forEach(s => { x.beginPath(); x.moveTo(s * r * .5, -r * .9); x.quadraticCurveTo(s * r * 1.1, -r * 1.6, s * r * .95, -r * 1.9); x.quadraticCurveTo(s * r * .75, -r * 1.3, s * r * .2, -r * 1.05); x.fill(); }); }
+  x.fillStyle = `hsl(${o.hue + 60},100%,75%)`; x.shadowColor = x.fillStyle; x.shadowBlur = r * .4; [-1, 1].forEach(s => { x.beginPath(); x.ellipse(s * r * .36, -r * .2, r * .14, r * (o.golpe > 0 ? .04 : .2), 0, 0, TAU); x.fill(); }); x.restore();
+  /* sus runas, en burbujas encima (la primera es la que toca) */
+  const n = o.runas.length, s = o.jefe ? H * .075 : H * .05, y0 = o.jefe ? H * .2 : Y - r * 1.7, xc = o.jefe ? W / 2 : X;
+  o.runas.forEach((k, i) => { const cx = xc + (i - (n - 1) / 2) * s * 1.15; x.save(); x.fillStyle = i === 0 ? 'rgba(20,8,40,.9)' : 'rgba(20,8,40,.55)'; x.strokeStyle = i === 0 ? RUNAS[k].col : 'rgba(255,255,255,.2)'; x.lineWidth = 2; x.beginPath(); x.arc(cx, y0, s * .56, 0, TAU); x.fill(); x.stroke(); x.restore();
+    glifo(x, k, cx, y0, s * .8, null, s * .1, i === 0 ? 1 : .45); });
+  if (o.jefe) { x.save(); x.font = `${H * .034}px LG`; x.textAlign = 'center'; x.fillStyle = '#ff9be6'; x.shadowColor = '#ff3bd4'; x.shadowBlur = 16; x.fillText(T('jefe'), W / 2, H * .125); x.restore(); } }
+function trazo(P, col, a, w) { if (P.length < 2) return; x.save(); x.globalCompositeOperation = 'lighter'; x.lineCap = x.lineJoin = 'round'; x.globalAlpha = a;
+  [[w * 3.2, .25], [w * 1.6, .6], [w * .55, 1]].forEach(([lw, al], i) => { x.strokeStyle = i === 2 ? '#fff' : col; x.globalAlpha = a * al; x.shadowColor = col; x.shadowBlur = i === 0 ? w * 3 : 0; x.lineWidth = lw; x.beginPath(); P.forEach(([u, v], j) => { if (j) x.lineTo(u * W, v * H); else x.moveTo(u * W, v * H); }); x.stroke(); }); x.restore(); }
+function rayo(r) { const a = 1 - r.t / .35; if (a <= 0) return; x.save(); x.globalCompositeOperation = 'lighter'; x.strokeStyle = r.col; x.shadowColor = r.col; x.shadowBlur = 20; x.lineWidth = H * .006 * a + 1; x.beginPath(); x.moveTo(r.x0, r.y0);
+  for (let i = 1; i < 10; i++) { const k = i / 10; x.lineTo(r.x0 + (r.x1 - r.x0) * k + R(-1, 1) * H * .025, r.y0 + (r.y1 - r.y0) * k + R(-1, 1) * H * .025); } x.lineTo(r.x1, r.y1); x.stroke(); x.restore(); }
+function hud() { const s = H * .045; x.save(); x.font = `${s}px LG`; x.textAlign = 'left'; x.fillStyle = '#fff'; x.shadowColor = '#b46bff'; x.shadowBlur = 12; x.fillText(String(E.pts).padStart(6, '0'), W * .02, H * .07);
+  x.textAlign = 'right'; const q = Math.max(0, Math.ceil(DUR - E.t)); x.fillStyle = q <= 10 ? '#ff5a7a' : '#fff'; x.fillText(Math.floor(q / 60) + ':' + String(q % 60).padStart(2, '0'), W * .98, H * .07);
+  if (E.combo > 1 && E.comboT > 0) { x.textAlign = 'left'; x.fillStyle = '#ffd23f'; x.font = `${s * .7}px LG`; x.fillText(T('combo') + ' ×' + Math.min(5, E.combo), W * .02, H * .125); }
+  /* barra de supermagia */
+  const bw = W * .22, bx = W - bw - W * .02, by = H * .1; x.shadowBlur = 0; x.fillStyle = 'rgba(255,255,255,.1)'; x.fillRect(bx, by, bw, H * .014); const g = x.createLinearGradient(bx, 0, bx + bw, 0); g.addColorStop(0, '#3bf3ff'); g.addColorStop(1, '#ff3bd4'); x.fillStyle = g; x.fillRect(bx, by, bw * E.superE, H * .014);
+  if (E.superE >= 1) { x.textAlign = 'right'; x.font = `${s * .5}px LG`; x.fillStyle = `rgba(255,255,255,${.6 + .4 * Math.sin(E.t * 8)})`; x.fillText(T('superMagia'), bx + bw, by + H * .05); } x.restore(); }
+function cursores(now) { Object.values(VAR).forEach(v => { if (v.id === 'raton' && !v.down && now - v.visto > 2500) return; if (now - v.visto > 1500) return; const X = v.x * W, Y = v.y * H, r = H * (v.down ? .016 : .011);
+  x.save(); x.globalCompositeOperation = 'lighter'; x.fillStyle = v.col; x.shadowColor = v.col; x.shadowBlur = v.down ? 26 : 10; x.beginPath(); x.arc(X, Y, r, 0, TAU); x.fill(); x.strokeStyle = v.col; x.lineWidth = 2; x.beginPath(); x.arc(X, Y, r * 1.9 + Math.sin(now / 150) * r * .3, 0, TAU); x.stroke(); x.restore(); }); }
+
+/* ---------------- el bucle ---------------- */
+let ult = performance.now();
+function tick(now) { requestAnimationFrame(tick); const dt = Math.min(.05, (now - ult) / 1000); ult = now; camara(now); if (!W) tam();
+  if (E.fase === 'juego' && !E.pausa) paso(dt);
+  const t = now / 1000; x.save(); if (E.sacude > 0) { E.sacude -= dt; x.translate(R(-1, 1) * H * .012 * E.sacude, R(-1, 1) * H * .012 * E.sacude); }
+  pintaFondo(t); if (E.fase !== 'ini') siluetas(now);
+  E.enem.forEach(o => sombra(o, t)); cristal(t);
+  E.trazos = E.trazos.filter(r => (r.t += dt) < .7); E.trazos.forEach(r => trazo(r.P, r.col, 1 - r.t / .7, H * .008));
+  Object.values(VAR).forEach(v => { if (v.down) trazo(v.pts, v.col, 1, H * .008); });
+  E.rayos = E.rayos.filter(r => (r.t += dt) < .35); E.rayos.forEach(rayo);
+  E.part = E.part.filter(p => (p.t += dt) < p.d); x.save(); x.globalCompositeOperation = 'lighter'; E.part.forEach(p => { p.x += p.vx * dt; p.y += p.vy * dt; p.vy += H * .3 * dt; x.globalAlpha = 1 - p.t / p.d; x.fillStyle = p.col; x.fillRect(p.x, p.y, p.r, p.r); }); x.restore();
+  E.textos = E.textos.filter(o => (o.t += dt) < (o.g ? .8 : 1.3)); E.textos.forEach(o => { const a = 1 - o.t / (o.g ? .8 : 1.3); if (o.g) { glifo(x, o.g, o.x, o.y - o.t * H * .05, H * (.12 + o.t * .1), null, H * .012, a); return; }
+    x.save(); x.globalAlpha = a; x.font = `${H * .045 * o.k}px LG`; x.textAlign = 'center'; x.fillStyle = o.col; x.shadowColor = o.col; x.shadowBlur = 14; x.fillText(o.s, o.x, o.y - o.t * H * .06); x.restore(); });
+  if (E.fase === 'juego' || E.fase === 'fin') hud(); cursores(now);
+  if (E.flash > 0) { E.flash -= dt * 1.5; x.fillStyle = `rgba(255,255,255,${Math.max(0, E.flash) * .7})`; x.fillRect(0, 0, W, H); }
+  if (E.mevi && window.MEVI2D) { E.mevi.t += dt; const a = Math.min(1, E.mevi.t * 4, (E.mevi.d - E.mevi.t) * 2); if (a <= 0) E.mevi = null; else try { MEVI2D.dice(x, { texto: E.mevi.s, X: W * .03, Y: H * .93, W: W * .62, h: H * .075, t: E.mevi.t, a }); } catch (e) {} }
+  if (E.fase === 'cuenta') { const k = 3 - Math.floor(E.cuenta); x.save(); x.font = `${H * .3}px LG`; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#ffd23f'; x.shadowColor = '#ff9d00'; x.shadowBlur = 30; x.globalAlpha = 1 - (E.cuenta % 1); x.fillText(k > 0 ? String(k) : T('ya'), W / 2, H * .45); x.restore();
+    E.cuenta += dt; if (E.cuenta >= 3.6) { E.fase = 'juego'; di('m_ini', 4); } }
+  if (E.pausa) { x.fillStyle = 'rgba(0,0,0,.5)'; x.fillRect(0, 0, W, H); x.font = `${H * .1}px LG`; x.textAlign = 'center'; x.fillStyle = '#fff'; x.fillText('II', W / 2, H / 2); }
+  x.restore(); if (E.fase === 'ini') previa(); }
+function paso(dt) { E.t += dt; if (E.comboT > 0) { E.comboT -= dt; if (E.comboT <= 0) E.combo = 0; }
+  const ritmo = NIV[E.niv].ritmo * (0.55 + E.t / 70), hayJefe = E.enem.some(o => o.jefe);
+  E.sigue -= dt * (hayJefe ? .45 : 1); if (E.sigue <= 0 && E.t < DUR - 4) { nuevaSombra(); E.sigue = R(1.6, 2.8) / ritmo; }
+  if (E.jefes < JEFES.length && E.t >= JEFES[E.jefes]) { E.jefes++; nuevoJefe(); if (E.jefes === JEFES.length) E.ultima = true; }
+  if (!E.nuevas && (E.t > 45 || E.niv === 'dificil') && E.t > 3) { E.nuevas = true; if (!E.mevi) di('m_nuevas', 3.5); }
+  E.enem.forEach(o => { o.t += dt; o.golpe = Math.max(0, o.golpe - dt); o.y += (o.jefe && o.y < H * .36 ? H * .25 : o.vy) * dt; if (o.y + o.r * .7 >= LINEA() && !o.muerta) { o.muerta = true; E.vidas -= o.jefe ? 2 : 1; E.sacude = .6; SFX.ay(); di('m_ay', 2); for (let i = 0; i < 50; i++) chispa(o.x, LINEA(), '#ff5a7a', 2); } });
+  E.enem = E.enem.filter(o => !o.muerta);
+  if (E.vidas <= 0 || E.t >= DUR) acaba(); }
+
+/* ---------------- fases ---------------- */
+function previa() { const c = $('cvCam'), q = c.getContext('2d'), w = c.width, h = c.height; q.fillStyle = '#05030c'; q.fillRect(0, 0, w, h);
+  const v = CAM.v; if (v && v.readyState >= 2) { q.save(); q.translate(w, 0); q.scale(-1, 1); q.globalAlpha = .55; q.drawImage(v, 0, 0, w, h); q.restore(); }
+  else { q.fillStyle = 'rgba(255,255,255,.45)'; q.font = '600 18px BSC,sans-serif'; q.textAlign = 'center'; q.fillText(CAM.quiere ? '…' : T('camNo'), w / 2, h / 2); }
+  const L = (CAM.res && CAM.res.multiHandLandmarks) || []; q.lineWidth = 2; L.forEach((M, k) => { q.strokeStyle = COLV[k % 4]; CAM.M.CONEX_MANO.forEach(([a, b]) => { q.beginPath(); q.moveTo((1 - M[a].x) * w, M[a].y * h); q.lineTo((1 - M[b].x) * w, M[b].y * h); q.stroke(); }); }); }
+function niveles() { $('niveles').innerHTML = ['facil', 'normal', 'dificil'].map(k => `<button class="sec${E.niv === k ? ' on' : ''}" data-n="${k}" style="font-size:calc(var(--u)*1.2);padding:calc(var(--u)*.6) calc(var(--u)*1)">${T(k)}</button>`).join('');
+  $('niveles').querySelectorAll('button').forEach(b => b.onclick = () => { E.niv = b.dataset.n; guarda(); niveles(); }); }
+function botonCam() { const b = $('bCam'); b.textContent = T(CAM.quiere ? 'camSi' : 'camNo'); b.classList.toggle('on', CAM.quiere); }
+function leyenda() { $('leyenda').innerHTML = TODAS.map(k => `<div class="runa"><canvas width="120" height="120" data-r="${k}"></canvas><b>${T('r_' + k)}</b></div>`).join('');
+  $('leyenda').querySelectorAll('canvas').forEach(c => glifo(c.getContext('2d'), c.dataset.r, 60, 60, 96, null, 9)); }
+function inicio() { E.fase = 'ini'; $('ini').classList.add('on'); $('fin').classList.remove('on'); leyenda(); niveles(); botonCam(); if (CAM.quiere) abreCam(); else estado(T('sinCam')); setTimeout(() => $('bJugar').focus(), 50); }
+function empieza() { ac(); musica(); Object.assign(E, { fase: 'cuenta', cuenta: 0, t: 0, pts: 0, vidas: NIV[E.niv].vidas, combo: 0, comboT: 0, superE: 0, superAv: false, enem: [], part: [], trazos: [], rayos: [], textos: [], jefes: 0, sigue: 1.5, nuevas: false, ultima: false, mevi: null, pausa: false });
+  $('ini').classList.remove('on'); $('fin').classList.remove('on'); manda({ t: 'pts', v: 0 }); }
+function acaba() { if (E.fase !== 'juego') return; E.fase = 'fin'; paraMusica(); Object.values(VAR).forEach(acabaTrazo); texto(T('fin'), W / 2, H * .45, '#ffd23f', 2.4);
+  setTimeout(() => { if (EMB) manda({ t: 'fin', v: E.pts }); else { $('finPts').textContent = E.pts + ' ' + T('puntos'); $('fin').classList.add('on'); $('bOtra').focus(); } }, 2600); }
+$('bJugar').onclick = empieza; $('bOtra').onclick = () => inicio(); $('bSal').onclick = () => { if (EMB) manda({ t: 'sal' }); else inicio(); };
+$('bCam').onclick = () => { CAM.quiere = !CAM.quiere; guarda(); botonCam(); if (CAM.quiere) abreCam(); else { cierraCam(); estado(T('sinCam')); } };
+{ const md = (location.search.match(/[?&]modo=(\w+)/) || [])[1]; if (md && NIV[md]) E.niv = md; }
+tam(); inicio(); requestAnimationFrame(tick);
+/* para las pruebas: dibujar un trazo con puntos (0–1) como si fuera una varita */
+window.RUNAS = { E, CAM, reconoce, prueba(P, id) { const v = varita(id || 'prueba', '#fff'); [v.x, v.y] = P[0]; empiezaTrazo(v); P.slice(1).forEach(p => { [v.x, v.y] = p; sigueTrazo(v); }); acabaTrazo(v); }, empieza, supermagia };
+</script>
+</body>
+</html>

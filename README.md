@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.38**
+**Versión actual: v18.39**
 
 ## Cómo se juega
 
@@ -36,8 +36,19 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 - **DIANA** *(en desarrollo)*: hachas y arco, dardos, el barreño de feria, tartazos y bomberos: cinco formas de acertar al centro.
+- **RUNAS** *(nuevo)*: dibuja runas en el aire con la mano delante de la cámara (o con el móvil o el ratón) para deshacer las sombras que van a por el cristal de Mevi; hasta 4 a la vez, jefe final y supermagia con los dos brazos arriba.
 
-## Cambios de la versión actual (v18.38)
+## Cambios de la versión actual (v18.39)
+- **Juego nuevo: RUNAS · la magia de Mevi.** Las sombras bajan a por el cristal de Mevi, cada una con sus runas (raya, palo, uve, tejado, círculo y rayo). Se dibuja la runa en el aire y todas las sombras que la llevan se deshacen a la vez; las combinaciones suman combo. Dos veces por partida llega el Señor de las Sombras, con una fila de runas que hay que dibujar en orden. Al llenar la barra, la supermagia: los dos brazos arriba delante de la cámara (o el botón del móvil, o la barra espaciadora) limpian la pantalla.
+  - Se juega con la mano (juntar pulgar e índice y dibujar), con el móvil (mantener el botón y moverlo) o con el ratón o el dedo. Con la cámara juegan hasta 4 a la vez, cada mano con su color.
+  - Los jugadores se ven dentro de la pantalla como espíritus de luz (su esqueleto en neón), nunca su imagen.
+  - Tres niveles (fácil, normal y difícil), Mevi explica qué hacer en cada momento, música de PUNTERÍA HAUNTED y textos en español, inglés y catalán.
+- **Cámara nueva para todos los juegos:** el reconocimiento de manos y cuerpo pasa a MediaPipe Tasks Vision 1.2.3 (el de 2023 ya no se mantenía), alojado en la propia app: funciona sin internet, también con el «modo feria», y usa la tarjeta gráfica si la hay.
+  - Sigue hasta **4 manos** (antes 2): cuatro jugadores con la mano a la vez.
+  - **GRAFFER y la BOLERA ya se juegan con la mano:** el pellizco es «mantener» (pintar mientras juntas los dedos; coger la bola, balancear y soltarla al abrirlos).
+  - El modo feria guarda también la cámara y RUNAS.
+
+### v18.38
 - WONDERWALK: los dos ladrones del cuento (página 1, escabulléndose por el bosque) ya no van agachados ni llevan los sacos que flotaban separados de ellos: andan normal mirando a los lados. El ladrón de reserva (si el modelo 3D no llega a cargar) tampoco lleva saco.
 
 ### v18.37

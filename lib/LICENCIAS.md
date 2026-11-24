@@ -9,6 +9,8 @@ Se sirven desde aquí para que la app no dependa de redes de distribución exter
 | `meshopt.js` | Decodificador de meshoptimizer (Arseny Kapoulkine), para los modelos de `packs/modelos` | 0.22.0 | MIT |
 | `peerjs.min.js` | PeerJS (Michelle Bu, Eric Zhang y colaboradores) | 1.5.4 | MIT |
 | `qrcode.min.js` | QRCode.js (davidshimjs) | 1.0.0 | MIT |
+| `mediapipe/vision_bundle.mjs` y `mediapipe/wasm/` | MediaPipe Tasks Vision (Google), paquete `@mediapipe/tasks-vision` | 1.2.3 | Apache 2.0 (`mediapipe/LICENSE`) |
+| `mediapipe/hand_landmarker.task` y `mediapipe/pose_landmarker_lite.task` | Modelos de manos y de cuerpo de MediaPipe (Google), sin cambios | float16, 2023 | Apache 2.0 |
 
 Texto de la licencia MIT: https://opensource.org/license/mit
 
