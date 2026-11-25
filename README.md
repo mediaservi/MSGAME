@@ -45,7 +45,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
   - Los dos arcos llevan su nombre mientras se elige camino, cada vasija equivocada dice cuál es (la del agua o la de la luna) y el rango final depende de la ruta seguida.
   - Corregido: al pasar de una prueba a la siguiente, el vídeo anterior podía dejar el blanco activo antes de tiempo.
 
-## Cambios de v18.39
+### v18.39
 - **Juego nuevo: RUNAS · la magia de Mevi.** Las sombras bajan a por el cristal de Mevi, cada una con sus runas (raya, palo, uve, tejado, círculo y rayo). Se dibuja la runa en el aire y todas las sombras que la llevan se deshacen a la vez; las combinaciones suman combo. Dos veces por partida llega el Señor de las Sombras, con una fila de runas que hay que dibujar en orden. Al llenar la barra, la supermagia: los dos brazos arriba delante de la cámara (o el botón del móvil, o la barra espaciadora) limpian la pantalla.
   - Se juega con la mano (juntar pulgar e índice y dibujar), con el móvil (mantener el botón y moverlo) o con el ratón o el dedo. Con la cámara juegan hasta 4 a la vez, cada mano con su color.
   - Los jugadores se ven dentro de la pantalla como espíritus de luz (su esqueleto en neón), nunca su imagen.
