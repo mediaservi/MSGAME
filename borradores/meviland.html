@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0">
+<title>MEVILAND · MSGAME</title>
+<!-- MEVILAND · parque temático mágico en 3D para MSGAME · mediaservi.com · idea de Josep (25-11-2026) · modelos 3D generados para el juego -->
+<style>
+  @font-face{font-family:LIL;src:url(../fuentes/lilita-one.woff2) format("woff2")}
+  @font-face{font-family:LG;src:url(../fuentes/luckiest-guy.woff2) format("woff2")}
+  @font-face{font-family:BSC;src:url(../fuentes/barlow-semi-condensed-700.woff2) format("woff2")}
+  @font-face{font-family:BSC5;src:url(../fuentes/barlow-semi-condensed-500.woff2) format("woff2")}
+  html,body{margin:0;height:100%;background:#0d0820;overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none;font-family:BSC,"Segoe UI",Arial,sans-serif;color:#fff}
+  #st{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);aspect-ratio:16/9;width:min(100vw,177.78vh);overflow:hidden;--u:calc(min(100vw,177.78vh)/100);cursor:none;background:#0d0820}
+  #cv{position:absolute;inset:0;width:100%;height:100%;display:block}
+  #velo{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;transition:opacity .45s}
+  /* ---------- mirilla ---------- */
+  #reti{position:absolute;left:0;top:0;width:calc(var(--u)*4.4);height:calc(var(--u)*4.4);margin:calc(var(--u)*-2.2) 0 0 calc(var(--u)*-2.2);pointer-events:none;z-index:6;display:none}
+  #reti.on{display:block}
+  #reti svg{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 0 calc(var(--u)*.35) rgba(0,0,0,.6))}
+  #reti .anillo{transition:stroke-dashoffset .08s linear}
+  /* ---------- HUD ---------- */
+  #hud{position:absolute;left:calc(var(--u)*1.2);top:calc(var(--u)*1.1);display:none;align-items:center;gap:calc(var(--u)*1.1);padding:calc(var(--u)*.55) calc(var(--u)*1.6) calc(var(--u)*.55) calc(var(--u)*.8);border-radius:calc(var(--u)*3);background:linear-gradient(90deg,rgba(28,10,60,.82),rgba(28,10,60,.55));border:calc(var(--u)*.18) solid rgba(255,214,90,.75);box-shadow:0 calc(var(--u)*.4) calc(var(--u)*1.4) rgba(0,0,0,.45);z-index:4}
+  #hud.on{display:flex}
+  #hud{flex-wrap:wrap;max-width:calc(var(--u)*27);row-gap:calc(var(--u)*.35);border-radius:calc(var(--u)*1.6);padding-left:calc(var(--u)*1)}
+  #llaves{display:flex;gap:calc(var(--u)*.35)}
+  #llaves i{width:calc(var(--u)*2.6);height:calc(var(--u)*2.6);display:block;background:center/contain no-repeat;filter:grayscale(1) brightness(.45);opacity:.6;transition:filter .5s,opacity .5s,transform .5s}
+  #llaves i.si{filter:none;opacity:1;transform:scale(1.12)}
+  #lugar{order:3;flex-basis:100%;font:400 calc(var(--u)*1.55)/1.1 LIL,sans-serif;letter-spacing:.02em;color:#ffe78a;text-shadow:0 calc(var(--u)*.2) 0 #4a1b00;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #crono{font:700 calc(var(--u)*1.8)/1 "Share Tech Mono",ui-monospace,monospace;color:#fff;min-width:3.2em;text-align:right}
+  #crono.prisa{color:#ff6b6b;animation:lat .5s infinite alternate}
+  @keyframes lat{to{transform:scale(1.12)}}
+  #pts{position:absolute;right:calc(var(--u)*1.4);top:calc(var(--u)*1.1);display:none;font:400 calc(var(--u)*2.6)/1 LG,sans-serif;color:#fff;text-shadow:0 calc(var(--u)*.25) 0 #6a1b9a,0 0 calc(var(--u)*1.2) rgba(255,120,240,.6);z-index:4}
+  #pts.on{display:block}
+  #pts small{display:block;font:700 calc(var(--u)*1)/1 BSC,sans-serif;color:#ffe78a;letter-spacing:.12em;text-align:right;margin-bottom:calc(var(--u)*.3)}
+  /* barra de la prueba (energía, tiempo, progreso) */
+  #barra{position:absolute;left:50%;top:calc(var(--u)*1.4);transform:translateX(-50%);width:calc(var(--u)*25);display:none;z-index:4}
+  #barra.on{display:block}
+  #barra b{display:block;text-align:center;font:400 calc(var(--u)*1.35)/1 LIL,sans-serif;letter-spacing:.04em;color:#fff;text-shadow:0 2px 4px #000;margin-bottom:calc(var(--u)*.4)}
+  #barra .tub{height:calc(var(--u)*1.25);border-radius:99px;background:rgba(20,8,40,.75);border:calc(var(--u)*.15) solid rgba(255,255,255,.7);overflow:hidden}
+  #barra .tub i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,#ff6bd6,#ffd23f,#7dff9a);transition:width .15s}
+  /* objetivo grande (palabra de la sopa, color del bosque) */
+  #meta{position:absolute;left:50%;top:calc(var(--u)*5.2);transform:translateX(-50%);display:none;gap:calc(var(--u)*.5);z-index:4}
+  #meta.on{display:flex}
+  #meta span{min-width:calc(var(--u)*4);height:calc(var(--u)*5);padding:0 calc(var(--u)*.6);display:flex;align-items:center;justify-content:center;font:400 calc(var(--u)*3.4)/1 LG,sans-serif;color:#7a3b00;background:linear-gradient(#fff6c8,#ffd76a);border-radius:calc(var(--u)*.9);box-shadow:0 calc(var(--u)*.35) 0 #a8640a,0 calc(var(--u)*.6) calc(var(--u)*1) rgba(0,0,0,.4);transition:transform .2s,background .2s}
+  #meta span.ok{background:linear-gradient(#c9ffd6,#4fe08a);color:#064d24;box-shadow:0 calc(var(--u)*.35) 0 #0b7a3a;transform:translateY(calc(var(--u)*.3))}
+  #meta span.col{width:calc(var(--u)*5);min-width:0;border-radius:50%}
+  /* ---------- subtítulos de Mevi ---------- */
+  #sub{position:absolute;left:50%;bottom:calc(var(--u)*2.2);transform:translateX(-50%) translateY(20%);max-width:calc(var(--u)*62);padding:calc(var(--u)*1) calc(var(--u)*2) calc(var(--u)*1.1);background:linear-gradient(rgba(36,14,74,.92),rgba(22,8,48,.92));border:calc(var(--u)*.2) solid #ffd25a;border-radius:calc(var(--u)*1.6);box-shadow:0 calc(var(--u)*.6) calc(var(--u)*1.8) rgba(0,0,0,.55),inset 0 0 calc(var(--u)*1.2) rgba(255,120,240,.25);opacity:0;transition:opacity .25s,transform .25s;z-index:5;pointer-events:none}
+  #sub.on{opacity:1;transform:translateX(-50%) translateY(0)}
+  #sub b{display:block;font:400 calc(var(--u)*1.05)/1 LIL,sans-serif;letter-spacing:.18em;color:#ff9be8;margin-bottom:calc(var(--u)*.35)}
+  #sub span{font:500 calc(var(--u)*1.75)/1.32 BSC5,BSC,sans-serif;color:#fff}
+  /* avisos grandes («¡Bien hecho!») */
+  #grito{position:absolute;left:50%;top:38%;transform:translate(-50%,-50%) scale(.6);font:400 calc(var(--u)*6.4)/1 LG,sans-serif;color:#fff;text-align:center;white-space:nowrap;opacity:0;pointer-events:none;z-index:5;text-shadow:0 calc(var(--u)*.4) 0 #c2185b,0 calc(var(--u)*.8) 0 #4a148c,0 0 calc(var(--u)*3) rgba(255,210,60,.8);transition:opacity .2s,transform .35s cubic-bezier(.2,1.6,.4,1)}
+  #grito.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
+  /* puntos flotantes */
+  .fl{position:absolute;transform:translate(-50%,-50%);font:400 calc(var(--u)*2.2)/1 LG,sans-serif;color:#ffe36b;text-shadow:0 calc(var(--u)*.2) 0 #8a3c00;pointer-events:none;z-index:5;animation:fl 1s ease-out forwards}
+  .fl.mal{color:#ff8a8a;text-shadow:0 calc(var(--u)*.2) 0 #6a0000}
+  @keyframes fl{from{opacity:1;margin-top:0}to{opacity:0;margin-top:calc(var(--u)*-5)}}
+  /* ---------- paneles ---------- */
+  .pan{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;gap:calc(var(--u)*1.4);cursor:default;z-index:8}
+  .pan.on{display:flex}
+  #pIni{background:radial-gradient(ellipse at 50% 30%,rgba(40,10,80,0) 0,rgba(14,4,32,.55) 70%)}
+  #logo{position:relative;margin-top:calc(var(--u)*-6);text-align:center;filter:drop-shadow(0 calc(var(--u)*.8) calc(var(--u)*1.2) rgba(0,0,0,.6))}
+  #logo .t{font:400 calc(var(--u)*11)/.9 LG,sans-serif;letter-spacing:.02em;background:linear-gradient(180deg,#fff9d0 0%,#ffd84a 38%,#ff8a1c 62%,#ff4fb4 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-stroke:calc(var(--u)*.28) #3a0d6a;paint-order:stroke fill}
+  #logo .s{margin-top:calc(var(--u)*.6);font:400 calc(var(--u)*1.9)/1 LIL,sans-serif;letter-spacing:.3em;color:#bff3ff;text-shadow:0 0 calc(var(--u)*1.2) rgba(80,220,255,.9)}
+  .niv{display:flex;gap:calc(var(--u)*1.6)}
+  .modo{position:relative;width:calc(var(--u)*22);padding:calc(var(--u)*1.4) calc(var(--u)*1.2) calc(var(--u)*1.2);border-radius:calc(var(--u)*1.8);cursor:pointer;text-align:center;color:#fff;border:calc(var(--u)*.25) solid rgba(255,255,255,.85);box-shadow:0 calc(var(--u)*.55) 0 rgba(0,0,0,.35),0 calc(var(--u)*.9) calc(var(--u)*2) rgba(0,0,0,.45);transition:transform .15s,box-shadow .15s}
+  .modo:hover,.modo:focus-visible,.modo.sel{transform:translateY(calc(var(--u)*-.6)) scale(1.04);outline:calc(var(--u)*.35) solid #56f700;outline-offset:calc(var(--u)*.2)}
+  .modo b{display:block;font:400 calc(var(--u)*2.6)/1 LG,sans-serif;letter-spacing:.02em;text-shadow:0 calc(var(--u)*.22) 0 rgba(0,0,0,.35)}
+  .modo em{display:block;font-style:normal;font:400 calc(var(--u)*1.35)/1 LIL,sans-serif;margin:calc(var(--u)*.45) 0 calc(var(--u)*.7);opacity:.95}
+  .modo span{display:block;font:500 calc(var(--u)*1.15)/1.3 BSC5,BSC,sans-serif;opacity:.95;min-height:3.9em}
+  .modo .ll{display:flex;justify-content:center;gap:calc(var(--u)*.3);margin-top:calc(var(--u)*.6)}
+  .modo .ll i{width:calc(var(--u)*2);height:calc(var(--u)*2);background:center/contain no-repeat}
+  .m0{background:linear-gradient(160deg,#5fe3a1,#18a35e)}
+  .m1{background:linear-gradient(160deg,#ffcf4a,#f2780c)}
+  .m2{background:linear-gradient(160deg,#ff71c8,#8a2be2)}
+  .fila{display:flex;gap:calc(var(--u)*.8);align-items:center}
+  button.b{font:400 calc(var(--u)*1.5)/1 LIL,sans-serif;letter-spacing:.04em;color:#2a0b4a;background:linear-gradient(#fff6c8,#ffd23f 55%,#f29a0c);border:calc(var(--u)*.2) solid #5a2a00;border-radius:calc(var(--u)*1);padding:calc(var(--u)*.7) calc(var(--u)*1.6);cursor:pointer;box-shadow:0 calc(var(--u)*.32) 0 #5a2a00}
+  button.b.sel{background:linear-gradient(#c9ffd6,#4fe08a 55%,#13804a);border-color:#0a4a2a;color:#032212}
+  button.b:focus-visible{outline:calc(var(--u)*.3) solid #56f700;outline-offset:calc(var(--u)*.25)}
+  #carga{width:calc(var(--u)*30);height:calc(var(--u)*.9);border-radius:99px;background:rgba(255,255,255,.18);overflow:hidden;border:calc(var(--u)*.12) solid rgba(255,255,255,.5)}
+  #carga i{display:block;height:100%;width:0;background:linear-gradient(90deg,#ff71c8,#ffd23f);transition:width .2s}
+  #cargaT{font:500 calc(var(--u)*1.2)/1 BSC5,BSC,sans-serif;color:#d9c8ff;letter-spacing:.06em}
+  .esq{position:absolute;top:calc(var(--u)*1.2);right:calc(var(--u)*1.2);display:flex;gap:calc(var(--u)*.6);z-index:9}
+  .esq button.b{font-size:calc(var(--u)*1.1);padding:calc(var(--u)*.45) calc(var(--u)*.9)}
+  #pFin{background:radial-gradient(ellipse at 50% 45%,rgba(24,6,56,.78),rgba(10,3,24,.9))}
+  #pFin h2{margin:0;font:400 calc(var(--u)*4.6)/1 LG,sans-serif;color:#ffe27a;text-align:center;text-shadow:0 calc(var(--u)*.35) 0 #8a2be2,0 0 calc(var(--u)*2.2) rgba(255,180,60,.6)}
+  #pFin p{margin:0;max-width:64%;text-align:center;font:500 calc(var(--u)*1.7)/1.35 BSC5,BSC,sans-serif;color:#f3eaff}
+  #pFin dl{display:grid;grid-template-columns:auto auto;gap:calc(var(--u)*.5) calc(var(--u)*3);margin:calc(var(--u)*.6) 0;font-size:calc(var(--u)*1.8)}
+  #pFin dt{color:#d9c8ff}
+  #pFin dd{margin:0;text-align:right;font:700 calc(var(--u)*1.9)/1 "Share Tech Mono",ui-monospace,monospace;color:#ffe27a}
+  #pPausa{background:rgba(10,3,24,.7)}
+  #pPausa h2{margin:0;font:400 calc(var(--u)*5)/1 LG,sans-serif;color:#fff}
+  #pie{position:absolute;left:0;right:0;bottom:calc(var(--u)*.6);text-align:center;font:500 calc(var(--u)*.95)/1 BSC5,BSC,sans-serif;color:rgba(255,255,255,.55);pointer-events:none;z-index:9}
+  #pie.off{display:none}
+  /* móvil de pie: el escenario 16:9 ocupa el centro; los textos crecen un poco */
+  @media (max-aspect-ratio:1/1){#sub span{font-size:calc(var(--u)*2.4)}#sub{max-width:calc(var(--u)*92)}}
+</style>
+</head>
+<body>
+<div id="st">
+  <canvas id="cv"></canvas>
+  <div id="velo"></div>
+  <div id="hud"><div id="llaves"></div><div id="lugar"></div><div id="crono"></div></div>
+  <div id="pts"><small id="ptsT">PUNTOS</small><span id="ptsV">0</span></div>
+  <div id="barra"><b id="barraT"></b><div class="tub"><i id="barraI"></i></div></div>
+  <div id="meta"></div>
+  <div id="grito"></div>
+  <div id="sub" role="status" aria-live="polite"><b>MEVI</b><span id="subT"></span></div>
+  <div id="reti"><svg viewBox="-50 -50 100 100"><circle r="30" fill="none" stroke="rgba(255,255,255,.9)" stroke-width="5"/><circle class="anillo" r="40" fill="none" stroke="#56f700" stroke-width="9" stroke-linecap="round" stroke-dasharray="251.3" stroke-dashoffset="251.3" transform="rotate(-90)"/><circle r="6" fill="#ff4fb4" stroke="#fff" stroke-width="3"/><path d="M0 -46V-34M0 34V46M-46 0H-34M34 0H46" stroke="#fff" stroke-width="5" stroke-linecap="round"/></svg></div>
+  <div class="esq" id="esq"><button type="button" class="b" id="bVoz" title="Voz de Mevi">🔊</button><button type="button" class="b" id="bPausa">❚❚</button></div>
+  <div class="pan on" id="pIni">
+    <div id="logo"><div class="t">MEVILAND</div><div class="s" id="tLema"></div></div>
+    <div id="cargaBox" class="fila" style="flex-direction:column"><div id="carga"><i id="cargaI"></i></div><div id="cargaT"></div></div>
+    <div class="niv" id="niv" style="display:none"></div>
+    <div class="fila" id="lenguas" style="display:none"><button type="button" class="b" data-lang="es">ES</button><button type="button" class="b" data-lang="ca">CA</button><button type="button" class="b" data-lang="en">EN</button></div>
+  </div>
+  <div class="pan" id="pPausa"><h2 id="tPausa">PAUSA</h2><div class="fila"><button type="button" class="b" id="bSigue"></button><button type="button" class="b" id="bSalir"></button></div></div>
+  <div class="pan" id="pFin"><h2 id="fTit"></h2><p id="fTxt"></p><dl id="fDl"></dl><div class="fila"><button type="button" class="b" id="bOtra"></button><button type="button" class="b" id="bMenu"></button></div></div>
+  <div id="pie">MEVILAND · MSGAME · mediaservi.com</div>
+</div>
+<script src="../lib/three.min.js"></script>
+<script src="../lib/gltf.js?v=18.41"></script>
+<script src="../lib/mevicara.js?v=18.37"></script>
+<script src="meviland-motor.js?v=18.41"></script>
+<script src="meviland-salas.js?v=18.41"></script>
+</body>
+</html>

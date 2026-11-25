@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.40**
+**Versión actual: v18.41**
 
 ## Cómo se juega
 
@@ -36,9 +36,24 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 - **DIANA** *(en desarrollo)*: hachas y arco, dardos, el barreño de feria, tartazos y bomberos: cinco formas de acertar al centro.
+- **MEVILAND** *(nuevo)*: parque temático en 3D en primera persona con Mevi de anfitriona; cuatro tierras (Fantasía, Absurdo, Golosinas y Feria), diez pruebas, puertas trampa y cuatro finales, uno secreto.
 - **RUNAS** *(nuevo)*: dibuja runas en el aire con la mano delante de la cámara (o con el móvil o el ratón) para deshacer las sombras que van a por el cristal de Mevi; hasta 4 a la vez, jefe final y supermagia con los dos brazos arriba.
 
-## Cambios de la versión actual (v18.40)
+## Cambios de la versión actual (v18.41)
+- **Juego nuevo: MEVILAND · el parque mágico de Mevi.** Un parque temático en 3D que se recorre en primera persona con Mevi de anfitriona: habla con subtítulos y voz, señala, salta y celebra cada acierto.
+  - **Plaza de Mevi:** fuente con estatua, cuatro arcos (uno por tierra) y el Gran Portal con sus cerraduras de estrella. Se elige apuntando: mantener la mirilla sobre un arco o una puerta (o tocar).
+  - **Cuatro tierras y diez pruebas:**
+    - Fantasía: la Biblioteca Voladora (atrapar libros con alas), la Cueva de los Cristales (tocar cada cristal cuando brilla) y la Sala de los Espejos (encontrar a la Mevi impostora).
+    - Absurdo: la Nevera Gigante (derretir bloques de hielo apuntando), la Lavadora Cósmica (calcetines del color pedido) y la Sopa de Letras (letras en orden).
+    - Golosinas: el Campo de Caramelos (repetir la melodía) y el Río de Chocolate (pescar los caramelos del color pedido).
+    - Feria: la Montaña Rusa Estelar (en vagoneta, tocando estrellas) y el Carrusel Encantado (seguir la llave entre los caballitos).
+  - Cada tierra tiene su guardián (Profesor Búho, Señor Brócoli, Gusano de Gominola, Chef Fantasma y el Maestro de Ceremonias), su cielo, su decorado y su música, que se hace en el momento y marca el ritmo de las luces.
+  - **Fácil:** 2 Llaves Estelares. **Medio:** 3 llaves y puertas trampa. **Difícil:** 4 llaves, dos pruebas por tierra, menos tiempo y una mutación a mitad de cada prueba que lo acelera todo.
+  - **Cuatro finales:** el Gran Desfile, los Guardianes de las Estrellas, la Copa de Oro y uno secreto (en Difícil, encontrando los cuatro patitos astronautas escondidos).
+  - Se juega con el ratón, tocando la pantalla o con el móvil como mando (mirilla y botón «Toca»), de 1 a 4 jugadores, en español, inglés y catalán. Para todas las edades (+3).
+  - Su carátula está en la estantería del videoclub y se abre también con /meviland/ o ?juego=meviland.
+
+### v18.40
 - **El Misterio de Ek Chuah (borrador) · subtítulos y textos nuevos.**
   - Cada vídeo lleva su diálogo subtitulado, sincronizado con el segundo exacto de la escena, en una caja oscura con filete dorado abajo en el centro y el nombre de quien habla. Solo se ve mientras alguien habla y se retira cuando toca apuntar, para no tapar el blanco. Con el móvil de pie va debajo del vídeo.
   - Textos de la aventura revisados (título, elección de guía, instrucciones de cada prueba, reintento y final), en español, inglés y catalán.
