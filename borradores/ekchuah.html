@@ -47,6 +47,14 @@
   #pts{font:800 calc(var(--u)*2.6)/1 "Share Tech Mono",monospace;color:#ffe08a;text-shadow:0 0 calc(var(--u)*1) rgba(255,190,40,.7)}
   #aviso{position:absolute;left:50%;top:14%;transform:translateX(-50%);background:rgba(20,12,0,.82);border:calc(var(--u)*.2) solid #c9a13a;border-radius:calc(var(--u)*1);padding:calc(var(--u)*.8) calc(var(--u)*2);font:700 calc(var(--u)*2)/1.2 "Barlow Semi Condensed",sans-serif;color:#fff2c4;opacity:0;transition:opacity .3s;pointer-events:none;text-align:center;max-width:70%}
   #aviso.on{opacity:1}
+  /* v18.40 · subtítulos de los vídeos: caja oscura con filete dorado maya, abajo y centrada; solo se ve mientras alguien habla */
+  #subs{--u:calc(min(100vw,177.78vh)/100);position:fixed;left:50%;bottom:calc((100vh - min(100vh,56.25vw))/2 + var(--u)*2.6);transform:translateX(-50%);width:max-content;max-width:calc(var(--u)*76);background:rgba(12,8,2,.8);border:calc(var(--u)*.2) solid #c9a13a;border-radius:calc(var(--u)*1);box-shadow:inset 0 0 0 calc(var(--u)*.12) rgba(74,52,10,.9),0 calc(var(--u)*.5) calc(var(--u)*2) rgba(0,0,0,.6);padding:calc(var(--u)*.6) calc(var(--u)*2) calc(var(--u)*.8);font:600 max(15px,calc(var(--u)*1.7))/1.26 "Barlow Semi Condensed","Segoe UI",Arial,sans-serif;color:#fff;text-align:center;text-wrap:balance;text-shadow:0 1px 2px #000;opacity:0;transition:opacity .25s;pointer-events:none;z-index:4}
+  #subs.on{opacity:1}
+  #subs b{display:block;font-size:.7em;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#f0c75a;margin-bottom:.12em}
+  /* con el móvil de pie sobra pantalla bajo el vídeo: el subtítulo va ahí y no tapa la imagen */
+  @media (max-aspect-ratio:1/1){#subs{bottom:auto;top:calc(50vh + 28.125vw + 10px);max-width:94vw;font-size:max(16px,4.1vw)}}
+  /* rótulos de los arcos mientras se elige camino */
+  .rot{position:absolute;transform:translate(-50%,-100%);background:rgba(20,12,0,.82);border:calc(var(--u)*.18) solid #c9a13a;border-radius:calc(var(--u)*.8);padding:calc(var(--u)*.4) calc(var(--u)*1.2);font:700 max(12px,calc(var(--u)*1.7))/1.15 "Barlow Semi Condensed","Segoe UI",Arial,sans-serif;color:#ffe9a8;white-space:nowrap;pointer-events:none;z-index:3}
   #reint .gui,#fin .gui{height:calc(var(--u)*26)}
   #reint,#fin{background:radial-gradient(circle at 50% 45%,rgba(40,30,0,.55),rgba(0,0,0,.85))}
   #fin .res{display:flex;gap:calc(var(--u)*4);align-items:center}
@@ -64,14 +72,15 @@
   <canvas id="fx"></canvas>
   <div id="hud"><div class="gui" id="hudGui"></div><div class="ant" id="ant"></div><div id="pts">0</div></div>
   <div id="aviso"></div>
+  <div id="subs" role="status" aria-live="polite"><b id="subsQ"></b><span id="subsT"></span></div>
   <button type="button" id="saltar" class="peq" data-t="saltar">Saltar ▸</button>
   <div class="pan on" id="ini">
     <div class="esq"><button type="button" class="peq" data-lang="es">ES</button><button type="button" class="peq" data-lang="en">EN</button><button type="button" class="peq" data-lang="ca">CA</button><button type="button" class="peq" id="full" aria-label="Pantalla completa">⛶</button></div>
     <img class="tit" src="../juegos/ekchuah/titulo.webp" alt="El Misterio de Ek Chuah">
-    <button type="button" id="empezar" data-t="empezar">Comenzar aventura</button>
+    <button type="button" id="empezar" data-t="empezar">COMENZAR EXPEDICIÓN</button>
   </div>
   <div class="pan" id="guias">
-    <h2 data-t="elige">¿Quién te acompaña?</h2>
+    <h2 data-t="elige">Elige a tu guía explorador</h2>
     <div class="cards">
       <button type="button" class="card" data-g="chico"><img src="../juegos/ekchuah/guia-chico.webp" alt=""><b data-t="chico">Eduardo</b><span data-t="chicoD">El explorador del amuleto de diente de tiburón</span></button>
       <button type="button" class="card" data-g="chica"><img src="../juegos/ekchuah/guia-chica.webp" alt=""><b data-t="chica">Naomi</b><span data-t="chicaD">La exploradora de la guacamaya roja</span></button>
@@ -79,39 +88,49 @@
   </div>
   <div class="pan" id="reint">
     <img class="gui" id="reGui" alt="">
-    <h2 data-t="norinda">¡No te rindas!</h2>
-    <p class="sub"><b id="reNom"></b><span data-t="norindaD">La luz de Ek Chuah nos da otra oportunidad.</span></p>
-    <button type="button" id="recarga" data-t="recarga">Encender las antorchas</button>
+    <h2 data-t="norinda">¡No te rindas, explorador!</h2>
+    <p class="sub"><b id="reNom"></b><span data-t="norindaD">La luz de Ek Chuah recarga tus antorchas para intentarlo de nuevo.</span></p>
+    <button type="button" id="recarga" data-t="recarga">REINTENTAR PRUEBA</button>
   </div>
   <div class="pan" id="fin">
-    <h2 data-t="victoria">¡Lo has conseguido!</h2>
-    <div class="res"><img class="gui" id="finGui" alt=""><dl><dt data-t="puntos">Puntos</dt><dd id="finPts">0</dd><dt data-t="antorchas">Antorchas</dt><dd id="finAnt">3</dd><dt data-t="ruta">Ruta</dt><dd id="finRuta">—</dd></dl></div>
+    <h2 data-t="victoria">¡EXPEDICIÓN COMPLETADA!</h2>
+    <div class="res"><img class="gui" id="finGui" alt=""><dl><dt data-t="puntos">PUNTOS</dt><dd id="finPts">0</dd><dt data-t="antorchas">ANTORCHAS</dt><dd id="finAnt">3</dd><dt data-t="ruta">Ruta</dt><dd id="finRuta">—</dd></dl></div>
     <div class="tit2" id="finTit"></div>
-    <div class="fila"><button type="button" id="otra" data-t="otra">Volver a jugar (prueba la otra ruta)</button><button type="button" class="peq" id="terminar" data-t="terminar">Terminar</button></div>
+    <div class="fila"><button type="button" id="otra" data-t="otra">JUGAR DE NUEVO (PROBAR OTRA RUTA)</button><button type="button" class="peq" id="terminar" data-t="terminar">Terminar</button></div>
   </div>
 </div>
 <script>
 'use strict';
 /* ---------- textos (español, inglés y catalán) ---------- */
 const TX = {
-  es: { saltar: 'Saltar ▸', empezar: 'Comenzar aventura', elige: '¿Quién te acompaña?', chico: 'Eduardo', chicoD: 'El explorador del amuleto de diente de tiburón', chica: 'Naomi', chicaD: 'La exploradora de la guacamaya roja',
-    norinda: '¡No te rindas!', norindaD: 'La luz de Ek Chuah nos da otra oportunidad.', recarga: 'Encender las antorchas', victoria: '¡Lo has conseguido!', puntos: 'Puntos', antorchas: 'Antorchas', ruta: 'Ruta',
-    otra: 'Volver a jugar (prueba la otra ruta)', terminar: 'Terminar', rutaSol: 'Cacao dorado', rutaJade: 'Camino de jade',
-    apunta: '¡Apunta con el cetro y dispara!', arcos: 'Elige un camino: dispara a un arco', vasijas: 'Ilumina la vasija del sol', medallon: 'Apunta al medallón de jade', cristal: 'Ilumina el cristal del altar',
-    noVasija: '¡Esa no es la vasija solar! Inténtalo de nuevo', noMedallon: '¡Apunta al medallón de jade en su pecho!', noCristal: '¡Apunta al cristal del centro del altar!', tiempo: '¡Se acabó el tiempo!', porIzq: 'El guardián te guía por el arco del cacao',
-    t1: 'Aprendiz del templo', t2: 'Explorador de Copán', t3: 'Guardián del cacao', t4: 'Gran sabio de Ek Chuah', titJade: 'Amigo del Jaguar de Jade' },
-  en: { saltar: 'Skip ▸', empezar: 'Start the adventure', elige: 'Who comes with you?', chico: 'Eduardo', chicoD: 'The explorer with the shark-tooth amulet', chica: 'Naomi', chicaD: 'The explorer with the red macaw',
-    norinda: "Don't give up!", norindaD: 'The light of Ek Chuah gives us another chance.', recarga: 'Light the torches', victoria: 'You did it!', puntos: 'Points', antorchas: 'Torches', ruta: 'Path',
-    otra: 'Play again (try the other path)', terminar: 'Finish', rutaSol: 'Golden cacao', rutaJade: 'Jade path',
-    apunta: 'Aim the sceptre and shoot!', arcos: 'Choose a path: shoot an arch', vasijas: 'Light up the sun vessel', medallon: 'Aim at the jade medallion', cristal: 'Light up the altar crystal',
-    noVasija: "That's not the sun vessel! Try again", noMedallon: 'Aim at the jade medallion on its chest!', noCristal: 'Aim at the crystal in the centre of the altar!', tiempo: "Time's up!", porIzq: 'The guardian leads you through the cacao arch',
-    t1: 'Temple apprentice', t2: 'Copán explorer', t3: 'Cacao guardian', t4: 'Great sage of Ek Chuah', titJade: 'Friend of the Jade Jaguar' },
-  ca: { saltar: 'Salta ▸', empezar: "Comença l'aventura", elige: "Qui t'acompanya?", chico: 'Eduardo', chicoD: "L'explorador de l'amulet de dent de tauró", chica: 'Naomi', chicaD: "L'exploradora del guacamai vermell",
-    norinda: "No et rendeixis!", norindaD: "La llum d'Ek Chuah ens dona una altra oportunitat.", recarga: 'Encén les torxes', victoria: "Ho has aconseguit!", puntos: 'Punts', antorchas: 'Torxes', ruta: 'Camí',
-    otra: "Torna a jugar (prova l'altre camí)", terminar: 'Acaba', rutaSol: 'Cacau daurat', rutaJade: 'Camí de jade',
-    apunta: 'Apunta amb el ceptre i dispara!', arcos: 'Tria un camí: dispara a un arc', vasijas: 'Il·lumina la gerra del sol', medallon: 'Apunta al medalló de jade', cristal: "Il·lumina el cristall de l'altar",
-    noVasija: "Aquesta no és la gerra solar! Torna-ho a provar", noMedallon: 'Apunta al medalló de jade del pit!', noCristal: "Apunta al cristall del centre de l'altar!", tiempo: "S'ha acabat el temps!", porIzq: "El guardià et guia per l'arc del cacau",
-    t1: 'Aprenent del temple', t2: 'Explorador de Copán', t3: 'Guardià del cacau', t4: "Gran savi d'Ek Chuah", titJade: 'Amic del Jaguar de Jade' } };
+  es: { saltar: 'Saltar ▸', saltarIntro: 'Saltar intro ▸', empezar: 'COMENZAR EXPEDICIÓN', elige: 'Elige a tu guía explorador', chico: 'Eduardo', chicoD: 'El explorador del amuleto de diente de tiburón', chica: 'Naomi', chicaD: 'La exploradora de la guacamaya roja',
+    norinda: '¡No te rindas, explorador!', norindaD: 'La luz de Ek Chuah recarga tus antorchas para intentarlo de nuevo.', recarga: 'REINTENTAR PRUEBA', victoria: '¡EXPEDICIÓN COMPLETADA!', puntos: 'PUNTOS', antorchas: 'ANTORCHAS', ruta: 'Ruta',
+    otra: 'JUGAR DE NUEVO (PROBAR OTRA RUTA)', terminar: 'Terminar', rutaSol: 'Cacao dorado', rutaJade: 'Camino de jade', arcoIzq: 'Arco del Cacao Dorado', arcoDer: 'Camino de Jade',
+    apunta: '¡Apunta con el cetro y dispara!', arcos: '¡Apunta y dispara con el cetro al arco que elijas!', vasijas: '¡Ilumina la vasija central con el emblema solar!', medallon: '¡Apunta al medallón de jade en el pecho del jaguar!', cristal: '¡Dispara el rayo del cetro al cristal solar del altar!',
+    noAgua: '¡Esa es la vasija del agua! Busca el emblema solar en el centro.', noLuna: '¡Esa es la vasija lunar! Busca el emblema solar en el centro.', noVasija: '¡Busca el emblema solar en la vasija del centro!', noMedallon: '¡Casi! Apunta justo al medallón verde brillante en su pecho.', noCristal: '¡Apunta al cristal brillante en el centro del altar dorado!', tiempo: '¡Se acabó el tiempo!', porIzq: '¡El tiempo se agota! Entramos por el pasadizo del Cacao Dorado.',
+    rangoSol: 'Rango: Gran Guardián del Cacao de Copán', rangoJade: 'Rango: Maestro Astrónomo de la Serpiente Emplumada' },
+  en: { saltar: 'Skip ▸', saltarIntro: 'Skip intro ▸', empezar: 'START EXPEDITION', elige: 'Choose your explorer guide', chico: 'Eduardo', chicoD: 'The explorer with the shark-tooth amulet', chica: 'Naomi', chicaD: 'The explorer with the red macaw',
+    norinda: "Don't give up, explorer!", norindaD: "Ek Chuah's light recharges your torches so you can try again.", recarga: 'RETRY TRIAL', victoria: 'EXPEDITION COMPLETED!', puntos: 'SCORE', antorchas: 'TORCHES', ruta: 'Path',
+    otra: 'PLAY AGAIN (TRY THE OTHER PATH)', terminar: 'Finish', rutaSol: 'Golden cacao', rutaJade: 'Jade path', arcoIzq: 'Golden Cacao Arch', arcoDer: 'Jade Path',
+    apunta: 'Aim the scepter and shoot!', arcos: 'Aim and shoot the scepter at your chosen arch!', vasijas: 'Illuminate the center vessel with the solar emblem!', medallon: "Aim at the jade medallion on the jaguar's chest!", cristal: "Shoot the scepter's beam at the altar's solar crystal!",
+    noAgua: 'That is the water vessel! Look for the solar emblem in the center.', noLuna: 'That is the moon vessel! Look for the solar emblem in the center.', noVasija: 'Look for the solar emblem on the center vessel!', noMedallon: 'Almost! Aim right at the glowing green medallion on its chest.', noCristal: 'Aim at the glowing crystal in the center of the golden altar!', tiempo: "Time's up!", porIzq: 'Time is up! Entering through the Golden Cacao passage.',
+    rangoSol: "Rank: Grand Guardian of Copán's Cacao", rangoJade: 'Rank: Master Astronomer of the Feathered Serpent' },
+  ca: { saltar: 'Salta ▸', saltarIntro: 'Salta la intro ▸', empezar: "COMENÇA L'EXPEDICIÓ", elige: 'Tria el teu guia explorador', chico: 'Eduardo', chicoD: "L'explorador de l'amulet de dent de tauró", chica: 'Naomi', chicaD: "L'exploradora del guacamai vermell",
+    norinda: 'No et rendeixis, explorador!', norindaD: "La llum d'Ek Chuah recarrega les teves torxes per tornar-ho a provar.", recarga: 'TORNA A PROVAR', victoria: 'EXPEDICIÓ COMPLETADA!', puntos: 'PUNTS', antorchas: 'TORXES', ruta: 'Camí',
+    otra: "TORNA A JUGAR (PROVA L'ALTRA RUTA)", terminar: 'Acaba', rutaSol: 'Cacau daurat', rutaJade: 'Camí de jade', arcoIzq: 'Arc del Cacau Daurat', arcoDer: 'Camí de Jade',
+    apunta: 'Apunta amb el ceptre i dispara!', arcos: "Apunta i dispara amb el ceptre a l'arc que triïs!", vasijas: "Il·lumina la gerra central amb l'emblema solar!", medallon: 'Apunta al medalló de jade del pit del jaguar!', cristal: "Dispara el raig del ceptre al cristall solar de l'altar!",
+    noAgua: "Aquesta és la gerra de l'aigua! Busca l'emblema solar al centre.", noLuna: "Aquesta és la gerra lunar! Busca l'emblema solar al centre.", noVasija: "Busca l'emblema solar a la gerra del centre!", noMedallon: 'Gairebé! Apunta just al medalló verd brillant del pit.', noCristal: "Apunta al cristall brillant del centre de l'altar daurat!", tiempo: "S'ha acabat el temps!", porIzq: "El temps s'acaba! Entrem pel passadís del Cacau Daurat.",
+    rangoSol: 'Rang: Gran Guardià del Cacau de Copán', rangoJade: 'Rang: Mestre Astrònom de la Serp Emplomada' } };
+/* ---------- v18.40 · subtítulos de los vídeos, por escena y sincronizados con su currentTime (a y b, en segundos); q = quién habla ---------- */
+const SUBS = {
+  chico: [{ a: .8, b: 7.2, q: 'Eduardo', es: '¡Mira! El templo de Ek Chuah se está abriendo. Toma el cetro solar, ¡vamos antes de que se cierre!', en: "Look! The temple of Ek Chuah is opening. Take the solar scepter, let's go before it closes!", ca: "Mira! El temple d'Ek Chuah s'està obrint. Agafa el ceptre solar, anem abans que es tanqui!" }],
+  chica: [{ a: .8, b: 7.2, q: 'Naomi', es: '¡Mira! El templo de Ek Chuah se está abriendo. Toma el cetro solar, ¡vamos antes de que se cierre!', en: "Look! The temple of Ek Chuah is opening. Take the solar scepter, let's go before it closes!", ca: "Mira! El temple d'Ek Chuah s'està obrint. Agafa el ceptre solar, anem abans que es tanqui!" }],
+  alux: [{ a: 1, b: 8.8, q: { es: 'Guardián Alux', en: 'Alux Guardian', ca: 'Guardià Alux' }, es: '¡Alto ahí, viajeros! Soy el guardián de Ek Chuah. Si quieren pasar, iluminen con su cetro el arco del fruto sagrado... ¿o prefieren el camino de jade?', en: 'Halt, travelers! I am the guardian of Ek Chuah. If you wish to pass, illuminate the arch of the sacred fruit with your scepter... or do you prefer the jade path?', ca: "Alto aquí, viatgers! Soc el guardià d'Ek Chuah. Si voleu passar, il·lumineu amb el ceptre l'arc del fruit sagrat... o preferiu el camí de jade?" }],
+  cacao: [{ a: 2.2, b: 7.5, q: { es: 'Voz del Templo', en: 'Voice of the Temple', ca: 'Veu del Temple' }, es: 'Solo el emblema solar de Ek Chuah abrirá el paso al santuario.', en: 'Only the solar emblem of Ek Chuah will open the path to the sanctuary.', ca: "Només l'emblema solar d'Ek Chuah obrirà el pas al santuari." }],
+  jade: [{ a: 2.5, b: 7.8, q: { es: 'Voz del Guardián', en: 'Voice of the Guardian', ca: 'Veu del Guardià' }, es: '¡Ilumina el medallón de jade del guardián para demostrar que vienes en paz!', en: "Illuminate the guardian's jade medallion to prove you come in peace!", ca: 'Il·lumina el medalló de jade del guardià per demostrar que vens en pau!' }],
+  santuario: [{ a: 2, b: 8.5, q: 'Ek Chuah', es: '¡Habéis llegado al corazón del templo de Ek Chuah! Proyectad la luz del cetro sobre el cristal solar para completar la prueba.', en: "You have reached the heart of Ek Chuah's temple! Shine the light of the scepter onto the solar crystal to complete the trial.", ca: "Heu arribat al cor del temple d'Ek Chuah! Projecteu la llum del ceptre sobre el cristall solar per completar la prova." }],
+  finSol: [{ a: 2.2, b: 8.8, q: 'Ek Chuah', es: '¡La bendición de Ek Chuah os acompaña, nobles viajeros! El tesoro del conocimiento maya vuelve a brillar.', en: 'The blessing of Ek Chuah goes with you, noble travelers! The treasure of Mayan knowledge shines once again.', ca: "La benedicció d'Ek Chuah us acompanya, nobles viatgers! El tresor del coneixement maia torna a brillar." }],
+  finJade: [{ a: 2.2, b: 8.8, q: { es: 'Sabiduría Maya', en: 'Mayan Wisdom', ca: 'Saviesa Maia' }, es: '¡Habéis despertado la sabiduría celeste de los antiguos mayas! La armonía de Ek Chuah guiará siempre vuestro camino.', en: 'You have awakened the celestial wisdom of the ancient Mayans! The harmony of Ek Chuah will always guide your path.', ca: "Heu despertat la saviesa celeste dels antics maies! L'harmonia d'Ek Chuah guiarà sempre el vostre camí." }] };
 const EMB = /[?&]emb=1/.test(location.search), VQ = (location.search.match(/[?&]v=([\w.]+)/) || [])[1] || '1';
 let LG = (location.search.match(/[?&]lang=(es|en|ca)/) || [])[1];
 try { if (!LG && EMB) LG = parent.document.documentElement.lang; } catch (e) {}
@@ -147,12 +166,19 @@ const TRAMO = { alux: 'acertijo', cacao: 'galerias', jade: 'galerias', santuario
 /* ---------- vídeos: uno por escena, con el siguiente ya cargado ---------- */
 const VID = { intro: '00_intro_titulo', chico: '0a_intro_chico', chica: '0a_intro_chica', tunel: '0b_descenso_tunel', alux: '1a_acertijo_alux', cacao: '2a_pasadizo_cacao', jade: '2b_galeria_jade', santuario: '3a_santuario_ekchuah', finSol: '3b_final_victoria', finJade: '3b_final_jade' };
 const NEXT = { intro: ['chico', 'chica'], chico: ['tunel'], chica: ['tunel'], tunel: ['alux'], alux: ['cacao', 'jade'], cacao: ['santuario'], jade: ['finJade'], santuario: ['finSol'] };
-const POOL = {}; let actual = null;
+const POOL = {}; let actual = null, subK = '', subAct = null, subLg = '', rotK = '';
+/* el subtítulo que toca según el segundo del vídeo en pantalla; se quita solo cuando nadie habla, y también si taparía el blanco al que hay que apuntar */
+function subs() { let c = null; const v = actual;
+  if (v && subK && (E.esc === 'video' || E.esc === 'prueba') && v.classList.contains('on') && !v.ended) { const t = v.currentTime; c = (SUBS[subK] || []).find(q => t >= q.a && t <= q.b) || null; }
+  if (c && E.esc === 'prueba' && E.armado && PRUEBA[E.prueba].zonas.some(z => z.r[3] > 80 && z.r[0] < 70 && z.r[2] > 30)) c = null;
+  if (c !== subAct || subLg !== LG) { subAct = c; subLg = LG; const el = $('subs'); if (!c) el.classList.remove('on'); else { $('subsQ').textContent = typeof c.q === 'string' ? c.q : (c.q[LG] || c.q.es); $('subsT').textContent = c[LG] || c.es; el.classList.add('on'); } }
+  /* rótulos de los blancos que llevan nombre (los dos arcos), mientras se puede disparar */
+  const rk = E.esc === 'prueba' && E.armado ? E.prueba + LG : ''; if (rk !== rotK) { rotK = rk; document.querySelectorAll('.rot').forEach(n => n.remove()); if (rk) PRUEBA[E.prueba].zonas.forEach(z => { if (!z.rot) return; const d = document.createElement('div'); d.className = 'rot'; d.style.left = (z.r[0] + z.r[2]) / 2 + '%'; d.style.top = (z.r[3] - 2) + '%'; d.textContent = T(z.rot); st.appendChild(d); }); } }
 function vid(k) { if (POOL[k]) return POOL[k]; const v = document.createElement('video'); v.playsInline = true; v.setAttribute('playsinline', ''); v.preload = 'metadata'; v.src = '../juegos/ekchuah/' + VID[k] + '.mp4?v=' + VQ;
   if (k === 'finJade') v.addEventListener('error', () => { if (v.dataset.alt) return; v.dataset.alt = 1; v.src = '../juegos/ekchuah/' + VID.finSol + '.mp4?v=' + VQ; v.style.filter = 'hue-rotate(95deg) saturate(1.15)'; v.load(); if (v.dataset.want) v.play().catch(() => {}); }, true);   /* mientras no esté el final de jade, el dorado con tono esmeralda */
   st.insertBefore(v, cv); POOL[k] = v; return v; }
 function precarga(k) { (NEXT[k] || []).forEach(n => { const v = vid(n); if (v.preload !== 'auto') { v.preload = 'auto'; v.load(); } }); }
-function reproduce(k, alFinal) { const v = vid(k); precarga(k); v.muted = MUDO(); v.currentTime = 0; v.dataset.want = 1; v.onended = () => { v.dataset.want = ''; alFinal && alFinal(); }; const p = v.play(); if (p && p.catch) p.catch(() => { v.muted = true; v.play().catch(() => {}); });
+function reproduce(k, alFinal) { const v = vid(k); precarga(k); subK = k; v.muted = MUDO(); v.currentTime = 0; v.dataset.want = 1; v.onended = () => { v.dataset.want = ''; alFinal && alFinal(); }; const p = v.play(); if (p && p.catch) p.catch(() => { v.muted = true; v.play().catch(() => {}); });
   v.classList.add('on'); if (actual && actual !== v) { const a = actual; setTimeout(() => { a.classList.remove('on'); a.pause(); }, 360); } actual = v; $('bg').classList.remove('on'); return v; }
 
 /* ---------- estado del juego ---------- */
@@ -160,29 +186,29 @@ const E = { esc: 'ini', guia: '', pts: 0, ant: 3, prueba: null, armado: false, t
 const RUTA = { sol: 'rutaSol', jade: 'rutaJade' };
 /* zonas de disparo, en % del vídeo [x0, y0, x1, y1] (tecla D para verlas y ajustarlas) */
 const PRUEBA = {
-  alux: { t: 10, msg: 'arcos', zonas: [{ id: 'izq', r: [13, 9, 36, 84], col: '#ffc93a', ir: 'cacao', pts: 100, ruta: 'sol' }, { id: 'der', r: [63, 13, 89, 84], col: '#3bf3c8', ir: 'jade', pts: 100, ruta: 'jade' }], fueraNoCuenta: true, alAgotar: 'izq' },
-  cacao: { t: 8, msg: 'vasijas', zonas: [{ id: 'luna-izq', r: [5, 34, 31, 90], mal: 'noVasija' }, { id: 'sol', r: [36, 30, 64, 86], col: '#ffc93a', ir: 'santuario', pts: 300 }, { id: 'luna-der', r: [69, 34, 96, 90], mal: 'noVasija' }], fueraNoCuenta: true, malAgotar: 'noVasija' },
+  alux: { t: 10, msg: 'arcos', zonas: [{ id: 'izq', r: [13, 9, 36, 84], col: '#ffc93a', ir: 'cacao', pts: 100, ruta: 'sol', rot: 'arcoIzq' }, { id: 'der', r: [63, 13, 89, 84], col: '#3bf3c8', ir: 'jade', pts: 100, ruta: 'jade', rot: 'arcoDer' }], fueraNoCuenta: true, alAgotar: 'izq' },
+  cacao: { t: 8, msg: 'vasijas', zonas: [{ id: 'agua', r: [5, 34, 31, 90], mal: 'noAgua' }, { id: 'sol', r: [36, 30, 64, 86], col: '#ffc93a', ir: 'santuario', pts: 300 }, { id: 'luna', r: [69, 34, 96, 90], mal: 'noLuna' }], fueraNoCuenta: true, malAgotar: 'noVasija' },
   jade: { t: 8, msg: 'medallon', zonas: [{ id: 'medallon', r: [43, 69, 60, 98], col: '#3bffb0', ir: 'finJade', pts: 300 }], malFuera: 'noMedallon', malAgotar: 'noMedallon' },
   santuario: { t: 8, msg: 'cristal', zonas: [{ id: 'cristal', r: [43, 19, 58, 57], col: '#ffe08a', ir: 'finSol', pts: 500 }], malFuera: 'noCristal', malAgotar: 'noCristal' } };
 function puntos(v) { E.pts = Math.max(0, E.pts + v); $('pts').textContent = String(E.pts).padStart(5, '0'); manda({ t: 'pts', v: E.pts }); }
 function antorchas() { const a = $('ant'); if (a.children.length !== 3) { a.innerHTML = ''; for (let i = 0; i < 3; i++) { const im = new Image(); im.src = '../juegos/ekchuah/antorcha.webp'; im.alt = ''; a.appendChild(im); } } [...a.children].forEach((im, i) => im.classList.toggle('off', i >= E.ant)); }
 let avT = 0; function aviso(t, ms) { const a = $('aviso'); a.textContent = t; a.classList.add('on'); clearTimeout(avT); avT = setTimeout(() => a.classList.remove('on'), ms || 2200); }
 function panel(id) { document.querySelectorAll('.pan').forEach(p => p.classList.toggle('on', p.id === id)); }
-function saltar(on, fn) { const b = $('saltar'); b.classList.toggle('on', !!on); b.onclick = on ? e => { e.stopPropagation(); SND.boton(); b.classList.remove('on'); fn(); } : null; }
+function saltar(on, fn, clave) { const b = $('saltar'); b.dataset.t = clave || 'saltar'; b.textContent = T(b.dataset.t); b.classList.toggle('on', !!on); b.onclick = on ? e => { e.stopPropagation(); SND.boton(); b.classList.remove('on'); fn(); } : null; }
 const manda = m => { if (EMB) try { parent.postMessage(m, location.origin); } catch (e) {} };
 
 /* ---------- escenas ---------- */
 function inicio() { E.esc = 'ini'; panel('ini'); $('hud').classList.remove('on'); $('bg').style.backgroundImage = 'url(../juegos/ekchuah/templo.webp)'; $('bg').classList.add('on'); saltar(false); portadaMus(); }
 /* v18.1 · en la pantalla del rótulo ya suena la portada en bucle (antes no sonaba nada hasta pulsar EMPEZAR); si el navegador aún no deja sonar, arranca con el primer toque o tecla */
 function portadaMus() { if (MUDO()) return; mus('portada', 1.2); const c = AC; if (c && c.state === 'suspended') { const go = () => { ac(); }; addEventListener('pointerdown', go, { once: true, capture: true }); addEventListener('keydown', go, { once: true, capture: true }); } }
-function intro() { mus('portada', .4); panel(''); E.esc = 'video'; reproduce('intro', eligeGuia); saltar(true, () => { const v = vid('intro'); v.currentTime = Math.max(0, v.duration - .05); }); }
+function intro() { mus('portada', .4); panel(''); E.esc = 'video'; reproduce('intro', eligeGuia); saltar(true, () => { const v = vid('intro'); v.currentTime = Math.max(0, v.duration - .05); }, 'saltarIntro'); }
 function eligeGuia() { saltar(false); E.esc = 'guias'; panel('guias'); }
 function conGuia(gu) { E.guia = gu; $('reNom').textContent = T(gu) + ': '; SND.boton(); panel(''); const im = '../juegos/ekchuah/guia-' + gu + '.webp'; $('hudGui').style.backgroundImage = 'url(' + im + ')'; $('reGui').src = im; $('finGui').src = im;
-  E.esc = 'video'; reproduce(gu, () => { E.esc = 'video'; reproduce('tunel', () => empiezaJuego()); saltar(true, () => { const v = vid('tunel'); v.currentTime = Math.max(0, v.duration - .05); }); }); saltar(true, () => { const v = vid(gu); v.currentTime = Math.max(0, v.duration - .05); }); }
+  E.esc = 'video'; reproduce(gu, () => { E.esc = 'video'; reproduce('tunel', () => empiezaJuego()); saltar(true, () => { const v = vid('tunel'); v.currentTime = Math.max(0, v.duration - .05); }, 'saltarIntro'); }); saltar(true, () => { const v = vid(gu); v.currentTime = Math.max(0, v.duration - .05); }, 'saltarIntro'); }
 function empiezaJuego() { saltar(false); E.ant = 3; antorchas(); puntos(0); $('hud').classList.add('on'); prueba('alux'); }
 function prueba(k) { mus(TRAMO[k] || 'acertijo'); const P = PRUEBA[k]; E.prueba = k; E.armado = false; E.tPrueba = 0; E.tMax = P.t; E.esc = 'prueba'; saltar(false); marcosCal();
   const v = reproduce(k, () => { E.armado = true; E.congelado = true; aviso(T(P.msg), 2600); });
-  E.congelado = false; v.ontimeupdate = () => { if (!E.armado && v.duration && v.currentTime >= v.duration - 3) { E.armado = true; aviso(T(P.msg), 2600); } }; }
+  E.congelado = false; v.ontimeupdate = () => { if (actual === v && E.prueba === k && !E.armado && v.duration && v.currentTime >= v.duration - 3) { E.armado = true; aviso(T(P.msg), 2600); } }; }
 function acierto(z) { const P = PRUEBA[E.prueba]; E.armado = false; SND.bien(); puntos(z.pts || 0); estallido(z, z.col || '#ffd23f', 90); if (z.ruta) E.ruta = z.ruta;
   const k = z.ir; setTimeout(() => { if (k === 'finSol' || k === 'finJade') { if (k === 'finJade') E.ruta = 'jade'; else if (!E.ruta) E.ruta = 'sol'; E.esc = 'video'; mus('final', 1.2); reproduce(k, final); saltar(true, () => { const v = vid(k); v.currentTime = Math.max(0, v.duration - .05); }); } else prueba(k); }, 700); }
 function fallo(clave) { if (E.bloq > 0) return; E.bloq = 1.1; SND.piedra(); temblor = .45; E.ant = Math.max(0, E.ant - 1); antorchas(); aviso(T(clave), 2400); E.tPrueba = 0;
@@ -190,7 +216,7 @@ function fallo(clave) { if (E.bloq > 0) return; E.bloq = 1.1; SND.piedra(); temb
 function recarga() { musApaga(false); SND.bien(); E.ant = 3; antorchas(); panel(''); E.esc = 'prueba'; E.armado = true; E.tPrueba = 0; aviso(T(PRUEBA[E.prueba].msg), 2400); }
 function agotado() { const P = PRUEBA[E.prueba]; if (P.alAgotar) { const z = P.zonas.find(q => q.id === P.alAgotar); aviso(T('porIzq'), 2400); acierto(z); return; } aviso(T('tiempo'), 1200); setTimeout(() => fallo(P.malAgotar), 500); }
 function final() { mus('cierre', 2.5); saltar(false); E.esc = 'fin'; E.armado = false; const bonus = E.ant * 100; puntos(bonus); $('finPts').textContent = E.pts; $('finAnt').textContent = E.ant + ' / 3'; $('finRuta').textContent = T(RUTA[E.ruta] || 'rutaSol');
-  $('finTit').textContent = E.ruta === 'jade' ? T('titJade') : T(E.pts >= 1100 ? 't4' : E.pts >= 800 ? 't3' : E.pts >= 500 ? 't2' : 't1'); panel('fin'); SND.bien(); manda({ t: 'pts', v: E.pts }); }
+  $('finTit').textContent = T(E.ruta === 'jade' ? 'rangoJade' : 'rangoSol');   /* v18.40 · el rango lo da la ruta (antes, cuatro títulos según los puntos) */ panel('fin'); SND.bien(); manda({ t: 'pts', v: E.pts }); }
 function otraVez() { SND.boton(); E.pts = 0; E.ruta = ''; puntos(0); E.ant = 3; antorchas(); panel(''); prueba('alux'); }
 $('empezar').addEventListener('click', e => { e.stopPropagation(); ac(); SND.boton(); intro(); });
 document.querySelectorAll('.card').forEach(b => b.addEventListener('click', e => { e.stopPropagation(); conGuia(b.dataset.g); }));
@@ -242,7 +268,9 @@ function tick(now) { const dt = Math.min(.05, (now - t0) / 1000); t0 = now; if (
   if (jugando && CET.complete && CET.naturalWidth) { const c = cetro(), h = c.L, w = h * CET.naturalWidth / CET.naturalHeight; x.save(); x.translate(c.px, c.py); x.rotate(c.a); x.shadowColor = 'rgba(0,0,0,.6)'; x.shadowBlur = 18; x.drawImage(CET, -w / 2, -h, w, h); x.restore();
     const gl = x.createRadialGradient(c.tx, c.ty, 1, c.tx, c.ty, H * .07); gl.addColorStop(0, 'rgba(255,230,150,.75)'); gl.addColorStop(1, 'rgba(255,200,60,0)'); x.save(); x.globalCompositeOperation = 'lighter'; x.fillStyle = gl; x.fillRect(c.tx - H * .08, c.ty - H * .08, H * .16, H * .16); x.restore();
     /* punto de mira */ const mx = PTR.x * W, my = PTR.y * H, R = H * .03; x.save(); x.strokeStyle = 'rgba(255,230,150,.9)'; x.lineWidth = 2; x.shadowColor = '#ffb020'; x.shadowBlur = 10; x.beginPath(); x.arc(mx, my, R, 0, 6.283); x.moveTo(mx - R * 1.5, my); x.lineTo(mx - R * .5, my); x.moveTo(mx + R * .5, my); x.lineTo(mx + R * 1.5, my); x.moveTo(mx, my - R * 1.5); x.lineTo(mx, my - R * .5); x.moveTo(mx, my + R * .5); x.lineTo(mx, my + R * 1.5); x.stroke(); x.restore(); }
+  subs();
   requestAnimationFrame(tick); }
+document.body.appendChild($('subs'));   /* fuera del escenario: de pie se coloca bajo el vídeo */
 idioma(LG); antorchas(); inicio(); mide(); requestAnimationFrame(tick);
 if (/[?&]prueba=(\w+)/.test(location.search)) { const k = location.search.match(/[?&]prueba=(\w+)/)[1]; conGuia('chica'); setTimeout(() => { saltar(false); E.ant = 3; antorchas(); $('hud').classList.add('on'); prueba(k); }, 50); }   /* para probar una prueba suelta: ?prueba=jade */
 window.EK = E;

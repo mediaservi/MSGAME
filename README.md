@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.39**
+**Versión actual: v18.40**
 
 ## Cómo se juega
 
@@ -38,7 +38,14 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **DIANA** *(en desarrollo)*: hachas y arco, dardos, el barreño de feria, tartazos y bomberos: cinco formas de acertar al centro.
 - **RUNAS** *(nuevo)*: dibuja runas en el aire con la mano delante de la cámara (o con el móvil o el ratón) para deshacer las sombras que van a por el cristal de Mevi; hasta 4 a la vez, jefe final y supermagia con los dos brazos arriba.
 
-## Cambios de la versión actual (v18.39)
+## Cambios de la versión actual (v18.40)
+- **El Misterio de Ek Chuah (borrador) · subtítulos y textos nuevos.**
+  - Cada vídeo lleva su diálogo subtitulado, sincronizado con el segundo exacto de la escena, en una caja oscura con filete dorado abajo en el centro y el nombre de quien habla. Solo se ve mientras alguien habla y se retira cuando toca apuntar, para no tapar el blanco. Con el móvil de pie va debajo del vídeo.
+  - Textos de la aventura revisados (título, elección de guía, instrucciones de cada prueba, reintento y final), en español, inglés y catalán.
+  - Los dos arcos llevan su nombre mientras se elige camino, cada vasija equivocada dice cuál es (la del agua o la de la luna) y el rango final depende de la ruta seguida.
+  - Corregido: al pasar de una prueba a la siguiente, el vídeo anterior podía dejar el blanco activo antes de tiempo.
+
+## Cambios de v18.39
 - **Juego nuevo: RUNAS · la magia de Mevi.** Las sombras bajan a por el cristal de Mevi, cada una con sus runas (raya, palo, uve, tejado, círculo y rayo). Se dibuja la runa en el aire y todas las sombras que la llevan se deshacen a la vez; las combinaciones suman combo. Dos veces por partida llega el Señor de las Sombras, con una fila de runas que hay que dibujar en orden. Al llenar la barra, la supermagia: los dos brazos arriba delante de la cámara (o el botón del móvil, o la barra espaciadora) limpian la pantalla.
   - Se juega con la mano (juntar pulgar e índice y dibujar), con el móvil (mantener el botón y moverlo) o con el ratón o el dedo. Con la cámara juegan hasta 4 a la vez, cada mano con su color.
   - Los jugadores se ven dentro de la pantalla como espíritus de luz (su esqueleto en neón), nunca su imagen.
