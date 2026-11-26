@@ -94,6 +94,10 @@
   #pFin dt{color:#d9c8ff}
   #pFin dd{margin:0;text-align:right;font:700 calc(var(--u)*1.9)/1 "Share Tech Mono",ui-monospace,monospace;color:#ffe27a}
   #pPausa{background:rgba(10,3,24,.7)}
+  #pIdioma{background:rgba(10,3,24,.8);z-index:10;gap:calc(var(--u)*1.2)}
+  #pIdioma h2{margin:0;font:400 calc(var(--u)*3.4)/1 LG,sans-serif;color:#fff;letter-spacing:.04em}
+  #idiomas{display:grid;grid-template-columns:repeat(6,calc(var(--u)*13.6));gap:calc(var(--u)*.6)}
+  #idiomas button.b{font:400 calc(var(--u)*1.2)/1.15 LIL,sans-serif;letter-spacing:0;padding:calc(var(--u)*.6) calc(var(--u)*.3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   #pPausa h2{margin:0;font:400 calc(var(--u)*5)/1 LG,sans-serif;color:#fff}
   #pie{position:absolute;left:0;right:0;bottom:calc(var(--u)*.6);text-align:center;font:500 calc(var(--u)*.95)/1 BSC5,BSC,sans-serif;color:rgba(255,255,255,.55);pointer-events:none;z-index:9}
   #pie.off{display:none}
@@ -135,7 +139,7 @@
   <div id="grito"></div>
   <div id="sub" role="status" aria-live="polite"><b>MEVI</b><span id="subT"></span></div>
   <div id="reti"><svg viewBox="-50 -50 100 100"><circle r="30" fill="none" stroke="rgba(255,255,255,.9)" stroke-width="5"/><circle class="anillo" r="40" fill="none" stroke="#56f700" stroke-width="9" stroke-linecap="round" stroke-dasharray="251.3" stroke-dashoffset="251.3" transform="rotate(-90)"/><circle r="6" fill="#ff4fb4" stroke="#fff" stroke-width="3"/><path d="M0 -46V-34M0 34V46M-46 0H-34M34 0H46" stroke="#fff" stroke-width="5" stroke-linecap="round"/></svg></div>
-  <div class="esq" id="esq"><button type="button" class="b" id="bVoz" title="Voz de Mevi">🔊</button><button type="button" class="b" id="bPausa">❚❚</button></div>
+  <div class="esq" id="esq"><button type="button" class="b" id="bIdioma" title="Idioma" style="display:none">🌐 ES</button><button type="button" class="b" id="bVoz" title="Voz de Mevi">🔊</button><button type="button" class="b" id="bPausa">❚❚</button></div>
   <div id="perga" role="dialog" aria-live="polite"><div class="hoja">
     <img id="pgTit" alt="MEVILAND" src="../juegos/logo_meviland.webp?v=18.43"><div id="pgSub"></div><div class="orla"></div>
     <div id="pgTxt"></div>
@@ -150,6 +154,7 @@
     <div class="niv" id="niv" style="display:none"></div>
     <div class="fila" id="lenguas" style="display:none"><button type="button" class="b" data-lang="es">ES</button><button type="button" class="b" data-lang="ca">CA</button><button type="button" class="b" data-lang="en">EN</button></div>
   </div>
+  <div class="pan" id="pIdioma"><h2 id="tIdioma">🌐</h2><div id="idiomas"></div><div class="fila"><button type="button" class="b" id="bIdiVuelve"></button></div></div>
   <div class="pan" id="pPausa"><h2 id="tPausa">PAUSA</h2><div class="fila"><button type="button" class="b" id="bSigue"></button><button type="button" class="b" id="bSalir"></button></div></div>
   <div class="pan" id="pFin"><h2 id="fTit"></h2><p id="fTxt"></p><dl id="fDl"></dl><div class="fila"><button type="button" class="b" id="bOtra"></button><button type="button" class="b" id="bMenu"></button></div></div>
   <div id="pie">MEVILAND · MSGAME · mediaservi.com</div>
@@ -157,9 +162,9 @@
 <script src="../lib/three.min.js"></script>
 <script src="../lib/gltf.js?v=18.41"></script>
 <script src="../lib/mevicara.js?v=18.37"></script>
-<script src="../lib/idioma.js?v=18.50"></script>
-<script src="meviland-motor.js?v=18.50"></script>
-<script src="meviland-salas.js?v=18.50"></script>
-<script src="meviland-mundo.js?v=18.50"></script>
+<script src="../lib/idioma.js?v=18.51"></script>
+<script src="meviland-motor.js?v=18.51"></script>
+<script src="meviland-salas.js?v=18.51"></script>
+<script src="meviland-mundo.js?v=18.51"></script>
 </body>
 </html>

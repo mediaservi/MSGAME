@@ -154,10 +154,10 @@ function puertaDe(tierra) {
 
 /* ======================= TÚNEL DE ENTRADA A CADA TIERRA ======================= */
 const TUN = {
-  fantasia: { tx: ['piedra', '#4a3a86', '#6a58a8'], suelo: '#2a1c56', luz: '#c8a8ff', sal: '#b98bff', nie: '#1a0d3a' },
-  absurdo: { tx: ['azulejo', '#2aa39a', '#d19a12'], suelo: '#8a1c6a', luz: '#ffd27a', sal: '#ffb060', nie: '#3a1040' },
-  golosinas: { tx: ['rayas', '#d8487f', '#e8c8a8'], suelo: '#8a4a22', luz: '#ffc890', sal: '#ff9a8a', nie: '#4a1432' },
-  feria: { tx: ['rayas', '#c22a3a', '#d8c2a0'], suelo: '#3a2416', luz: '#ffd27a', sal: '#ffb43a', nie: '#1c1040' }
+  fantasia: { tx: ['piedra', '#4a3a86', '#6a58a8'], suelo: '#2a1c56', luz: '#c8a8ff', sal: '#b98bff', nie: '#1a0d3a', por: ['#2a0f6a', '#9a6aff', '#f4e8ff'] },
+  absurdo: { tx: ['azulejo', '#2aa39a', '#d19a12'], suelo: '#8a1c6a', luz: '#ffd27a', sal: '#ffb060', nie: '#3a1040', por: ['#0b4a4a', '#2fd0c0', '#ffe08a'] },
+  golosinas: { tx: ['rayas', '#d8487f', '#e8c8a8'], suelo: '#8a4a22', luz: '#ffc890', sal: '#ff9a8a', nie: '#4a1432', por: ['#6a1040', '#ff6aa8', '#fff0e0'] },
+  feria: { tx: ['rayas', '#c22a3a', '#d8c2a0'], suelo: '#3a2416', luz: '#ffd27a', sal: '#ffb43a', nie: '#1c1040', por: ['#5a0f10', '#ff9a2a', '#fff4c0'] }
 };
 function tunel(k) {
   const T0 = TIERRAS[k], U = TUN[k], LAR = 20, RAD = 2.7; J.fase = 'tunel'; musica(T0.mus); lugar(t('t_' + k)); crono(null); barra(null); meta(null); MU.sel = null; retiAnillo(0);
@@ -179,21 +179,58 @@ function tunel(k) {
       else if (k === 'golosinas') { o = bola(.26, mat(['#e0408a', '#e8b22a', '#3f98e0', '#2fb85a', '#9a62e8'][i % 5], { roughness: .2 }), 12); o.scale.y = .8; o.position.set(s * (RAD - .4), .28, z); }
       else { o = new T.Mesh(new T.ConeGeometry(.2, .4, 3), mat(['#e0408a', '#e8b22a', '#3f98e0', '#2fb85a'][i % 4], { side: T.DoubleSide })); o.rotation.z = Math.PI; o.scale.z = .2; o.position.set(s * 1.5, 3.25, z); }
       g.add(o); if (k === 'fantasia') anim(dt => { o.rotation.y += dt * 1.5; }); }
-    /* la salida: una boca de luz del color de la tierra */
-    const ZS = -LAR + 2.6; const boca = new T.Mesh(new T.CircleGeometry(RAD, 32), new T.MeshBasicMaterial({ color: mezcla(U.sal, '#fff1d0', .45), fog: false })); boca.position.set(0, 1.1, ZS); g.add(boca);
-    const hal = brillo(U.sal, 12, .55); hal.material.fog = false; hal.position.set(0, 1.9, ZS + .3); g.add(hal); const ls = new T.PointLight(U.sal, 1.5, 16); ls.position.set(0, 2, ZS + 1.5); g.add(ls);
-    for (let i = 0; i < 8; i++) { const r = new T.Mesh(new T.PlaneGeometry(.5, 9), new T.MeshBasicMaterial({ color: U.sal, transparent: true, opacity: .1, depthWrite: false, blending: T.AdditiveBlending, side: T.DoubleSide, fog: false })); r.position.set(0, 1.6, ZS + .2); r.rotation.z = i / 8 * Math.PI; g.add(r); anim((dt, tt) => { r.rotation.z += dt * .12; r.material.opacity = .07 + Math.sin(tt * 2 + i) * .03; }); }
+    /* v18.51 · la salida: un portal en pie, con el aro propio de cada tierra y una superficie de luz que se mueve como el agua; se cruza andando */
+    const ZS = -LAR + 2.6, PR = 1.95, PY = 1.75;
+    const pared = new T.Mesh(new T.CircleGeometry(RAD + .15, 40), mat(mezcla(U.nie, '#000000', .3), { roughness: 1 })); pared.position.set(0, 1.1, ZS - .3); g.add(pared);
+    const hor = horizonte(PR - .16, U.por); hor.position.set(0, PY, ZS); g.add(hor); const aro = aroPortal(k, PR, T0.col, U); aro.position.set(0, PY, ZS + .06); g.add(aro);
+    const ls = new T.PointLight(U.por[1], 1.8, 14); ls.position.set(0, 1.8, ZS + 1.4); g.add(ls); const hal = brillo(U.por[1], 7, .25); hal.material.fog = false; hal.position.set(0, PY, ZS + .3); g.add(hal);
     /* se camina en primera persona: pasos, balanceo y la mirilla para curiosear */
-    MU.libre = true; MEVI.visible = true; let z = 1.6, paso = 0, pie = 0, fin = false; const vel = BOT || RAPIDO ? 9 : 3.1, ZF = ZS + 3.4;
+    MU.libre = true; MEVI.visible = true; let z = 1.6, paso = 0, pie = 0, fin = false; const vel = BOT || RAPIDO ? 9 : 3.1, ZF = ZS + .3, fov0 = CAM.fov;
     setTimeout(() => { if (J.fase === 'tunel') di(t('tunel_' + k)); }, 300);
     MU.upd = dt => { z -= vel * dt; paso += vel * dt * 2.1; const bob = Math.abs(Math.sin(paso)) * .07; if (Math.floor(paso / Math.PI) !== pie) { pie = Math.floor(paso / Math.PI); sint(70 + (pie % 2) * 12, .09, 'sine', .12); }
       CAM.position.set(Math.sin(paso * .5) * .06, 1.62 + bob, z); CAM.lookAt((PTR.x - .5) * 2.4, 1.7 + (.5 - PTR.y) * 1.4 + bob * .4, z - 6);
       aros.forEach(a => { const cerca = z - a.z < 7.5; a.k = clamp(a.k + (cerca ? dt * 3 : 0), 0, 1); const f = a.k < 1 && a.k > 0 && Math.sin(a.k * 40) < 0 ? .4 : a.k; a.ms.forEach(m => { m.emissiveIntensity = f * 2.4; }); a.pl.intensity = f * .9; });
-      hal.material.opacity = .45 + clamp((1.6 - z) / (1.6 - ZF), 0, 1) * .5; hal.scale.setScalar(12 + clamp((1.6 - z) / (1.6 - ZF), 0, 1) * 10);
-      if (!fin && z <= ZF) { fin = true; MU.upd = null; fx('nivel', .7); muro(); } };
+      const kk = clamp((ZS + 4.5 - z) / 4.2, 0, 1); hor.material.uniforms.k.value = kk; ls.intensity = 1.8 + kk * 2; hal.material.opacity = .25 + kk * .35; CAM.fov = fov0 + kk * kk * 24; CAM.updateProjectionMatrix();   /* al acercarse, la superficie se agita y la vista se abre */
+      if (!fin && z <= ZF) { fin = true; MU.upd = null; fx('nivel', .7); sint(196, .6, 'sine', .14); sint(392, .45, 'sine', .08); muro(); setTimeout(() => { CAM.fov = fov0; CAM.updateProjectionMatrix(); }, 470); } };
+
   }), U.nie);
 }
 
+/* v18.51 · superficie del portal: luz que ondula como el agua, del color de cada tierra; k (0–1) la agita al acercarse */
+function horizonte(r, cs) {
+  const srgb = h => new T.Color(h).convertLinearToSRGB(), u = { t: { value: 0 }, k: { value: 0 }, c1: { value: srgb(cs[0]) }, c2: { value: srgb(cs[1]) }, c3: { value: srgb(cs[2]) } };
+  const m = new T.ShaderMaterial({ uniforms: u,
+    vertexShader: `uniform float t, k; varying vec2 vUv;
+      void main() { vUv = uv; vec3 p = position; vec2 q = uv * 2. - 1.; float r = min(1., length(q));
+        p.z += (sin(r * 14. - t * 4.) * (.035 + k * .09) + k * .25 * (1. - r * r)) * (1. - r); gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.); }`,
+    fragmentShader: `uniform float t, k; uniform vec3 c1, c2, c3; varying vec2 vUv;
+      void main() { vec2 p = vUv * 2. - 1.; float r = length(p); if (r > 1.) discard; float a = atan(p.y, p.x);
+        float w = sin(r * 22. - t * (3.2 + k * 3.) + sin(a * 3. + t) * .6) * .5 + .5; vec2 q = p * 5.; float c = 0.;
+        for (int i = 0; i < 3; i++) { q = vec2(q.x + sin(q.y * 1.7 + t * .9 + float(i)), q.y + sin(q.x * 1.3 - t * .7 + float(i) * 1.7)); c += abs(sin(q.x) * sin(q.y)); }
+        c = pow(1. - c / 3., 3.); float gl = 1. - r;
+        vec3 col = mix(c1, c2, clamp(w * .5 + c * .7, 0., 1.)); col = mix(col, c3, clamp(c * 1.3 * (.35 + gl * .65) + pow(gl, 3.) * .4 + k * .2, 0., 1.));
+        col += c3 * smoothstep(.84, 1., r) * .55; gl_FragColor = vec4(col, 1.); }` });
+  const h = new T.Mesh(new T.PlaneGeometry(r * 2, r * 2, 48, 48), m); anim(dt => { u.t.value += dt; }); return h;
+}
+/* el aro de cada portal, con los adornos de su tierra: cristales (Fantasía), relojes (Absurdo), golosinas (Golosinas) y bombillas (Feria) */
+function aroPortal(k, R, col, U) {
+  const G = new T.Group(), gr = .24;
+  if (k === 'golosinas') { const tx = lz(512, 32, (q, w, h) => { q.fillStyle = '#fff4ea'; q.fillRect(0, 0, w, h); q.fillStyle = '#e0407a'; for (let x = -32; x < w + 32; x += 32) { q.beginPath(); q.moveTo(x, 0); q.lineTo(x + 16, 0); q.lineTo(x + 32, h); q.lineTo(x + 16, h); q.closePath(); q.fill(); } }); tx.wrapS = T.RepeatWrapping; tx.repeat.set(6, 1); G.add(new T.Mesh(new T.TorusGeometry(R, gr, 14, 64), mat('#ffffff', { map: tx, roughness: .25 }))); }
+  else if (k === 'absurdo') { for (let i = 0; i < 12; i++) { const s2 = new T.Mesh(new T.TorusGeometry(R, gr, 12, 8, Math.PI * 2 / 12), mat(i % 2 ? '#d19a12' : '#2aa39a', { roughness: .35, metalness: .3 })); s2.rotation.z = i * Math.PI * 2 / 12; G.add(s2); } }
+  else if (k === 'feria') G.add(new T.Mesh(new T.TorusGeometry(R, gr, 14, 64), mat('#b8202e', { roughness: .35, metalness: .45 })));
+  else G.add(new T.Mesh(new T.TorusGeometry(R, gr, 14, 64), mat('#d8d0ff', { roughness: .2, metalness: .85, emissive: '#5a3aa0', emissiveIntensity: .35 })));
+  const filo = new T.Mesh(new T.TorusGeometry(R - gr * .9, .05, 8, 64), new T.MeshBasicMaterial({ color: U.por[2], fog: false })); G.add(filo);   /* filo de luz por dentro */
+  const n = k === 'feria' ? 18 : 9, bombillas = [];
+  for (let i = 0; i < n; i++) { const a = Math.PI / 2 + i / n * Math.PI * 2, x = Math.cos(a) * (R + .05), y = Math.sin(a) * (R + .05); let o;
+    if (k === 'fantasia') { o = new T.Mesh(new T.OctahedronGeometry(.17), mat('#e8d0ff', { emissive: '#b07bff', emissiveIntensity: 1.2, roughness: .1 })); o.scale.y = 1.8; o.rotation.z = a - Math.PI / 2; }
+    else if (k === 'absurdo') { o = new T.Group(); const d = cil(.2, .2, .07, mat('#f2e6cc'), 18); d.rotation.x = Math.PI / 2; o.add(d); const ag = caja(.025, .15, .02, matB('#2a0b4a')); ag.position.set(0, .06, .05); ag.rotation.z = i; o.add(ag); }
+    else if (k === 'golosinas') { o = bola(.15, mat(['#e0408a', '#e8b22a', '#3f98e0', '#2fb85a', '#9a62e8'][i % 5], { roughness: .2 }), 12); o.scale.z = .7; }
+    else { const mm = new T.MeshStandardMaterial({ color: '#6a5a3a', emissive: '#ffd27a', emissiveIntensity: 2, roughness: .3 }); o = bola(.08, mm, 8); bombillas.push(mm); }
+    o.position.set(x, y, .18); G.add(o); }
+  if (bombillas.length) anim((dt, tt) => bombillas.forEach((m2, i) => { m2.emissiveIntensity = (Math.floor(tt * 8) + i) % 3 === 0 ? .4 : 2.4; }));   /* bombillas que corren, como en la feria */
+  if (k === 'fantasia') anim(dt => { G.rotation.z += dt * .08; });
+  sombra(G); return G;
+}
 /* ======================= MUROS DE PUERTAS ======================= */
 function muro() {
   const k = J.tierra, T0 = TIERRAS[k], n = J.muro || 0, U = TUN[k]; J.muro = n + 1; J.fase = 'puertas'; musica(T0.mus); lugar(t('t_' + k)); crono(null); barra(null); meta(null);
@@ -218,7 +255,7 @@ function muro() {
     if (n === 0) { /* recién salidos del túnel: unos pasos más y se desvela la tierra */
       MU.cam.p.set(0, 1.75, 15); MU.cam.m.set(0, 4.4, -6); MU.cp.copy(MU.cam.p); MU.cm.copy(MU.cam.m); setTimeout(() => viaje(new T.Vector3(0, 1.9, CZ), new T.Vector3(0, 2.6, -6), BOT || RAPIDO ? .5 : 2.6, habla), 60);
     } else setTimeout(habla, 500);
-  }), n === 0 ? mezcla(U.sal, '#fff1d0', .45) : T0.col);
+  }), n === 0 ? `radial-gradient(circle at 50% 46%, ${U.por[2]} 0%, ${U.por[1]} 28%, ${U.por[0]} 70%, ${U.nie} 100%)` : T0.col);   /* v18.51 · al cruzar el portal, su luz llena la vista (no un destello blanco) */
 }
 function abrePuerta(d, gp, elige) {
   const op = d.userData.op;
@@ -262,19 +299,20 @@ function gesto(p, cual) { const A = p.userData.A; if (!A) return; if (!GESTOS[cu
 /* un personaje de los extra, a su altura real y pisando el suelo */
 function persona(g, k, alto, x, z, ry, que) { if (!MOD[k]) return null; const p = pon(g, k, alto, x, 0, z, { ry: ry || 0, mide: true }); gesto(p, que || 'quieto'); const ac = p.userData.act; if (ac) ac.time = rnd(0, 2); return p; }
 /* los dos soldados de la guardia, a los lados del portón del castillo */
-function guardia(g, PZ) { const esc = MU.g; conExtra(['soldado1', 'soldado2'], () => { if (MU.g !== esc) return; [['soldado1', -3.4], ['soldado2', 3.4]].forEach(([k, x]) => { const s2 = persona(g, k, 2.05, x, PZ + 3.5, x < 0 ? .12 : -.12, 'guardia'); if (!s2) return; const pe = cil(.62, .7, .16, mat('#8f7868', { roughness: .9 }), 12); pe.position.set(x, .08, PZ + 3.5); pe.receiveShadow = true; g.add(pe); s2.position.y = .16; }); }); }
+function guardia(g, PZ) { const esc = MU.g; conExtra(['soldado1', 'soldado2'], () => { if (MU.g !== esc) return; [['soldado1', -3.4], ['soldado2', 3.4]].forEach(([k, x]) => { const s2 = persona(g, k, 2.05, x, PZ + 3.5, x < 0 ? .12 : -.12, 'guardia'); if (!s2) return; const pe = cil(.62, .7, .16, mat('#8f7868', { roughness: .9 }), 12); pe.position.set(x, .08, PZ + 3.5); obstaculo(x, PZ + 3.5, .8); pe.receiveShadow = true; g.add(pe); s2.position.y = .16; }); }); }
 /* paseantes del patio: van y vienen por el empedrado sin cruzarse con la fuente ni salirse de la vista */
 function paseantes(g) {
   /* cada ruta es un circuito despejado: lejos de la fuente (radio 3), de las farolas, de los árboles, de las puertas y del sitio de Mevi */
   const esc = MU.g, RUTAS = [['sonia', 1.75, [[-7.2, 1.6], [-11.4, -1.4], [-11.2, -7.6], [-7.2, -8.2], [-5.4, -4.2]]], ['josep', 1.85, [[-6.2, 2.6], [-10.2, -.6], [-10, -6.8], [-6.4, -7], [-4.6, -3.4]]],
     ['hechicera', 1.8, [[7.4, -8.2], [11.2, -7.6], [11.6, -1.8], [7.6, .4], [5.2, -4.4]]], ['aldeana', 1.7, [[2.2, -8.4], [-2.4, -8.6], [-2.6, -12.8], [2.4, -12.6]]]];
-  RUTAS.forEach(([k, alto, ruta], n) => conExtra([k], () => { if (MU.g !== esc) return; const p = persona(g, k, alto, ruta[0][0], ruta[0][1], 0, 'anda'); if (!p) return; let i = 0, pausa = 0; const v = .95 + n * .06, d = new T.Vector3(), sig = () => ruta[(i + 1) % ruta.length];
+  RUTAS.forEach(([k, alto, ruta], n) => conExtra([k], () => { if (MU.g !== esc) return; const p = persona(g, k, alto, ruta[0][0], ruta[0][1], 0, 'anda'); if (!p) return; const yo = cuerpo(() => p.position, .38); let i = 0, pausa = 0, atasco = 0; const v = .95 + n * .06, d = new T.Vector3(), sig = () => ruta[(i + 1) % ruta.length];
     p.rotation.y = Math.atan2(sig()[0] - p.position.x, sig()[1] - p.position.z);
     anim(dt => { const o = sig(); d.set(o[0] - p.position.x, 0, o[1] - p.position.z); const L = d.length(), ry = Math.atan2(d.x, d.z); let dr = ry - p.rotation.y; while (dr > Math.PI) dr -= 6.283; while (dr < -Math.PI) dr += 6.283;
       if (pausa > 0) { pausa -= dt; if (pausa <= 0) gesto(p, 'anda'); return; }
       p.rotation.y += dr * Math.min(1, dt * 4); if (Math.abs(dr) > .9) return;   /* primero se gira; no anda de lado ni marcha atrás */
       if (L < .2) { i = (i + 1) % ruta.length; if (Math.random() < .35) { pausa = rnd(2.5, 5); gesto(p, 'quieto'); } return; }
-      p.position.addScaledVector(d.normalize(), Math.min(L, v * dt)); }); }));
+      const paso = Math.min(L, v * dt); d.normalize(); const x0 = p.position.x, z0 = p.position.z; p.position.addScaledVector(d, paso);
+      if (apartado(p.position, .38, yo)) { const av = Math.hypot(p.position.x - x0, p.position.z - z0); if (av < paso * .35) { p.position.set(x0, p.position.y, z0); p.position.x += d.z * paso; p.position.z -= d.x * paso; apartado(p.position, .38, yo); if ((atasco += dt) > 2.5) { atasco = 0; i = (i + 1) % ruta.length; } } else atasco = 0; }   /* v18.51 · bordea lo que tiene delante; si alguien le corta el paso, se aparta a su derecha */ }); }));
 }
 
 /* ======================= EL CASTILLO DE LAS ESTRELLAS =======================

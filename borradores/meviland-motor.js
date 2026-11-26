@@ -278,11 +278,12 @@ function pasaMevi(dt) {
     if (plano > 3 && plano < 11) MEVI.dest.copy(MV1).addScaledVector(MV3, tt2); else { const dd = clamp(plano, 3.4, 8); MEVI.dest.copy(MV1).addScaledVector(MV2, dd * .86).addScaledVector(MV3.set(-MV2.z, 0, MV2.x), dd * .5 * (CAM.aspect < 1 ? .5 : 1)); }
     MEVI.dest.y = MEVI.suelo; MEVI.alto = lerp(MEVI.alto, clamp(MEVI.dest.distanceTo(MV1) * .24, 1.15, 1.75), MEVI.salto ? 1 : Math.min(1, dt * 3)); CAM.getWorldPosition(MV1);
   }
+  if (window.apartado && MU.obs) { if (!MU.cuerpos.includes(MEVI.cu)) MEVI.cu = cuerpo(() => MEVI.visible && MEVI.modo !== 'camara' ? MEVI.p.position : null, .4); apartado(MEVI.dest, .4, MEVI.cu); }   /* v18.51 · su sitio, nunca dentro de la fuente ni de nadie */
   if (MEVI.salto) { p.position.copy(MEVI.dest); MEVI.salto = false; MEVI.anda = false; }
   const d = MV3.copy(MEVI.dest).sub(p.position); d.y = 0; const dist = d.length(); p.position.y = MEVI.dest.y;
   let ry;
   if (dist > (MEVI.anda ? .12 : .7)) {   /* camina hasta su sitio (si se queda muy atrás, corretea) */
-    const v = Math.min(dist, (dist > 4 ? 9 : dist > 1.5 ? 4.4 : 2.2) * dt); p.position.addScaledVector(d.normalize(), v); ry = Math.atan2(d.x, d.z);
+    const v = Math.min(dist, (dist > 4 ? 9 : dist > 1.5 ? 4.4 : 2.2) * dt); p.position.addScaledVector(d.normalize(), v); if (window.apartado && MU.obs) apartado(p.position, .4, MEVI.cu); ry = Math.atan2(d.x, d.z);
     if (!MEVI.anda) { MEVI.anda = true; if (MEVI.gesto <= 0) meviAnim('andar'); }
   } else { if (MEVI.anda) { MEVI.anda = false; if (MEVI.gesto <= 0) meviAnim('reposo'); } ry = Math.atan2(MV1.x - p.position.x, MV1.z - p.position.z) - .25; }   /* parada: mira a los jugadores, un poco de lado */
   let dr = ry - MEVI.mira; while (dr > Math.PI) dr -= Math.PI * 2; while (dr < -Math.PI) dr += Math.PI * 2; MEVI.mira += dr * Math.min(1, dt * 7); p.rotation.set(0, MEVI.mira, 0);

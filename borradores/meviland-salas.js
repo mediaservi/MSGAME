@@ -4,7 +4,7 @@
 /* ======================= TEXTOS (es / en / ca) ======================= */
 Object.assign(TX, {
   es: {
-    lema: 'EL PARQUE MÁGICO DE MEVI', cargando: 'Preparando el parque…', voz: 'Voz de Mevi',
+    lema: 'EL PARQUE MÁGICO DE MEVI', cargando: 'Preparando el parque…', voz: 'Voz de Mevi', idioma: 'IDIOMA', volver: 'VOLVER',
     m0: 'FÁCIL', m0e: 'Paseo', m0d: '2 Llaves Estelares. Sin prisas: ideal para peques.',
     m1: 'MEDIO', m1e: 'Aventura', m1d: '3 Llaves Estelares y puertas trampa.',
     m2: 'DIFÍCIL', m2e: 'Leyenda', m2d: '4 Llaves, el doble de pruebas, mutaciones y un secreto…',
@@ -52,7 +52,7 @@ Object.assign(TX, {
     dPuntos: 'Puntos', dLlaves: 'Llaves Estelares', dSalas: 'Pruebas superadas', dPatos: 'Patitos astronautas', dTiempo: 'Tiempo de visita'
   },
   en: {
-    lema: "MEVI'S MAGIC PARK", cargando: 'Getting the park ready…', voz: "Mevi's voice",
+    lema: "MEVI'S MAGIC PARK", cargando: 'Getting the park ready…', voz: "Mevi's voice", idioma: 'LANGUAGE', volver: 'BACK',
     m0: 'EASY', m0e: 'Stroll', m0d: '2 Star Keys. No rush: perfect for little ones.',
     m1: 'MEDIUM', m1e: 'Adventure', m1d: '3 Star Keys and trap doors.',
     m2: 'HARD', m2e: 'Legend', m2d: '4 Keys, twice the challenges, mutations and a secret…',
@@ -100,7 +100,7 @@ Object.assign(TX, {
     dPuntos: 'Points', dLlaves: 'Star Keys', dSalas: 'Challenges cleared', dPatos: 'Astronaut ducks', dTiempo: 'Visit time'
   },
   ca: {
-    lema: 'EL PARC MÀGIC DE LA MEVI', cargando: 'Preparant el parc…', voz: 'Veu de la Mevi',
+    lema: 'EL PARC MÀGIC DE LA MEVI', cargando: 'Preparant el parc…', voz: 'Veu de la Mevi', idioma: 'IDIOMA', volver: 'TORNA',
     m0: 'FÀCIL', m0e: 'Passeig', m0d: '2 Claus Estel·lars. Sense presses: ideal per als petits.',
     m1: 'MITJÀ', m1e: 'Aventura', m1d: '3 Claus Estel·lars i portes trampa.',
     m2: 'DIFÍCIL', m2e: 'Llegenda', m2d: '4 Claus, el doble de proves, mutacions i un secret…',
@@ -170,8 +170,21 @@ function lz(w, h, f, rep) { const tx = lienzo(w, h, f, rep); tx.userData.tmp = t
 function tira(g) { g.traverse(o => { if (o.geometry && !o.geometry.userData.mod) o.geometry.dispose(); const ms = o.material ? (Array.isArray(o.material) ? o.material : [o.material]) : []; ms.forEach(m => { ['map', 'emissiveMap', 'alphaMap'].forEach(k => { if (m[k] && m[k].userData && m[k].userData.tmp) m[k].dispose(); }); m.dispose(); }); }); }
 function nuevaEscena(f) {
   if (MU.g) { ESC.remove(MU.g); tira(MU.g); }
-  MU.g = new T.Group(); ESC.add(MU.g); MEVI.visible = true; MEVI.modo = 'sigue'; MEVI.salto = true; MEVI.suelo = 0; MEVI.dx = 2.7; MEVI.dz = 4.6; MEVI.alto = 1.15; MU.upd = null; MU.anim = []; MU.mx = []; MU.luz = []; MU.luzN = 0; MU.luzT0 = undefined; MU.yaLuz = false; MU.sel = null; MU.libre = false; MU.viaje = null; MU.mira = .16; ESC.fog = null;
+  MU.g = new T.Group(); ESC.add(MU.g); MU.vivos = []; MU.obs = []; MU.cuerpos = []; MEVI.visible = true; MEVI.modo = 'sigue'; MEVI.salto = true; MEVI.suelo = 0; MEVI.dx = 2.7; MEVI.dz = 4.6; MEVI.alto = 1.15; MU.upd = null; MU.anim = []; MU.mx = []; MU.luz = []; MU.luzN = 0; MU.luzT0 = undefined; MU.yaLuz = false; MU.sel = null; MU.libre = false; MU.viaje = null; MU.mira = .16; ESC.fog = null;
   f(MU.g); MU.cp.copy(MU.cam.p); MU.cm.copy(MU.cam.m);
+}
+/* v18.51 · nadie atraviesa nada: obstáculos fijos de cada escena (fuente, farolas, árboles, guardias…) y cuerpos que se mueven
+   (Mevi, los paseantes, la ardilla). apartado() saca un punto de todos ellos; libre() dice si un camino recto está despejado */
+function obstaculo(x, z, r) { MU.obs.push({ x, z, r }); }
+function cuerpo(pos, r) { const c = { pos, r }; MU.cuerpos.push(c); return c; }   /* pos(): su posición (o null si ahora no ocupa sitio) */
+function sepa(p, x, z, m) { const dx = p.x - x, dz = p.z - z, d = Math.hypot(dx, dz); if (d >= m) return false; if (d < 1e-4) p.x = x + m; else { p.x = x + dx / d * m; p.z = z + dz / d * m; } return true; }
+function apartado(p, r, yo) { let n = false; for (const b of MU.obs || []) n = sepa(p, b.x, b.z, b.r + r) || n; for (const c of MU.cuerpos || []) { if (c === yo) continue; const q = c.pos(); if (q) n = sepa(p, q.x, q.z, c.r + r) || n; } return n; }
+function libre(a, b, r, yo) { const v = new T.Vector3(); for (let i = 1; i <= 12; i++) { v.lerpVectors(a, b, i / 12); const x = v.x, z = v.z; if (apartado(v, r, yo) || Math.hypot(v.x - x, v.z - z) > 1e-3) return false; } return true; }
+/* v18.51 · rótulos pintados (carteles, letreros): si la traducción llega después de pintarlos, se repintan con ella */
+function vivo(txt, tx, pinta) { if (!TRD) return; (MU.vivos || (MU.vivos = [])).push({ src: VOZDE.get(txt) || txt, cur: txt, tx, pinta }); }
+function refrescaVivos() {
+  (MU.vivos || []).forEach(v => { const n = trd(v.src); if (n === v.cur) return; v.cur = n; const cv = v.tx.image, q = cv.getContext('2d'); q.save(); v.pinta(q, cv.width, cv.height, n); q.restore(); v.tx.needsUpdate = true; });
+  if (MU.lugarSrc && TRD) { const n = trd(MU.lugarSrc); if ($('lugar').textContent !== n) $('lugar').textContent = n; }
 }
 const anim = f => MU.anim.push(f);
 function pon(g, k, h, x, y, z, o) { const p = pieza(k, h, o); p.position.set(x, y, z); if (o && o.ry !== undefined) p.rotation.y = o.ry; g.add(p); if (p.userData.mx) MU.mx.push(p.userData.mx); if (!(o && o.vuela)) pisa(p, o && o.mide ? h : 0); return p; }
@@ -183,14 +196,14 @@ const bola = (r, m, s) => new T.Mesh(new T.SphereGeometry(r, s || 24, Math.max(8
 const cil = (r1, r2, h, m, s, abierto) => new T.Mesh(new T.CylinderGeometry(r1, r2, h, s || 24, 1, !!abierto), m);
 function sombra(o, c, r) { o.traverse(x => { if (x.isMesh) { x.castShadow = c !== false; x.receiveShadow = r !== false; } }); return o; }
 function cartel(txt, w, col, fondo, alto) {
-  const a = alto || .28, tx = lz(512, Math.round(512 * a), (q, W2, H2) => { if (fondo) { q.fillStyle = fondo; rr(q, 6, 6, W2 - 12, H2 - 12, H2 * .3); q.fill(); q.lineWidth = 8; q.strokeStyle = 'rgba(255,255,255,.85)'; q.stroke(); }
-    q.font = `${Math.round(H2 * .62)}px LG`; q.textAlign = 'center'; q.textBaseline = 'middle'; q.lineWidth = H2 * .12; q.strokeStyle = '#2a0b4a'; q.strokeText(txt, W2 / 2, H2 * .54); q.fillStyle = col || '#fff'; q.fillText(txt, W2 / 2, H2 * .54); });
+  const a = alto || .28, pinta = (q, W2, H2, txt) => { q.clearRect(0, 0, W2, H2); if (fondo) { q.fillStyle = fondo; rr(q, 6, 6, W2 - 12, H2 - 12, H2 * .3); q.fill(); q.lineWidth = 8; q.strokeStyle = 'rgba(255,255,255,.85)'; q.stroke(); }
+    q.font = `${Math.round(H2 * .62)}px LG`; q.textAlign = 'center'; q.textBaseline = 'middle'; q.lineWidth = H2 * .12; q.strokeStyle = '#2a0b4a'; q.strokeText(txt, W2 / 2, H2 * .54); q.fillStyle = col || '#fff'; q.fillText(txt, W2 / 2, H2 * .54); }, tx = lz(512, Math.round(512 * a), (q, W2, H2) => pinta(q, W2, H2, txt)); vivo(txt, tx, pinta);
   const m = new T.Mesh(new T.PlaneGeometry(w, w * a), new T.MeshBasicMaterial({ map: tx, transparent: true, depthWrite: false })); return m;
 }
 /* rótulo de sobrepuerta: tablón rústico de dos tablas con el canto ondulado, veta marcada y cuatro grapas de cuero con su clavo;
    el nombre va pintado en el color del mundo, aclarado y perfilado en oscuro para que se lea bien sobre la madera */
 function cartelMadera(txt, w, col) {
-  const tx = lz(768, 320, (q, W2, H2) => { q.clearRect(0, 0, W2, H2);
+  const pinta = (q, W2, H2, txt) => { q.clearRect(0, 0, W2, H2);
     const forma = () => { q.beginPath(); q.moveTo(46, 60); q.bezierCurveTo(200, 20, 330, 74, 470, 44); q.bezierCurveTo(580, 22, 660, 62, 726, 52); q.bezierCurveTo(744, 120, 744, 200, 728, 268); q.bezierCurveTo(600, 300, 470, 256, 330, 284); q.bezierCurveTo(220, 304, 120, 272, 44, 272); q.bezierCurveTo(22, 200, 24, 120, 46, 60); q.closePath(); };
     q.save(); q.shadowColor = 'rgba(0,0,0,.55)'; q.shadowBlur = 16; q.shadowOffsetY = 8; forma(); q.fillStyle = '#5a3a22'; q.fill(); q.restore();
     q.save(); forma(); q.clip(); const gr = q.createLinearGradient(0, 30, 0, 300); gr.addColorStop(0, '#7a5232'); gr.addColorStop(.48, '#6a4428'); gr.addColorStop(.52, '#4e3018'); gr.addColorStop(.56, '#6e4a2c'); gr.addColorStop(1, '#4a2e18'); q.fillStyle = gr; q.fillRect(0, 0, W2, H2);
@@ -200,7 +213,8 @@ function cartelMadera(txt, w, col) {
     q.restore(); forma(); q.strokeStyle = 'rgba(30,15,6,.8)'; q.lineWidth = 5; q.stroke();
     [[92, 62, -.15], [676, 62, .15], [92, 262, .15], [676, 262, -.15]].forEach(([x, y, a]) => { q.save(); q.translate(x, y); q.rotate(a); const gc = q.createLinearGradient(-22, 0, 22, 0); gc.addColorStop(0, '#4a2c16'); gc.addColorStop(.5, '#8a5c34'); gc.addColorStop(1, '#3e2410'); q.fillStyle = gc; rr(q, -22, -40, 44, 80, 12); q.fill(); q.strokeStyle = 'rgba(20,10,4,.7)'; q.lineWidth = 3; q.stroke(); const gm = q.createRadialGradient(-3, -3, 1, 0, 0, 11); gm.addColorStop(0, '#e8e2da'); gm.addColorStop(1, '#5a5660'); q.fillStyle = gm; q.beginPath(); q.arc(0, 0, 10, 0, 7); q.fill(); q.stroke(); q.restore(); });
     let tam = 150; q.textAlign = 'center'; q.textBaseline = 'middle'; do { tam -= 6; q.font = `${tam}px BSW, LIL, serif`; } while (q.measureText(txt).width > 520 && tam > 60);
-    q.lineJoin = 'round'; q.lineWidth = tam * .17; q.strokeStyle = '#1e0f08'; q.strokeText(txt, W2 / 2, 166); q.shadowColor = col; q.shadowBlur = 14; q.fillStyle = mezcla(col, '#fff4dc', .42); q.fillText(txt, W2 / 2, 166); q.shadowBlur = 0; q.fillStyle = 'rgba(255,255,255,.28)'; q.fillText(txt, W2 / 2, 162); });
+    q.lineJoin = 'round'; q.lineWidth = tam * .17; q.strokeStyle = '#1e0f08'; q.strokeText(txt, W2 / 2, 166); q.shadowColor = col; q.shadowBlur = 14; q.fillStyle = mezcla(col, '#fff4dc', .42); q.fillText(txt, W2 / 2, 166); q.shadowBlur = 0; q.fillStyle = 'rgba(255,255,255,.28)'; q.fillText(txt, W2 / 2, 162); };
+  const tx = lz(768, 320, (q, W2, H2) => pinta(q, W2, H2, txt)); vivo(txt, tx, pinta);
   const m = new T.Mesh(new T.PlaneGeometry(w, w * 320 / 768), new T.MeshStandardMaterial({ map: tx, transparent: true, alphaTest: .35, roughness: .8, emissive: '#ffffff', emissiveMap: tx, emissiveIntensity: .32 })); m.castShadow = true; return m;
 }
 function rr(q, x, y, w, h, r) { q.beginPath(); q.moveTo(x + r, y); q.arcTo(x + w, y, x + w, y + h, r); q.arcTo(x + w, y + h, x, y + h, r); q.arcTo(x, y + h, x, y, r); q.arcTo(x, y, x + w, y, r); q.closePath(); }
@@ -472,7 +486,7 @@ function pintaHud() {
   const ll = $('llaves'); ll.innerHTML = ''; for (let i = 0; i < necesarias(); i++) { const e = document.createElement('i'); e.style.backgroundImage = `url(${TEX.llave})`; if (i < J.llaves.length) e.className = 'si'; ll.appendChild(e); }
   $('ptsV').textContent = J.pts; $('ptsT').textContent = t('puntos') + (J.modo === 2 && J.patos ? '  ·  🦆 ' + J.patos : '');
 }
-function lugar(txt) { $('lugar').textContent = txt; }
+function lugar(txt) { $('lugar').textContent = txt; MU.lugarSrc = VOZDE.get(txt) || txt; }
 function crono(s) { const c = $('crono'); if (s === null) { c.textContent = ''; c.classList.remove('prisa'); return; } s = Math.max(0, Math.ceil(s)); c.textContent = Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); c.classList.toggle('prisa', s <= 10); }
 function barra(txt, k) { const b = $('barra'); if (txt === null) { b.classList.remove('on'); return; } b.classList.add('on'); $('barraT').textContent = txt; $('barraI').style.width = Math.round(clamp(k, 0, 1) * 100) + '%'; }
 function meta(items) { const m = $('meta'); if (!items) { m.classList.remove('on'); m.innerHTML = ''; return; } m.innerHTML = ''; items.forEach(it => { const s = document.createElement('span'); if (it.col) { s.className = 'col'; s.style.background = `radial-gradient(circle at 35% 30%, #fff, ${it.col} 45%, ${it.col})`; } else s.textContent = it.txt; if (it.ok) s.classList.add('ok'); m.appendChild(s); }); m.classList.add('on'); }
@@ -616,10 +630,10 @@ function ardilla(g, zona) {
   if (!TEX.ardilla) { TEX.ardilla = new T.TextureLoader().load('../juegos/diana/ardilla-anim.webp?v=18.33'); TEX.ardilla.encoding = T.sRGBEncoding; }
   const tx = TEX.ardilla.clone(); tx.needsUpdate = true; tx.repeat.set(.1, 1); const al = .62, m = new T.Mesh(new T.PlaneGeometry(al * 262 / 220, al), new T.MeshBasicMaterial({ map: tx, transparent: true, alphaTest: .35, side: T.DoubleSide })); g.add(m);
   const som = new T.Mesh(new T.CircleGeometry(.28, 16), new T.MeshBasicMaterial({ color: '#000000', transparent: true, opacity: .3, depthWrite: false })); som.rotation.x = -Math.PI / 2; g.add(som);
-  const P0 = new T.Vector3(), P1 = new T.Vector3(); let k = 1, espera = rnd(1, 3), dur = 1, sent = true; const nuevoDestino = () => { P0.copy(m.position); P1.set(rnd(zona[0], zona[1]), 0, rnd(zona[2], zona[3])); dur = Math.max(.6, P0.distanceTo(P1) / 3.4); k = 0; sent = false; };
-  m.position.set(rnd(zona[0], zona[1]), al / 2, rnd(zona[2], zona[3])); P1.copy(m.position);
+  const P0 = new T.Vector3(), P1 = new T.Vector3(); let k = 1, espera = rnd(1, 3), dur = 1, sent = true; const yo = cuerpo(() => m.position, .25), nuevoDestino = () => { P0.copy(m.position); P0.y = 0; for (let n = 0; n < 14; n++) { P1.set(rnd(zona[0], zona[1]), 0, rnd(zona[2], zona[3])); if (libre(P0, P1, .3, yo)) { dur = Math.max(.6, P0.distanceTo(P1) / 3.4); k = 0; sent = false; return; } } espera = rnd(.8, 1.6); };   /* v18.51 · salta solo por caminos despejados */
+  m.position.set(rnd(zona[0], zona[1]), al / 2, rnd(zona[2], zona[3])); apartado(m.position, .3, yo); P1.copy(m.position);
   anim((dt, tt) => { let fr;
-    if (k < 1) { k = Math.min(1, k + dt / dur); const d = P0.distanceTo(P1), botes = Math.max(1, Math.round(d / 1.1)), fase = (k * botes) % 1; m.position.lerpVectors(P0, P1, k); m.position.y = al / 2 + Math.sin(fase * Math.PI) * .22; fr = Math.floor(fase * 8) % 8; m.scale.x = P1.x >= P0.x ? 1 : -1; if (k >= 1) { espera = rnd(1.5, 4.5); sent = true; } }
+    if (k < 1) { k = Math.min(1, k + dt / dur); const d = P0.distanceTo(P1), botes = Math.max(1, Math.round(d / 1.1)), fase = (k * botes) % 1; m.position.lerpVectors(P0, P1, k); if (apartado(m.position, .25, yo)) { P0.copy(m.position); P1.copy(m.position); k = 1; espera = rnd(.6, 1.4); sent = true; } m.position.y = al / 2 + Math.sin(fase * Math.PI) * .22; fr = Math.floor(fase * 8) % 8; m.scale.x = P1.x >= P0.x ? 1 : -1; if (k >= 1) { espera = rnd(1.5, 4.5); sent = true; } }
     else { espera -= dt; m.position.y = al / 2; fr = 8 + (Math.floor(tt * 1.5) % 2); if (espera <= 0) nuevoDestino(); }
     tx.offset.x = fr * .1; m.rotation.y = Math.atan2(CAM.position.x - m.position.x, CAM.position.z - m.position.z); som.position.set(m.position.x, .04, m.position.z); });
   return m;
@@ -712,7 +726,7 @@ function plaza(op) {
     MU.cam.p.set(0, 2.3, 11.2); MU.cam.m.set(0, 4, -14); MU.mira = .14;
     const P = MU.plaza = { arcos: {}, slots: [], portal: null, remolino: null };
     /* fuente con la estatua de bronce de Mevi, coronada */
-    const fu = pon(g, 'fuente', 3.2, 0, 0, -2, { tinte: '#c9b8aa' }); fu.userData.tipo = 'fuente'; const est = estatuaMevi(g, 0, 3.02, -2, 1.5);
+    const fu = pon(g, 'fuente', 3.2, 0, 0, -2, { tinte: '#c9b8aa' }); fu.userData.tipo = 'fuente'; const est = estatuaMevi(g, 0, 3.02, -2, 1.5); { const bb = new T.Box3().setFromObject(fu); obstaculo(0, -2, Math.max(bb.max.x - bb.min.x, bb.max.z - bb.min.z) / 2 + .15); }
     const lf = new T.PointLight('#7fe0ff', 0, 9); lf.position.set(0, 1.6, -2); g.add(lf); const hf = brillo('#7fe0ff', 5, 0); hf.position.set(0, 1.3, -2); g.add(hf); prende(k => { lf.intensity = k * 1.4; hf.material.opacity = k * .3; }, .2);
     const agua = new T.Group(); g.add(agua); agua.position.set(0, 0, -2);
     for (let i = 0; i < 3; i++) { const ch = brillo('#bfefff', 1.6, .4); ch.position.set(0, 1.4 + i * .5, 0); agua.add(ch); }
@@ -739,11 +753,11 @@ function plaza(op) {
       P.arcos[k] = { A }; anim((dt, tt) => { if (hecho) return; const h = P.hover === k; A.userData.magia.fuerza = lerp(A.userData.magia.fuerza, h ? 1.8 : 1, Math.min(1, dt * 5)); A.userData.halo.material.opacity = .16 + pulso() * .08 + (h ? .22 : 0); A.userData.abre = h ? .1 : 0; });
     });
     /* el Maestro de Ceremonias da la bienvenida junto a la fuente */
-    const mc = pon(g, 'maestro', 1.9, -3.6, 0, -.6, { ry: .55, mide: true }); anima(mc, 'Idle'); P.maestro = mc;
+    const mc = pon(g, 'maestro', 1.9, -3.6, 0, -.6, { ry: .55, mide: true }); anima(mc, 'Idle'); P.maestro = mc; obstaculo(-3.6, -.6, .55);
     /* farolas de aceite con el estandarte del reino: se encienden una tras otra, de la fuente hacia el portón */
-    [[-9.3, -4.8], [9.3, -4.8], [-5.3, -10.4], [5.3, -10.4], [-12.2, 4.6], [12.2, 4.6]].forEach(([x, z], i) => farola(g, x, z, 4.4, .4 + i * .4, null, { luz: i < 2 && !LITE ? 9 : 0 }));
+    [[-9.3, -4.8], [9.3, -4.8], [-5.3, -10.4], [5.3, -10.4], [-12.2, 4.6], [12.2, 4.6]].forEach(([x, z], i) => { farola(g, x, z, 4.4, .4 + i * .4, null, { luz: i < 2 && !LITE ? 9 : 0 }); obstaculo(x, z, .45); });
     /* árboles en sus alcorques de piedra, al pie de la muralla (los del bosque de WONDERWALK) */
-    [[-12.5, -11.3, 'Pine_4', 6.4], [12.5, -11.3, 'Pine_4', 6.4], [-14.9, -2.2, 'CommonTree_5', 5.2], [14.9, -2.2, 'CommonTree_5', 5.2], [-16, 8, 'Pine_2', 6], [16, 8, 'Pine_2', 6]].forEach(([x, z, tp, al]) => { arbol(g, tp, x, z, al); const m = cil(.8, .9, .45, mat('#8f7868', { roughness: .9 }), 12); m.position.set(x, .22, z); m.castShadow = m.receiveShadow = true; g.add(m); });
+    [[-12.5, -11.3, 'Pine_4', 6.4], [12.5, -11.3, 'Pine_4', 6.4], [-14.9, -2.2, 'CommonTree_5', 5.2], [14.9, -2.2, 'CommonTree_5', 5.2], [-16, 8, 'Pine_2', 6], [16, 8, 'Pine_2', 6]].forEach(([x, z, tp, al]) => { arbol(g, tp, x, z, al); const m = cil(.8, .9, .45, mat('#8f7868', { roughness: .9 }), 12); m.position.set(x, .22, z); m.castShadow = m.receiveShadow = true; g.add(m); obstaculo(x, z, 1); });
     chispasAmbiente(g, LITE ? 40 : (MU.hora > .4 ? 130 : 60), '#ffd58a', 16);   /* luciérnagas */
     if (MU.hora < .9) { bandada(g, 7, 30, -90); bandada(g, 5, 38, -120); }
     ardilla(g, [-9, 9, -8, 3.5]); if (window.paseantes && !op.sinGente) { paseantes(g); guardia(g, PZ); }
@@ -1210,21 +1224,21 @@ function textosUI() {
   document.documentElement.lang = UL; cargaVoz(LG); pideTextos(); $('tLema').textContent = t('lema'); $('tPausa').textContent = t('pausa'); $('bSigue').textContent = t('sigue'); $('bSalir').textContent = t('salir'); $('bOtra').textContent = t('otra'); $('bMenu').textContent = t('terminar'); $('bVoz').title = t('voz');
   const niv = $('niv'); niv.innerHTML = ''; [0, 1, 2].forEach(m => { const d = document.createElement('div'); d.className = 'modo m' + m + (m === J.modo ? ' sel' : ''); d.tabIndex = 0; d.dataset.m = m; d.innerHTML = `<b>${t('m' + m)}</b><em>${t('m' + m + 'e')}</em><span>${t('m' + m + 'd')}</span><div class="ll">${'<i></i>'.repeat(m + 2)}</div>`; d.querySelectorAll('.ll i').forEach(i => { i.style.backgroundImage = `url(${TEX.llave})`; }); d.onclick = () => empieza(m); d.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); empieza(m); } }; niv.appendChild(d); });
   document.querySelectorAll('#lenguas button').forEach(b => b.classList.toggle('sel', b.dataset.lang === LG));
-  $('pie').textContent = 'MEVILAND · MSGAME v18.50 2026 ' + trd(({ es: 'es un proyecto hecho con', en: 'is a project made with', ca: 'és un projecte fet amb' })[LG]) + ' 𑣲 by mediaservi.com';
-  $('bVoz').textContent = VOZ.on ? '🔊' : '🔇';
+  $('pie').textContent = 'MEVILAND · MSGAME v18.51 2026 ' + trd(({ es: 'es un proyecto hecho con', en: 'is a project made with', ca: 'és un projecte fet amb' })[LG]) + ' 𑣲 by mediaservi.com';
+  $('bVoz').textContent = VOZ.on ? '🔊' : '🔇'; $('bIdioma').textContent = '🌐 ' + UL.toUpperCase(); $('bIdioma').title = t('idioma'); $('tIdioma').textContent = '🌐 ' + t('idioma'); $('bIdiVuelve').textContent = t('volver');
 }
 function menu() {
-  J.fase = 'menu'; hud(false); barra(null); meta(null); musica(null); suena('amb', null); suena('mus', 'menu', { bucle: true, vol: .42 }); textosUI();   /* en los menús, el tema de metales */ $('cargaBox').style.display = 'none'; $('niv').style.display = 'flex'; $('lenguas').style.display = EMB ? 'none' : 'flex'; abre('pIni');
+  J.fase = 'menu'; hud(false); barra(null); meta(null); musica(null); suena('amb', null); suena('mus', 'menu', { bucle: true, vol: .42 }); textosUI();   /* en los menús, el tema de metales */ $('cargaBox').style.display = 'none'; $('niv').style.display = 'flex'; $('lenguas').style.display = 'none'; $('bIdioma').style.display = ''; abre('pIni');
   plaza({}); MU.libre = true; let a = 0; MU.upd = dt => { a += dt * .06; CAM.position.set(Math.sin(a) * 15, 4.5 + Math.sin(a * 2) * .6, -6 + Math.cos(a) * 17); CAM.lookAt(0, 3, -10); };
   MEVI.visible = true; MEVI.modo = 'fija'; MEVI.fijo.set(3.4, 0, 2.2); MEVI.salto = true; meviAnim('saluda', true);
   if (BOT && !/[?&]ver=/.test(location.search)) setTimeout(() => empieza(+((location.search.match(/[?&]bm=(\d)/) || [])[1] || J.modo)), 300);
 }
 function empieza(m) {
   au(); J.modo = m; J.llaves = []; J.pts = 0; J.combo = 0; J.patos = 0; J.salasOk = 0; J.salasN = 0; J.patoEn = {}; J.t0 = performance.now(); J.sala = null;
-  manda({ t: 'modo', v: ['facil', 'normal', 'dificil'][m] }); manda({ t: 'pts', v: 0 }); fx('listo'); abre(null); $('pie').classList.add('off'); J.fase = 'perga'; pergamino(() => { MU.libre = false; enPlaza('inicio'); });   /* primero, el pergamino de bienvenida */
+  manda({ t: 'modo', v: ['facil', 'normal', 'dificil'][m] }); manda({ t: 'pts', v: 0 }); fx('listo'); abre(null); $('pie').classList.add('off'); $('bIdioma').style.display = 'none'; J.fase = 'perga'; pergamino(() => { MU.libre = false; enPlaza('inicio'); });   /* primero, el pergamino de bienvenida */
 }
 const JUEGO = window.JUEGO = {
-  pausa() { if (J.fase === 'menu' || J.fase === 'fin' || J.fase === 'carga') return; PAUSA = !PAUSA; abre(PAUSA ? 'pPausa' : null); Object.values(PISTAS).forEach(p => { if (p) PAUSA ? p.a.pause() : p.a.play().catch(() => {}); }); if (PAUSA) { try { speechSynthesis.cancel(); } catch (e) {} if (VOZ.el) VOZ.el.pause(); AU.ac && AU.ac.suspend(); } else AU.ac && AU.ac.resume(); },
+  pausa() { if (J.fase === 'menu' || J.fase === 'fin' || J.fase === 'carga') return; PAUSA = !PAUSA; abre(PAUSA ? 'pPausa' : null); $('bIdioma').style.display = PAUSA ? '' : 'none'; Object.values(PISTAS).forEach(p => { if (p) PAUSA ? p.a.pause() : p.a.play().catch(() => {}); }); if (PAUSA) { try { speechSynthesis.cancel(); } catch (e) {} if (VOZ.el) VOZ.el.pause(); AU.ac && AU.ac.suspend(); } else AU.ac && AU.ac.resume(); },
   pausaExt(v) { PAUSA_EXT = v; Object.values(PISTAS).forEach(p => { if (p) v ? p.a.pause() : p.a.play().catch(() => {}); }); if (v && VOZ.el) VOZ.el.pause(); if (AU.ac) v ? AU.ac.suspend() : AU.ac.resume(); },
   jugadores(m) { J.nombres = Array.isArray(m.v) ? m.v.map(String) : []; },
   atras() { this.pausa(); }
@@ -1243,8 +1257,22 @@ function pideTextos() {
   if (TRD.nPedidos === v.length) return; TRD.nPedidos = v.length; TRD.pide(v);   /* (los textos de cada parte del juego se cargan por separado: se vuelve a pedir si hay más) */
   if (TRD.pedido) return; TRD.pedido = true;
   fetch('../packs/meviland/voz/' + LG + '-textos.json?v=18.50').then(r => r.ok ? r.json() : []).then(a => TRD.pide(a)).catch(() => {});
-  let tq = 0; TRD.listo(() => { clearTimeout(tq); tq = setTimeout(textosUI, 400); });
+  let tq = 0; TRD.listo(() => { clearTimeout(tq); tq = setTimeout(() => { textosUI(); refrescaVivos(); }, 400); });
 }
+/* v18.51 · selector de idioma (🌐, junto a la voz y la pausa): todos los idiomas de la consola. Dentro de MSGAME cambia también la consola */
+let idiVuelta = 'pIni';
+function abreIdiomas() {
+  const on = document.querySelector('.pan.on'); idiVuelta = on && on.id !== 'pIdioma' ? on.id : (J.fase === 'menu' ? 'pIni' : 'pPausa');
+  const L = (window.MSIDIOMA && MSIDIOMA.LISTA) || [['es', 'Español'], ['en', 'English'], ['ca', 'Català']], box = $('idiomas'); box.innerHTML = '';
+  L.forEach(([c, n]) => { const b = document.createElement('button'); b.type = 'button'; b.className = 'b' + (c === UL ? ' sel' : ''); b.textContent = n; b.lang = c; b.onclick = () => eligeIdioma(c); box.appendChild(b); });
+  abre('pIdioma');
+}
+function eligeIdioma(l) {
+  abre(idiVuelta); if (l === UL) return;
+  if (EMB) manda({ t: 'idioma', v: l }); else { try { localStorage.setItem('VJSHOW_LANG', l); } catch (e) {} }
+  ponIdioma(l);
+}
+$('bIdioma').onclick = () => { if ($('pIdioma').classList.contains('on')) abre(idiVuelta); else abreIdiomas(); }; $('bIdiVuelve').onclick = () => abre(idiVuelta);
 document.querySelectorAll('#lenguas button').forEach(b => b.onclick = () => { try { localStorage.setItem('VJSHOW_LANG', b.dataset.lang); } catch (e) {} ponIdioma(b.dataset.lang); });
 /* dentro de MSGAME el idioma se cambia en la consola (también desde AJUSTES con el juego abierto): se sigue al momento */
 if (window.MSIDIOMA) MSIDIOMA.sigue(l => { if (l !== UL) ponIdioma(l); });

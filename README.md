@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.50**
+**Versión actual: v18.51**
 
 ## Cómo se juega
 
@@ -39,7 +39,14 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **MEVILAND** *(nuevo)*: el reino de fantasía de Mevi, en 3D y en primera persona; la gran plaza de la muralla al atardecer, cuatro mundos (Fantasía, Absurdo, Golosinas y Feria) con tres salas cada uno, doce pruebas, puertas trampa y cuatro finales, uno secreto.
 - **RUNAS** *(nuevo)*: dibuja runas en el aire con la mano delante de la cámara (o con el móvil o el ratón) para deshacer las sombras que van a por el cristal de Mevi; hasta 4 a la vez, jefe final y supermagia con los dos brazos arriba.
 
-## Cambios de la versión actual (v18.50)
+## Cambios de la versión actual (v18.51)
+- **MEVILAND:**
+  - **Selector de idioma 🌐** en el menú, junto a la voz y la pausa (también en la pausa): todos los idiomas de la consola. Dentro de MSGAME cambia también el idioma de la consola.
+  - **Rótulos traducidos aunque la traducción llegue tarde:** los nombres de las puertas y los demás letreros se repintan en cuanto llega.
+  - **Nadie atraviesa nada:** la ardilla salta solo por caminos despejados; los paseantes bordean la fuente, las farolas, los árboles y a los demás (se apartan a su derecha si alguien les corta el paso); Mevi tampoco se mete en la fuente ni en nadie.
+  - **Salida de los túneles:** un portal en pie con una superficie de luz que ondula como el agua y se agita al acercarse; se cruza andando y su luz llena la vista (ya no hay destello blanco). Cada tierra tiene el suyo: aro de plata con cristales (Fantasía), aro de dos colores con relojes (Absurdo), aro de caramelo con golosinas (Golosinas) y aro rojo con bombillas que corren (Feria).
+
+### v18.50
 - **Norma de idiomas (para todos los juegos):**
   - **Textos y subtítulos en el idioma de la consola**, sea cual sea. Español, inglés y catalán van traducidos a mano; el resto, con traducción automática que se guarda en el aparato y, sin conexión, deja el texto en inglés (o en español para las lenguas de España).
   - **Voces:** catalán con la voz catalana; español, gallego, euskera y demás lenguas de España, con la española; el resto del mundo, con la inglesa.
