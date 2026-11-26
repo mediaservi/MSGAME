@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.41**
+**Versión actual: v18.42**
 
 ## Cómo se juega
 
@@ -36,10 +36,23 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 - **DIANA** *(en desarrollo)*: hachas y arco, dardos, el barreño de feria, tartazos y bomberos: cinco formas de acertar al centro.
-- **MEVILAND** *(nuevo)*: parque temático en 3D en primera persona con Mevi de anfitriona; cuatro tierras (Fantasía, Absurdo, Golosinas y Feria), diez pruebas, puertas trampa y cuatro finales, uno secreto.
+- **MEVILAND** *(nuevo)*: el reino de fantasía de Mevi, en 3D y en primera persona; un patio de armas al atardecer, cuatro mundos (Fantasía, Absurdo, Golosinas y Feria) con tres salas cada uno, doce pruebas, puertas trampa y cuatro finales, uno secreto.
 - **RUNAS** *(nuevo)*: dibuja runas en el aire con la mano delante de la cámara (o con el móvil o el ratón) para deshacer las sombras que van a por el cristal de Mevi; hasta 4 a la vez, jefe final y supermagia con los dos brazos arriba.
 
-## Cambios de la versión actual (v18.41)
+## Cambios de la versión actual (v18.42)
+- **MEVILAND pasa de parque a reino: «el reino de fantasía de Mevi».**
+  - **Pergamino de bienvenida** al empezar, escrito a pluma, con firma de Mevi y sello de lacre.
+  - **Patio de armas al atardecer.** La plaza es ahora el patio de una fortaleza: muralla de sillería, portón del castillo en el centro con sus dos torres, y las cuatro puertas de los mundos abiertas en la propia muralla, de madera con herrajes y un detalle de cada mundo, con su rótulo de tablón encima. Cada puerta tiene su magia de polvo de luz, distinta en cada mundo. Tras el portón se alza el Castillo de las Estrellas en lo alto de su cerro, inspirado libremente en el Castell de Montsoriu (Montseny): tres recintos amurallados y la torre del homenaje redonda.
+  - **Hora dorada y luces que se encienden.** Los exteriores van en hora dorada o al atardecer, con colores de valor medio (nada de blancos que deslumbren en proyección). Faroles de aceite, antorchas y ventanas se encienden uno tras otro al llegar a cada sitio, y la tarde avanza con cada Llave Estelar hasta la noche del final.
+  - **Detalles del reino:** estatua de bronce de Mevi, coronada, en la fuente; farolas de forja con llama y un pendón con la M gótica dorada; ventanas geminadas con vidriera; banderas que ondean (la catalana y la del visitante, según la región o el idioma del dispositivo, sin consultar ningún servicio externo); nubes, una bandada de aves, la ardilla de WONDERWALK, dos soldados de guardia y paseantes de las historias de Mevi.
+  - **Mevi es un personaje más del mundo:** camina a vuestro lado, pisa el suelo y da sombra. Todos los personajes con esqueleto se asientan en el suelo midiendo sus pies ya animados.
+  - **Mundos con tres salas encadenadas, también en Fácil.** Se entra por un túnel corto que se recorre andando en primera persona, decorado según el mundo, y al salir se desvela el mundo. Al superar una sala no se vuelve al patio: se pasa a un muro decorado con dos o tres puertas donde elegir (cada muro es distinto), con puertas trampa en Medio y Difícil y una puerta sorpresa en Fácil.
+  - **Dos salas nuevas:** Las Galletas Gemelas (parejas, en Golosinas) y La Caseta de Tiro (dianas doradas sí, moradas no, en la Feria).
+  - **Las Mevis del espejo están dentro del espejo:** se ven tras el cristal, recortadas por el marco.
+  - **Gran Desfile de verdad:** al abrir el portón se entra al patio de armas del castillo, de noche y en fiestas. Los reyes saludan desde el palco, el público llena las gradas y la comitiva pasa por la calle con sus carrozas, todos pisando el suelo. Preparado el hueco para la música del desfile.
+  - Probado con partidas completas en Fácil y Difícil. Pendiente: la voz grabada de Mevi (sigue la del navegador).
+
+### v18.41
 - **Juego nuevo: MEVILAND · el parque mágico de Mevi.** Un parque temático en 3D que se recorre en primera persona con Mevi de anfitriona: habla con subtítulos y voz, señala, salta y celebra cada acierto.
   - **Plaza de Mevi:** fuente con estatua, cuatro arcos (uno por tierra) y el Gran Portal con sus cerraduras de estrella. Se elige apuntando: mantener la mirilla sobre un arco o una puerta (o tocar).
   - **Cuatro tierras y diez pruebas:**

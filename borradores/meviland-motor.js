@@ -21,7 +21,7 @@ const manda = m => { if (EMB) try { parent.postMessage(m, location.origin); } ca
 
 /* ---------- render ---------- */
 const R = new T.WebGLRenderer({ canvas: CV, antialias: !LITE, powerPreference: 'high-performance' });
-R.outputEncoding = T.sRGBEncoding; R.toneMapping = T.ACESFilmicToneMapping; R.toneMappingExposure = 1.0;
+R.outputEncoding = T.sRGBEncoding; R.toneMapping = T.ACESFilmicToneMapping; R.toneMappingExposure = .92;
 R.shadowMap.enabled = !LITE; R.shadowMap.type = T.PCFSoftShadowMap;
 R.setPixelRatio(Math.min(LITE ? 1 : 1.75, window.devicePixelRatio || 1));
 const ESC = new T.Scene();
@@ -49,7 +49,7 @@ function texBrillo(col) { return lienzo(128, 128, (q) => { const g = q.createRad
 TEX.chispa = texBrillo('rgba(255,220,120,.8)');
 TEX.estrella = lienzo(128, 128, q => { q.fillStyle = '#fff'; estrella2D(q, 64, 66, 60, 24, 5); q.fill(); });
 TEX.humo = texBrillo('rgba(255,255,255,.35)');
-TEX.nube = lienzo(256, 128, q => { for (let i = 0; i < 9; i++) { const x = 40 + i * 22 + Math.random() * 10, y = 70 + Math.sin(i * 1.3) * 14, r = 30 + Math.random() * 22; const g = q.createRadialGradient(x, y, 0, x, y, r); g.addColorStop(0, 'rgba(255,255,255,.95)'); g.addColorStop(.6, 'rgba(255,255,255,.8)'); g.addColorStop(1, 'rgba(255,255,255,0)'); q.fillStyle = g; q.beginPath(); q.arc(x, y, r, 0, 7); q.fill(); } });
+TEX.nube = lienzo(256, 128, q => { for (let i = 0; i < 9; i++) { const x = 60 + i * 15 + Math.random() * 10, y = 64 + Math.sin(i * 1.3) * 8, r = 22 + Math.random() * 16; const g = q.createRadialGradient(x, y, 0, x, y, r); g.addColorStop(0, 'rgba(255,255,255,.95)'); g.addColorStop(.6, 'rgba(255,255,255,.8)'); g.addColorStop(1, 'rgba(255,255,255,0)'); q.fillStyle = g; q.beginPath(); q.arc(x, y, r, 0, 7); q.fill(); } });
 
 /* ---------- materiales ---------- */
 const mat = (c, o) => new T.MeshStandardMaterial(Object.assign({ color: c, roughness: .45, metalness: 0 }, o || {}));
@@ -61,7 +61,7 @@ function conMeshopt(f) { if (window.MeshoptDecoder) return window.MeshoptDecoder
 function cargaTodo(prog) {
   return new Promise(ok => conMeshopt(() => {
     const L = new T.GLTFLoader(); L.setMeshoptDecoder(window.MeshoptDecoder);
-    const todo = LISTA.map(n => [n, PK + n + '.glb?v=18.41']).concat([['mevi', '../packs/comun/mevi/mevi.glb?v=18.37']]);
+    const todo = LISTA.map(n => [n, PK + n + '.glb?v=18.41']).concat([['mevi', '../packs/comun/mevi/mevi.glb?v=18.37'], ['farol', '../packs/modelos/a3D-farol.glb?v=18.42'], ['corona', '../packs/modelos/a3D-corona.glb?v=18.42']]);
     let n = 0;
     todo.forEach(([k, u]) => L.load(u, g => { g.scene.traverse(o => { if (o.isMesh) { if (o.geometry) o.geometry.userData.mod = true; o.castShadow = true; o.receiveShadow = true; o.frustumCulled = false; const m = o.material; if (m && m.map) m.map.anisotropy = 4; } }); MOD[k] = g; n++; prog(n / todo.length); if (n === todo.length) ok(); }, undefined, () => { n++; prog(n / todo.length); if (n === todo.length) ok(); }));
   }));
@@ -89,6 +89,28 @@ function anima(p, nom, una, vuelta) {
 }
 /* esqueletos automáticos (gusano, chef): ondulación por código hueso a hueso */
 function ondula(p, tt, amp, vel) { const m = p.userData.malla; if (!m) return; if (!p.userData.huesos) { const hs = []; m.traverse(o => { if (o.isBone) hs.push(o); }); p.userData.huesos = hs; p.userData.h0 = hs.map(b => b.quaternion.clone()); } const hs = p.userData.huesos, q = new T.Quaternion(), e = new T.Euler(); hs.forEach((b, i) => { e.set(Math.sin(tt * vel + i * .55) * amp * .5, 0, Math.sin(tt * vel * .8 + i * .7) * amp); q.setFromEuler(e); b.quaternion.copy(p.userData.h0[i]).multiply(q); }); }
+
+/* pies en el suelo: la caja de un modelo con esqueleto se mide en la pose de reposo y, ya animado, puede quedar flotando o hundido.
+   Aquí se mide el punto más bajo de la malla ya animada (unas decenas de vértices de los pies) y se asienta en y = 0 del personaje. */
+const PIES = [], PV = new T.Vector3();
+function pisa(p, alto) {
+  const m = p.userData.malla; if (!m || p.userData.pies) return p; const sk = []; m.traverse(o => { if (o.isSkinnedMesh) sk.push(o); }); if (!sk.length) return p;
+  p.userData.pies = { sk, idx: null, n: 0, alto: 0, mide: alto || 0 }; PIES.push(p); return p;
+}
+function pasaPies() {
+  for (let i = PIES.length - 1; i >= 0; i--) {
+    const p = PIES[i], u = p.userData.pies, m = p.userData.malla; let raiz = p; while (raiz.parent) raiz = raiz.parent; if (raiz !== ESC) { PIES.splice(i, 1); p.userData.pies = null; continue; }
+    p.updateWorldMatrix(true, true); const esc = p.getWorldScale(PV).y || 1, y0 = p.getWorldPosition(PV).y; u.n++;
+    if (!u.idx || u.n % 240 === 0) {   /* se eligen los vértices más bajos de la pose actual (y se repasa de vez en cuando) */
+      const todos = []; u.sk.forEach((s, si) => { const n = s.geometry.attributes.position.count, paso = Math.max(1, Math.floor(n / 1500)); const pos = s.geometry.attributes.position; for (let v = 0; v < n; v += paso) { PV.fromBufferAttribute(pos, v); s.boneTransform(v, PV); PV.applyMatrix4(s.matrixWorld); todos.push([PV.y, si, v]); } });
+      todos.sort((a, b) => a[0] - b[0]); u.idx = todos.slice(0, 48).map(a => [a[1], a[2]]);
+      if (u.mide && todos.length) { const real = (todos[todos.length - 1][0] - todos[0][0]) / esc; if (real > .01) { m.scale.multiplyScalar(clamp(u.mide / real, .4, 3)); u.mide = 0; u.idx = null; u.n = 0; continue; } }   /* la altura pedida, medida de verdad */
+    }
+    let min = Infinity; for (let j = 0; j < u.idx.length; j++) { const s = u.sk[u.idx[j][0]]; PV.fromBufferAttribute(s.geometry.attributes.position, u.idx[j][1]); s.boneTransform(u.idx[j][1], PV); PV.applyMatrix4(s.matrixWorld); if (PV.y < min) min = PV.y; }
+    if (!isFinite(min)) continue; const d = (min - y0) / esc - u.alto;   /* lo que sobra (o falta) bajo los pies */
+    m.position.y -= u.n < 3 ? d : d * .6;
+  }
+}
 
 /* ---------- partículas (chispas, confeti, vapor) ---------- */
 const PART = [];
@@ -120,7 +142,7 @@ function pasaPart(dt) {
 /* ---------- sonido ---------- */
 const AU = { ac: null, master: null, mus: null, fx: null, bufs: {}, on: true };
 function au() { if (AU.ac) return AU.ac; try { const ac = new (window.AudioContext || window.webkitAudioContext)(); AU.ac = ac; AU.master = ac.createGain(); AU.master.gain.value = .9; AU.master.connect(ac.destination); AU.mus = ac.createGain(); AU.mus.gain.value = .32; AU.mus.connect(AU.master); AU.fx = ac.createGain(); AU.fx.gain.value = .8; AU.fx.connect(AU.master); cargaSonidos(); } catch (e) {} return AU.ac; }
-const SON = { pop: '../packs/comun/fx/pop.mp3', popg: '../packs/comun/fx/pop-grave.mp3', moneda: '../packs/comun/fx/moneda.mp3', nivel: '../packs/comun/fx/nivel.mp3', victoria: '../packs/comun/fx/victoria.mp3', error: '../packs/comun/fx/error.mp3', fallo: '../packs/comun/fx/fallo.mp3', sorpresa: '../packs/comun/fx/sorpresa.mp3', burbuja: '../packs/comun/fx/burbuja.mp3', splat: '../packs/comun/fx/splat.mp3', ooh: '../packs/comun/fx/ooh.mp3', puntos: '../packs/comun/fx/puntos.mp3', laser: '../packs/comun/fx/laser.mp3', parpadeo: '../packs/comun/fx/parpadeo.mp3', clic: '../sonidos/fx_buttonclick.mp3', premio: '../sonidos/fx_prize.mp3', ding: '../sonidos/fx_ding.mp3', globo: '../sonidos/fx_balloon_explosion.mp3', listo: '../sonidos/fx_ready.mp3' };
+const SON = { carta: '../packs/comun/fx/carta-1.mp3', pop: '../packs/comun/fx/pop.mp3', popg: '../packs/comun/fx/pop-grave.mp3', moneda: '../packs/comun/fx/moneda.mp3', nivel: '../packs/comun/fx/nivel.mp3', victoria: '../packs/comun/fx/victoria.mp3', error: '../packs/comun/fx/error.mp3', fallo: '../packs/comun/fx/fallo.mp3', sorpresa: '../packs/comun/fx/sorpresa.mp3', burbuja: '../packs/comun/fx/burbuja.mp3', splat: '../packs/comun/fx/splat.mp3', ooh: '../packs/comun/fx/ooh.mp3', puntos: '../packs/comun/fx/puntos.mp3', laser: '../packs/comun/fx/laser.mp3', parpadeo: '../packs/comun/fx/parpadeo.mp3', clic: '../sonidos/fx_buttonclick.mp3', premio: '../sonidos/fx_prize.mp3', ding: '../sonidos/fx_ding.mp3', globo: '../sonidos/fx_balloon_explosion.mp3', listo: '../sonidos/fx_ready.mp3' };
 function cargaSonidos() { Object.entries(SON).forEach(([k, u]) => fetch(u).then(r => r.arrayBuffer()).then(b => AU.ac.decodeAudioData(b)).then(d => { AU.bufs[k] = d; }).catch(() => {})); }
 function fx(k, vol, tono) { const ac = au(); if (!ac || !AU.on) return; const b = AU.bufs[k]; if (!b) { sint(k === 'error' ? 160 : 520, .12, 'square', .08); return; } const s = ac.createBufferSource(); s.buffer = b; if (tono) s.playbackRate.value = tono; const g = ac.createGain(); g.gain.value = vol === undefined ? 1 : vol; s.connect(g); g.connect(AU.fx); s.start(); manda({ t: 'fx', k }); }
 /* notas sintetizadas (el «Simón» de golosinas, la marimba de los aciertos) */
@@ -179,23 +201,52 @@ function grito(txt, ms) { const g = $('grito'); g.textContent = txt; g.classList
 function flota(txt, x, y, mal) { const d = document.createElement('div'); d.className = 'fl' + (mal ? ' mal' : ''); d.textContent = txt; d.style.left = x + 'px'; d.style.top = y + 'px'; ST.appendChild(d); setTimeout(() => d.remove(), 1000); }
 
 /* ---------- Mevi en 3D: la anfitriona que acompaña a los jugadores ---------- */
-const MEVI = { p: null, cara: null, A: {}, mx: null, act: null, t: 0, gesto: 0, sitio: new T.Vector3(1.02, -.66, -1.6), visible: true };
+/* Mevi no va pegada a la pantalla: es un personaje más del mundo. Camina por el suelo a la derecha de los jugadores, da sombra
+   y se gira hacia ellos cuando se paran. modo: 'sigue' (acompaña a la cámara) · 'fija' (se queda en MEVI.fijo) · 'camara' (a bordo, pegada a la cámara: la vagoneta) */
+const MEVI = { p: null, cara: null, A: {}, mx: null, act: null, t: 0, gesto: 0, sitio: new T.Vector3(1.02, -.66, -1.6), visible: true, modo: 'sigue', fijo: new T.Vector3(), alto: 1.15, dx: 2.7, dz: 4.6, suelo: 0, salto: true, anda: false, mira: 0, dest: new T.Vector3(), malla: null, blob: null };
 function montaMevi() {
-  const g = MOD.mevi; if (!g) return; const m = T.SkeletonUtils.clone(g.scene); m.traverse(o => { if (o.isMesh) { o.material = o.material.clone(); o.castShadow = false; o.frustumCulled = false; o.renderOrder = 10; } });
-  const bb = new T.Box3().setFromObject(m), alto = bb.max.y - bb.min.y || 1, k = .46 / alto; m.scale.setScalar(k);
+  const g = MOD.mevi; if (!g) return; const m = T.SkeletonUtils.clone(g.scene); m.traverse(o => { if (o.isMesh) { o.material = o.material.clone(); o.castShadow = true; o.receiveShadow = false; o.frustumCulled = false; } });
+  const bb = new T.Box3().setFromObject(m), alto = bb.max.y - bb.min.y || 1; MEVI.k0 = 1 / alto; m.scale.setScalar(MEVI.k0); MEVI.malla = m;
   try { if (window.MEVICARA) MEVI.cara = MEVICARA(T, m, '../packs/comun/mevi/caras.png?v=18.37'); } catch (e) {}
-  const p = new T.Group(); p.add(m); MEVI.p = p; MEVI.mx = new T.AnimationMixer(m); g.animations.forEach(c => { MEVI.A[c.name] = MEVI.mx.clipAction(c); });
-  CAM.add(p); p.position.copy(MEVI.sitio); p.rotation.y = -.42; meviAnim('reposo');
-  /* una luz propia, cálida, para que se vea bien en las salas oscuras */
-  const l = new T.PointLight('#ffe9d0', 1.2, 3); l.position.set(-.4, .6, .8); p.add(l);
+  const p = new T.Group(); p.add(m); p.userData.malla = m; MEVI.p = p; MEVI.mx = new T.AnimationMixer(m); g.animations.forEach(c => { MEVI.A[c.name] = MEVI.mx.clipAction(c); });
+  ESC.add(p); meviAnim('reposo'); pisa(p);
+  /* sombra de contacto: siempre hay una mancha suave bajo sus pies, también donde no llega la sombra del sol */
+  const blob = new T.Mesh(new T.CircleGeometry(.5, 24), new T.MeshBasicMaterial({ map: lienzo(64, 64, q => { const gr = q.createRadialGradient(32, 32, 0, 32, 32, 32); gr.addColorStop(0, 'rgba(0,0,0,.6)'); gr.addColorStop(.6, 'rgba(0,0,0,.28)'); gr.addColorStop(1, 'rgba(0,0,0,0)'); q.fillStyle = gr; q.fillRect(0, 0, 64, 64); }), transparent: true, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 })); blob.rotation.x = -Math.PI / 2; blob.renderOrder = 1; ESC.add(blob); MEVI.blob = blob;
+  /* una luz propia, cálida y suave, para que se la vea bien en las salas oscuras */
+  const l = new T.PointLight('#ffe9d0', .7, 3.2); l.position.set(-.5, 1.3, 1); p.add(l);
 }
-function meviAnim(n, una) { const a = MEVI.A[n]; if (!a || MEVI.act === a) return; a.reset(); a.setLoop(una ? T.LoopOnce : T.LoopRepeat, Infinity); a.clampWhenFinished = !!una; a.fadeIn(.25).play(); if (MEVI.act) MEVI.act.fadeOut(.25); MEVI.act = a; if (una) MEVI.gesto = a.getClip().duration; }
+function meviAnim(n, una) { const a = MEVI.A[n]; if (!a || MEVI.act === a) return; a.reset(); a.setLoop(una ? T.LoopOnce : T.LoopRepeat, Infinity); a.clampWhenFinished = !!una; a.fadeIn(.25).play(); if (MEVI.act) MEVI.act.fadeOut(.25); MEVI.act = a; MEVI.gesto = una ? a.getClip().duration : 0; }
 function meviGesto(n) { meviAnim(n, true); }
+const MV1 = new T.Vector3(), MV2 = new T.Vector3(), MV3 = new T.Vector3();
 function pasaMevi(dt) {
-  if (!MEVI.p) return; MEVI.t += dt; MEVI.mx.update(dt);
-  if (MEVI.gesto > 0) { MEVI.gesto -= dt; if (MEVI.gesto <= 0) meviAnim('reposo'); }
-  MEVI.p.visible = MEVI.visible; MEVI.p.position.y = MEVI.sitio.y + Math.sin(MEVI.t * 2.1) * .018;
+  const p = MEVI.p; if (!p) return; MEVI.t += dt; MEVI.mx.update(dt);
+  if (MEVI.gesto > 0) { MEVI.gesto -= dt; if (MEVI.gesto <= 0) meviAnim(MEVI.anda ? 'andar' : 'reposo'); }
+  p.visible = MEVI.visible; MEVI.blob.visible = MEVI.visible && MEVI.modo !== 'camara';
   if (MEVI.cara) { MEVI.cara.parpa(MEVI.t); MEVI.cara.habla(MEVI.t, hablando()); }
+  CAM.updateMatrixWorld(); CAM.getWorldPosition(MV1); CAM.getWorldDirection(MV2);
+  if (MEVI.modo === 'camara') {   /* a bordo: en su asiento, a la derecha */
+    p.scale.setScalar(.46); MV3.copy(MEVI.sitio).applyMatrix4(CAM.matrixWorld); p.position.copy(MV3); p.quaternion.copy(CAM.quaternion); p.rotateY(-.42); MEVI.salto = true; return;
+  }
+  p.scale.setScalar(MEVI.alto);
+  if (MEVI.modo === 'fija') MEVI.dest.copy(MEVI.fijo);
+  else {   /* su sitio: el punto del suelo que cae abajo a la derecha de la vista (pies y sombra siempre dentro de la pantalla, sea cual sea el formato) */
+    const vc = MEVI.vc || (MEVI.vc = new T.PerspectiveCamera()); vc.fov = CAM.fov; vc.aspect = CAM.aspect; vc.near = CAM.near; vc.far = CAM.far; vc.updateProjectionMatrix();
+    if (typeof MU !== 'undefined' && !MU.libre) { vc.position.copy(MU.cp); vc.lookAt(MU.cm); MV1.copy(MU.cp); } else { vc.position.copy(MV1); vc.quaternion.copy(CAM.getWorldQuaternion(MEVI.q || (MEVI.q = new T.Quaternion()))); }
+    vc.updateMatrixWorld(true); const ax = CAM.aspect < 1 ? .5 : .66; MV3.set(ax, -.8, .5).unproject(vc).sub(MV1).normalize();
+    MV2.y = 0; if (MV2.lengthSq() < 1e-4) MV2.set(0, 0, -1); MV2.normalize();
+    let tt2 = MV3.y < -.02 ? (MEVI.suelo - MV1.y) / MV3.y : 99; const plano = Math.hypot(MV3.x, MV3.z) * tt2;
+    if (plano > 3 && plano < 11) MEVI.dest.copy(MV1).addScaledVector(MV3, tt2); else { const dd = clamp(plano, 3.4, 8); MEVI.dest.copy(MV1).addScaledVector(MV2, dd * .86).addScaledVector(MV3.set(-MV2.z, 0, MV2.x), dd * .5 * (CAM.aspect < 1 ? .5 : 1)); }
+    MEVI.dest.y = MEVI.suelo; MEVI.alto = lerp(MEVI.alto, clamp(MEVI.dest.distanceTo(MV1) * .24, 1.15, 1.75), MEVI.salto ? 1 : Math.min(1, dt * 3)); CAM.getWorldPosition(MV1);
+  }
+  if (MEVI.salto) { p.position.copy(MEVI.dest); MEVI.salto = false; MEVI.anda = false; }
+  const d = MV3.copy(MEVI.dest).sub(p.position); d.y = 0; const dist = d.length(); p.position.y = MEVI.dest.y;
+  let ry;
+  if (dist > (MEVI.anda ? .12 : .7)) {   /* camina hasta su sitio (si se queda muy atrás, corretea) */
+    const v = Math.min(dist, (dist > 4 ? 9 : dist > 1.5 ? 4.4 : 2.2) * dt); p.position.addScaledVector(d.normalize(), v); ry = Math.atan2(d.x, d.z);
+    if (!MEVI.anda) { MEVI.anda = true; if (MEVI.gesto <= 0) meviAnim('andar'); }
+  } else { if (MEVI.anda) { MEVI.anda = false; if (MEVI.gesto <= 0) meviAnim('reposo'); } ry = Math.atan2(MV1.x - p.position.x, MV1.z - p.position.z) - .25; }   /* parada: mira a los jugadores, un poco de lado */
+  let dr = ry - MEVI.mira; while (dr > Math.PI) dr -= Math.PI * 2; while (dr < -Math.PI) dr += Math.PI * 2; MEVI.mira += dr * Math.min(1, dt * 7); p.rotation.set(0, MEVI.mira, 0);
+  MEVI.blob.position.set(p.position.x, p.position.y + .03, p.position.z); MEVI.blob.scale.setScalar(MEVI.alto * .95);
 }
 
 /* ---------- mando: ratón, dedo, teclado o móvil de MSGAME ---------- */
