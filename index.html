@@ -3884,7 +3884,7 @@ body.gm-modos #gmUI{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '18.57';
+    const APP_VERSION = '18.58';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -4073,7 +4073,7 @@ body.gm-modos #gmUI{display:none!important}
       ['starjedi', 'stranger', 'pricedown', 'akira', 'scary', 'nextups', 'astronaut'].forEach(k => ['woff2', 'woff', 'ttf', 'otf'].forEach(e => U.add(new URL('fuentes/' + k + '.' + e, location.href).href)));
       try { GAMES.SNDS.forEach(f => U.add(new URL(f, location.href).href)); } catch (e) {}
       /* v18.52 · la voz de Mevi en la sala (es, en y ca): sus manifiestos y cada frase */
-      for (const l of ['es', 'en', 'ca']) { const mu = 'packs/comun/mevi/voz/' + l + '.json?v=18.57'; U.add(new URL(mu, location.href).href); try { const j = await (await fetch(mu)).json(); Object.keys(j || {}).forEach(h => U.add(new URL('packs/comun/mevi/voz/' + l + '/' + h + '.mp3?v=18.57', location.href).href)); } catch (e) {} }
+      for (const l of ['es', 'en', 'ca']) { const mu = 'packs/comun/mevi/voz/' + l + '.json?v=18.58'; U.add(new URL(mu, location.href).href); try { const j = await (await fetch(mu)).json(); Object.keys(j || {}).forEach(h => U.add(new URL('packs/comun/mevi/voz/' + l + '/' + h + '.mp3?v=18.58', location.href).href)); } catch (e) {} }
       document.querySelectorAll('link[rel=stylesheet]').forEach(l => { if (/fonts\.googleapis/.test(l.href)) U.add(l.href); });
       try { TXTF.gurl().forEach(u => U.add(u)); } catch (e) {} ['bangers', 'black-ops-one', 'racing-sans-one', 'lobster', 'bowlby-one', 'chewy', 'bungee', 'barlow-semi-condensed-500', 'barlow-semi-condensed-600', 'barlow-semi-condensed-700', 'press-start-2p', 'audiowide', 'russo-one', 'sedgwick-ave-display', 'luckiest-guy', 'lilita-one'].forEach(k => U.add(new URL('fuentes/' + k + '.woff2', location.href).href)); ['peerjs.min.js', 'qrcode.min.js', 'three.min.js'].forEach(k => U.add(new URL('lib/' + k, location.href).href)); ['lib/meshopt.js', 'lib/gltf.js', 'lib/mevicara.js', 'packs/comun/mevi/mevi.glb', 'packs/comun/mevi/caras.png', 'packs/comun/fx/telefono-timbre.mp3', 'packs/modelos/a3D-cartucho.glb', 'juegos/lite/equipo.webp', 'packs/radio/tronik.json'].concat(['hit_halloween', 'hit_zombies', 'hit_aliens', 'hit_sports', 'hit_disco', 'shoot_western', 'shoot_galaxy', 'shoot_zombieland', 'shoot_haunted', 'shoot_alpine', 'shoot_warfront', 'race_runner', 'race_dirty', 'paint_', 'wheel_', 'bowl_', 'duck_', 'hoop_ballhop', 'hoop_basket', 'walk_', 'golf_', 'osaka_'].map(k => 'juegos/lite/cart-' + k + '.webp')).forEach(k => U.add(new URL(k + '?v=' + APP_VERSION, location.href).href)); try { (window.__radioTemas ? window.__radioTemas() : []).forEach(f => U.add(new URL(f, location.href).href)); } catch (e) {}   /* v12.85 · TRONIK FM también sin internet */   /* v12.84 · la Mevi del GLB, también sin internet */   // v9.9 · tipos de letra y librerías propios
       const b = $('btnFair'); b.disabled = true; showToast('Guardando la app para usarla sin internet…');
@@ -10345,10 +10345,10 @@ body.gm-modos #gmUI{display:none!important}
          Cada bocadillo tiene su grabación (packs/comun/mevi/voz/<idioma>/<huella>.mp3); el bocadillo se queda siempre, para quien no oye bien */
       const MVOZ = { man: {}, el: null };
       const mvozL = () => { const l = String(document.documentElement.lang || 'es').toLowerCase().slice(0, 2); return ['es', 'en', 'ca'].includes(l) ? l : ['gl', 'eu', 'as', 'an', 'oc'].includes(l) ? 'es' : 'en'; };
-      function mvozCarga(l) { if (MVOZ.man[l] !== undefined) return; MVOZ.man[l] = null; fetch('packs/comun/mevi/voz/' + l + '.json?v=18.57').then(r => r.ok ? r.json() : {}).then(j => { MVOZ.man[l] = j || {}; }).catch(() => { MVOZ.man[l] = {}; }); }
+      function mvozCarga(l) { if (MVOZ.man[l] !== undefined) return; MVOZ.man[l] = null; fetch('packs/comun/mevi/voz/' + l + '.json?v=18.58').then(r => r.ok ? r.json() : {}).then(j => { MVOZ.man[l] = j || {}; }).catch(() => { MVOZ.man[l] = {}; }); }
       function mvozHuella(t2) { let h = 0x811c9dc5; for (let i = 0; i < t2.length; i++) { const c = t2.charCodeAt(i); h ^= c & 255; h = Math.imul(h, 0x01000193) >>> 0; h ^= c >> 8; h = Math.imul(h, 0x01000193) >>> 0; } return ('0000000' + h.toString(16)).slice(-8); }
       function mvozCalla() { if (MVOZ.el) { try { MVOZ.el.pause(); } catch (e) {} MVOZ.el = null; } }
-      function mvozDi(clave) { mvozCalla(); if (!clave || window.APP_MUTED) return; const l = mvozL(), m = MVOZ.man[l]; if (!m) { mvozCarga(l); return; } const h = mvozHuella(clave); if (!m[h]) return; try { const a = new Audio('packs/comun/mevi/voz/' + l + '/' + h + '.mp3?v=18.57'); a.volume = .95; a.play().catch(() => {}); MVOZ.el = a; } catch (e) {} }
+      function mvozDi(clave) { mvozCalla(); if (!clave || window.APP_MUTED) return; const l = mvozL(), m = MVOZ.man[l]; if (!m) { mvozCarga(l); return; } const h = mvozHuella(clave); if (!m[h]) return; try { const a = new Audio('packs/comun/mevi/voz/' + l + '/' + h + '.mp3?v=18.58'); a.volume = .95; a.play().catch(() => {}); MVOZ.el = a; } catch (e) {} }
       const mvozSuena = () => !!(MVOZ.el && !MVOZ.el.paused && !MVOZ.el.ended);
       const MEVI_FR = [['¿Te gustó?', '¿Ahora cuál?'], ['¡Qué bueno!', '¿Probamos otro?'], ['¡Bien jugado!', '¿A cuál vamos ahora?'], ['¿Otra partida?', 'Elige el siguiente.']];
       function meviGo(otra) { if (!MEVI.g || ST.seq || ST.crt) return; if (MG.base && !MEVI.gl) { MEVI.t0 = 0; meviSala(); } mvozCarga(mvozL()); MEVI.fr = otra === true ? MEVI_FR[(MEVI.k = (MEVI.k || 0) + 1) % MEVI_FR.length] : null; MEVI.t0 = performance.now(); MEVI.out = 0; MEVI.n = -1; MEVI.at = 0; MEVI.pi = null; MEVI.g.visible = true; MEVI.bub.innerHTML = ''; try { meviSon('sale'); } catch (e) {} kick(); }
