@@ -526,9 +526,11 @@ function bosqueNat(g, tipo, n, f, niebla) { const N = NAT[tipo]; if (!N) return 
 const ZONAS = { 'Europe/Madrid': 'es', 'Atlantic/Canary': 'es', 'Africa/Ceuta': 'es', 'Europe/Andorra': 'ad', 'Europe/London': 'gb', 'Europe/Paris': 'fr', 'Europe/Berlin': 'de', 'Europe/Rome': 'it', 'Europe/Lisbon': 'pt', 'America/Mexico_City': 'mx', 'America/Bogota': 'co', 'America/Santiago': 'cl', 'America/Lima': 'pe', 'America/New_York': 'us', 'America/Chicago': 'us', 'America/Denver': 'us', 'America/Los_Angeles': 'us' };
 const BANDERAS = ['es', 'cat', 'eus', 'gal', 'ad', 'gb', 'us', 'en', 'fr', 'de', 'it', 'pt', 'mx', 'ar', 'co', 'cl', 'pe'];
 function paisVisitante() {
-  let elegido = null; try { elegido = (location.search.match(/[?&]lang=(es|en|ca)/) || [])[1] || (window.LG_MANO ? LG : null); } catch (e) {}
+  let elegido = null; try { elegido = (location.search.match(/[?&]lang=(es|en|ca)/) || [])[1] || null; } catch (e) {}
   let pais = null; try { const ls = (navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || '']); for (const l of ls) { const m = /^([a-z]{2,3})(?:-[A-Za-z]{4})?(?:-([A-Za-z]{2}))?/.exec(l || ''); if (!m) continue; if (m[1] === 'eu') { pais = 'eus'; break; } if (m[1] === 'gl') { pais = 'gal'; break; } if (m[2]) { pais = m[2].toLowerCase(); break; } }
     const z = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; if (!pais || !BANDERAS.includes(pais)) pais = ZONAS[z] || (/^America\/Argentina/.test(z) ? 'ar' : pais); } catch (e) {}
+  /* si el idioma se ha elegido a mano en el menú, manda el idioma (y no el enlace con el que se abrió ni el país del aparato): cada idioma, su bandera */
+  if (window.LG_MANO) return LG === 'en' ? (pais === 'gb' || pais === 'us' ? pais : 'en') : LG === 'ca' ? 'reino' : (['es', 'mx', 'ar', 'co', 'cl', 'pe'].includes(pais) ? pais : 'es');   /* en catalán la senyera ya ondea a la derecha: a la izquierda, la del reino de Mevi */
   if (elegido === 'en') return pais === 'gb' || pais === 'us' ? pais : 'en';   /* inglés: mitad británica, mitad estadounidense */
   if (pais && BANDERAS.includes(pais)) return pais;
   return { es: 'es', en: 'en', ca: 'es' }[LG] || 'reino';
@@ -1181,7 +1183,7 @@ function textosUI() {
   document.documentElement.lang = LG; cargaVoz(LG); $('tLema').textContent = t('lema'); $('tPausa').textContent = t('pausa'); $('bSigue').textContent = t('sigue'); $('bSalir').textContent = t('salir'); $('bOtra').textContent = t('otra'); $('bMenu').textContent = t('terminar'); $('bVoz').title = t('voz');
   const niv = $('niv'); niv.innerHTML = ''; [0, 1, 2].forEach(m => { const d = document.createElement('div'); d.className = 'modo m' + m + (m === J.modo ? ' sel' : ''); d.tabIndex = 0; d.dataset.m = m; d.innerHTML = `<b>${t('m' + m)}</b><em>${t('m' + m + 'e')}</em><span>${t('m' + m + 'd')}</span><div class="ll">${'<i></i>'.repeat(m + 2)}</div>`; d.querySelectorAll('.ll i').forEach(i => { i.style.backgroundImage = `url(${TEX.llave})`; }); d.onclick = () => empieza(m); d.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); empieza(m); } }; niv.appendChild(d); });
   document.querySelectorAll('#lenguas button').forEach(b => b.classList.toggle('sel', b.dataset.lang === LG));
-  $('pie').textContent = 'MEVILAND · MSGAME v18.45 2026 ' + ({ es: 'es un proyecto hecho con', en: 'is a project made with', ca: 'és un projecte fet amb' })[LG] + ' 𑣲 by mediaservi.com';
+  $('pie').textContent = 'MEVILAND · MSGAME v18.46 2026 ' + ({ es: 'es un proyecto hecho con', en: 'is a project made with', ca: 'és un projecte fet amb' })[LG] + ' 𑣲 by mediaservi.com';
   $('bVoz').textContent = VOZ.on ? '🔊' : '🔇';
 }
 function menu() {

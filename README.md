@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.45**
+**Versión actual: v18.46**
 
 ## Cómo se juega
 
@@ -39,7 +39,10 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **MEVILAND** *(nuevo)*: el reino de fantasía de Mevi, en 3D y en primera persona; la gran plaza de la muralla al atardecer, cuatro mundos (Fantasía, Absurdo, Golosinas y Feria) con tres salas cada uno, doce pruebas, puertas trampa y cuatro finales, uno secreto.
 - **RUNAS** *(nuevo)*: dibuja runas en el aire con la mano delante de la cámara (o con el móvil o el ratón) para deshacer las sombras que van a por el cristal de Mevi; hasta 4 a la vez, jefe final y supermagia con los dos brazos arriba.
 
-## Cambios de la versión actual (v18.45)
+## Cambios de la versión actual (v18.46)
+- **MEVILAND · la bandera sigue al idioma.** Al cambiar de idioma en el menú, la bandera de la izquierda del castillo cambia con él: española (o la del país hispanohablante del visitante) en español, la mitad británica y mitad estadounidense en inglés y, en catalán, la del reino de Mevi junto a la senyera, que ondea siempre a la derecha. Antes mandaba el idioma con el que se había abierto el juego.
+
+### v18.45
 - **MEVILAND · repaso sala a sala.**
   - **Sopa de Letras:** la cámara mira dentro de la olla, así que se ven todas las letras (antes el borde tapaba las de delante); el vapor ya no deslumbra.
   - **Nevera Gigante:** azules más hondos, sin blancos que deslumbren; el hielo es más transparente y lleva las aristas marcadas, y lo que hay dentro es más grande y se ve.
