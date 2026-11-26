@@ -406,6 +406,7 @@ function patioCastillo(o) {
           r.position.set(px, .5 * clamp((pz - .7) / .35, 0, 1), pz); r.rotation.y = ry; if (d >= L1 + L2) { fase = 2; gesto(r, 'saluda'); } }); }); });
     /* gradas del público, a los dos lados del palco, y faroles */
     const mg = mat('#8f7868', { roughness: .9 }); [-1, 1].forEach(sg => [0, 1, 2].forEach(f => { const gr = caja(13, .5 + f * .55, 1.5, mg); gr.position.set(sg * 12.2, (.5 + f * .55) / 2, -7.4 - f * 1.5); gr.receiveShadow = true; g.add(gr); }));
+    if (o.publico) { const si = []; [-1, 1].forEach(sg => { [0, 1, 2].forEach(f => { for (let i = 0; i < 12; i++) si.push([sg * (6.3 + i * 1.05) + rnd(-.15, .15), .5 + f * .55, -7.4 - f * 1.5 + rnd(-.2, .2)]); }); for (let i = 0; i < 11; i++) si.push([sg * (7 + i * 1.05) + rnd(-.2, .2), 0, -5.9 + rnd(-.25, .25)]); }); gentio(g, LITE ? si.filter((x, i) => i % 2 === 0) : si); }   /* en los demás finales del patio, el reino también llena las gradas */
     [[-18, 3.5], [18, 3.5], [-5.4, -6.4], [5.4, -6.4], [-17.5, -4.5], [17.5, -4.5]].forEach(([x, z], i) => farola(g, x, z, 4.4, .1 + i * .1, null, { luz: i < 2 && !LITE ? 10 : 0 }));
     /* la luz cálida de la fiesta: antorchas y faroles iluminan el patio */
     [[-9, 4.5, -2, 2.2, 26], [9, 4.5, -2, 2.2, 26], [0, 6, -8, 1.6, 24]].forEach(([x, y, z, i2, d]) => { if (LITE && x > 0) return; const pl = new T.PointLight('#ffb468', i2, d, 1.6); pl.position.set(x, y, z); g.add(pl); }); g.add(new T.HemisphereLight('#c8a8ff', '#5a3a30', .45));

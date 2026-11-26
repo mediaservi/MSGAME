@@ -915,8 +915,8 @@ SALAS.espejos = { dur: [55, 50, 45], crea(ctx) {
 
 /* ---------- ABSURDO · La Nevera Gigante ---------- */
 SALAS.nevera = { dur: [55, 50, 45], sinFondo: true, crea(ctx) {
-  const g = ctx.g; ctx.meta = [8, 10, 12][ctx.modo]; MU.cam.p.set(0, 2.2, 2.4); MU.cam.m.set(0, 2.1, -6); ESC.fog = new T.Fog('#9fd6f2', 12, 40);
-  const pared = mat('#5fb0e0', { roughness: .5 }); const fondo = caja(12, 7, .3, mat('#3f8fcc', { roughness: .55 })); const piso = caja(12, .2, 10, mat('#7cc2ea', { roughness: .3 })); piso.position.set(0, .01, -1.5); piso.receiveShadow = true; g.add(piso); g.children.forEach(o => { if (o.isLight) o.intensity *= .45; }); ESC.environment = null; fondo.position.set(0, 3.5, -6.2); g.add(fondo); [-6, 6].forEach(x => { const p = caja(.3, 7, 10, pared); p.position.set(x, 3.5, -1.5); g.add(p); }); const techo = caja(12, .3, 10, pared); techo.position.set(0, 7, -1.5); g.add(techo);
+  const g = ctx.g; ctx.meta = [8, 10, 12][ctx.modo]; MU.cam.p.set(0, 2.2, 2.4); MU.cam.m.set(0, 2.1, -6); ESC.fog = new T.Fog('#3f7fb4', 12, 40);
+  const pared = mat('#2f6fa6', { roughness: .5 }); const fondo = caja(12, 7, .3, mat('#1d4a80', { roughness: .55 })); const piso = caja(12, .2, 10, mat('#3f84b4', { roughness: .3 })); piso.position.set(0, .01, -1.5); piso.receiveShadow = true; g.add(piso); g.children.forEach(o => { if (o.isLight) o.intensity *= .45; }); ESC.environment = null; fondo.position.set(0, 3.5, -6.2); g.add(fondo); [-6, 6].forEach(x => { const p = caja(.3, 7, 10, pared); p.position.set(x, 3.5, -1.5); g.add(p); }); const techo = caja(12, .3, 10, pared); techo.position.set(0, 7, -1.5); g.add(techo);
   const lz2 = new T.PointLight('#e8f8ff', .7, 14); lz2.position.set(0, 6.4, -2); g.add(lz2); const tubo = caja(3, .1, .3, new T.MeshBasicMaterial({ color: '#ffffff' })); tubo.position.set(0, 6.8, -3); g.add(tubo);
   const vidrio = new T.MeshStandardMaterial({ color: '#bfe8ff', transparent: true, opacity: .35, roughness: .05, metalness: .2 });
   [.4, 1.7, 3.0, 4.3].forEach(y => { const s = caja(11.2, .08, 2.6, vidrio); s.position.set(0, y, -4.8); g.add(s); });
@@ -927,8 +927,8 @@ SALAS.nevera = { dur: [55, 50, 45], sinFondo: true, crea(ctx) {
   const premios = ['caramelo', 'calcetin', 'llave', 'libro', 'pato'];
   const B = [];
   const nuevo = () => { const libres = huecos.filter(h => !h.b); if (!libres.length) return; const h = libres[ri(libres.length)]; const gr = new T.Group(); gr.position.set(h.x, h.y, -4.6); g.add(gr); h.b = gr;
-    const pk = premios[ri(premios.length - (J.modo === 2 ? 1 : 0))]; const pr = pieza(pk, .55, pk === 'caramelo' ? { tinte: PAL[ri(6)], gris: true } : {}); pr.position.y = .2; gr.add(pr);
-    const hielo = new T.Mesh(new T.BoxGeometry(1.05, 1.05, 1.05), new T.MeshStandardMaterial({ color: '#e8fbff', transparent: true, opacity: .7, roughness: .05, metalness: .05, emissive: '#5ac8ff', emissiveIntensity: .35 })); hielo.position.y = .52; gr.add(hielo);
+    const pk = premios[ri(premios.length - (J.modo === 2 ? 1 : 0))]; const pr = pieza(pk, .7, pk === 'caramelo' ? { tinte: PAL[ri(6)], gris: true } : {}); pr.position.y = .14; gr.add(pr);
+    const hielo = new T.Mesh(new T.BoxGeometry(1.05, 1.05, 1.05), new T.MeshStandardMaterial({ color: '#cfefff', transparent: true, opacity: .4, roughness: .05, metalness: .05, emissive: '#3aa8ff', emissiveIntensity: .22, depthWrite: false })); hielo.position.y = .52; gr.add(hielo); const filo = new T.LineSegments(new T.EdgesGeometry(hielo.geometry), new T.LineBasicMaterial({ color: '#eaffff', transparent: true, opacity: .9 })); hielo.add(filo);   /* hielo más transparente y con las aristas marcadas: se ve lo que hay dentro */
     const aristas = new T.LineSegments(new T.EdgesGeometry(hielo.geometry), new T.LineBasicMaterial({ color: '#ffffff', transparent: true, opacity: .8 })); aristas.position.y = .52; gr.add(aristas);
     gr.userData.bl = true; ctx.diana(gr, 'bl'); const o = { gr, h, hielo, aristas, pr, k: 0, e: 0, fuera: false }; B.push(o); gr.scale.setScalar(.01); };
   for (let i = 0; i < 4 + ctx.modo; i++) nuevo();
@@ -976,7 +976,7 @@ SALAS.lavadora = { dur: [50, 45, 42], crea(ctx) {
 
 /* ---------- ABSURDO · La Sopa de Letras ---------- */
 SALAS.sopa = { dur: [60, 55, 50], crea(ctx) {
-  const g = ctx.g; MU.cam.p.set(0, 3.6, 3.2); MU.cam.m.set(0, 1, -5);
+  const g = ctx.g; MU.cam.p.set(0, 5.3, 2.6); MU.cam.m.set(0, 1.5, -5);   /* desde arriba: se ven todas las letras, sin que el borde de la olla tape las de delante */
   const pal = baraja(tA('palabras')).filter(w => w.length <= 5).slice(0, [2, 3, 3][ctx.modo]); ctx.meta = pal.reduce((a, w) => a + w.length, 0);
   const ol = cil(3.4, 3, 2.2, mat('#e2434f', { metalness: .15, roughness: .3, side: T.DoubleSide }), 48, true); ol.position.set(0, 1.1, -5); sombra(ol); g.add(ol);
   const fondoO = cil(3, 3, .1, mat('#9aa2ad', { metalness: .9, roughness: .3 }), 48); fondoO.position.set(0, .05, -5); g.add(fondoO);
@@ -986,7 +986,7 @@ SALAS.sopa = { dur: [60, 55, 50], crea(ctx) {
   const caldo = new T.Mesh(new T.CircleGeometry(3.32, 48), mat('#ffffff', { map: txS, roughness: .25 })); caldo.rotation.x = -Math.PI / 2; caldo.position.set(0, 1.85, -5); g.add(caldo);
   const fuego = brillo('#ff7a1c', 7, .6); fuego.position.set(0, -.2, -4.4); g.add(fuego); const lf = new T.PointLight('#ff8a3c', 1.4, 8); lf.position.set(0, .3, -3.6); g.add(lf);
   const chef = pon(g, 'chef', 2.6, 2.6, 1.2, -8.4, { ry: -.25 }); const cuch = new T.Group(); cuch.position.set(0, 1.85, -5); g.add(cuch); const palo = cil(.07, .07, 4, mat('#c98a4a'), 8); palo.position.set(1.4, 1.6, 0); palo.rotation.z = .5; cuch.add(palo); const cazo = bola(.35, mat('#c98a4a'), 12); cazo.scale.y = .4; cazo.position.set(.45, -.1, 0); cuch.add(cazo);
-  anim((dt, tt) => { ondula(chef, tt, .1, 2.2); chef.position.y = 1.2 + Math.sin(tt * 1.4) * .25; cuch.rotation.y = tt * 1.2 * ctx.vel; caldo.rotation.z = -tt * .3; if (Math.random() < dt * 5) chispas(new T.Vector3(rnd(-2.5, 2.5), 2, -5 + rnd(-2, 2)), 1, ['#ffffff'], { tex: TEX.humo, vel: .4, g: -.6, vida: 2, tam: .8 }); });
+  anim((dt, tt) => { ondula(chef, tt, .1, 2.2); chef.position.y = 1.2 + Math.sin(tt * 1.4) * .25; cuch.rotation.y = tt * 1.2 * ctx.vel; caldo.rotation.z = -tt * .3; if (Math.random() < dt * 5) chispas(new T.Vector3(rnd(-2.5, 2.5), 2, -5 + rnd(-2, 2)), 1, ['#ffd9b0'], { tex: TEX.humo, vel: .4, g: -.6, vida: 1.6, tam: .5 }); });
   const txL = {}; const texLetra = (c, especial) => txL[c + especial] || (txL[c + especial] = lz(128, 128, (q, w) => { q.fillStyle = especial ? '#fff3a8' : '#fff8ec'; q.beginPath(); q.arc(w / 2, w / 2, w / 2 - 4, 0, 7); q.fill(); q.lineWidth = 6; q.strokeStyle = '#c96a00'; q.stroke(); q.font = '78px LG'; q.textAlign = 'center'; q.textBaseline = 'middle'; q.fillStyle = '#7a2a00'; q.fillText(c, w / 2, w / 2 + 5); }));
   let wi = 0, li = 0; const L = [];
   const quiere = () => pal[wi] ? pal[wi][li] : null;
@@ -1071,6 +1071,12 @@ SALAS.montana = { dur: [48, 44, 40], crea(ctx) {
   /* bombillas a lo largo de la vía */
   for (let i = 0; i < N; i += 6) { const p = lado(i / N, i % 12 ? .8 : -.8); const b = brillo(['#ffd23f', '#ff4fb4', '#56d7ff'][i % 3], .5, .9); b.position.copy(p).add(new T.Vector3(0, .2, 0)); g.add(b); }
   const va = pieza('vagoneta', 1.6, { ancho: true }); g.add(va);
+  /* el morro de la vagoneta, a la vista: vamos sentados dentro, con Mevi al lado (ya no flota junto a la vía) */
+  const morro = new T.Group(); g.add(morro); const rojoM = mat('#c8283c', { roughness: .35, metalness: .2, emissive: '#6a1220', emissiveIntensity: .7 }), oroM = mat('#ffd23f', { metalness: .85, roughness: .25, emissive: '#7a5600', emissiveIntensity: .6 });
+  const frM = caja(4.6, .66, .14, rojoM); frM.position.set(0, -1.12, -2.02); morro.add(frM); const riM = cil(.055, .055, 4.6, oroM, 10); riM.rotation.z = Math.PI / 2; riM.position.set(0, -.79, -2.02); morro.add(riM);
+  const emM = new T.Mesh(new T.PlaneGeometry(.3, .3), new T.MeshBasicMaterial({ map: TEX.estrella, color: '#ffd23f', transparent: true, depthWrite: false })); emM.position.set(0, -.98, -1.94); morro.add(emM);
+  const luzM = []; for (let i = 0; i < 11; i++) { const mm = new T.MeshStandardMaterial({ color: '#6a5a3a', emissive: ['#ffd27a', '#ff8fd0', '#8fd8ff'][i % 3], emissiveIntensity: 2 }), bo = bola(.045, mm, 8); bo.position.set(-2 + i * .4, -.72, -2.02); morro.add(bo); luzM.push(mm); }
+  anim((dt, tt) => { morro.position.copy(CAM.position); morro.quaternion.copy(CAM.quaternion); luzM.forEach((mm, i) => { mm.emissiveIntensity = (i + Math.floor(tt * 5)) % 3 ? .7 : 2.6; }); });
   const E = []; const nE = 34; for (let i = 0; i < nE; i++) { const u = (i + .5) / nE, s = rnd(-2.2, 2.2), p = lado(u, s); p.y += rnd(1.6, 3); const m = new T.Mesh(new T.PlaneGeometry(.9, .9), new T.MeshBasicMaterial({ map: TEX.estrella, color: '#ffd23f', transparent: true, depthWrite: false })); m.position.copy(p); g.add(m); const hl = brillo('#ffd23f', 1.4, .5); m.add(hl); m.userData.est = true; ctx.diana(m, 'est'); E.push({ m, u, vis: true }); }
   let u = 0, vu = 0, vueltas = 0;
   const camP = new T.Vector3(), camM = new T.Vector3();
@@ -1118,7 +1124,7 @@ SALAS.carrusel = { dur: [60, 55, 50], crea(ctx) {
       if (fase === 'frena') { w = lerp(w, ctx.modo === 2 ? .12 : 0, .06); if (tf <= 0) { fase = 'elige'; di(t('donde'), 1600); meviGesto('senala'); } }
       if (fase === 'elige' && ctx.modo < 2) w = lerp(w, 0, .1);
       C.rotation.y += w * dt;
-      H.forEach(h => { h.gr.position.y = Math.sin(tt * 2.4 + h.f) * .25; if (h.tapar) h.cubierto = Math.min(1, h.cubierto + dt * 3); else h.cubierto = Math.max(0, h.cubierto - dt * 3); h.regalo.scale.setScalar(Math.max(.01, suave(h.cubierto) * 1.6)); h.regalo.rotation.y += dt; });
+      H.forEach(h => { h.gr.position.y = Math.sin(tt * 2.4 + h.f) * .25; if (h.tapar) h.cubierto = Math.min(1, h.cubierto + dt * 3); else h.cubierto = Math.max(0, h.cubierto - dt * 3); h.regalo.scale.setScalar(Math.max(.01, suave(h.cubierto) * 1.3)); h.regalo.rotation.y += dt; });
       llave.rotation.y = -(C.rotation.y + (llave.parent ? llave.parent.rotation.y : 0)) + Math.sin(tt * 2.6) * .55; const late = Math.sin(tt * 6); llave.scale.setScalar(fase === 'mira' || fase === 'revela' ? 1.08 + late * .12 : 1); lb2.material.opacity = .3 + late * .14; lb.material.opacity = .5 + late * .14;
     },
     toca(h) { if (fase !== 'elige') return; const o = h && deQuien(h.object, 'cab'); if (!o) return; const i = o.userData.cab; fase = 'revela'; H.forEach(x => { x.tapar = false; }); llave.visible = true; const p = H[quien].gr.getWorldPosition(new T.Vector3()).add(new T.Vector3(0, 3, 0));
@@ -1152,7 +1158,7 @@ function final() {
           setTimeout(() => { if (J.fase === 'final') viaje(new T.Vector3(0, 14, 44), new T.Vector3(0, 2, -2), 7, () => {}); }, BOT ? 100 : 6500);
         } }
     }
-    }; if (tipo === 'bola') { plaza({ noche: true, radio: 15 }); monta(); } else patioCastillo({ f: monta });
+    }; if (tipo === 'bola') { plaza({ noche: true, radio: 15 }); monta(); } else patioCastillo({ f: monta, publico: tipo !== 'desfile' });
     meviGesto('salta'); fx('victoria');
     if (tipo === 'desfile') { /* el desfile dura lo que su música (el tema de circo) y termina con su último golpe */
       const pm = suena('mus', 'desfile', { vol: .6, entra: .05 }); let td = 0; anim(dt => { td += dt; const a = pm && pm.a, acaba = a && !a.paused && a.duration ? a.currentTime > a.duration - .2 : a && a.ended ? true : td > 50; if ((acaba || td > 62) && J.fase === 'final') panelFin(tipo); }); if (BOT) setTimeout(() => { if (J.fase === 'final') panelFin(tipo); }, 1500);
@@ -1175,7 +1181,7 @@ function textosUI() {
   document.documentElement.lang = LG; cargaVoz(LG); $('tLema').textContent = t('lema'); $('tPausa').textContent = t('pausa'); $('bSigue').textContent = t('sigue'); $('bSalir').textContent = t('salir'); $('bOtra').textContent = t('otra'); $('bMenu').textContent = t('terminar'); $('bVoz').title = t('voz');
   const niv = $('niv'); niv.innerHTML = ''; [0, 1, 2].forEach(m => { const d = document.createElement('div'); d.className = 'modo m' + m + (m === J.modo ? ' sel' : ''); d.tabIndex = 0; d.dataset.m = m; d.innerHTML = `<b>${t('m' + m)}</b><em>${t('m' + m + 'e')}</em><span>${t('m' + m + 'd')}</span><div class="ll">${'<i></i>'.repeat(m + 2)}</div>`; d.querySelectorAll('.ll i').forEach(i => { i.style.backgroundImage = `url(${TEX.llave})`; }); d.onclick = () => empieza(m); d.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); empieza(m); } }; niv.appendChild(d); });
   document.querySelectorAll('#lenguas button').forEach(b => b.classList.toggle('sel', b.dataset.lang === LG));
-  $('pie').textContent = 'MEVILAND · MSGAME v18.44 2026 ' + ({ es: 'es un proyecto hecho con', en: 'is a project made with', ca: 'és un projecte fet amb' })[LG] + ' 𑣲 by mediaservi.com';
+  $('pie').textContent = 'MEVILAND · MSGAME v18.45 2026 ' + ({ es: 'es un proyecto hecho con', en: 'is a project made with', ca: 'és un projecte fet amb' })[LG] + ' 𑣲 by mediaservi.com';
   $('bVoz').textContent = VOZ.on ? '🔊' : '🔇';
 }
 function menu() {

@@ -233,7 +233,7 @@ function flota(txt, x, y, mal) { const d = document.createElement('div'); d.clas
 /* ---------- Mevi en 3D: la anfitriona que acompaña a los jugadores ---------- */
 /* Mevi no va pegada a la pantalla: es un personaje más del mundo. Camina por el suelo a la derecha de los jugadores, da sombra
    y se gira hacia ellos cuando se paran. modo: 'sigue' (acompaña a la cámara) · 'fija' (se queda en MEVI.fijo) · 'camara' (a bordo, pegada a la cámara: la vagoneta) */
-const MEVI = { p: null, cara: null, A: {}, mx: null, act: null, t: 0, gesto: 0, sitio: new T.Vector3(1.02, -.66, -1.6), visible: true, modo: 'sigue', fijo: new T.Vector3(), alto: 1.15, dx: 2.7, dz: 4.6, suelo: 0, salto: true, anda: false, mira: 0, dest: new T.Vector3(), malla: null, blob: null };
+const MEVI = { p: null, cara: null, A: {}, mx: null, act: null, t: 0, gesto: 0, sitio: new T.Vector3(1.05, -.96, -1.62), visible: true, modo: 'sigue', fijo: new T.Vector3(), alto: 1.15, dx: 2.7, dz: 4.6, suelo: 0, salto: true, anda: false, mira: 0, dest: new T.Vector3(), malla: null, blob: null };
 function montaMevi() {
   const g = MOD.mevi; if (!g) return; const m = T.SkeletonUtils.clone(g.scene); m.traverse(o => { if (o.isMesh) { o.material = o.material.clone(); o.castShadow = true; o.receiveShadow = false; o.frustumCulled = false; } });
   const bb = new T.Box3().setFromObject(m), alto = bb.max.y - bb.min.y || 1; MEVI.k0 = 1 / alto; m.scale.setScalar(MEVI.k0); MEVI.malla = m;

@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.44**
+**Versión actual: v18.45**
 
 ## Cómo se juega
 
@@ -39,7 +39,15 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **MEVILAND** *(nuevo)*: el reino de fantasía de Mevi, en 3D y en primera persona; la gran plaza de la muralla al atardecer, cuatro mundos (Fantasía, Absurdo, Golosinas y Feria) con tres salas cada uno, doce pruebas, puertas trampa y cuatro finales, uno secreto.
 - **RUNAS** *(nuevo)*: dibuja runas en el aire con la mano delante de la cámara (o con el móvil o el ratón) para deshacer las sombras que van a por el cristal de Mevi; hasta 4 a la vez, jefe final y supermagia con los dos brazos arriba.
 
-## Cambios de la versión actual (v18.44)
+## Cambios de la versión actual (v18.45)
+- **MEVILAND · repaso sala a sala.**
+  - **Sopa de Letras:** la cámara mira dentro de la olla, así que se ven todas las letras (antes el borde tapaba las de delante); el vapor ya no deslumbra.
+  - **Nevera Gigante:** azules más hondos, sin blancos que deslumbren; el hielo es más transparente y lleva las aristas marcadas, y lo que hay dentro es más grande y se ve.
+  - **Montaña Rusa Estelar:** se ve el morro de la vagoneta, con sus bombillas, y Mevi va dentro a tu lado (antes parecía flotar junto a la vía).
+  - **Carrusel:** los regalos que tapan la llave, a su tamaño.
+  - **Finales de Guardianes y Copa de Oro:** el reino llena las gradas del patio del castillo.
+
+### v18.44
 - **MEVILAND · se entiende a Mevi.**
   - **Mezcla:** mientras Mevi habla, la música y el ambiente bajan a un tercio y vuelven al acabar (también en el desfile y en los menús). La música de los menús y la del desfile suenan algo más bajas, y los cohetes, menos fuertes.
   - **Voz más clara y con más cuerpo:** todas las frases regrabadas con más presencia y más volumen.
