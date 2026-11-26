@@ -207,13 +207,13 @@ function suena(canal, n, o) {
    Si una frase no tiene grabación (por ejemplo, el saludo con los nombres de los jugadores) se usa la que se indique en VOZ.alt y,
    en último caso, la voz del navegador. */
 const VOZ = { on: (() => { try { return localStorage.getItem('MEVILAND_VOZ') !== '0'; } catch (e) { return true; } })(), habla: 0, cola: [], tFin: 0, man: {}, el: null, alt: null };
-function cargaVoz(l) { if (VOZ.man[l] !== undefined) return; VOZ.man[l] = null; fetch('../packs/meviland/voz/' + l + '.json?v=18.44').then(r => r.ok ? r.json() : {}).then(j => { VOZ.man[l] = j || {}; }).catch(() => { VOZ.man[l] = {}; }); }
+function cargaVoz(l) { if (VOZ.man[l] !== undefined) return; VOZ.man[l] = null; fetch('../packs/meviland/voz/' + l + '.json?v=18.47').then(r => r.ok ? r.json() : {}).then(j => { VOZ.man[l] = j || {}; }).catch(() => { VOZ.man[l] = {}; }); }
 function vozHuella(t2) { let h = 0x811c9dc5; for (let i = 0; i < t2.length; i++) { const c = t2.charCodeAt(i); h ^= c & 255; h = Math.imul(h, 0x01000193) >>> 0; h ^= c >> 8; h = Math.imul(h, 0x01000193) >>> 0; } return ('0000000' + h.toString(16)).slice(-8); }
 function callaVoz() { if (VOZ.el) { try { VOZ.el.pause(); } catch (e) {} VOZ.el = null; } try { window.speechSynthesis && speechSynthesis.cancel(); } catch (e) {} }
 /* dice una frase con la voz grabada; devuelve lo que dura en ms (0 si no hay grabación) */
 function vozGrabada(txt) {
   const man = VOZ.man[LG]; if (!man) return 0; let h = vozHuella(txt); if (!man[h] && VOZ.alt) h = vozHuella(VOZ.alt); VOZ.alt = null; if (!man[h]) return 0;
-  if (VOZ.on) { const a = new Audio('../packs/meviland/voz/' + LG + '/' + h + '.mp3?v=18.44'); a.volume = 1; a.play().catch(() => {}); VOZ.el = a; }
+  if (VOZ.on) { const a = new Audio('../packs/meviland/voz/' + LG + '/' + h + '.mp3?v=18.47'); a.volume = 1; a.play().catch(() => {}); VOZ.el = a; }
   return man[h];
 }
 function vozDe(l) { const vs = speechSynthesis.getVoices(), pref = { es: 'es', en: 'en', ca: 'ca' }[l]; return vs.find(v => v.lang.toLowerCase().startsWith(pref) && /female|mujer|monica|paulina|helena|laura|lucia|elvira|samantha|google/i.test(v.name)) || vs.find(v => v.lang.toLowerCase().startsWith(pref)) || (l === 'ca' ? vs.find(v => v.lang.toLowerCase().startsWith('es')) : null); }

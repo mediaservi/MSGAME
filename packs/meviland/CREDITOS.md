@@ -20,7 +20,7 @@ La nevera, el aro cósmico, los cristales, la olla, el río de chocolate, la mon
 
 ## v18.43 · voz, música y logo
 
-- **Voz de Mevi** (`voz/<idioma>/*.mp3`): voz sintética generada con el modelo **Kokoro-82M** (hexgrad, licencia Apache 2.0), mezcla de sus voces `ef_dora` y `af_bella`, y subida de tono y de formantes para darle timbre de niña. El catalán se dice con la voz catalana **upc_ona** de Piper (entrenada con el corpus Festcat de la UPC, licencia **CC BY-SA 3.0 ES**: reconocimiento y compartir igual), con la fonética de **eSpeak NG** y el mismo ajuste de timbre.
+- **Voz de Mevi** (`voz/<idioma>/*.mp3`): voz sintética generada con la función de texto a voz de **Microsoft Clipchamp** (voz «Xiaoyou Multilingual», tono alto), la misma en español, inglés y catalán; cada frase se ha cortado y se ha igualado el volumen. *(Desde la v18.47; antes, Kokoro-82M y Piper.)*
 - **Música** (`musica/`): `menu.mp3` es «Echoes of Brass 1», de surprising_media (Pixabay, n.º 437044), y `desfile.mp3` es «Circus Comes to Town (60 sec)», de moonpub (Pixabay, n.º 617987). Licencia de contenido de Pixabay (uso libre, también comercial, sin atribución obligatoria). Solo se ha igualado el volumen.
 - **Pirotecnia:** texturas de chispa de `packs/wonderwalk/fx/` (Kenney, Particle Pack, CC0) y la grabación de cohetes de `packs/wonderwalk/sfx/` (ver los créditos de WONDERWALK).
 - **Logo** (`juegos/logo_meviland.webp`): hecho por código con el tipo **Bowlby One** (Vernon Adams, SIL OFL 1.1), ya incluido en `fuentes/`.

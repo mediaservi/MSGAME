@@ -15,7 +15,7 @@ Object.assign(TX, {
     objetivo: 'Para abrir el Gran Portal necesitamos {0} Llaves Estelares. Cada tierra guarda una.',
     comoElegir: 'Apuntad a un arco y mantened la mirilla encima para entrar… ¡o tocad!',
     otraTierra: '¿A qué tierra vamos ahora?', yaTenemos: '¡Esa llave ya es nuestra! Probemos otra tierra.',
-    llaveDe: '¡Llave Estelar de {0}! Ya tenemos {1} de {2}.',
+    llaveDe: '¡Llave Estelar {0}! Ya tenemos {1} de {2}.',
     portalAbre: '¡Todas las llaves! El Gran Portal se abre… ¡Apuntad al portal!', portalCerrado: 'El portal sigue cerrado: faltan {0} llaves.',
     entra_fantasia: 'Tierra de Fantasía: libros que vuelan, cristales que cantan y espejos traviesos.',
     entra_absurdo: 'Tierra del Absurdo: aquí nada tiene sentido… ¡y eso mola!',
@@ -106,12 +106,12 @@ Object.assign(TX, {
     m2: 'DIFÍCIL', m2e: 'Llegenda', m2d: '4 Claus, el doble de proves, mutacions i un secret…',
     pausa: 'PAUSA', sigue: 'Continuar', salir: 'Sortir', otra: 'Una altra', terminar: 'Acabar', puntos: 'PUNTS',
     plaza: 'Plaça de la Mevi', t_fantasia: 'Fantasia', t_absurdo: 'Absurd', t_golosinas: 'Llaminadures', t_feria: 'Fira',
-    hola: 'Hola! Soc la Mevi. Benvinguts a MEVILAND, el parc més màgic de l\'univers!',
+    hola: 'Hey! Com esteu? Soc la Mevi. Benvinguts a MEVILAND, el parc més màgic de l\'univers!',
     holaN: 'Hola, {0}! Soc la Mevi. Benvinguts a MEVILAND, el parc més màgic de l\'univers!',
     objetivo: 'Per obrir el Gran Portal necessitem {0} Claus Estel·lars. Cada terra en guarda una.',
     comoElegir: 'Apunteu a un arc i mantingueu-hi el punt de mira per entrar… o toqueu!',
     otraTierra: 'A quina terra anem ara?', yaTenemos: 'Aquesta clau ja és nostra! Provem una altra terra.',
-    llaveDe: 'Clau Estel·lar de {0}! Ja en tenim {1} de {2}.',
+    llaveDe: 'Clau Estel·lar {0}! Ja en tenim {1} de {2}.',
     portalAbre: 'Totes les claus! El Gran Portal s\'obre… Apunteu al portal!', portalCerrado: 'El portal encara és tancat: falten {0} claus.',
     entra_fantasia: 'Terra de Fantasia: llibres que volen, cristalls que canten i miralls entremaliats.',
     entra_absurdo: 'Terra de l\'Absurd: aquí res no té sentit… i això mola!',
@@ -141,10 +141,10 @@ Object.assign(TX, {
     palabras: ['MEVI', 'SOPA', 'LLUNA', 'ESTEL', 'FESTA', 'MAGIA', 'FIRA', 'NUVOL'],
     f_desfile: 'GRAN DESFILADA!', fd_desfile: 'Amb dues Claus Estel·lars el Gran Portal s\'obre i tot MEVILAND surt a celebrar-ho amb vosaltres.',
     f_guardianes: 'GUARDIANS DE LES ESTRELLES!', fd_guardianes: 'Tres claus, tres terres salvades. Des d\'avui sou Guardians de les Estrelles de MEVILAND.',
-    f_copa: 'LA COPA D\'OR!', fd_copa: 'Les quatre Claus Estel·lars… sou llegenda! La Copa d\'Or de MEVILAND és vostra.',
+    f_copa: 'LA COPA DAURADA!', fd_copa: 'Les quatre Claus Estel·lars… sou llegenda! La Copa Daurada de MEVILAND és vostra.',
     f_bola: 'FINAL SECRET: LA BOLA DE NEU', fd_bola: 'Amb els quatre aneguets astronautes descobriu el gran secret: tot MEVILAND cap en una bola de neu… i ara és vostra!',
     fin_desfile: 'A desfilar! Gràcies per visitar MEVILAND!', fin_guardianes: 'Els guardians us donen les seves estrelles. Ja sou de la família!',
-    fin_copa: 'La Copa d\'Or! Ningú no havia arribat tan lluny.', fin_bola: 'Espereu… i si tot el parc fos… una bola de neu?',
+    fin_copa: 'La Copa Daurada! Ningú no havia arribat tan lluny.', fin_bola: 'Espereu! I si tot el parc fos… una bola de neu?',
     dPuntos: 'Punts', dLlaves: 'Claus Estel·lars', dSalas: 'Proves superades', dPatos: 'Aneguets astronautes', dTiempo: 'Temps de visita'
   }
 });
@@ -745,7 +745,7 @@ function enPlaza(llegada) {
       } else if (llegada && llegada.llave) {
         const i = J.llaves.length - 1; ceremonia(i, () => {
           meviGesto('feliz'); anima(P.maestro, 'Cheer', true);
-          if (todas) { abrePortal(); } else { di(t('llaveDe', t('t_' + llegada.llave), J.llaves.length, necesarias())); setTimeout(() => { di(t('otraTierra')); eligeTierra(); }, 2600); }
+          if (todas) { abrePortal(); } else { di(t('llaveDe', nomLlave(llegada.llave), J.llaves.length, necesarias())); setTimeout(() => { di(t('otraTierra')); eligeTierra(); }, 2600); }
         });
       } else eligeTierra();
     });
@@ -1178,12 +1178,14 @@ function panelFin(tipo) {
 }
 
 /* ======================= MENÚ, PAUSA Y BUCLE ======================= */
+/* el nombre de la tierra con su «de» en cada idioma (del Absurdo, de l'Absurd) */
+function nomLlave(k) { if (LG === 'en') return t('t_' + k); if (k === 'absurdo') return LG === 'ca' ? "de l'Absurd" : 'del Absurdo'; return 'de ' + t('t_' + k); }
 function abre(id) { document.querySelectorAll('.pan').forEach(p => p.classList.toggle('on', p.id === id)); $('pie').classList.toggle('off', id !== 'pIni'); }
 function textosUI() {
   document.documentElement.lang = LG; cargaVoz(LG); $('tLema').textContent = t('lema'); $('tPausa').textContent = t('pausa'); $('bSigue').textContent = t('sigue'); $('bSalir').textContent = t('salir'); $('bOtra').textContent = t('otra'); $('bMenu').textContent = t('terminar'); $('bVoz').title = t('voz');
   const niv = $('niv'); niv.innerHTML = ''; [0, 1, 2].forEach(m => { const d = document.createElement('div'); d.className = 'modo m' + m + (m === J.modo ? ' sel' : ''); d.tabIndex = 0; d.dataset.m = m; d.innerHTML = `<b>${t('m' + m)}</b><em>${t('m' + m + 'e')}</em><span>${t('m' + m + 'd')}</span><div class="ll">${'<i></i>'.repeat(m + 2)}</div>`; d.querySelectorAll('.ll i').forEach(i => { i.style.backgroundImage = `url(${TEX.llave})`; }); d.onclick = () => empieza(m); d.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); empieza(m); } }; niv.appendChild(d); });
   document.querySelectorAll('#lenguas button').forEach(b => b.classList.toggle('sel', b.dataset.lang === LG));
-  $('pie').textContent = 'MEVILAND · MSGAME v18.46 2026 ' + ({ es: 'es un proyecto hecho con', en: 'is a project made with', ca: 'és un projecte fet amb' })[LG] + ' 𑣲 by mediaservi.com';
+  $('pie').textContent = 'MEVILAND · MSGAME v18.47 2026 ' + ({ es: 'es un proyecto hecho con', en: 'is a project made with', ca: 'és un projecte fet amb' })[LG] + ' 𑣲 by mediaservi.com';
   $('bVoz').textContent = VOZ.on ? '🔊' : '🔇';
 }
 function menu() {

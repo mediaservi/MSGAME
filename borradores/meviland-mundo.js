@@ -31,7 +31,7 @@ Object.assign(TX.en, {
 Object.assign(TX.ca, {
   m2d: '4 Claus, mutacions, més trampes i un secret…',
   tunel_fantasia: 'Per aquí s\'arriba a la Terra de Fantasia…', tunel_absurdo: 'Agafeu-vos fort: aquest túnel porta a l\'Absurd.', tunel_golosinas: 'Mmm! Aquest túnel fa olor de caramel.', tunel_feria: 'Sentiu la música? La Fira és al final del túnel!',
-  puertas3: 'Tres portes, tres sales. Per quina comencem? Apunteu-ne una i manteniu.', puertas2: 'Queden dues sales. Quina trieu?', puertasT: 'Només una d\'aquestes portes porta a l\'última sala… Trieu bé!', puertasS: 'Una porta porta a l\'última sala. L\'altra… és una sorpresa!',
+  puertas3: 'Tres portes, tres sales. Per quina comencem? Apunteu-ne una i manteniu.', puertas2: 'Queden dues sales. Quina trieu?', puertasT: 'Només una d\'aquestes portes porta a l\'última sala… Trieu bé!', puertasS: 'Una porta condueix a l\'última sala. L\'altra… és una sorpresa!',
   otraSala: 'Cap a la sala següent!', ultimaSala: 'Només queda una sala per a la clau!',
   sorpresa: 'Porta sorpresa! Un regal de benvinguda. Ara, l\'altra porta.', sorpresaT: 'SORPRESA!',
   trampa: 'Porta trampa! Era un armari ple de confeti. Proveu-ne una altra.',
@@ -56,7 +56,7 @@ Object.assign(TX.en, { fd_desfile: 'With two Star Keys the castle gate opens and
   pgSub: 'Mevi\'s kingdom of fantasy', pgSigue: 'Tap to enter',
   pgTxt: 'To all travellers who may read this scroll, <b>greetings!</b>|By order of <b>Mevi</b> you are invited to her kingdom. Four worlds keep the <b>Star Keys</b>: gather them and the gates of the <b>Castle of Stars</b> will open, where the great feast awaits.|<b>Welcome to MEVILAND!</b>' });
 Object.assign(TX.ca, { fd_desfile: 'Amb dues Claus Estel·lars s\'obre el portal del castell i tot el regne surt a celebrar-ho amb vosaltres.', lema: 'EL REGNE DE FANTASIA DE MEVI', cargando: 'Obrint les portes del regne…', plaza: 'Gran Plaça de la Muralla',
-  hola: 'Hola! Soc la Mevi. Benvinguts a MEVILAND, el meu regne de fantasia!', holaN: 'Hola, {0}! Soc la Mevi. Benvinguts a MEVILAND, el meu regne de fantasia!',
+  hola: 'Hey! Com esteu? Soc la Mevi. Benvinguts a MEVILAND, el meu regne de fantasia!', holaN: 'Hola, {0}! Soc la Mevi. Benvinguts a MEVILAND, el meu regne de fantasia!',
   objetivo: 'Per obrir el portal del castell ens calen {0} Claus Estel·lars. Cada món en guarda una.', comoElegir: 'Apunteu a una porta de la muralla i manteniu-hi el punt de mira per entrar… o toqueu!',
   otraTierra: 'A quin món anem ara?', yaTenemos: 'Aquesta clau ja és nostra! Provem un altre món.', portalAbre: 'Totes les claus! El portal del castell s\'obre… Apunteu al portal!',
   pgSub: 'el regne de fantasia de Mevi', pgSigue: 'Toca per entrar',
