@@ -530,7 +530,7 @@ function paisVisitante() {
   let pais = null; try { const ls = (navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || '']); for (const l of ls) { const m = /^([a-z]{2,3})(?:-[A-Za-z]{4})?(?:-([A-Za-z]{2}))?/.exec(l || ''); if (!m) continue; if (m[1] === 'eu') { pais = 'eus'; break; } if (m[1] === 'gl') { pais = 'gal'; break; } if (m[2]) { pais = m[2].toLowerCase(); break; } }
     const z = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; if (!pais || !BANDERAS.includes(pais)) pais = ZONAS[z] || (/^America\/Argentina/.test(z) ? 'ar' : pais); } catch (e) {}
   /* si el idioma se ha elegido a mano (en el menú del juego o, dentro de MSGAME, en el de la consola), manda el idioma (y no el enlace con el que se abrió ni el país del aparato): cada idioma, su bandera */
-  if (window.LG_MANO || EMB) return LG === 'en' ? (pais === 'gb' || pais === 'us' ? pais : 'en') : LG === 'ca' ? 'reino' : (['es', 'mx', 'ar', 'co', 'cl', 'pe'].includes(pais) ? pais : 'es');   /* en catalán la senyera ya ondea a la derecha: a la izquierda, la del reino de Mevi */
+  if (window.LG_MANO || EMB) return LG === 'en' ? 'en' : LG === 'ca' ? 'cat' : (['es', 'mx', 'ar', 'co', 'cl', 'pe'].includes(pais) ? pais : 'es');   /* v18.49 · inglés: siempre la mixta británica y estadounidense; catalán: la senyera también a la izquierda (dos senyeras) */
   if (elegido === 'en') return pais === 'gb' || pais === 'us' ? pais : 'en';   /* inglés: mitad británica, mitad estadounidense */
   if (pais && BANDERAS.includes(pais)) return pais;
   return { es: 'es', en: 'en', ca: 'es' }[LG] || 'reino';
@@ -1185,7 +1185,7 @@ function textosUI() {
   document.documentElement.lang = LG; cargaVoz(LG); $('tLema').textContent = t('lema'); $('tPausa').textContent = t('pausa'); $('bSigue').textContent = t('sigue'); $('bSalir').textContent = t('salir'); $('bOtra').textContent = t('otra'); $('bMenu').textContent = t('terminar'); $('bVoz').title = t('voz');
   const niv = $('niv'); niv.innerHTML = ''; [0, 1, 2].forEach(m => { const d = document.createElement('div'); d.className = 'modo m' + m + (m === J.modo ? ' sel' : ''); d.tabIndex = 0; d.dataset.m = m; d.innerHTML = `<b>${t('m' + m)}</b><em>${t('m' + m + 'e')}</em><span>${t('m' + m + 'd')}</span><div class="ll">${'<i></i>'.repeat(m + 2)}</div>`; d.querySelectorAll('.ll i').forEach(i => { i.style.backgroundImage = `url(${TEX.llave})`; }); d.onclick = () => empieza(m); d.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); empieza(m); } }; niv.appendChild(d); });
   document.querySelectorAll('#lenguas button').forEach(b => b.classList.toggle('sel', b.dataset.lang === LG));
-  $('pie').textContent = 'MEVILAND · MSGAME v18.48 2026 ' + ({ es: 'es un proyecto hecho con', en: 'is a project made with', ca: 'és un projecte fet amb' })[LG] + ' 𑣲 by mediaservi.com';
+  $('pie').textContent = 'MEVILAND · MSGAME v18.49 2026 ' + ({ es: 'es un proyecto hecho con', en: 'is a project made with', ca: 'és un projecte fet amb' })[LG] + ' 𑣲 by mediaservi.com';
   $('bVoz').textContent = VOZ.on ? '🔊' : '🔇';
 }
 function menu() {
@@ -1211,6 +1211,8 @@ $('bOtra').onclick = () => { abre('pIni'); textosUI(); empieza(J.modo); };
 $('bMenu').onclick = () => { if (EMB) manda({ t: 'fin', v: J.pts }); else menu(); };
 $('bVoz').onclick = () => { VOZ.on = !VOZ.on; try { localStorage.setItem('MEVILAND_VOZ', VOZ.on ? '1' : '0'); } catch (e) {} if (!VOZ.on) callaVoz(); $('bVoz').textContent = VOZ.on ? '🔊' : '🔇'; };
 document.querySelectorAll('#lenguas button').forEach(b => b.onclick = () => { LG = b.dataset.lang; window.LG_MANO = true; if (J.fase === 'menu') setTimeout(menu, 0); try { localStorage.setItem('VJSHOW_LANG', LG); } catch (e) {} textosUI(); });
+/* v18.49 · dentro de MSGAME el idioma se cambia en la consola (también desde AJUSTES con el juego abierto): se sigue el idioma de la página de fuera al momento */
+if (EMB) try { const de = parent.document.documentElement; new MutationObserver(() => { const l = String(de.lang || '').toLowerCase().split('-')[0]; if (!['es', 'en', 'ca'].includes(l) || l === LG) return; LG = l; window.LG_MANO = true; if (J.fase === 'menu') setTimeout(menu, 0); textosUI(); }).observe(de, { attributes: true, attributeFilter: ['lang'] }); } catch (e) {}
 if (EMB) { $('hud').style.left = 'calc(var(--u)*1.2 + 54px)'; }
 /* con el mando del móvil o el teclado, los paneles se manejan apuntando */
 let enMenu = null;
