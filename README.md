@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.51**
+**Versión actual: v18.52**
 
 ## Cómo se juega
 
@@ -39,7 +39,13 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **MEVILAND** *(nuevo)*: el reino de fantasía de Mevi, en 3D y en primera persona; la gran plaza de la muralla al atardecer, cuatro mundos (Fantasía, Absurdo, Golosinas y Feria) con tres salas cada uno, doce pruebas, puertas trampa y cuatro finales, uno secreto.
 - **RUNAS** *(nuevo)*: dibuja runas en el aire con la mano delante de la cámara (o con el móvil o el ratón) para deshacer las sombras que van a por el cristal de Mevi; hasta 4 a la vez, jefe final y supermagia con los dos brazos arriba.
 
-## Cambios de la versión actual (v18.51)
+## Cambios de la versión actual (v18.52)
+- **Mevi habla en la sala:** dice en voz alta sus saludos, consejos, chistes y recomendaciones en español, inglés y catalán (la misma voz que en MEVILAND). Con los idiomas de España (gallego, euskera…) habla en español y con el resto en inglés; los bocadillos siguen saliendo siempre, en el idioma de la consola, para quien no oye bien. En los chistes, el remate llega tras la pausa, a la vez que en el bocadillo. Con el sonido apagado no habla, y si se apaga mientras habla, calla al momento.
+- **El trío estrella:** una de cada dos recomendaciones de Mevi es para EL MISTERIO DE EK CHUAH, MEVILAND o WONDERWALK, con frases propias (y empieza por ellos), y la caja de la que habla se ilumina.
+- **Recomendaciones con su caja:** desde la de WARFRONT, la caja que se iluminaba no era la del juego recomendado; ahora cada una ilumina la suya. Nueva recomendación para RUNAS.
+- **Sin conexión:** el modo feria guarda también la voz de Mevi.
+
+### v18.51
 - **MEVILAND:**
   - **Selector de idioma 🌐** en el menú, junto a la voz y la pausa (también en la pausa): todos los idiomas de la consola. Dentro de MSGAME cambia también el idioma de la consola.
   - **Rótulos traducidos aunque la traducción llegue tarde:** los nombres de las puertas y los demás letreros se repintan en cuanto llega.

@@ -62,3 +62,4 @@ Monedas (Cinematic Sound Design, «Ting Coins») · premio (Epic Stock Media, An
 
 ## Mevi (v18.37)
 Modelo de Mevi regenerado en Meshy 7.1 a partir de su imagen oficial (mediaservi.com), riggeado en Mixamo; ojos y boca dibujados para MSGAME (`packs/comun/mevi/caras.png`). Propiedad de mediaservi.com.
+- **Voz de Mevi en la sala** (`packs/comun/mevi/voz/<idioma>/*.mp3`, v18.52): voz sintética generada con la función de texto a voz de **Microsoft Clipchamp** (voz «Xiaoyou Multilingual», tono alto), la misma que en MEVILAND, en español, inglés y catalán; cada frase se ha cortado y se ha igualado el volumen. `<idioma>.json` guarda la duración de cada frase.
