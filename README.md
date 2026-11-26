@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.47**
+**Versión actual: v18.48**
 
 ## Cómo se juega
 
@@ -39,7 +39,10 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **MEVILAND** *(nuevo)*: el reino de fantasía de Mevi, en 3D y en primera persona; la gran plaza de la muralla al atardecer, cuatro mundos (Fantasía, Absurdo, Golosinas y Feria) con tres salas cada uno, doce pruebas, puertas trampa y cuatro finales, uno secreto.
 - **RUNAS** *(nuevo)*: dibuja runas en el aire con la mano delante de la cámara (o con el móvil o el ratón) para deshacer las sombras que van a por el cristal de Mevi; hasta 4 a la vez, jefe final y supermagia con los dos brazos arriba.
 
-## Cambios de la versión actual (v18.47)
+## Cambios de la versión actual (v18.48)
+- **MEVILAND · la bandera sigue al idioma también dentro de MSGAME.** El idioma elegido en la consola ahora cambia la bandera de la izquierda del castillo: la española en español, la británica y estadounidense en inglés y la del reino de Mevi en catalán. Antes, dentro de MSGAME salía siempre la del país del aparato.
+
+### v18.47
 - **MEVILAND · Mevi estrena voz.**
   - **La misma voz en los tres idiomas:** Mevi habla en español, inglés y catalán con una voz nueva, más natural y con el mismo tono en todos.
   - **Catalán revisado frase a frase:** «Hey! Com esteu?» para saludar, «Una porta condueix a l'última sala», «La Copa Daurada» y «Espereu! I si tot el parc fos… una bola de neu?»; y se han corregido las palabras que se pronunciaban mal.
