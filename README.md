@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.43**
+**Versión actual: v18.44**
 
 ## Cómo se juega
 
@@ -39,7 +39,14 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **MEVILAND** *(nuevo)*: el reino de fantasía de Mevi, en 3D y en primera persona; la gran plaza de la muralla al atardecer, cuatro mundos (Fantasía, Absurdo, Golosinas y Feria) con tres salas cada uno, doce pruebas, puertas trampa y cuatro finales, uno secreto.
 - **RUNAS** *(nuevo)*: dibuja runas en el aire con la mano delante de la cámara (o con el móvil o el ratón) para deshacer las sombras que van a por el cristal de Mevi; hasta 4 a la vez, jefe final y supermagia con los dos brazos arriba.
 
-## Cambios de la versión actual (v18.43)
+## Cambios de la versión actual (v18.44)
+- **MEVILAND · se entiende a Mevi.**
+  - **Mezcla:** mientras Mevi habla, la música y el ambiente bajan a un tercio y vuelven al acabar (también en el desfile y en los menús). La música de los menús y la del desfile suenan algo más bajas, y los cohetes, menos fuertes.
+  - **Voz más clara y con más cuerpo:** todas las frases regrabadas con más presencia y más volumen.
+  - **Catalán:** Mevi habla ahora con una voz catalana nativa.
+  - **Carrusel:** la llave es más grande, brilla más y late mientras se enseña; y se enseña un poco más de tiempo.
+
+### v18.43
 - **MEVILAND · voz, música, logo y carátula.**
   - **Mevi tiene voz propia, grabada:** una voz de niña en español, inglés y catalán para todas sus frases y para leer el pergamino de bienvenida (la pluma escribe a su paso). La voz del navegador queda solo de respaldo. La música baja un poco mientras habla.
   - **Música:** un tema de metales en los menús y un tema de circo para el Gran Desfile, que dura lo que su música y termina con su último golpe.

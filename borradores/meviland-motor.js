@@ -197,7 +197,7 @@ function suena(canal, n, o) {
   if (act) { const g = act.g, a = act.a; try { g.gain.cancelScheduledValues(ac.currentTime); g.gain.setValueAtTime(g.gain.value, ac.currentTime); g.gain.linearRampToValueAtTime(0, ac.currentTime + (o.corte || .9)); } catch (e) {} setTimeout(() => { try { a.pause(); } catch (e) {} }, (o.corte || .9) * 1000 + 80); PISTAS[canal] = null; }
   if (!n || !PISTA_URL[n]) return null;
   const a = new Audio(PISTA_URL[n]); a.loop = !!o.bucle; a.preload = 'auto'; let g; try { const src = ac.createMediaElementSource(a); g = ac.createGain(); g.gain.value = 0; g.gain.linearRampToValueAtTime(o.vol === undefined ? .7 : o.vol, ac.currentTime + (o.entra || .4)); src.connect(g); g.connect(AU.master); } catch (e) { return null; }
-  const p = PISTAS[canal] = { n, a, g }; a.play().catch(() => { p.espera = true; }); return p;
+  const p = PISTAS[canal] = { n, a, g, vol: o.vol === undefined ? .7 : o.vol, t0: ac.currentTime + (o.entra || .4) + .05 }; a.play().catch(() => { p.espera = true; }); return p;
 }
 /* si el navegador no dejó sonar antes del primer gesto, se arranca con él */
 ['pointerdown', 'keydown'].forEach(ev => addEventListener(ev, () => { if (AU.ac && AU.ac.state === 'suspended') AU.ac.resume(); Object.values(PISTAS).forEach(p => { if (p && p.espera) { p.espera = false; p.a.play().catch(() => { p.espera = true; }); } }); }, true));
@@ -207,13 +207,13 @@ function suena(canal, n, o) {
    Si una frase no tiene grabación (por ejemplo, el saludo con los nombres de los jugadores) se usa la que se indique en VOZ.alt y,
    en último caso, la voz del navegador. */
 const VOZ = { on: (() => { try { return localStorage.getItem('MEVILAND_VOZ') !== '0'; } catch (e) { return true; } })(), habla: 0, cola: [], tFin: 0, man: {}, el: null, alt: null };
-function cargaVoz(l) { if (VOZ.man[l] !== undefined) return; VOZ.man[l] = null; fetch('../packs/meviland/voz/' + l + '.json?v=18.43').then(r => r.ok ? r.json() : {}).then(j => { VOZ.man[l] = j || {}; }).catch(() => { VOZ.man[l] = {}; }); }
+function cargaVoz(l) { if (VOZ.man[l] !== undefined) return; VOZ.man[l] = null; fetch('../packs/meviland/voz/' + l + '.json?v=18.44').then(r => r.ok ? r.json() : {}).then(j => { VOZ.man[l] = j || {}; }).catch(() => { VOZ.man[l] = {}; }); }
 function vozHuella(t2) { let h = 0x811c9dc5; for (let i = 0; i < t2.length; i++) { const c = t2.charCodeAt(i); h ^= c & 255; h = Math.imul(h, 0x01000193) >>> 0; h ^= c >> 8; h = Math.imul(h, 0x01000193) >>> 0; } return ('0000000' + h.toString(16)).slice(-8); }
 function callaVoz() { if (VOZ.el) { try { VOZ.el.pause(); } catch (e) {} VOZ.el = null; } try { window.speechSynthesis && speechSynthesis.cancel(); } catch (e) {} }
 /* dice una frase con la voz grabada; devuelve lo que dura en ms (0 si no hay grabación) */
 function vozGrabada(txt) {
   const man = VOZ.man[LG]; if (!man) return 0; let h = vozHuella(txt); if (!man[h] && VOZ.alt) h = vozHuella(VOZ.alt); VOZ.alt = null; if (!man[h]) return 0;
-  if (VOZ.on) { const a = new Audio('../packs/meviland/voz/' + LG + '/' + h + '.mp3?v=18.43'); a.volume = 1; a.play().catch(() => {}); VOZ.el = a; }
+  if (VOZ.on) { const a = new Audio('../packs/meviland/voz/' + LG + '/' + h + '.mp3?v=18.44'); a.volume = 1; a.play().catch(() => {}); VOZ.el = a; }
   return man[h];
 }
 function vozDe(l) { const vs = speechSynthesis.getVoices(), pref = { es: 'es', en: 'en', ca: 'ca' }[l]; return vs.find(v => v.lang.toLowerCase().startsWith(pref) && /female|mujer|monica|paulina|helena|laura|lucia|elvira|samantha|google/i.test(v.name)) || vs.find(v => v.lang.toLowerCase().startsWith(pref)) || (l === 'ca' ? vs.find(v => v.lang.toLowerCase().startsWith('es')) : null); }
@@ -253,7 +253,9 @@ function pasaMevi(dt) {
   if (MEVI.gesto > 0) { MEVI.gesto -= dt; if (MEVI.gesto <= 0) meviAnim(MEVI.anda ? 'andar' : 'reposo'); }
   p.visible = MEVI.visible; MEVI.blob.visible = MEVI.visible && MEVI.modo !== 'camara';
   if (MEVI.cara) { MEVI.cara.parpa(MEVI.t); MEVI.cara.habla(MEVI.t, hablando()); }
-  if (AU.mus) AU.mus.gain.value += ((hablando() ? .17 : .32) - AU.mus.gain.value) * Math.min(1, dt * 4);   /* la música deja sitio a la voz */
+  /* la música y el ambiente dejan sitio a la voz: mientras Mevi habla, bajan a un tercio, y vuelven al acabar */
+  const hb = hablando(); if (AU.mus) AU.mus.gain.value += ((hb ? .1 : .3) - AU.mus.gain.value) * Math.min(1, dt * 5);
+  if (AU.ac) for (const c in PISTAS) { const p = PISTAS[c]; if (!p || AU.ac.currentTime < p.t0) continue; p.g.gain.value += (p.vol * (hb ? .32 : 1) - p.g.gain.value) * Math.min(1, dt * 5); }
   CAM.updateMatrixWorld(); CAM.getWorldPosition(MV1); CAM.getWorldDirection(MV2);
   if (MEVI.modo === 'camara') {   /* a bordo: en su asiento, a la derecha */
     p.scale.setScalar(.46); MV3.copy(MEVI.sitio).applyMatrix4(CAM.matrixWorld); p.position.copy(MV3); p.quaternion.copy(CAM.quaternion); p.rotateY(-.42); MEVI.salto = true; return;

@@ -445,7 +445,7 @@ function desfile(g) {
    estalla en una palmera que cae y se apaga, da su fogonazo al cielo y suena con su estallido, que llega un poco después según la distancia */
 function fuegos(g, o) {
   const NP = LITE ? 80 : 170, MAX = LITE ? 4 : 8, tl = new T.TextureLoader(), TXF = ['flare_01', 'spark_06', 'star_07', 'star_09'].map(n => { const k = 'piro_' + n; if (!TEX[k]) { TEX[k] = tl.load('../packs/wonderwalk/fx/' + n + '.png'); TEX[k].encoding = T.sRGBEncoding; } return TEX[k]; });
-  const lista = [], luz = new T.PointLight('#ffffff', 0, 140, 1.2); g.add(luz); let tm = .4; suena('amb', 'piro', { bucle: true, vol: .32, entra: 1.2 });
+  const lista = [], luz = new T.PointLight('#ffffff', 0, 140, 1.2); g.add(luz); let tm = .4; suena('amb', 'piro', { bucle: true, vol: .22, entra: 1.2 });
   anim((dt, tt) => { tm -= dt;
     if (tm <= 0 && lista.filter(f => f.on).length < MAX) { tm = rnd(.3, .85); let f = lista.find(q2 => !q2.on);
       if (!f) { const ge = new T.BufferGeometry(); ge.setAttribute('position', new T.Float32BufferAttribute(new Float32Array((NP + 14) * 3), 3)); const pts = new T.Points(ge, new T.PointsMaterial({ map: TXF[0], size: 1.5, transparent: true, depthWrite: false, blending: T.AdditiveBlending, fog: false, sizeAttenuation: true })); pts.frustumCulled = false; g.add(pts); f = { pts, v: new Float32Array(NP * 3) }; lista.push(f); }
@@ -454,7 +454,7 @@ function fuegos(g, o) {
     let fl = 0, fc = null; lista.forEach(f => { if (!f.on) { f.pts.visible = false; return; } f.t += dt; const P = f.pts.geometry.attributes.position, m = f.pts.material; f.pts.visible = true;
       if (f.t < 0) { const k2 = 1 + f.t / f.sub; for (let i = 0; i < NP + 14; i++) P.setXYZ(i, f.c[0] + Math.sin(i + tt * 20) * .06, i < 14 ? lerp(0, f.c[1], k2) - i * .3 : -999, f.c[2]); m.size = .9; m.opacity = .9; m.color.set('#ffd9a0'); }
       else { const t2 = f.t, dur = 2.7, fr = Math.exp(-t2 * 1.1), s2 = (1 - fr) / 1.1; if (t2 > dur) { f.on = false; f.pts.visible = false; return; }
-        if (!f.son) { f.son = true; const d = Math.hypot(f.c[0] - CAM.position.x, f.c[1] - CAM.position.y, f.c[2] - CAM.position.z); setTimeout(() => fx('piro' + (1 + ri(5)), clamp(1.15 - d / 70, .25, .9), rnd(.9, 1.1)), Math.min(400, d * 3)); }
+        if (!f.son) { f.son = true; const d = Math.hypot(f.c[0] - CAM.position.x, f.c[1] - CAM.position.y, f.c[2] - CAM.position.z); setTimeout(() => fx('piro' + (1 + ri(5)), clamp(1 - d / 70, .2, .62), rnd(.9, 1.1)), Math.min(400, d * 3)); }
         for (let i = 0; i < NP; i++) P.setXYZ(i, f.c[0] + f.v[i * 3] * s2, f.c[1] + f.v[i * 3 + 1] * s2 - 1.6 * t2 * t2, f.c[2] + f.v[i * 3 + 2] * s2); for (let i = NP; i < NP + 14; i++) P.setXYZ(i, 0, -999, 0);
         m.color.copy(f.col); m.size = 2.9 * (1 - t2 / dur * .5) * (1 + Math.sin(tt * 40) * .12); m.opacity = clamp(1.25 - t2 / dur * 1.25, 0, 1); if (t2 < .5 && 1 - t2 / .5 > fl) { fl = 1 - t2 / .5; fc = f; } }
       P.needsUpdate = true; });

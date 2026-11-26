@@ -1102,11 +1102,12 @@ SALAS.carrusel = { dur: [60, 55, 50], crea(ctx) {
   const pastel = ['#ffd0e8', '#d0e8ff', '#e8ffd0', '#fff0c0', '#e8d0ff', '#c0fff0'];
   const H = []; for (let i = 0; i < 6; i++) { const a = i / 6 * 6.283, gr = new T.Group(); gr.position.set(Math.cos(a) * R, 0, Math.sin(a) * R); gr.rotation.y = -a; C.add(gr);
     const palo = cil(.05, .05, 3.6, mat('#ffd23f', { metalness: .9, roughness: .2 }), 8); palo.position.y = 2.1; gr.add(palo); const cab = pieza('caballo', 1.5, { tinte: pastel[i] }); cab.rotation.y = Math.PI / 2; cab.position.y = .9; gr.add(cab);
-    const regalo = new T.Group(); const rc = PAL[i]; const cj = caja(.75, .75, .75, mat(rc, { roughness: .35 })); regalo.add(cj); const c1 = caja(.78, .78, .14, mat('#ffffff')); regalo.add(c1); const c2 = caja(.14, .78, .78, mat('#ffffff')); regalo.add(c2); const lazo = new T.Mesh(new T.TorusGeometry(.16, .05, 6, 16), mat('#ffffff')); lazo.position.y = .42; regalo.add(lazo); regalo.position.y = 3.05; regalo.scale.setScalar(.01); gr.add(regalo);
+    const regalo = new T.Group(); const rc = PAL[i]; const cj = caja(.75, .75, .75, mat(rc, { roughness: .35 })); regalo.add(cj); const c1 = caja(.78, .78, .14, mat('#ffffff')); regalo.add(c1); const c2 = caja(.14, .78, .78, mat('#ffffff')); regalo.add(c2); const lazo = new T.Mesh(new T.TorusGeometry(.16, .05, 6, 16), mat('#ffffff')); lazo.position.y = .42; regalo.add(lazo); regalo.position.y = 2.62; regalo.scale.setScalar(.01); gr.add(regalo);
     gr.userData.cab = i; ctx.diana(gr, 'cab'); H.push({ gr, cab, regalo, f: i * 1.05, cubierto: 0 }); }
-  const llave = pieza('llave', .85, { emis: '#ffb000', emisI: .7 }); const lb = brillo('#ffd23f', 2, .8); llave.add(lb); llave.position.y = 2.75;
+  const llave = pieza('llave', 1.55, { emis: '#ff9a00', emisI: .55 }); const lb = brillo('#ffd23f', 3.4, .5), lb2 = brillo('#fff3b0', 5.6, .3); llave.add(lb); llave.add(lb2); llave.position.y = 2.6; lb.position.z = lb2.position.z = -.45;
+  const med = new T.Mesh(new T.CircleGeometry(1.02, 40), new T.MeshBasicMaterial({ color: '#2a1450', transparent: true, opacity: .82 })); med.position.set(0, .0, -.22); llave.add(med); const aroM = new T.Mesh(new T.RingGeometry(1.02, 1.12, 40), new T.MeshBasicMaterial({ color: '#ffd23f' })); aroM.position.copy(med.position); llave.add(aroM);   /* medallón oscuro detrás: la llave dorada se recorta contra cualquier fondo */   /* grande, con doble resplandor y latiendo: que se vea bien dónde está */
   let w = .25, fase = 'espera', tf = 0, quien = 0, dir = 1;
-  const ronda = () => { quien = ri(6); H[quien].gr.add(llave); llave.visible = true; H.forEach(h => { h.cubierto = 0; }); fase = 'mira'; tf = 2.2 / Math.max(1, ctx.vel * .9); di(t('mira'), 1800); anima(mc, 'Talk', true); w = .3; };
+  const ronda = () => { quien = ri(6); H[quien].gr.add(llave); llave.visible = true; H.forEach(h => { h.cubierto = 0; }); fase = 'mira'; tf = 2.8 / Math.max(1, ctx.vel * .9); di(t('mira'), 1800); anima(mc, 'Talk', true); w = .3; };
   return {
     empieza() { ronda(); },
     paso(dt, tt) {
@@ -1117,8 +1118,8 @@ SALAS.carrusel = { dur: [60, 55, 50], crea(ctx) {
       if (fase === 'frena') { w = lerp(w, ctx.modo === 2 ? .12 : 0, .06); if (tf <= 0) { fase = 'elige'; di(t('donde'), 1600); meviGesto('senala'); } }
       if (fase === 'elige' && ctx.modo < 2) w = lerp(w, 0, .1);
       C.rotation.y += w * dt;
-      H.forEach(h => { h.gr.position.y = Math.sin(tt * 2.4 + h.f) * .25; if (h.tapar) h.cubierto = Math.min(1, h.cubierto + dt * 3); else h.cubierto = Math.max(0, h.cubierto - dt * 3); h.regalo.scale.setScalar(Math.max(.01, suave(h.cubierto))); h.regalo.rotation.y += dt; });
-      llave.rotation.y += dt * 2;
+      H.forEach(h => { h.gr.position.y = Math.sin(tt * 2.4 + h.f) * .25; if (h.tapar) h.cubierto = Math.min(1, h.cubierto + dt * 3); else h.cubierto = Math.max(0, h.cubierto - dt * 3); h.regalo.scale.setScalar(Math.max(.01, suave(h.cubierto) * 1.6)); h.regalo.rotation.y += dt; });
+      llave.rotation.y = -(C.rotation.y + (llave.parent ? llave.parent.rotation.y : 0)) + Math.sin(tt * 2.6) * .55; const late = Math.sin(tt * 6); llave.scale.setScalar(fase === 'mira' || fase === 'revela' ? 1.08 + late * .12 : 1); lb2.material.opacity = .3 + late * .14; lb.material.opacity = .5 + late * .14;
     },
     toca(h) { if (fase !== 'elige') return; const o = h && deQuien(h.object, 'cab'); if (!o) return; const i = o.userData.cab; fase = 'revela'; H.forEach(x => { x.tapar = false; }); llave.visible = true; const p = H[quien].gr.getWorldPosition(new T.Vector3()).add(new T.Vector3(0, 3, 0));
       if (i === quien) { fx('premio'); ctx.bien(p, 150); anima(mc, 'Cheer', true); confeti(p, 40); } else { ctx.mal(H[i].gr.getWorldPosition(new T.Vector3()).add(new T.Vector3(0, 3, 0))); chispas(p, 20, ['#ffd23f'], { vel: 2, tam: .4 }); }
@@ -1154,14 +1155,14 @@ function final() {
     }; if (tipo === 'bola') { plaza({ noche: true, radio: 15 }); monta(); } else patioCastillo({ f: monta });
     meviGesto('salta'); fx('victoria');
     if (tipo === 'desfile') { /* el desfile dura lo que su música (el tema de circo) y termina con su último golpe */
-      const pm = suena('mus', 'desfile', { vol: .8, entra: .05 }); let td = 0; anim(dt => { td += dt; const a = pm && pm.a, acaba = a && !a.paused && a.duration ? a.currentTime > a.duration - .2 : a && a.ended ? true : td > 50; if ((acaba || td > 62) && J.fase === 'final') panelFin(tipo); }); if (BOT) setTimeout(() => { if (J.fase === 'final') panelFin(tipo); }, 1500);
+      const pm = suena('mus', 'desfile', { vol: .6, entra: .05 }); let td = 0; anim(dt => { td += dt; const a = pm && pm.a, acaba = a && !a.paused && a.duration ? a.currentTime > a.duration - .2 : a && a.ended ? true : td > 50; if ((acaba || td > 62) && J.fase === 'final') panelFin(tipo); }); if (BOT) setTimeout(() => { if (J.fase === 'final') panelFin(tipo); }, 1500);
       secuencia([[t('des1'), 'senala'], [t('des2'), 'feliz'], [t('des3'), 'saluda'], [t('fin_desfile'), 'feliz']], () => {}); return; }
     setTimeout(() => { if (J.fase !== 'final') return; di(t('fin_' + tipo)); meviGesto('feliz'); }, 1200);
     setTimeout(() => { if (J.fase !== 'final') return; panelFin(tipo); }, BOT ? 1500 : tipo === 'bola' ? 15000 : 11500);
   }, '#ffe9a8');
 }
 function panelFin(tipo) {
-  suena('mus', 'menu', { bucle: true, vol: .6, entra: 1.5 }); J.fase = 'fin'; $('fTit').textContent = t('f_' + tipo); $('fTxt').textContent = t('fd_' + tipo);
+  suena('mus', 'menu', { bucle: true, vol: .42, entra: 1.5 }); J.fase = 'fin'; $('fTit').textContent = t('f_' + tipo); $('fTxt').textContent = t('fd_' + tipo);
   const seg = Math.round((performance.now() - J.t0) / 1000), filas = [[t('dPuntos'), J.pts], [t('dLlaves'), J.llaves.length + ' / ' + necesarias()], [t('dSalas'), J.salasOk + ' / ' + J.salasN]];
   if (J.modo === 2) filas.push([t('dPatos'), J.patos + ' / 4']); filas.push([t('dTiempo'), Math.floor(seg / 60) + ':' + String(seg % 60).padStart(2, '0')]);
   $('fDl').innerHTML = filas.map(([a, b]) => `<dt>${a}</dt><dd>${b}</dd>`).join(''); abre('pFin'); manda({ t: 'pts', v: J.pts });
@@ -1174,11 +1175,11 @@ function textosUI() {
   document.documentElement.lang = LG; cargaVoz(LG); $('tLema').textContent = t('lema'); $('tPausa').textContent = t('pausa'); $('bSigue').textContent = t('sigue'); $('bSalir').textContent = t('salir'); $('bOtra').textContent = t('otra'); $('bMenu').textContent = t('terminar'); $('bVoz').title = t('voz');
   const niv = $('niv'); niv.innerHTML = ''; [0, 1, 2].forEach(m => { const d = document.createElement('div'); d.className = 'modo m' + m + (m === J.modo ? ' sel' : ''); d.tabIndex = 0; d.dataset.m = m; d.innerHTML = `<b>${t('m' + m)}</b><em>${t('m' + m + 'e')}</em><span>${t('m' + m + 'd')}</span><div class="ll">${'<i></i>'.repeat(m + 2)}</div>`; d.querySelectorAll('.ll i').forEach(i => { i.style.backgroundImage = `url(${TEX.llave})`; }); d.onclick = () => empieza(m); d.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); empieza(m); } }; niv.appendChild(d); });
   document.querySelectorAll('#lenguas button').forEach(b => b.classList.toggle('sel', b.dataset.lang === LG));
-  $('pie').textContent = 'MEVILAND · MSGAME v18.43 2026 ' + ({ es: 'es un proyecto hecho con', en: 'is a project made with', ca: 'és un projecte fet amb' })[LG] + ' 𑣲 by mediaservi.com';
+  $('pie').textContent = 'MEVILAND · MSGAME v18.44 2026 ' + ({ es: 'es un proyecto hecho con', en: 'is a project made with', ca: 'és un projecte fet amb' })[LG] + ' 𑣲 by mediaservi.com';
   $('bVoz').textContent = VOZ.on ? '🔊' : '🔇';
 }
 function menu() {
-  J.fase = 'menu'; hud(false); barra(null); meta(null); musica(null); suena('amb', null); suena('mus', 'menu', { bucle: true, vol: .6 }); textosUI();   /* en los menús, el tema de metales */ $('cargaBox').style.display = 'none'; $('niv').style.display = 'flex'; $('lenguas').style.display = EMB ? 'none' : 'flex'; abre('pIni');
+  J.fase = 'menu'; hud(false); barra(null); meta(null); musica(null); suena('amb', null); suena('mus', 'menu', { bucle: true, vol: .42 }); textosUI();   /* en los menús, el tema de metales */ $('cargaBox').style.display = 'none'; $('niv').style.display = 'flex'; $('lenguas').style.display = EMB ? 'none' : 'flex'; abre('pIni');
   plaza({}); MU.libre = true; let a = 0; MU.upd = dt => { a += dt * .06; CAM.position.set(Math.sin(a) * 15, 4.5 + Math.sin(a * 2) * .6, -6 + Math.cos(a) * 17); CAM.lookAt(0, 3, -10); };
   MEVI.visible = true; MEVI.modo = 'fija'; MEVI.fijo.set(3.4, 0, 2.2); MEVI.salto = true; meviAnim('saluda', true);
   if (BOT && !/[?&]ver=/.test(location.search)) setTimeout(() => empieza(+((location.search.match(/[?&]bm=(\d)/) || [])[1] || J.modo)), 300);
