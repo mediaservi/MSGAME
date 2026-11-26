@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.54**
+**Versión actual: v18.55**
 
 ## Cómo se juega
 
@@ -39,7 +39,10 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **MEVILAND** *(nuevo)*: el reino de fantasía de Mevi, en 3D y en primera persona; la gran plaza de la muralla al atardecer, cuatro mundos (Fantasía, Absurdo, Golosinas y Feria) con tres salas cada uno, doce pruebas, puertas trampa y cuatro finales, uno secreto.
 - **RUNAS** *(nuevo)*: dibuja runas en el aire con la mano delante de la cámara (o con el móvil o el ratón) para deshacer las sombras que van a por el cristal de Mevi; hasta 4 a la vez, jefe final y supermagia con los dos brazos arriba.
 
-## Cambios de la versión actual (v18.54)
+## Cambios de la versión actual (v18.55)
+- **Voz de Mevi en catalán:** segunda pasada a 8 frases de la sala (GRAFFER, WONDERWALK, SHATEKI, «Zum-ba!», «Perquè té molts problemes», «Que bé que encaixem!» y «Que bo!»).
+
+### v18.54
 - **Voz de Mevi en catalán, repasada frase a frase:** 27 frases de la sala regrabadas para que suenen bien (nombres de los juegos como PUNTERÍA HAUNTED, PALOTERAPIA, PATOPESCA, KRAZYGOLF, DUSTY RUN, GRAFFER, WONDERWALK, SHATEKI y WARFRONT; palabras como «bitlles», «millor» o «píxels»; y la entonación de las preguntas y respuestas).
 - En catalán, Mevi dice «vinga!» en lugar de «a tope!» y «Epa!» en lugar de «Tatxan!», también en el bocadillo.
 - Fuera la frase del nombre del monitor.
