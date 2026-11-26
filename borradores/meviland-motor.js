@@ -58,12 +58,15 @@ const matB = (c, o) => new T.MeshBasicMaterial(Object.assign({ color: c }, o || 
 /* ---------- modelos ---------- */
 const MOD = {}, LISTA = ['brocoli', 'maestro', 'buho', 'gusano', 'chef', 'vagoneta', 'caballo', 'calcetin', 'leche', 'portal', 'libro', 'espejo', 'puertacaramelo', 'caramelo', 'copa', 'llave', 'arco', 'puertafantasia', 'fuente', 'pato'];
 function conMeshopt(f) { if (window.MeshoptDecoder) return window.MeshoptDecoder.ready.then(f); const s = document.createElement('script'); s.src = '../lib/meshopt.js'; s.onload = () => window.MeshoptDecoder.ready.then(f); document.head.appendChild(s); }
+/* andar en el sitio: a los clips de caminar y correr se les quita el avance de la cadera (si no, el personaje da un tirón hacia delante y vuelve atrás en cada ciclo);
+   quien lo mueve por el mundo es el juego */
+function sinAvance(anims) { (anims || []).forEach(c => { if (!/^(and|walk|run|sneak|camin|corr)/i.test(c.name)) return; c.tracks.forEach(tr => { if (!/hips\.position$/i.test(tr.name)) return; const v = tr.values; for (let i = 3; i < v.length; i += 3) { v[i] = v[0]; v[i + 2] = v[2]; } }); }); return anims; }
 function cargaTodo(prog) {
   return new Promise(ok => conMeshopt(() => {
     const L = new T.GLTFLoader(); L.setMeshoptDecoder(window.MeshoptDecoder);
     const todo = LISTA.map(n => [n, PK + n + '.glb?v=18.41']).concat([['mevi', '../packs/comun/mevi/mevi.glb?v=18.37'], ['farol', '../packs/modelos/a3D-farol.glb?v=18.42'], ['corona', '../packs/modelos/a3D-corona.glb?v=18.42']]);
     let n = 0;
-    todo.forEach(([k, u]) => L.load(u, g => { g.scene.traverse(o => { if (o.isMesh) { if (o.geometry) o.geometry.userData.mod = true; o.castShadow = true; o.receiveShadow = true; o.frustumCulled = false; const m = o.material; if (m && m.map) m.map.anisotropy = 4; } }); MOD[k] = g; n++; prog(n / todo.length); if (n === todo.length) ok(); }, undefined, () => { n++; prog(n / todo.length); if (n === todo.length) ok(); }));
+    todo.forEach(([k, u]) => L.load(u, g => { g.scene.traverse(o => { if (o.isMesh) { if (o.geometry) o.geometry.userData.mod = true; o.castShadow = true; o.receiveShadow = true; o.frustumCulled = false; const m = o.material; if (m && m.map) m.map.anisotropy = 4; } }); sinAvance(g.animations); MOD[k] = g; n++; prog(n / todo.length); if (n === todo.length) ok(); }, undefined, () => { n++; prog(n / todo.length); if (n === todo.length) ok(); }));
   }));
 }
 /* copia lista para colocar: altura h, pies en y = 0, centrada en x/z; con esqueleto se clona con SkeletonUtils */
@@ -142,7 +145,7 @@ function pasaPart(dt) {
 /* ---------- sonido ---------- */
 const AU = { ac: null, master: null, mus: null, fx: null, bufs: {}, on: true };
 function au() { if (AU.ac) return AU.ac; try { const ac = new (window.AudioContext || window.webkitAudioContext)(); AU.ac = ac; AU.master = ac.createGain(); AU.master.gain.value = .9; AU.master.connect(ac.destination); AU.mus = ac.createGain(); AU.mus.gain.value = .32; AU.mus.connect(AU.master); AU.fx = ac.createGain(); AU.fx.gain.value = .8; AU.fx.connect(AU.master); cargaSonidos(); } catch (e) {} return AU.ac; }
-const SON = { carta: '../packs/comun/fx/carta-1.mp3', pop: '../packs/comun/fx/pop.mp3', popg: '../packs/comun/fx/pop-grave.mp3', moneda: '../packs/comun/fx/moneda.mp3', nivel: '../packs/comun/fx/nivel.mp3', victoria: '../packs/comun/fx/victoria.mp3', error: '../packs/comun/fx/error.mp3', fallo: '../packs/comun/fx/fallo.mp3', sorpresa: '../packs/comun/fx/sorpresa.mp3', burbuja: '../packs/comun/fx/burbuja.mp3', splat: '../packs/comun/fx/splat.mp3', ooh: '../packs/comun/fx/ooh.mp3', puntos: '../packs/comun/fx/puntos.mp3', laser: '../packs/comun/fx/laser.mp3', parpadeo: '../packs/comun/fx/parpadeo.mp3', clic: '../sonidos/fx_buttonclick.mp3', premio: '../sonidos/fx_prize.mp3', ding: '../sonidos/fx_ding.mp3', globo: '../sonidos/fx_balloon_explosion.mp3', listo: '../sonidos/fx_ready.mp3' };
+const SON = { piro1: '../packs/wonderwalk/sfx/piro-1.mp3', piro2: '../packs/wonderwalk/sfx/piro-2.mp3', piro3: '../packs/wonderwalk/sfx/piro-3.mp3', piro4: '../packs/wonderwalk/sfx/piro-4.mp3', piro5: '../packs/wonderwalk/sfx/piro-5.mp3', carta: '../packs/comun/fx/carta-1.mp3', pop: '../packs/comun/fx/pop.mp3', popg: '../packs/comun/fx/pop-grave.mp3', moneda: '../packs/comun/fx/moneda.mp3', nivel: '../packs/comun/fx/nivel.mp3', victoria: '../packs/comun/fx/victoria.mp3', error: '../packs/comun/fx/error.mp3', fallo: '../packs/comun/fx/fallo.mp3', sorpresa: '../packs/comun/fx/sorpresa.mp3', burbuja: '../packs/comun/fx/burbuja.mp3', splat: '../packs/comun/fx/splat.mp3', ooh: '../packs/comun/fx/ooh.mp3', puntos: '../packs/comun/fx/puntos.mp3', laser: '../packs/comun/fx/laser.mp3', parpadeo: '../packs/comun/fx/parpadeo.mp3', clic: '../sonidos/fx_buttonclick.mp3', premio: '../sonidos/fx_prize.mp3', ding: '../sonidos/fx_ding.mp3', globo: '../sonidos/fx_balloon_explosion.mp3', listo: '../sonidos/fx_ready.mp3' };
 function cargaSonidos() { Object.entries(SON).forEach(([k, u]) => fetch(u).then(r => r.arrayBuffer()).then(b => AU.ac.decodeAudioData(b)).then(d => { AU.bufs[k] = d; }).catch(() => {})); }
 function fx(k, vol, tono) { const ac = au(); if (!ac || !AU.on) return; const b = AU.bufs[k]; if (!b) { sint(k === 'error' ? 160 : 520, .12, 'square', .08); return; } const s = ac.createBufferSource(); s.buffer = b; if (tono) s.playbackRate.value = tono; const g = ac.createGain(); g.gain.value = vol === undefined ? 1 : vol; s.connect(g); g.connect(AU.fx); s.start(); manda({ t: 'fx', k }); }
 /* notas sintetizadas (el «Simón» de golosinas, la marimba de los aciertos) */
@@ -186,14 +189,41 @@ function ruido(t0, dur, vol) { const ac = AU.ac, n = Math.floor(ac.sampleRate * 
 /* pulso (0…1) que cae tras cada golpe de bombo: lo usan luces, cristales y bombillas */
 function pulso() { const ac = AU.ac; if (!ac || !MUS.on || MUS.golpeT === undefined) return .3 + .3 * Math.sin(performance.now() / 300); const d = ac.currentTime - MUS.golpeT; return d < 0 ? 0 : Math.exp(-d * 5); }
 
+/* ---------- música y ambiente grabados (los temas de Josep): suenan en continuo desde su archivo, por canales ----------
+   suena('mus', 'menu', { bucle: true }) · suena('mus', null) lo apaga con un fundido · PISTAS.mus.a es el elemento de audio */
+const PISTAS = {}, PISTA_URL = { menu: '../packs/meviland/musica/menu.mp3?v=18.43', desfile: '../packs/meviland/musica/desfile.mp3?v=18.43', piro: '../packs/wonderwalk/sfx/pirotecnia.mp3' };
+function suena(canal, n, o) {
+  o = o || {}; const ac = au(), act = PISTAS[canal]; if (!ac) return null; if (act && act.n === n) return act;
+  if (act) { const g = act.g, a = act.a; try { g.gain.cancelScheduledValues(ac.currentTime); g.gain.setValueAtTime(g.gain.value, ac.currentTime); g.gain.linearRampToValueAtTime(0, ac.currentTime + (o.corte || .9)); } catch (e) {} setTimeout(() => { try { a.pause(); } catch (e) {} }, (o.corte || .9) * 1000 + 80); PISTAS[canal] = null; }
+  if (!n || !PISTA_URL[n]) return null;
+  const a = new Audio(PISTA_URL[n]); a.loop = !!o.bucle; a.preload = 'auto'; let g; try { const src = ac.createMediaElementSource(a); g = ac.createGain(); g.gain.value = 0; g.gain.linearRampToValueAtTime(o.vol === undefined ? .7 : o.vol, ac.currentTime + (o.entra || .4)); src.connect(g); g.connect(AU.master); } catch (e) { return null; }
+  const p = PISTAS[canal] = { n, a, g }; a.play().catch(() => { p.espera = true; }); return p;
+}
+/* si el navegador no dejó sonar antes del primer gesto, se arranca con él */
+['pointerdown', 'keydown'].forEach(ev => addEventListener(ev, () => { if (AU.ac && AU.ac.state === 'suspended') AU.ac.resume(); Object.values(PISTAS).forEach(p => { if (p && p.espera) { p.espera = false; p.a.play().catch(() => { p.espera = true; }); } }); }, true));
+
 /* ---------- voz de Mevi (narración, también para quien no ve bien la pantalla) ---------- */
-const VOZ = { on: (() => { try { return localStorage.getItem('MEVILAND_VOZ') !== '0'; } catch (e) { return true; } })(), habla: 0, cola: [], tFin: 0 };
+/* La voz de Mevi va grabada (packs/meviland/voz/<idioma>/<huella>.mp3, una por frase; <idioma>.json guarda lo que dura cada una).
+   Si una frase no tiene grabación (por ejemplo, el saludo con los nombres de los jugadores) se usa la que se indique en VOZ.alt y,
+   en último caso, la voz del navegador. */
+const VOZ = { on: (() => { try { return localStorage.getItem('MEVILAND_VOZ') !== '0'; } catch (e) { return true; } })(), habla: 0, cola: [], tFin: 0, man: {}, el: null, alt: null };
+function cargaVoz(l) { if (VOZ.man[l] !== undefined) return; VOZ.man[l] = null; fetch('../packs/meviland/voz/' + l + '.json?v=18.43').then(r => r.ok ? r.json() : {}).then(j => { VOZ.man[l] = j || {}; }).catch(() => { VOZ.man[l] = {}; }); }
+function vozHuella(t2) { let h = 0x811c9dc5; for (let i = 0; i < t2.length; i++) { const c = t2.charCodeAt(i); h ^= c & 255; h = Math.imul(h, 0x01000193) >>> 0; h ^= c >> 8; h = Math.imul(h, 0x01000193) >>> 0; } return ('0000000' + h.toString(16)).slice(-8); }
+function callaVoz() { if (VOZ.el) { try { VOZ.el.pause(); } catch (e) {} VOZ.el = null; } try { window.speechSynthesis && speechSynthesis.cancel(); } catch (e) {} }
+/* dice una frase con la voz grabada; devuelve lo que dura en ms (0 si no hay grabación) */
+function vozGrabada(txt) {
+  const man = VOZ.man[LG]; if (!man) return 0; let h = vozHuella(txt); if (!man[h] && VOZ.alt) h = vozHuella(VOZ.alt); VOZ.alt = null; if (!man[h]) return 0;
+  if (VOZ.on) { const a = new Audio('../packs/meviland/voz/' + LG + '/' + h + '.mp3?v=18.43'); a.volume = 1; a.play().catch(() => {}); VOZ.el = a; }
+  return man[h];
+}
 function vozDe(l) { const vs = speechSynthesis.getVoices(), pref = { es: 'es', en: 'en', ca: 'ca' }[l]; return vs.find(v => v.lang.toLowerCase().startsWith(pref) && /female|mujer|monica|paulina|helena|laura|lucia|elvira|samantha|google/i.test(v.name)) || vs.find(v => v.lang.toLowerCase().startsWith(pref)) || (l === 'ca' ? vs.find(v => v.lang.toLowerCase().startsWith('es')) : null); }
 let subTimer = 0;
 function di(txt, ms) {
-  const el = $('sub'), sp = $('subT'); sp.textContent = txt; el.classList.add('on'); clearTimeout(subTimer);
-  const dur = ms || Math.max(2600, txt.length * 62); VOZ.tFin = performance.now() + dur; subTimer = setTimeout(() => el.classList.remove('on'), dur);
-  if (VOZ.on && window.speechSynthesis) { try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(txt.replace(/[«»¡!¿]/g, '')); const v = vozDe(LG); if (v) u.voice = v; u.lang = v ? v.lang : ({ es: 'es-ES', en: 'en-GB', ca: 'ca-ES' })[LG]; u.rate = 1.04; u.pitch = 1.35; u.volume = .9; u.onend = () => { VOZ.tFin = Math.min(VOZ.tFin, performance.now() + 300); }; speechSynthesis.speak(u); } catch (e) {} }
+  const el = $('sub'), sp = $('subT'); sp.textContent = txt; el.classList.add('on'); clearTimeout(subTimer); callaVoz();
+  let dur = ms || Math.max(2600, txt.length * 62); const grab = vozGrabada(txt);
+  if (grab) dur = Math.max(ms || 0, grab + 450);
+  else if (VOZ.on && window.speechSynthesis && VOZ.man[LG] !== null) { try { const u = new SpeechSynthesisUtterance(txt.replace(/[«»¡!¿]/g, '')); const v = vozDe(LG); if (v) u.voice = v; u.lang = v ? v.lang : ({ es: 'es-ES', en: 'en-GB', ca: 'ca-ES' })[LG]; u.rate = 1.04; u.pitch = 1.6; u.volume = .9; u.onend = () => { VOZ.tFin = Math.min(VOZ.tFin, performance.now() + 300); }; speechSynthesis.speak(u); } catch (e) {} }
+  VOZ.tFin = performance.now() + dur; subTimer = setTimeout(() => el.classList.remove('on'), dur);
   return dur;
 }
 const hablando = () => performance.now() < VOZ.tFin;
@@ -223,6 +253,7 @@ function pasaMevi(dt) {
   if (MEVI.gesto > 0) { MEVI.gesto -= dt; if (MEVI.gesto <= 0) meviAnim(MEVI.anda ? 'andar' : 'reposo'); }
   p.visible = MEVI.visible; MEVI.blob.visible = MEVI.visible && MEVI.modo !== 'camara';
   if (MEVI.cara) { MEVI.cara.parpa(MEVI.t); MEVI.cara.habla(MEVI.t, hablando()); }
+  if (AU.mus) AU.mus.gain.value += ((hablando() ? .17 : .32) - AU.mus.gain.value) * Math.min(1, dt * 4);   /* la música deja sitio a la voz */
   CAM.updateMatrixWorld(); CAM.getWorldPosition(MV1); CAM.getWorldDirection(MV2);
   if (MEVI.modo === 'camara') {   /* a bordo: en su asiento, a la derecha */
     p.scale.setScalar(.46); MV3.copy(MEVI.sitio).applyMatrix4(CAM.matrixWorld); p.position.copy(MV3); p.quaternion.copy(CAM.quaternion); p.rotateY(-.42); MEVI.salto = true; return;

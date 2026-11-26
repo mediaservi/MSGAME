@@ -661,11 +661,11 @@ function magia(G, k, an, al) {
   const halo = brillo(TIERRAS[k].col, an * 1.5, .22); halo.scale.set(an * 1.3, al * 1.2, 1); halo.position.set(0, CY, .3); G.add(halo); G.userData.halo = halo; return pts;
 }
 /* portón del castillo: dos torres y un gran arco con puerta de roble, en la misma piedra que la muralla y el castillo de detrás */
-function porton(g, PZ) {
+function porton(g, PZ, banIzq) {
   const G = new T.Group(); G.position.set(0, 0, PZ); g.add(G); const txp = txPiedra('#a58a78', '#c9ad8f', '#6a564e').clone(); txp.needsUpdate = true; txp.wrapS = txp.wrapT = T.RepeatWrapping; txp.repeat.set(4, 6); const pie = mat('#d9cbc0', { map: txp, roughness: .92 }), pie2 = mat('#9d8676', { roughness: .92 });
   [-1, 1].forEach(sg => { const to = cil(2.5, 2.8, 13, pie, 18); to.position.set(sg * 5.6, 6.5, .4); sombra(to); G.add(to); const co = cil(2.9, 2.5, .8, pie2, 18); co.position.set(sg * 5.6, 13.2, .4); G.add(co); for (let i = 0; i < 16; i++) { const an2 = i / 16 * 6.283, mc = caja(.34, .9, .62, pie2); mc.position.set(sg * 5.6 + Math.cos(an2) * 2.62, 12.5, .4 + Math.sin(an2) * 2.62); mc.rotation.y = -an2 + Math.PI / 2; G.add(mc); }   /* matacanes */ for (let i = 0; i < 8; i++) { const a = i / 8 * 6.283, al = caja(1, 1, .7, pie2); al.position.set(sg * 5.6 + Math.cos(a) * 2.5, 14.1, .4 + Math.sin(a) * 2.5); al.rotation.y = -a + Math.PI / 2; al.castShadow = true; G.add(al); }
     ventana(G, sg * 5.6, 9.2, 3.2, .62, 1.5, 1 + (sg > 0 ? .4 : 0)); ventana(G, sg * 5.6, 4.9, 3.26, .55, 1.3, 1.6 + (sg > 0 ? .4 : 0));   /* sin telas en el muro: los estandartes van solo en las farolas */ antorcha(G, sg * 3.3, 4.4, 1.95, 0, .9 + (sg > 0 ? .3 : 0));
-    const asta = cil(.08, .08, 5.4, pie2, 6); asta.position.set(sg * 5.6, 16.9, .4); G.add(asta); const pomo = bola(.16, mat('#e2a92e', { metalness: .9, roughness: .25 }), 10); pomo.position.set(sg * 5.6, 19.65, .4); G.add(pomo); bandera(G, sg * 5.6, 18.5, .4, 3.3, sg < 0 ? paisVisitante() : 'cat'); });   /* a la izquierda, la bandera del visitante; a la derecha, siempre la catalana */
+    const asta = cil(.08, .08, 5.4, pie2, 6); asta.position.set(sg * 5.6, 16.9, .4); G.add(asta); const pomo = bola(.16, mat('#e2a92e', { metalness: .9, roughness: .25 }), 10); pomo.position.set(sg * 5.6, 19.65, .4); G.add(pomo); bandera(G, sg * 5.6, 18.5, .4, 3.3, sg < 0 ? (banIzq || paisVisitante()) : 'cat'); });   /* a la izquierda, la bandera del visitante; a la derecha, siempre la catalana */
   const cu = caja(8.4, 11, 2.6, pie); cu.position.set(0, 5.5, .2); sombra(cu); G.add(cu); for (let i = 0; i < 5; i++) { const al = caja(1, 1, 1, pie2); al.position.set(-3.4 + i * 1.7, 11.5, 1); al.castShadow = true; G.add(al); }
   const pta = puertaGrande(); pta.position.set(0, 0, 1.52); G.add(pta); G.userData.puerta = pta;
   return G;
@@ -694,7 +694,7 @@ function plaza(op) {
     anim((dt, tt) => { if (Math.random() < dt * 14) chispas(new T.Vector3(rnd(-.6, .6), rnd(1.4, 2.6), -2 + rnd(-.6, .6)), 1, ['#bfefff', '#ffffff'], { vel: 1.6, g: 3, vida: .9, tam: .18 }); });
     if (op.radio) return;
     /* la muralla exterior de la fortaleza cierra la plaza: portón del castillo en el centro y dos puertas de mundo en cada lienzo lateral */
-    const PZ = -18.5; P.pz = PZ; const PT = porton(g, PZ); P.portal = PT; P.puerta = PT.userData.puerta; PT.userData.sel = 'portal'; P.ph = 12.5;
+    const PZ = -18.5; P.pz = PZ; const PT = porton(g, PZ, op.bandera); P.portal = PT; P.puerta = PT.userData.puerta; PT.userData.sel = 'portal'; P.ph = 12.5;
     const V = [[8, PZ], [13.4, -13], [15.8, -3.6], [17, 9], [17.4, 22]], HM = 7.6, OM = { gro: 1.4, c1: '#a58a78', c2: '#c9ad8f' };
     [-1, 1].forEach(sg => { for (let i = 0; i < V.length - 1; i++) { muralla(g, sg * V[i][0], V[i][1], sg * V[i + 1][0], V[i + 1][1], HM, OM); if (i) { const txt = txPiedra('#a58a78', '#c9ad8f').clone(); txt.needsUpdate = true; txt.wrapS = txt.wrapT = T.RepeatWrapping; txt.repeat.set(1.25, 4.2); const to = caja(3, HM + 2.6, 3, mat('#e6dcd6', { map: txt, roughness: .9 })); to.position.set(sg * V[i][0], (HM + 2.6) / 2, V[i][1]); to.rotation.y = .4 * sg; sombra(to); g.add(to); for (let j = 0; j < 4; j++) { const al = caja(.8, .7, .8, mat('#9d8676', { roughness: .92 })); al.position.set(sg * V[i][0] + [-1, 1, -1, 1][j] * 1.05, HM + 2.95, V[i][1] + [-1, -1, 1, 1][j] * 1.05); al.rotation.y = .4 * sg; g.add(al); } } } });
     /* cerraduras de las Llaves Estelares, sobre el arco del portón */
@@ -731,14 +731,14 @@ function llenaSlot(i, ya) {
 }
 /* el parque arranca o vuelve a la plaza */
 function enPlaza(llegada) {
-  J.fase = 'plaza'; hud(true); pintaHud(); lugar(t('plaza')); crono(null); barra(null); meta(null); musica('plaza');
+  J.fase = 'plaza'; hud(true); pintaHud(); lugar(t('plaza')); crono(null); barra(null); meta(null); suena('mus', null, { corte: 1.6 }); suena('amb', null); musica('plaza');
   transicion(() => {
     plaza({ pendiente: !!(llegada && llegada.llave) });
     const P = MU.plaza, todas = J.llaves.length >= necesarias();
     MU.cam.p.set(0, 6, 20); MU.cp.copy(MU.cam.p); viaje(new T.Vector3(0, 2.3, 11.2), new T.Vector3(0, 4, -14), 2.2, () => {
       if (llegada === 'inicio') {
         const n = J.nombres.filter(Boolean), saludo = n.length ? t('holaN', n.slice(0, 4).join(', ')) : t('hola');
-        meviGesto('saluda'); anima(P.maestro, 'Gentlemans_Bow', true);
+        meviGesto('saluda'); anima(P.maestro, 'Gentlemans_Bow', true); VOZ.alt = t('hola');   /* el saludo con nombres usa la grabación del saludo general */
         secuencia([[saludo, 0], [t('objetivo', necesarias()), 'invita'], [t('comoElegir'), 'senala']], eligeTierra);
       } else if (llegada && llegada.llave) {
         const i = J.llaves.length - 1; ceremonia(i, () => {
@@ -1130,13 +1130,13 @@ SALAS.carrusel = { dur: [60, 55, 50], crea(ctx) {
 /* ======================= FINALES ======================= */
 function final() {
   J.fase = 'final'; const tipo = J.modo === 0 ? 'desfile' : J.modo === 1 ? 'guardianes' : J.patos >= 4 ? 'bola' : 'copa';
-  hud(false); barra(null); meta(null); crono(null); musica('final'); MU.sel = null;
+  hud(false); barra(null); meta(null); crono(null); MU.sel = null; if (tipo === 'desfile') musica(null); else musica('final');
   transicion(() => {
     const monta = g0 => {
     const g = MU.g; MU.cam.p.set(0, 2.2, 9.5); MU.cam.m.set(0, tipo === 'desfile' ? 3.6 : 3, -4); MU.mira = .08; MU.cp.copy(MU.cam.p); MU.cm.copy(MU.cam.m);
-    let fw = 0; anim(dt => { fw -= dt; if (fw <= 0) { fw = rnd(.25, .6); const p = new T.Vector3(rnd(-22, 22), rnd(16, 30), rnd(-40, -22)); chispas(p, LITE ? 20 : 46, [['#ff4fb4', '#ffd23f'], ['#56d7ff', '#ffffff'], ['#7dff9a', '#ffd23f'], ['#b26bff', '#ff8a3c']][ri(4)], { vel: rnd(5, 8), g: 2.2, vida: 1.6, tam: .6 }); fx('pop', .25, rnd(.6, .9)); } });
+    if (tipo === 'bola') fuegos(g, { x: 16, y0: 9, y1: 17, z0: -30, z1: -14 }); else fuegos(g, { x: 24, y0: 17, y1: 31, z0: -42, z1: -22 });   /* pirotecnia de verdad: la de WONDERWALK */
     const guard = [['brocoli', 1.6], ['buho', 1.4], ['maestro', 1.75], ['gusano', 1.3], ['chef', 1.8]];
-    if (tipo === 'desfile') { desfile(g); musicaDesfile();
+    if (tipo === 'desfile') { desfile(g);
     } else {
       const pos = guard.map(([k, h], i) => { const a = (i / 4 - .5) * 2.2, p = pon(g, k, h, Math.sin(a) * 4.4, k === 'chef' ? .7 : 0, -2 + Math.cos(a) * 3.2 - 3.2 + 3.2, { ry: -a * .6 }); p.position.z = 3.4 - Math.cos(a) * 1.2; anima(p, tipo === 'guardianes' ? 'Cheer' : 'Joyful'); if (k === 'gusano' || k === 'chef') anim((dt, tt) => ondula(p, tt, .14, 3)); return p; });
       if (tipo === 'guardianes') { pos.forEach((p, i) => { const e = new T.Sprite(new T.SpriteMaterial({ map: TEX.estrella, color: '#ffd23f', transparent: true, depthWrite: false })); e.scale.set(.6, .6, 1); const b = brillo('#ffd23f', 2, .7); const s = new T.Group(); s.add(e); s.add(b); s.position.copy(p.position).add(new T.Vector3(0, 2, 0)); g.add(s); const dst = new T.Vector3((i - 2) * 3.2, 11 + (i % 2) * 2, -16); let k = -i * .4 - 1.5; anim(dt => { k += dt * .3; const kk = suave(clamp(k, 0, 1)); s.position.lerpVectors(p.position.clone().add(new T.Vector3(0, 2, 0)), dst, kk); s.scale.setScalar(1 + kk * 2.5); if (k > 0 && k < 1 && Math.random() < .5) chispas(s.position.clone(), 1, ['#ffd23f', '#ffffff'], { vel: .4, g: 0, vida: .8, tam: .3 }); }); }); viaje(new T.Vector3(0, 1.6, 9), new T.Vector3(0, 6, -10), 9, () => {}); }
@@ -1153,13 +1153,15 @@ function final() {
     }
     }; if (tipo === 'bola') { plaza({ noche: true, radio: 15 }); monta(); } else patioCastillo({ f: monta });
     meviGesto('salta'); fx('victoria');
-    if (tipo === 'desfile') { let td = 0; anim(dt => { td += dt; if (td > 34 && J.fase === 'final') panelFin(tipo); }); if (BOT) setTimeout(() => { if (J.fase === 'final') panelFin(tipo); }, 1500); secuencia([[t('des1'), 'senala'], [t('des2'), 'feliz'], [t('des3'), 'saluda'], [t('fin_desfile'), 'feliz']], () => {}); return; }
+    if (tipo === 'desfile') { /* el desfile dura lo que su música (el tema de circo) y termina con su último golpe */
+      const pm = suena('mus', 'desfile', { vol: .8, entra: .05 }); let td = 0; anim(dt => { td += dt; const a = pm && pm.a, acaba = a && !a.paused && a.duration ? a.currentTime > a.duration - .2 : a && a.ended ? true : td > 50; if ((acaba || td > 62) && J.fase === 'final') panelFin(tipo); }); if (BOT) setTimeout(() => { if (J.fase === 'final') panelFin(tipo); }, 1500);
+      secuencia([[t('des1'), 'senala'], [t('des2'), 'feliz'], [t('des3'), 'saluda'], [t('fin_desfile'), 'feliz']], () => {}); return; }
     setTimeout(() => { if (J.fase !== 'final') return; di(t('fin_' + tipo)); meviGesto('feliz'); }, 1200);
     setTimeout(() => { if (J.fase !== 'final') return; panelFin(tipo); }, BOT ? 1500 : tipo === 'bola' ? 15000 : 11500);
   }, '#ffe9a8');
 }
 function panelFin(tipo) {
-  if (window.paraMusicaDesfile) paraMusicaDesfile(); J.fase = 'fin'; $('fTit').textContent = t('f_' + tipo); $('fTxt').textContent = t('fd_' + tipo);
+  suena('mus', 'menu', { bucle: true, vol: .6, entra: 1.5 }); J.fase = 'fin'; $('fTit').textContent = t('f_' + tipo); $('fTxt').textContent = t('fd_' + tipo);
   const seg = Math.round((performance.now() - J.t0) / 1000), filas = [[t('dPuntos'), J.pts], [t('dLlaves'), J.llaves.length + ' / ' + necesarias()], [t('dSalas'), J.salasOk + ' / ' + J.salasN]];
   if (J.modo === 2) filas.push([t('dPatos'), J.patos + ' / 4']); filas.push([t('dTiempo'), Math.floor(seg / 60) + ':' + String(seg % 60).padStart(2, '0')]);
   $('fDl').innerHTML = filas.map(([a, b]) => `<dt>${a}</dt><dd>${b}</dd>`).join(''); abre('pFin'); manda({ t: 'pts', v: J.pts });
@@ -1169,14 +1171,14 @@ function panelFin(tipo) {
 /* ======================= MENÚ, PAUSA Y BUCLE ======================= */
 function abre(id) { document.querySelectorAll('.pan').forEach(p => p.classList.toggle('on', p.id === id)); $('pie').classList.toggle('off', id !== 'pIni'); }
 function textosUI() {
-  document.documentElement.lang = LG; $('tLema').textContent = t('lema'); $('tPausa').textContent = t('pausa'); $('bSigue').textContent = t('sigue'); $('bSalir').textContent = t('salir'); $('bOtra').textContent = t('otra'); $('bMenu').textContent = t('terminar'); $('bVoz').title = t('voz');
+  document.documentElement.lang = LG; cargaVoz(LG); $('tLema').textContent = t('lema'); $('tPausa').textContent = t('pausa'); $('bSigue').textContent = t('sigue'); $('bSalir').textContent = t('salir'); $('bOtra').textContent = t('otra'); $('bMenu').textContent = t('terminar'); $('bVoz').title = t('voz');
   const niv = $('niv'); niv.innerHTML = ''; [0, 1, 2].forEach(m => { const d = document.createElement('div'); d.className = 'modo m' + m + (m === J.modo ? ' sel' : ''); d.tabIndex = 0; d.dataset.m = m; d.innerHTML = `<b>${t('m' + m)}</b><em>${t('m' + m + 'e')}</em><span>${t('m' + m + 'd')}</span><div class="ll">${'<i></i>'.repeat(m + 2)}</div>`; d.querySelectorAll('.ll i').forEach(i => { i.style.backgroundImage = `url(${TEX.llave})`; }); d.onclick = () => empieza(m); d.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); empieza(m); } }; niv.appendChild(d); });
   document.querySelectorAll('#lenguas button').forEach(b => b.classList.toggle('sel', b.dataset.lang === LG));
-  $('pie').textContent = 'MEVILAND · MSGAME v18.42 2026 ' + ({ es: 'es un proyecto hecho con', en: 'is a project made with', ca: 'és un projecte fet amb' })[LG] + ' 𑣲 by mediaservi.com';
+  $('pie').textContent = 'MEVILAND · MSGAME v18.43 2026 ' + ({ es: 'es un proyecto hecho con', en: 'is a project made with', ca: 'és un projecte fet amb' })[LG] + ' 𑣲 by mediaservi.com';
   $('bVoz').textContent = VOZ.on ? '🔊' : '🔇';
 }
 function menu() {
-  J.fase = 'menu'; hud(false); barra(null); meta(null); musica('plaza'); textosUI(); $('cargaBox').style.display = 'none'; $('niv').style.display = 'flex'; $('lenguas').style.display = EMB ? 'none' : 'flex'; abre('pIni');
+  J.fase = 'menu'; hud(false); barra(null); meta(null); musica(null); suena('amb', null); suena('mus', 'menu', { bucle: true, vol: .6 }); textosUI();   /* en los menús, el tema de metales */ $('cargaBox').style.display = 'none'; $('niv').style.display = 'flex'; $('lenguas').style.display = EMB ? 'none' : 'flex'; abre('pIni');
   plaza({}); MU.libre = true; let a = 0; MU.upd = dt => { a += dt * .06; CAM.position.set(Math.sin(a) * 15, 4.5 + Math.sin(a * 2) * .6, -6 + Math.cos(a) * 17); CAM.lookAt(0, 3, -10); };
   MEVI.visible = true; MEVI.modo = 'fija'; MEVI.fijo.set(3.4, 0, 2.2); MEVI.salto = true; meviAnim('saluda', true);
   if (BOT && !/[?&]ver=/.test(location.search)) setTimeout(() => empieza(+((location.search.match(/[?&]bm=(\d)/) || [])[1] || J.modo)), 300);
@@ -1186,8 +1188,8 @@ function empieza(m) {
   manda({ t: 'modo', v: ['facil', 'normal', 'dificil'][m] }); manda({ t: 'pts', v: 0 }); fx('listo'); abre(null); $('pie').classList.add('off'); J.fase = 'perga'; pergamino(() => { MU.libre = false; enPlaza('inicio'); });   /* primero, el pergamino de bienvenida */
 }
 const JUEGO = window.JUEGO = {
-  pausa() { if (J.fase === 'menu' || J.fase === 'fin' || J.fase === 'carga') return; PAUSA = !PAUSA; abre(PAUSA ? 'pPausa' : null); if (PAUSA) { try { speechSynthesis.cancel(); } catch (e) {} AU.ac && AU.ac.suspend(); } else AU.ac && AU.ac.resume(); },
-  pausaExt(v) { PAUSA_EXT = v; if (AU.ac) v ? AU.ac.suspend() : AU.ac.resume(); },
+  pausa() { if (J.fase === 'menu' || J.fase === 'fin' || J.fase === 'carga') return; PAUSA = !PAUSA; abre(PAUSA ? 'pPausa' : null); Object.values(PISTAS).forEach(p => { if (p) PAUSA ? p.a.pause() : p.a.play().catch(() => {}); }); if (PAUSA) { try { speechSynthesis.cancel(); } catch (e) {} if (VOZ.el) VOZ.el.pause(); AU.ac && AU.ac.suspend(); } else AU.ac && AU.ac.resume(); },
+  pausaExt(v) { PAUSA_EXT = v; Object.values(PISTAS).forEach(p => { if (p) v ? p.a.pause() : p.a.play().catch(() => {}); }); if (v && VOZ.el) VOZ.el.pause(); if (AU.ac) v ? AU.ac.suspend() : AU.ac.resume(); },
   jugadores(m) { J.nombres = Array.isArray(m.v) ? m.v.map(String) : []; },
   atras() { this.pausa(); }
 };
@@ -1196,7 +1198,7 @@ $('bPausa').onclick = () => JUEGO.pausa(); $('bSigue').onclick = () => JUEGO.pau
 $('bSalir').onclick = () => { PAUSA = false; AU.ac && AU.ac.resume(); if (EMB) manda(J.pts > 0 ? { t: 'fin', v: J.pts } : { t: 'sal' }); else menu(); };
 $('bOtra').onclick = () => { abre('pIni'); textosUI(); empieza(J.modo); };
 $('bMenu').onclick = () => { if (EMB) manda({ t: 'fin', v: J.pts }); else menu(); };
-$('bVoz').onclick = () => { VOZ.on = !VOZ.on; try { localStorage.setItem('MEVILAND_VOZ', VOZ.on ? '1' : '0'); } catch (e) {} if (!VOZ.on) try { speechSynthesis.cancel(); } catch (e) {} $('bVoz').textContent = VOZ.on ? '🔊' : '🔇'; };
+$('bVoz').onclick = () => { VOZ.on = !VOZ.on; try { localStorage.setItem('MEVILAND_VOZ', VOZ.on ? '1' : '0'); } catch (e) {} if (!VOZ.on) callaVoz(); $('bVoz').textContent = VOZ.on ? '🔊' : '🔇'; };
 document.querySelectorAll('#lenguas button').forEach(b => b.onclick = () => { LG = b.dataset.lang; window.LG_MANO = true; if (J.fase === 'menu') setTimeout(menu, 0); try { localStorage.setItem('VJSHOW_LANG', LG); } catch (e) {} textosUI(); });
 if (EMB) { $('hud').style.left = 'calc(var(--u)*1.2 + 54px)'; }
 /* con el mando del móvil o el teclado, los paneles se manejan apuntando */
@@ -1228,15 +1230,14 @@ function bucle(now) {
 /* carátula del cartucho (juegos/meviland.webp): ?portada=1, en vertical */
 function portada() {
   abre(null); J.fase = 'ver'; ST.style.aspectRatio = 'auto'; ST.style.width = '100vw'; ST.style.height = '100vh'; tam(); ['hud', 'pts', 'esq', 'pie', 'reti', 'sub'].forEach(i => { $(i).style.display = 'none'; });
-  J.modo = 2; J.llaves = ORDEN_T.slice(); plaza({ noche: true }); MEVI.visible = false; MU.libre = true; MU.upd = null;
-  const g = MU.g, P = MU.plaza; P.puerta.userData.abre = .35; P.maestro.visible = false;
-  const mv = pon(g, 'mevi', 2.3, .2, 0, 5.2, { ry: -.25 }); anima(mv, 'saluda'); try { const c = MEVICARA(T, mv, '../packs/comun/mevi/caras.png?v=18.37'); c.ojos(2); c.boca(2); } catch (e) {}
-  const br = pon(g, 'brocoli', 1.5, -2.25, 0, 3.3, { ry: .45 }); anima(br, 'Wave'); const bu = pon(g, 'buho', 1.3, 2.3, 0, 3.3, { ry: -.45 }); anima(bu, 'Cheer');
-  const mc = pon(g, 'maestro', 1.75, -2.9, 0, -.4, { ry: .35 }); anima(mc, 'Cheer'); const gu = pon(g, 'gusano', 1.3, 2.9, 0, -.4, { ry: -.3 });
-  for (let i = 0; i < 12; i++) globo(g, rnd(-7, 7), rnd(6, 12), rnd(-12, -2), ['#ff4fb4', '#ffd23f', '#56d7ff', '#7dff9a', '#b26bff'][i % 5]);
-  CAM.fov = 58; CAM.position.set(0, 1.3, 9.6); CAM.lookAt(0, 4.6, -10); CAM.updateProjectionMatrix();
-  for (let i = 0; i < 6; i++) chispas(new T.Vector3(rnd(-9, 9), rnd(11, 17), rnd(-26, -14)), 60, [['#ff4fb4', '#ffd23f'], ['#56d7ff', '#ffffff'], ['#7dff9a', '#ffd23f']][i % 3], { vel: rnd(5, 7), g: .3, vida: 30, tam: .5 });
-  confeti(new T.Vector3(0, 6, 0), 140);
+  /* la gran plaza de la muralla al atardecer: arriba, el portón y el castillo (ahí va el título); abajo, Mevi con los guardianes */
+  J.modo = 2; J.llaves = []; plaza({ hora: .3, sinGente: true, bandera: 'reino' }); MU.luz.forEach(L => { L.t = 1; }); MEVI.visible = false; MU.libre = true; MU.upd = null;
+  const g = MU.g, P = MU.plaza; P.maestro.visible = false;
+  const mv = pon(g, 'mevi', 2.25, 0, 0, 5.7, { ry: 0 }); anima(mv, 'saluda'); try { const c = MEVICARA(T, mv, '../packs/comun/mevi/caras.png?v=18.37'); c.ojos(2); c.boca(2); } catch (e) {}
+  const br = pon(g, 'brocoli', 1.45, -1.55, 0, 5.3, { ry: .4, mide: true }); anima(br, 'Wave'); const bu = pon(g, 'buho', 1.3, 1.8, 0, 5, { ry: -.4, mide: true }); anima(bu, 'Cheer');
+  const mc = pon(g, 'maestro', 1.9, -2.85, 0, 3.9, { ry: .35, mide: true }); anima(mc, 'Cheer'); const gu = pon(g, 'gusano', 1.6, 3, 0, 2.6, { ry: -.3, mide: true });
+  CAM.fov = 50; CAM.position.set(0, 1.9, 12.3); CAM.lookAt(0, 3.25, -10); CAM.updateProjectionMatrix();
+  for (let i = 0; i < 5; i++) chispas(new T.Vector3(rnd(-12, 12), rnd(20, 30), rnd(-60, -40)), 50, [['#ff4fb4', '#ffd23f'], ['#56d7ff', '#ffffff'], ['#ffd27a', '#ffffff']][i % 3], { vel: rnd(5, 7), g: .3, vida: 30, tam: .9 });
   MU.upd = dt => { ondula(gu, MU.tt, .14, 3); };
   window.__PORTADA = true;
 }

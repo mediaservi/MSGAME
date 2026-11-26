@@ -65,8 +65,8 @@
   .pan.on{display:flex}
   #pIni{background:radial-gradient(ellipse at 50% 30%,rgba(40,10,80,0) 0,rgba(14,4,32,.55) 70%)}
   #logo{position:relative;margin-top:calc(var(--u)*-6);text-align:center;filter:drop-shadow(0 calc(var(--u)*.8) calc(var(--u)*1.2) rgba(0,0,0,.6))}
-  #logo .t{font:400 calc(var(--u)*11)/.9 LG,sans-serif;letter-spacing:.02em;background:linear-gradient(180deg,#fff9d0 0%,#ffd84a 38%,#ff8a1c 62%,#ff4fb4 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-stroke:calc(var(--u)*.28) #3a0d6a;paint-order:stroke fill}
-  #logo .s{margin-top:calc(var(--u)*.6);font:400 calc(var(--u)*1.9)/1 LIL,sans-serif;letter-spacing:.3em;color:#bff3ff;text-shadow:0 0 calc(var(--u)*1.2) rgba(80,220,255,.9)}
+  #logo .t{display:block;width:calc(var(--u)*56);height:auto;margin:0 auto}
+  #logo .s{margin-top:calc(var(--u)*.2);font:400 calc(var(--u)*1.9)/1 LIL,sans-serif;letter-spacing:.3em;color:#ffe9a8;text-shadow:0 calc(var(--u)*.18) 0 #3a1c6e,0 0 calc(var(--u)*1.2) rgba(255,190,80,.7)}
   .niv{display:flex;gap:calc(var(--u)*1.6)}
   .modo{position:relative;width:calc(var(--u)*22);padding:calc(var(--u)*1.4) calc(var(--u)*1.2) calc(var(--u)*1.2);border-radius:calc(var(--u)*1.8);cursor:pointer;text-align:center;color:#fff;border:calc(var(--u)*.25) solid rgba(255,255,255,.85);box-shadow:0 calc(var(--u)*.55) 0 rgba(0,0,0,.35),0 calc(var(--u)*.9) calc(var(--u)*2) rgba(0,0,0,.45);transition:transform .15s,box-shadow .15s}
   .modo:hover,.modo:focus-visible,.modo.sel{transform:translateY(calc(var(--u)*-.6)) scale(1.04);outline:calc(var(--u)*.35) solid #56f700;outline-offset:calc(var(--u)*.2)}
@@ -108,7 +108,7 @@
   #perga.on .hoja{transform:rotate(-.6deg) scale(1)}
   #perga .hoja:before,#perga .hoja:after{content:"";position:absolute;left:calc(var(--u)*-2.2);right:calc(var(--u)*-2.2);height:calc(var(--u)*2.3);border-radius:calc(var(--u)*1.2);background:linear-gradient(180deg,#7a4a22,#c79a5a 35%,#8a5a2a 70%,#4a2a10);box-shadow:0 calc(var(--u)*.4) calc(var(--u)*.9) rgba(0,0,0,.5)}
   #perga .hoja:before{top:calc(var(--u)*-1.1)} #perga .hoja:after{bottom:calc(var(--u)*-1.1)}
-  #pgTit{font:400 calc(var(--u)*5.2)/1 BSW,LIL,serif;color:#7a1f3a;letter-spacing:.02em;text-shadow:0 calc(var(--u)*.12) 0 rgba(255,240,200,.7)}
+  #pgTit{display:block;width:calc(var(--u)*27);height:auto;margin:0 auto;filter:drop-shadow(0 calc(var(--u)*.25) calc(var(--u)*.3) rgba(60,30,10,.45))}
   #pgSub{font:700 calc(var(--u)*2.2)/1.1 DSC,cursive;color:#8a5a12;margin:calc(var(--u)*.3) 0 calc(var(--u)*.8)}
   #perga .orla{height:calc(var(--u)*.9);margin:0 auto calc(var(--u)*.9);width:60%;background:linear-gradient(90deg,transparent,#a8701a 20%,#e2a92e 50%,#a8701a 80%,transparent);-webkit-mask:radial-gradient(circle at 50% 50%,#000 calc(var(--u)*.45),transparent calc(var(--u)*.5)) 50% 50%/100% 100% no-repeat,linear-gradient(#000,#000) 50% 50%/100% calc(var(--u)*.14) no-repeat;mask:radial-gradient(circle at 50% 50%,#000 calc(var(--u)*.45),transparent calc(var(--u)*.5)) 50% 50%/100% 100% no-repeat,linear-gradient(#000,#000) 50% 50%/100% calc(var(--u)*.14) no-repeat}
   #pgTxt{font:700 calc(var(--u)*2.3)/1.36 DSC,"Segoe Script","Brush Script MT",cursive;color:#4a1f10;min-height:calc(var(--u)*17.5);text-align:center}
@@ -137,7 +137,7 @@
   <div id="reti"><svg viewBox="-50 -50 100 100"><circle r="30" fill="none" stroke="rgba(255,255,255,.9)" stroke-width="5"/><circle class="anillo" r="40" fill="none" stroke="#56f700" stroke-width="9" stroke-linecap="round" stroke-dasharray="251.3" stroke-dashoffset="251.3" transform="rotate(-90)"/><circle r="6" fill="#ff4fb4" stroke="#fff" stroke-width="3"/><path d="M0 -46V-34M0 34V46M-46 0H-34M34 0H46" stroke="#fff" stroke-width="5" stroke-linecap="round"/></svg></div>
   <div class="esq" id="esq"><button type="button" class="b" id="bVoz" title="Voz de Mevi">🔊</button><button type="button" class="b" id="bPausa">❚❚</button></div>
   <div id="perga" role="dialog" aria-live="polite"><div class="hoja">
-    <div id="pgTit">MEVILAND</div><div id="pgSub"></div><div class="orla"></div>
+    <img id="pgTit" alt="MEVILAND" src="../juegos/logo_meviland.webp?v=18.43"><div id="pgSub"></div><div class="orla"></div>
     <div id="pgTxt"></div>
     <div class="pie"><div id="pgFirma">Mevi</div><div id="pgSigue"></div>
       <svg id="pgSello" viewBox="0 0 100 100"><defs><radialGradient id="pgL" cx="38%" cy="32%"><stop offset="0" stop-color="#e2506a"/><stop offset=".6" stop-color="#a81c3a"/><stop offset="1" stop-color="#6a0f24"/></radialGradient></defs>
@@ -145,7 +145,7 @@
         <path fill="#f3c9a8" opacity=".92" transform="translate(27 67) scale(.0205 -.0205)" d="M564 553Q566 609 537.5 622.5Q509 636 417 615Q275 581 163.0 678.0Q51 775 51 967Q52 1158 190.0 1297.0Q328 1436 520 1436Q607 1436 709.0 1393.0Q811 1350 883 1265Q889 1257 896.0 1258.0Q903 1259 908 1267Q952 1339 1021.5 1388.0Q1091 1437 1206 1434Q1355 1427 1473 1250Q1479 1241 1488.0 1241.0Q1497 1241 1502 1251Q1544 1329 1608.0 1379.0Q1672 1429 1768 1429Q1891 1427 1971.0 1354.0Q2051 1281 2087 1109Q2109 990 2179 983Q2199 982 2200.5 966.0Q2202 950 2176 942Q1982 876 1909.0 730.5Q1836 585 1915 360Q1950 258 2015.5 216.5Q2081 175 2159 223Q2188 240 2202.5 222.5Q2217 205 2197 188Q2129 134 2062.5 80.5Q1996 27 1929 -26Q1918 -34 1908 -26Q1695 145 1651.5 354.0Q1608 563 1927 849Q1934 856 1933.5 863.0Q1933 870 1924 875Q1854 922 1821 1116Q1786 1308 1665 1310Q1579 1312 1519 1184Q1515 1177 1519 1170Q1558 1087 1575.5 985.0Q1593 883 1577 769Q1537 493 1458.5 352.5Q1380 212 1272 72Q1129 -107 1002 33Q966 73 926.5 85.0Q887 97 836 57Q817 41 803.5 53.5Q790 66 805 85Q933 263 1008.5 288.0Q1084 313 1156 246Q1215 191 1264.5 187.0Q1314 183 1342 261Q1396 411 1380.5 680.5Q1365 950 1271.5 1094.0Q1178 1238 1093.5 1263.5Q1009 1289 940 1219Q930 1209 939 1198Q1058 1033 1067 816Q1073 638 998.0 474.5Q923 311 805 161Q676 -3 560.5 -27.0Q445 -51 349 90Q265 216 178 121Q157 103 140.5 120.0Q124 137 145 159Q418 437 574 232Q599 198 621.5 169.0Q644 140 689 142Q747 144 811.0 269.0Q875 394 875 584Q873 833 745.0 1020.5Q617 1208 452 1226Q287 1243 192.0 1164.0Q97 1085 100 977Q103 867 158.5 801.0Q214 735 364 774Q653 848 615 561Q611 531 587.5 530.5Q564 530 564 553Z"/></svg></div>
   </div></div>
   <div class="pan on" id="pIni">
-    <div id="logo"><div class="t">MEVILAND</div><div class="s" id="tLema"></div></div>
+    <div id="logo"><img class="t" alt="MEVILAND" src="../juegos/logo_meviland.webp?v=18.43"><div class="s" id="tLema"></div></div>
     <div id="cargaBox" class="fila" style="flex-direction:column"><div id="carga"><i id="cargaI"></i></div><div id="cargaT"></div></div>
     <div class="niv" id="niv" style="display:none"></div>
     <div class="fila" id="lenguas" style="display:none"><button type="button" class="b" data-lang="es">ES</button><button type="button" class="b" data-lang="ca">CA</button><button type="button" class="b" data-lang="en">EN</button></div>
@@ -157,8 +157,8 @@
 <script src="../lib/three.min.js"></script>
 <script src="../lib/gltf.js?v=18.41"></script>
 <script src="../lib/mevicara.js?v=18.37"></script>
-<script src="meviland-motor.js?v=18.42"></script>
-<script src="meviland-salas.js?v=18.42"></script>
-<script src="meviland-mundo.js?v=18.42"></script>
+<script src="meviland-motor.js?v=18.43"></script>
+<script src="meviland-salas.js?v=18.43"></script>
+<script src="meviland-mundo.js?v=18.43"></script>
 </body>
 </html>

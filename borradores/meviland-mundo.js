@@ -43,19 +43,19 @@ Object.assign(TX.ca, {
 });
 
 /* el parque es un reino: textos de bienvenida y pergamino */
-Object.assign(TX.es, { fd_desfile: 'Con dos Llaves Estelares se abre el portón del castillo y todo el reino sale a celebrarlo con vosotros.', lema: 'EL REINO DE FANTASÍA DE MEVI', cargando: 'Abriendo las puertas del reino…', plaza: 'Patio de armas de Mevi',
+Object.assign(TX.es, { fd_desfile: 'Con dos Llaves Estelares se abre el portón del castillo y todo el reino sale a celebrarlo con vosotros.', lema: 'EL REINO DE FANTASÍA DE MEVI', cargando: 'Abriendo las puertas del reino…', plaza: 'Gran Plaza de la Muralla',
   hola: '¡Hola! Soy Mevi. ¡Bienvenidos a MEVILAND, mi reino de fantasía!', holaN: '¡Hola, {0}! Soy Mevi. ¡Bienvenidos a MEVILAND, mi reino de fantasía!',
   objetivo: 'Para abrir el portón del castillo necesitamos {0} Llaves Estelares. Cada mundo guarda una.', comoElegir: 'Apuntad a una puerta de la muralla y mantened la mirilla encima para entrar… ¡o tocad!',
   otraTierra: '¿A qué mundo vamos ahora?', yaTenemos: '¡Esa llave ya es nuestra! Probemos otro mundo.', portalAbre: '¡Todas las llaves! El portón del castillo se abre… ¡Apuntad al portón!',
   pgSub: 'el reino de fantasía de Mevi', pgSigue: 'Toca para entrar',
   pgTxt: 'A todos los viajeros que este pergamino vieren, <b>¡salud!</b>|Por orden de <b>Mevi</b> quedáis invitados a su reino. Cuatro mundos guardan las <b>Llaves Estelares</b>: reunidlas y se abrirán las puertas del <b>Castillo de las Estrellas</b>, donde aguarda la gran fiesta.|<b>¡Sed bienvenidos a MEVILAND!</b>' });
-Object.assign(TX.en, { fd_desfile: 'With two Star Keys the castle gate opens and the whole kingdom comes out to celebrate with you.', lema: 'MEVI\'S KINGDOM OF FANTASY', cargando: 'Opening the kingdom gates…', plaza: 'Mevi\'s courtyard',
+Object.assign(TX.en, { fd_desfile: 'With two Star Keys the castle gate opens and the whole kingdom comes out to celebrate with you.', lema: 'MEVI\'S KINGDOM OF FANTASY', cargando: 'Opening the kingdom gates…', plaza: 'Great Square of the Wall',
   hola: 'Hi! I\'m Mevi. Welcome to MEVILAND, my kingdom of fantasy!', holaN: 'Hi, {0}! I\'m Mevi. Welcome to MEVILAND, my kingdom of fantasy!',
   objetivo: 'To open the castle gate we need {0} Star Keys. Each world keeps one.', comoElegir: 'Aim at a door in the wall and hold the sight on it to enter… or tap!',
   otraTierra: 'Which world next?', yaTenemos: 'That key is already ours! Let\'s try another world.', portalAbre: 'All the keys! The castle gate is opening… Aim at the gate!',
   pgSub: 'Mevi\'s kingdom of fantasy', pgSigue: 'Tap to enter',
   pgTxt: 'To all travellers who may read this scroll, <b>greetings!</b>|By order of <b>Mevi</b> you are invited to her kingdom. Four worlds keep the <b>Star Keys</b>: gather them and the gates of the <b>Castle of Stars</b> will open, where the great feast awaits.|<b>Welcome to MEVILAND!</b>' });
-Object.assign(TX.ca, { fd_desfile: 'Amb dues Claus Estel·lars s\'obre el portal del castell i tot el regne surt a celebrar-ho amb vosaltres.', lema: 'EL REGNE DE FANTASIA DE MEVI', cargando: 'Obrint les portes del regne…', plaza: 'Pati d\'armes de Mevi',
+Object.assign(TX.ca, { fd_desfile: 'Amb dues Claus Estel·lars s\'obre el portal del castell i tot el regne surt a celebrar-ho amb vosaltres.', lema: 'EL REGNE DE FANTASIA DE MEVI', cargando: 'Obrint les portes del regne…', plaza: 'Gran Plaça de la Muralla',
   hola: 'Hola! Soc la Mevi. Benvinguts a MEVILAND, el meu regne de fantasia!', holaN: 'Hola, {0}! Soc la Mevi. Benvinguts a MEVILAND, el meu regne de fantasia!',
   objetivo: 'Per obrir el portal del castell ens calen {0} Claus Estel·lars. Cada món en guarda una.', comoElegir: 'Apunteu a una porta de la muralla i manteniu-hi el punt de mira per entrar… o toqueu!',
   otraTierra: 'A quin món anem ara?', yaTenemos: 'Aquesta clau ja és nostra! Provem un altre món.', portalAbre: 'Totes les claus! El portal del castell s\'obre… Apunteu al portal!',
@@ -68,14 +68,16 @@ function pergamino(fin) {
   const el = $('perga'), tx = $('pgTxt'); PG.f = fin; PG.on = true; PG.fin = false; PG.i = 0; PG.t = -.9; el.classList.remove('fin'); $('pgSub').textContent = t('pgSub'); $('pgSigue').textContent = t('pgSigue'); tx.innerHTML = ''; PG.letras = [];
   t('pgTxt').split('|').forEach((par, pi) => { const p = document.createElement('div'); if (pi) p.style.marginTop = '.5em'; par.split(/(<b>.*?<\/b>)/).forEach(tr => { const neg = /^<b>/.test(tr), txt = tr.replace(/<\/?b>/g, ''); const cont = neg ? document.createElement('b') : p; txt.split(/(\s+)/).forEach(pal => { if (!pal) return; if (/^\s+$/.test(pal)) { cont.appendChild(document.createTextNode(' ')); return; } const w = document.createElement('span'); w.style.whiteSpace = 'nowrap'; pal.split('').forEach(ch => { const i = document.createElement('i'); i.textContent = ch; w.appendChild(i); PG.letras.push(i); }); cont.appendChild(w); }); if (neg) p.appendChild(cont); }); tx.appendChild(p); });
   PG.n = PG.letras.length; el.style.display = 'flex'; void el.offsetWidth; el.classList.add('on'); fx('carta', .8);
+  /* Mevi lee el pergamino en voz alta y la pluma escribe a su paso */
+  callaVoz(); PG.cps = 30; setTimeout(() => { if (!PG.on || PG.fin) return; const ms = vozGrabada(t('pgTxt').replace(/<\/?b>/g, '').replace(/\|/g, ' ')); if (ms) { PG.cps = PG.n / (ms / 1000) * 1.04; VOZ.tFin = performance.now() + ms; } }, 900);
 }
 function pasaPergamino(dt) {
   if (!PG.on) return; const el = $('perga'); PG.t += dt;
-  if (!PG.fin) { const hasta = Math.min(PG.n, Math.floor(Math.max(0, PG.t) * 30)); if (hasta > PG.i) { for (let i = PG.i; i < hasta; i++) PG.letras[i].classList.add('v'); if (Math.floor(hasta / 4) !== Math.floor(PG.i / 4)) sint(1700 + Math.random() * 900, .025, 'triangle', .012); PG.i = hasta; }   /* el rasgueo de la pluma */
+  if (!PG.fin) { const hasta = Math.min(PG.n, Math.floor(Math.max(0, PG.t) * (PG.cps || 30))); if (hasta > PG.i) { for (let i = PG.i; i < hasta; i++) PG.letras[i].classList.add('v'); if (Math.floor(hasta / 4) !== Math.floor(PG.i / 4)) sint(1700 + Math.random() * 900, .025, 'triangle', .012); PG.i = hasta; }   /* el rasgueo de la pluma */
     if (PG.i >= PG.n) { PG.fin = true; PG.t = 0; el.classList.add('fin'); setTimeout(() => fx('popg', .7), 250); } }
   const pulsa = PTR.toca; if (pulsa) PTR.toca = false;
   if (pulsa && !PG.fin && PG.t > .2) { PG.letras.forEach(i => i.classList.add('v')); PG.i = PG.n; }
-  else if ((pulsa && PG.fin && PG.t > .5) || (BOT && PG.t > .1)) { PG.on = false; el.classList.remove('on'); setTimeout(() => { if (!PG.on) el.style.display = ''; }, 650); const f = PG.f; PG.f = null; if (f) f(); }
+  else if ((pulsa && PG.fin && PG.t > .5) || (BOT && PG.t > .1)) { PG.on = false; callaVoz(); el.classList.remove('on'); setTimeout(() => { if (!PG.on) el.style.display = ''; }, 650); const f = PG.f; PG.f = null; if (f) f(); }
 }
 $('perga').addEventListener('pointerdown', () => { au(); PTR.toca = true; });
 
@@ -234,19 +236,19 @@ function abrePuerta(d, gp, elige) {
 /* ======================= LOS PERSONAJES DE LAS HISTORIAS DE MEVI =======================
    Los de WONDERWALK y DIANA y la familia: soldados de la guardia, paseantes del patio y, al final, el público y el desfile.
    Se cargan aparte, después del arranque y por tandas, para no retrasar la entrada al juego. */
-const MODS = '../packs/modelos/a3D-', KAY = '../packs/wonderwalk/kaykit/';
-const EXTRA = { soldado1: [MODS + 'soldado-moreno-rig.glb', 'mix'], soldado2: [MODS + 'soldado-rubio-rig.glb', 'mix'],
+const MODS = '../packs/modelos/a3D-';   /* solo personajes propios, todos del mismo estilo: nada de packs de otro aspecto */
+const EXTRA = { soldado1: [MODS + 'soldado-moreno-rig.glb', 'mix'], soldado2: [MODS + 'soldado-rubio-rig.glb', 'mix'], soldado3: [MODS + 'soldado-rig.glb', 'mix'],
   sonia: ['../juegos/diana/fam-sonia.glb'], josep: ['../juegos/diana/fam-josep.glb'], hector: ['../juegos/diana/fam-hector.glb'], jaume: ['../juegos/diana/fam-jaume.glb'], roser: ['../juegos/diana/fam-roser.glb'],
-  hechicera: ['personajes/hechicera.glb'], ladron: ['personajes/ladron.glb'], knight: [KAY + 'Knight.glb', 'kay'], mage: [KAY + 'Mage.glb', 'kay'], barbarian: [KAY + 'Barbarian.glb', 'kay'], ranger: [KAY + 'Ranger.glb', 'kay'], rogue: [KAY + 'Rogue.glb', 'kay'],
+  hechicera: ['personajes/hechicera.glb'], ladron: ['personajes/ladron.glb'],
   rey: [MODS + 'rey-rig.glb', 'mix'], reina: [MODS + 'reina-rig.glb', 'mix'], adales: [MODS + 'adales-rig.glb', 'mix'], arabe: [MODS + 'arabe-rig.glb', 'mix'], bufon: [MODS + 'bufon-rig.glb', 'mix'], aldeana: [MODS + 'aldeana-rig.glb', 'mix'], aldeano: [MODS + 'aldeano-rig.glb', 'mix'], herrero: [MODS + 'herrero-rig.glb', 'mix'],
   bonifacio: ['../juegos/diana/bonifacio.glb'], sirvienta: ['../juegos/diana/sirvienta.glb'] };
-const TANDAS = [['soldado1', 'soldado2'], ['sonia', 'josep', 'hechicera', 'knight'], ['hector', 'jaume', 'roser', 'rey', 'reina'], ['adales', 'arabe', 'bufon', 'mage', 'barbarian', 'ranger', 'rogue', 'ladron', 'bonifacio', 'sirvienta', 'herrero', 'aldeana', 'aldeano']];
+const TANDAS = [['soldado1', 'soldado2'], ['sonia', 'josep', 'hechicera', 'aldeana'], ['hector', 'jaume', 'roser', 'rey', 'reina'], ['adales', 'arabe', 'bufon', 'soldado3', 'ladron', 'bonifacio', 'herrero', 'aldeano']];
 const XT = { L: null, clips: {}, esperas: [], pedido: {} };
-function clipsDe(tipo) { if (XT.clips[tipo]) return XT.clips[tipo]; const urls = tipo === 'mix' ? ['../packs/wonderwalk/mixamo-clips.glb'] : [KAY + 'rig_medium_clips.glb', KAY + 'rig_medium_fiesta.glb']; return XT.clips[tipo] = Promise.all(urls.map(u => new Promise(ok => XT.L.load(u, g => ok(g.animations), undefined, () => ok([]))))).then(a => [].concat(...a)); }
+function clipsDe(tipo) { if (XT.clips[tipo]) return XT.clips[tipo]; const urls = ['../packs/wonderwalk/mixamo-clips.glb']; return XT.clips[tipo] = Promise.all(urls.map(u => new Promise(ok => XT.L.load(u, g => ok(g.animations), undefined, () => ok([]))))).then(a => [].concat(...a)); }
 function cargaExtra(lista) {
   if (!XT.L) { XT.L = new T.GLTFLoader(); XT.L.setMeshoptDecoder(window.MeshoptDecoder); }
   return Promise.all(lista.filter(k => EXTRA[k] && !MOD[k]).map(k => XT.pedido[k] || (XT.pedido[k] = new Promise(ok => { const [u, tipo] = EXTRA[k]; XT.L.load(u + '?v=18.42', g => { g.scene.traverse(o => { if (o.isMesh) { if (o.geometry) o.geometry.userData.mod = true; o.castShadow = true; o.receiveShadow = true; o.frustumCulled = false; } });
-    const fin = () => { MOD[k] = g; ok(); XT.esperas = XT.esperas.filter(e => { if (e.ks.every(x => MOD[x])) { try { e.f(); } catch (er) {} return false; } return true; }); };
+    const fin = () => { sinAvance(g.animations); MOD[k] = g; ok(); XT.esperas = XT.esperas.filter(e => { if (e.ks.every(x => MOD[x])) { try { e.f(); } catch (er) {} return false; } return true; }); };
     if (!tipo) return fin();
     clipsDe(tipo).then(cl => { const hips = g.scene.getObjectByName('mixamorigHips'); g.animations = cl.map(c => { const tr = c.tracks.find(x => /Hips\.position$/.test(x.name)); if (tipo !== 'mix' || !hips || !tr || !tr.values[1]) return c; const f = hips.position.y / tr.values[1], c2 = c.clone(); c2.tracks.find(x => /Hips\.position$/.test(x.name)).values.forEach((v, i, A) => { A[i] = v * f; }); return c2; }); fin(); }); }, undefined, () => ok()); }))));
 }
@@ -255,16 +257,23 @@ function conExtra(ks, f) { if (ks.every(k => MOD[k])) f(); else XT.esperas.push(
 async function cargaPersonajes() { for (const t of (LITE ? TANDAS.slice(0, 3) : TANDAS)) { await cargaExtra(t); } }
 /* la animación que tenga cada uno para cada cosa (cada familia de modelos nombra sus clips a su manera) */
 const GESTOS = { anda: ['anda', 'andar', 'Walking_A', 'Walking'], quieto: ['mira', 'reposo', 'Idle_A', 'quieta', 'charla', 'Idle'], vitorea: ['feliz', 'Cheering', 'aplaude', 'Cheer', 'Joyful', 'mira', 'Idle_A'], saluda: ['saluda', 'Waving', 'Wave', 'feliz', 'Cheering', 'mira'], guardia: ['Idle_B', 'Idle_A', 'reposo', 'mira'] };
-function gesto(p, cual) { const A = p.userData.A; if (!A) return; const n = GESTOS[cual].find(k => A[k] || Object.keys(A).some(x => x.toLowerCase().startsWith(k.toLowerCase()))); if (n) anima(p, n); }
+function gesto(p, cual) { const A = p.userData.A; if (!A) return; if (!GESTOS[cual]) { anima(p, cual); return; } const n = GESTOS[cual].find(k => A[k] || Object.keys(A).some(x => x.toLowerCase().startsWith(k.toLowerCase()))) || ['quieta', 'reposo', 'mira', 'Idle_A', 'charla'].find(k => A[k]) || Object.keys(A)[0]; if (n) anima(p, n); }   /* nunca en pose de T: si no tiene ese gesto, su reposo */
 /* un personaje de los extra, a su altura real y pisando el suelo */
 function persona(g, k, alto, x, z, ry, que) { if (!MOD[k]) return null; const p = pon(g, k, alto, x, 0, z, { ry: ry || 0, mide: true }); gesto(p, que || 'quieto'); const ac = p.userData.act; if (ac) ac.time = rnd(0, 2); return p; }
 /* los dos soldados de la guardia, a los lados del portón del castillo */
 function guardia(g, PZ) { const esc = MU.g; conExtra(['soldado1', 'soldado2'], () => { if (MU.g !== esc) return; [['soldado1', -3.4], ['soldado2', 3.4]].forEach(([k, x]) => { const s2 = persona(g, k, 2.05, x, PZ + 3.5, x < 0 ? .12 : -.12, 'guardia'); if (!s2) return; const pe = cil(.62, .7, .16, mat('#8f7868', { roughness: .9 }), 12); pe.position.set(x, .08, PZ + 3.5); pe.receiveShadow = true; g.add(pe); s2.position.y = .16; }); }); }
 /* paseantes del patio: van y vienen por el empedrado sin cruzarse con la fuente ni salirse de la vista */
 function paseantes(g) {
-  const esc = MU.g, RUTAS = [['sonia', 1.75, [[-7.5, -2], [-10.5, -8.5], [-6, -13], [-3, -8]]], ['josep', 1.85, [[-6.4, -1.5], [-9.4, -8], [-5, -12.4], [-2.2, -7.2]]], ['hechicera', 1.8, [[7, -12.5], [10.8, -7], [7.2, -1.5], [3.4, -7.6]]], ['knight', 1.9, [[11, 1.5], [6, 1.2], [-6, 1.4], [-11, 1.8], [-6, 1.4], [6, 1.2]]]];
-  RUTAS.forEach(([k, alto, ruta], n) => conExtra([k], () => { if (MU.g !== esc) return; const p = persona(g, k, alto, ruta[0][0], ruta[0][1], 0, 'anda'); if (!p) return; let i = 0, pausa = 0, andando = true; const v = k === 'knight' ? 1.25 : 1.05, d = new T.Vector3();
-    anim(dt => { if (pausa > 0) { pausa -= dt; if (pausa <= 0) { gesto(p, 'anda'); andando = true; } return; } const o = ruta[(i + 1) % ruta.length]; d.set(o[0] - p.position.x, 0, o[1] - p.position.z); const L = d.length(); if (L < .15) { i = (i + 1) % ruta.length; if (Math.random() < .45) { pausa = rnd(2, 5); gesto(p, i % 2 ? 'saluda' : 'quieto'); andando = false; } return; } d.normalize(); p.position.addScaledVector(d, Math.min(L, v * dt)); const ry = Math.atan2(d.x, d.z); let dr = ry - p.rotation.y; while (dr > Math.PI) dr -= 6.283; while (dr < -Math.PI) dr += 6.283; p.rotation.y += dr * Math.min(1, dt * 5); }); }));
+  /* cada ruta es un circuito despejado: lejos de la fuente (radio 3), de las farolas, de los árboles, de las puertas y del sitio de Mevi */
+  const esc = MU.g, RUTAS = [['sonia', 1.75, [[-7.2, 1.6], [-11.4, -1.4], [-11.2, -7.6], [-7.2, -8.2], [-5.4, -4.2]]], ['josep', 1.85, [[-6.2, 2.6], [-10.2, -.6], [-10, -6.8], [-6.4, -7], [-4.6, -3.4]]],
+    ['hechicera', 1.8, [[7.4, -8.2], [11.2, -7.6], [11.6, -1.8], [7.6, .4], [5.2, -4.4]]], ['aldeana', 1.7, [[2.2, -8.4], [-2.4, -8.6], [-2.6, -12.8], [2.4, -12.6]]]];
+  RUTAS.forEach(([k, alto, ruta], n) => conExtra([k], () => { if (MU.g !== esc) return; const p = persona(g, k, alto, ruta[0][0], ruta[0][1], 0, 'anda'); if (!p) return; let i = 0, pausa = 0; const v = .95 + n * .06, d = new T.Vector3(), sig = () => ruta[(i + 1) % ruta.length];
+    p.rotation.y = Math.atan2(sig()[0] - p.position.x, sig()[1] - p.position.z);
+    anim(dt => { const o = sig(); d.set(o[0] - p.position.x, 0, o[1] - p.position.z); const L = d.length(), ry = Math.atan2(d.x, d.z); let dr = ry - p.rotation.y; while (dr > Math.PI) dr -= 6.283; while (dr < -Math.PI) dr += 6.283;
+      if (pausa > 0) { pausa -= dt; if (pausa <= 0) gesto(p, 'anda'); return; }
+      p.rotation.y += dr * Math.min(1, dt * 4); if (Math.abs(dr) > .9) return;   /* primero se gira; no anda de lado ni marcha atrás */
+      if (L < .2) { i = (i + 1) % ruta.length; if (Math.random() < .35) { pausa = rnd(2.5, 5); gesto(p, 'quieto'); } return; }
+      p.position.addScaledVector(d.normalize(), Math.min(L, v * dt)); }); }));
 }
 
 /* ======================= EL CASTILLO DE LAS ESTRELLAS =======================
@@ -308,17 +317,21 @@ function montsoriu(g, o) {
 }
 
 /* ======================= PATIO DE ARMAS DEL CASTILLO Y GRAN DESFILE ======================= */
-/* gentío de relleno: muñecos sencillos (cuerpo, cabeza y gorro) en mallas instanciadas, que botan y vitorean cada uno a su ritmo */
-function gentio(g, sitios) {
-  const n = sitios.length, dm = new T.Object3D(), ROPA = ['#8a2f4a', '#2f5a8a', '#5a7a2f', '#8a6a2a', '#5a2f8a', '#a8552a', '#2f7a72', '#7a7a86', '#a82f6a', '#3a4a8a'], PIEL = ['#e8b894', '#d49a72', '#f0c8a8', '#b87a52', '#e0a884'];
-  const cu = new T.InstancedMesh(new T.CylinderGeometry(.2, .3, .95, 10), mat('#ffffff', { roughness: .85 }), n), ca = new T.InstancedMesh(new T.SphereGeometry(.24, 12, 10), mat('#ffffff', { roughness: .7 }), n), go = new T.InstancedMesh(new T.ConeGeometry(.24, .34, 10), mat('#ffffff', { roughness: .8 }), n), br = new T.InstancedMesh(new T.CylinderGeometry(.055, .055, .5, 6), mat('#ffffff', { roughness: .85 }), n * 2);
-  const P = sitios.map(([x, y, z], i) => { const c = new T.Color(ROPA[ri(ROPA.length)]); cu.setColorAt(i, c); br.setColorAt(i * 2, c); br.setColorAt(i * 2 + 1, c); ca.setColorAt(i, new T.Color(PIEL[ri(PIEL.length)])); go.setColorAt(i, new T.Color(ROPA[ri(ROPA.length)]).multiplyScalar(.8)); return { x, y, z, e: rnd(.78, 1.12), f: rnd(0, 6.283), v: rnd(4, 7), gorro: Math.random() < .6, alza: Math.random() < .55 }; });
-  [cu, ca, go, br].forEach(m => { m.castShadow = !LITE; g.add(m); });
-  anim((dt, tt) => { P.forEach((p, i) => { const b = Math.abs(Math.sin(tt * p.v * .5 + p.f)) * .12 * p.e, y = p.y + b, e = p.e;
-      dm.rotation.set(0, 0, 0); dm.scale.setScalar(e); dm.position.set(p.x, y + .48 * e, p.z); dm.updateMatrix(); cu.setMatrixAt(i, dm.matrix); dm.position.set(p.x, y + 1.16 * e, p.z); dm.updateMatrix(); ca.setMatrixAt(i, dm.matrix);
-      dm.scale.setScalar(p.gorro ? e : .001); dm.position.set(p.x, y + 1.5 * e, p.z); dm.updateMatrix(); go.setMatrixAt(i, dm.matrix);
-      for (let k = 0; k < 2; k++) { const sg = k ? 1 : -1, sube = p.alza ? 2.5 + Math.sin(tt * p.v + p.f + k) * .5 : .35; dm.scale.setScalar(e); dm.rotation.set(0, 0, sg * (Math.PI - sube)); dm.position.set(p.x + sg * (.27 + Math.sin(sube) * .2) * e, y + (.78 - Math.cos(sube) * .22) * e, p.z); dm.updateMatrix(); br.setMatrixAt(i * 2 + k, dm.matrix); } });
-    cu.instanceMatrix.needsUpdate = ca.instanceMatrix.needsUpdate = go.instanceMatrix.needsUpdate = br.instanceMatrix.needsUpdate = true; });
+/* gentío de relleno: los personajes 3D de la casa, retratados con otra ropa, otra piel y otro tocado, para que el público sea del mismo estilo que la primera fila */
+function gentio(g, sitios, mira) {
+  /* cada figurante es una tarjeta con el retrato de un personaje 3D de la casa (lámina de 8 × 3: misma malla, otra ropa, otra piel y otro tocado). Mira a la calle y da saltitos */
+  const CX = 8, CY = 3, AN = 1.6, AL = 2.2, CHIBI = 20, n = sitios.length, mx = mira ? mira[0] : 0, mz = mira ? mira[1] : 15;
+  if (!TXS.gentio) { TXS.gentio = new T.TextureLoader().load('../packs/meviland/gentio.webp?v=18.43'); TXS.gentio.encoding = T.sRGBEncoding; TXS.gentio.anisotropy = 4; }
+  const pos = new Float32Array(n * 12), uv = new Float32Array(n * 8), col = new Float32Array(n * 12), idx = [], P = []; let c1 = -1, c2 = -1;
+  sitios.forEach(([x, y, z], i) => { let c = ri(CX * CY), tope = 0; while ((c === c1 || c === c2) && tope++ < 9) c = ri(CX * CY); c2 = c1; c1 = c;
+    const nino = c < CHIBI && Math.random() < .14, e = nino ? rnd(.6, .72) : (c < CHIBI ? rnd(.9, 1.02) : rnd(.98, 1.06)), a = Math.atan2(mx - x, mz - z), ca = Math.cos(a), sa = Math.sin(a), w = AN * e / 2, h = AL * e, y0 = y - .04 * e, vuelta = Math.random() < .5;
+    P.push({ y0, h, f: rnd(0, 6.283), v: rnd(4, 7), e }); const u0 = (c % CX) / CX, u1 = u0 + 1 / CX, v1 = 1 - Math.floor(c / CX) / CY, v0 = v1 - 1 / CY, k = rnd(.84, 1);
+    [[-1, 0], [1, 0], [1, 1], [-1, 1]].forEach(([sx, sy], q) => { const o = i * 12 + q * 3; pos[o] = x + sx * w * ca; pos[o + 1] = y0 + sy * h; pos[o + 2] = z - sx * w * sa; uv[i * 8 + q * 2] = (sx < 0) !== vuelta ? u0 : u1; uv[i * 8 + q * 2 + 1] = sy ? v1 : v0; col[o] = k; col[o + 1] = k * .97; col[o + 2] = k * .95; });
+    idx.push(i * 4, i * 4 + 1, i * 4 + 2, i * 4, i * 4 + 2, i * 4 + 3); });
+  const ge = new T.BufferGeometry(), ap = new T.BufferAttribute(pos, 3); ge.setAttribute('position', ap); ge.setAttribute('uv', new T.BufferAttribute(uv, 2)); ge.setAttribute('color', new T.BufferAttribute(col, 3)); ge.setIndex(idx);
+  const m = new T.Mesh(ge, new T.MeshBasicMaterial({ map: TXS.gentio, alphaTest: .5, vertexColors: true, color: '#fff6ee' })); m.frustumCulled = false; g.add(m);
+  anim((dt, tt) => { for (let i = 0; i < n; i++) { const p = P[i], b = Math.abs(Math.sin(tt * p.v * .5 + p.f)) * .08 * p.e, o = i * 12; pos[o + 1] = pos[o + 4] = p.y0 + b; pos[o + 7] = pos[o + 10] = p.y0 + b + p.h; } ap.needsUpdate = true; });
+  return m;
 }
 /* el patio de armas, de noche y en fiestas: fachada de la sala gótica con el palco real, torre del homenaje detrás, gradas y antorchas */
 function patioCastillo(o) {
@@ -326,7 +339,7 @@ function patioCastillo(o) {
   nuevaEscena(g => {
     ambiente(g, 'castillo', { hora: 1 }); suelo(g, txSuelo('adoquin'), 70, '#d8cec8'); lugar(t('castillo')); MU.patio = { palco: null };
     const OM = { gro: 1.6, c1: '#a58a78', c2: '#c9ad8f' }, ZF = -13.5, HF = 11;
-    muralla(g, -34, ZF, 34, ZF, HF, OM); muralla(g, -22, ZF + .2, -17.5, 14, 8, OM); muralla(g, 22, ZF + .2, 17.5, 14, 8, OM);
+    const fach = muralla(g, -34, ZF, 34, ZF, HF, OM); muralla(g, -22, ZF + .2, -17.5, 14, 8, OM); muralla(g, 22, ZF + .2, 17.5, 14, 8, OM);
     const txt = txPiedra('#a58a78', '#c9ad8f').clone(); txt.needsUpdate = true; txt.wrapS = txt.wrapT = T.RepeatWrapping; txt.repeat.set(5, 9); const pie = mat('#e6dcd6', { map: txt, roughness: .9 }), pie2 = mat('#9d8676', { roughness: .92 });
     /* torre del homenaje, redonda, asomando tras la fachada; y dos torres cuadradas en las esquinas */
     const hom = cil(5, 5.5, 27, pie, 22); hom.position.set(-11, 13.5, ZF - 8); g.add(hom); const cor = cil(5.6, 5, 1, pie2, 22); cor.position.set(-11, 27.3, ZF - 8); g.add(cor); for (let i = 0; i < 12; i++) { const a = i / 12 * 6.283, al = caja(1.3, 1.3, 1, pie2); al.position.set(-11 + Math.cos(a) * 5.1, 28.5, ZF - 8 + Math.sin(a) * 5.1); al.rotation.y = -a + Math.PI / 2; g.add(al); const mc = caja(.5, 1.2, .8, pie2); mc.position.set(-11 + Math.cos(a + .26) * 5.4, 26.3, ZF - 8 + Math.sin(a + .26) * 5.4); mc.rotation.y = -a - .26 + Math.PI / 2; g.add(mc); }
@@ -339,14 +352,58 @@ function patioCastillo(o) {
     /* el palco real: balcón de piedra con balaustrada, dosel y los reyes */
     const PY = 4.7, PA = new T.Group(); PA.position.set(0, PY, ZF + .8); g.add(PA); const losa = caja(8.6, .5, 3, pie2); losa.position.set(0, -.25, 1.2); losa.castShadow = true; PA.add(losa); [-3.6, -1.2, 1.2, 3.6].forEach(x => { const me = caja(.6, 1.5, 1.6, pie2); me.position.set(x, -1.2, .9); me.rotation.x = .5; PA.add(me); });
     const bar = caja(8.6, .22, .3, pie2); bar.position.set(0, 1.05, 2.55); PA.add(bar); for (let i = 0; i < 15; i++) { const ba = cil(.09, .13, 1, pie, 8); ba.position.set(-4 + i * 4 / 7, .5, 2.55); PA.add(ba); } [-1, 1].forEach(sg => { const l2 = caja(.3, 1.2, 2.7, pie2); l2.position.set(sg * 4.15, .55, 1.25); PA.add(l2); });
-    const hueco = new T.Mesh(new T.PlaneGeometry(5.4, 4.4), new T.MeshBasicMaterial({ color: '#3a1c2a' })); hueco.position.set(0, 2.2, .06); PA.add(hueco); const lzp = new T.PointLight('#ffcf8a', 1.5, 12); lzp.position.set(0, 3, 2.2); PA.add(lzp);
+    /* la logia del palco: tres arcos apuntados sobre columnillas que dan, de verdad, a la sala gótica. La fachada se abre con un hueco y detrás hay una sala con fondo, iluminada por dentro */
+    (() => { const c0 = fach.children[0], m0 = c0.material, AB = 3.45, Y1 = PY + 5.62; fach.remove(c0); c0.geometry.dispose();
+      [[-34, -AB, 0, HF], [AB, 34, 0, HF], [-AB, AB, 0, PY], [-AB, AB, Y1, HF]].forEach(([xa, xb, ya, yb]) => { const tx = m0.map.clone(); tx.needsUpdate = true; tx.repeat.set((xb - xa) / 2.4, (yb - ya) / 2.4); tx.offset.set(((xa + 34) / 2.4) % 1, (ya / 2.4) % 1); const m = m0.clone(); m.map = tx; const c = caja(xb - xa, yb - ya, OM.gro, m); c.position.set((xa + xb) / 2, (ya + yb) / 2, 0); c.castShadow = c.receiveShadow = true; fach.add(c); }); })();
+    const SA = 4.5, SF = -8.4, SH = 5.62, GR = OM.gro;   /* media anchura, fondo y alto de la sala (en las medidas del palco) */
+    const sillar = (q, w, h, c1, c2) => { q.fillStyle = '#5a3a26'; q.fillRect(0, 0, w, h); const fh = h / 9; for (let f = 0; f < 9; f++) { let x = f % 2 ? -50 : 0; while (x < w) { const bw = 70 + ((f * 37 + x * 13) % 60); q.fillStyle = mezcla(c1, c2, ((f * 53 + x * 7) % 100) / 100); q.fillRect(x + 2, f * fh + 2, bw - 4, fh - 4); x += bw; } } };
+    const txFondo = lz(1024, 640, (q, w, h) => { sillar(q, w, h, '#c08a58', '#e0b078');
+      const gl = q.createRadialGradient(w / 2, h * .3, 20, w / 2, h * .3, w * .62); gl.addColorStop(0, 'rgba(255,226,150,.5)'); gl.addColorStop(.5, 'rgba(255,190,110,.12)'); gl.addColorStop(1, 'rgba(40,14,10,.72)'); q.fillStyle = gl; q.fillRect(0, 0, w, h);
+      /* el tapiz real del fondo, con su cenefa de oro y la M del reino, colgado de una barra */
+      const tx0 = w / 2 - 150, ty0 = 70, tw = 300, th = 400; q.fillStyle = 'rgba(30,10,6,.45)'; q.fillRect(tx0 + 10, ty0 + 12, tw, th); const gt = q.createLinearGradient(tx0, 0, tx0 + tw, 0); gt.addColorStop(0, '#4a1466'); gt.addColorStop(.5, '#7a2a9a'); gt.addColorStop(1, '#4a1466'); q.fillStyle = gt; q.fillRect(tx0, ty0, tw, th);
+      q.strokeStyle = '#e2a92e'; q.lineWidth = 10; q.strokeRect(tx0 + 12, ty0 + 12, tw - 24, th - 24); q.lineWidth = 3; q.strokeRect(tx0 + 28, ty0 + 28, tw - 56, th - 56); q.fillStyle = '#e2a92e'; [[tx0 + 44, ty0 + 44], [tx0 + tw - 44, ty0 + 44], [tx0 + 44, ty0 + th - 44], [tx0 + tw - 44, ty0 + th - 44]].forEach(([x, y]) => { estrella2D(q, x, y, 12, 5, 5); q.fill(); });
+      q.save(); const e = 190 / 2160; q.translate(w / 2 - 1130 * e, ty0 + th / 2 + 70); q.scale(e, -e); q.shadowColor = 'rgba(20,5,0,.7)'; q.shadowBlur = 8; q.fillStyle = '#f0c040'; q.fill(new Path2D(M_GOTICA)); q.restore();
+      q.fillStyle = '#3a2410'; q.fillRect(tx0 - 26, ty0 - 12, tw + 52, 12); q.fillStyle = '#e2a92e'; [tx0 - 26, tx0 + tw + 26].forEach(x => { q.beginPath(); q.arc(x, ty0 - 6, 11, 0, 7); q.fill(); });
+      /* dos ventanales ojivales con vidriera, a los lados */
+      [w * .14, w * .86].forEach(cx => { const vw = 62, v0 = 150, v1 = 430; q.fillStyle = '#3a2416'; q.beginPath(); q.moveTo(cx - vw - 10, v1 + 8); q.lineTo(cx - vw - 10, v0); q.quadraticCurveTo(cx - vw - 10, v0 - 96, cx, v0 - 120); q.quadraticCurveTo(cx + vw + 10, v0 - 96, cx + vw + 10, v0); q.lineTo(cx + vw + 10, v1 + 8); q.closePath(); q.fill();
+        q.save(); q.beginPath(); q.moveTo(cx - vw, v1); q.lineTo(cx - vw, v0); q.quadraticCurveTo(cx - vw, v0 - 86, cx, v0 - 106); q.quadraticCurveTo(cx + vw, v0 - 86, cx + vw, v0); q.lineTo(cx + vw, v1); q.closePath(); q.clip(); const cols = ['#2a2f7a', '#6a2a8a', '#1f4f7a', '#8a2a5a', '#2a5a6a']; for (let yy = 0; yy < 12; yy++) for (let xx = 0; xx < 5; xx++) { q.fillStyle = cols[(xx * 3 + yy * 2) % 5]; q.fillRect(cx - vw + xx * 26, v0 - 110 + yy * 34, 25, 33); } q.strokeStyle = '#1a1420'; q.lineWidth = 3; for (let xx = 1; xx < 5; xx++) { q.beginPath(); q.moveTo(cx - vw + xx * 26, 0); q.lineTo(cx - vw + xx * 26, h); q.stroke(); } q.lineWidth = 7; q.beginPath(); q.moveTo(cx, v0 - 110); q.lineTo(cx, v1); q.stroke(); q.restore(); });
+      const zo = q.createLinearGradient(0, h * .8, 0, h); zo.addColorStop(0, 'rgba(30,12,8,0)'); zo.addColorStop(1, 'rgba(30,12,8,.6)'); q.fillStyle = zo; q.fillRect(0, 0, w, h); });
+    const txLado = lz(768, 640, (q, w, h) => { sillar(q, w, h, '#a87648', '#c89860'); const gl = q.createLinearGradient(0, 0, w, 0); gl.addColorStop(0, 'rgba(30,12,8,.6)'); gl.addColorStop(.5, 'rgba(255,200,120,.14)'); gl.addColorStop(1, 'rgba(30,12,8,.5)'); q.fillStyle = gl; q.fillRect(0, 0, w, h);
+      [w * .5].forEach(cx => { const gt = q.createLinearGradient(cx - 110, 0, cx + 110, 0); gt.addColorStop(0, '#1f1c66'); gt.addColorStop(.5, '#3a36a8'); gt.addColorStop(1, '#1f1c66'); q.fillStyle = 'rgba(30,10,6,.4)'; q.fillRect(cx - 100, 102, 220, 360); q.fillStyle = gt; q.fillRect(cx - 110, 90, 220, 360); q.strokeStyle = '#e2a92e'; q.lineWidth = 8; q.strokeRect(cx - 98, 102, 196, 336); q.fillStyle = '#e2a92e'; estrella2D(q, cx, 270, 46, 20, 8); q.fill(); q.fillStyle = '#3a2410'; q.fillRect(cx - 130, 80, 260, 11); }); });
+    const txTecho = lz(512, 512, (q, w, h) => { q.fillStyle = '#5a3418'; q.fillRect(0, 0, w, h); for (let i = 0; i < 8; i++) { q.fillStyle = i % 2 ? '#6a3e1c' : '#63391a'; q.fillRect(0, i * 64, w, 62); } for (let i = 0; i < 6; i++) { const x = i * w / 5 - 14; const gv = q.createLinearGradient(x, 0, x + 28, 0); gv.addColorStop(0, '#2a1608'); gv.addColorStop(.5, '#4a2a12'); gv.addColorStop(1, '#221206'); q.fillStyle = gv; q.fillRect(x, 0, 28, h); } const gl = q.createRadialGradient(w / 2, h / 2, 10, w / 2, h / 2, w * .6); gl.addColorStop(0, 'rgba(255,214,140,.5)'); gl.addColorStop(1, 'rgba(20,8,4,.55)'); q.fillStyle = gl; q.fillRect(0, 0, w, h); });
+    const txPiso = lz(512, 512, (q, w, h) => { for (let y = 0; y < 8; y++) for (let x = 0; x < 8; x++) { q.fillStyle = (x + y) % 2 ? '#b89878' : '#6a4a3a'; q.fillRect(x * 64, y * 64, 64, 64); } q.fillStyle = '#8a1a3a'; q.fillRect(w * .34, 0, w * .32, h); q.fillStyle = '#e2a92e'; q.fillRect(w * .34, 0, 8, h); q.fillRect(w * .66 - 8, 0, 8, h); const gl = q.createRadialGradient(w / 2, h / 2, 10, w / 2, h / 2, w * .62); gl.addColorStop(0, 'rgba(255,214,140,.3)'); gl.addColorStop(1, 'rgba(20,8,4,.6)'); q.fillStyle = gl; q.fillRect(0, 0, w, h); });
+    const plano = (tx, w, h, x, y, z, rx, ry) => { const m = new T.Mesh(new T.PlaneGeometry(w, h), new T.MeshBasicMaterial({ map: tx })); m.position.set(x, y, z); m.rotation.set(rx || 0, ry || 0, 0); PA.add(m); return m; };
+    plano(txFondo, SA * 2, SH, 0, SH / 2, SF); plano(txLado, -SF - GR, SH, -SA, SH / 2, (SF - GR) / 2, 0, Math.PI / 2); plano(txLado, -SF - GR, SH, SA, SH / 2, (SF - GR) / 2, 0, -Math.PI / 2);
+    plano(txTecho, SA * 2, -SF, 0, SH, SF / 2, Math.PI / 2); plano(txPiso, SA * 2, -SF, 0, .01, SF / 2, -Math.PI / 2);
+    [-1, 1].forEach(sg => { const tr = new T.MeshBasicMaterial({ color: '#2a160c' }), pa = caja(SA - 3.45, SH, .1, tr); pa.position.set(sg * (SA + 3.45) / 2, SH / 2, -GR - .05); PA.add(pa); });   /* el revés de la fachada, a los lados del hueco */
+    /* dos tronos al fondo, bajo el tapiz, sobre su grada */
+    const oroB = new T.MeshBasicMaterial({ color: '#e0a830' }), velB = new T.MeshBasicMaterial({ color: '#7a1f4a' }), grada = caja(4.4, .3, 1.5, new T.MeshBasicMaterial({ color: '#8a6a52' })); grada.position.set(0, .15, SF + .85); PA.add(grada);
+    [-1, 1].forEach(sg => { const tr = new T.Group(); tr.position.set(sg * 1.05, .3, SF + .6); PA.add(tr); const re = caja(1.1, 2.6, .16, oroB); re.position.y = 1.3; tr.add(re); const co = caja(.86, 2.1, .06, velB); co.position.set(0, 1.42, .1); tr.add(co); const rem = new T.Mesh(new T.ConeGeometry(.3, .5, 4), oroB); rem.position.y = 2.85; rem.rotation.y = Math.PI / 4; tr.add(rem); const as = caja(1.1, .5, .9, oroB); as.position.set(0, .25, .45); tr.add(as); const cj = caja(.9, .12, .76, velB); cj.position.set(0, .56, .47); tr.add(cj); [-1, 1].forEach(s2 => { const br = caja(.14, .5, .9, oroB); br.position.set(s2 * .5, .75, .45); tr.add(br); }); });
+    /* la gran lámpara de hierro, con sus velas encendidas, colgada en mitad de la sala */
+    const hie = new T.MeshBasicMaterial({ color: '#24160e' }), LA = new T.Group(); LA.position.set(0, 3.75, SF * .5); PA.add(LA); const aro = new T.Mesh(new T.TorusGeometry(1.25, .07, 6, 28), hie); aro.rotation.x = Math.PI / 2; LA.add(aro); const aro2 = new T.Mesh(new T.TorusGeometry(.6, .05, 6, 20), hie); aro2.rotation.x = Math.PI / 2; aro2.position.y = .5; LA.add(aro2);
+    const cad = cil(.03, .03, SH - 3.75 - .5, hie, 5); cad.position.y = .5 + (SH - 3.75 - .5) / 2; LA.add(cad); for (let i = 0; i < 4; i++) { const ti = cil(.02, .02, 1.45, hie, 4), a = i / 4 * 6.283 + .4; ti.position.set(Math.cos(a) * .62, .62, Math.sin(a) * .62); ti.rotation.z = Math.cos(a) * 1.05; ti.rotation.x = -Math.sin(a) * 1.05; LA.add(ti); }
+    for (let i = 0; i < 8; i++) { const a = i / 8 * 6.283, ve = cil(.05, .05, .3, new T.MeshBasicMaterial({ color: '#f4e6c0' }), 6); ve.position.set(Math.cos(a) * 1.25, .2, Math.sin(a) * 1.25); LA.add(ve); llama(ve, .24, .17, 0, 0); }
+    const halo = brillo('#ffcf80', 7, .3); halo.position.set(0, 3.7, SF * .5); PA.add(halo);
+    [-1, 1].forEach(sg => antorcha(PA, sg * 2.5, 2.9, SF + .06, 0, 0));
+    const arcada = new T.Shape(); arcada.moveTo(-3.6, 0); arcada.lineTo(3.6, 0); arcada.lineTo(3.6, 5.7); arcada.lineTo(-3.6, 5.7); arcada.lineTo(-3.6, 0); [-2.2, 0, 2.2].forEach(cx => { const hu = new T.Path(), w2 = .92, r0 = 2.9, tp = 4.75; hu.moveTo(cx - w2, 0); hu.lineTo(cx - w2, r0); hu.quadraticCurveTo(cx - w2, r0 + (tp - r0) * .75, cx, tp); hu.quadraticCurveTo(cx + w2, r0 + (tp - r0) * .75, cx + w2, r0); hu.lineTo(cx + w2, 0); hu.lineTo(cx - w2, 0); arcada.holes.push(hu); });
+    const arc3 = new T.Mesh(new T.ExtrudeGeometry(arcada, { depth: .55, bevelEnabled: true, bevelSize: .05, bevelThickness: .05, bevelSegments: 1, curveSegments: 10 }), mat('#d9c6a6', { roughness: .85 })); arc3.position.set(0, 0, -.2); arc3.castShadow = true; PA.add(arc3);
+    [-3.3, -1.1, 1.1, 3.3].forEach(x => { const co = cil(.13, .15, 2.9, mat('#e6d6b8', { roughness: .7 }), 12); co.position.set(x, 1.45, .46); PA.add(co); const ca = caja(.42, .22, .42, mat('#d9c6a6', { roughness: .8 })); ca.position.set(x, 2.98, .46); PA.add(ca); const ba = caja(.38, .16, .38, mat('#d9c6a6', { roughness: .8 })); ba.position.set(x, .08, .46); PA.add(ba); });
+    const lzp = new T.PointLight('#ffcf8a', 2.2, 13); lzp.position.set(0, 3.4, 1.6); PA.add(lzp); const foco = new T.SpotLight('#fff0d0', 2.6, 30, .32, .6); foco.position.set(0, 6.5, 12); foco.target.position.set(0, 1.6, 1.8); PA.add(foco); PA.add(foco.target);
+    const tarima = caja(4.6, .5, 1.6, pie2); tarima.position.set(0, .25, 1.75); PA.add(tarima);
     /* dosel de tela sobre el palco: un toldo inclinado con su faldón festoneado, en dos varas doradas */
     const txd = lz(512, 256, (q, w, h) => { q.clearRect(0, 0, w, h); for (let i = 0; i < 8; i++) { q.fillStyle = i % 2 ? '#5a1f7a' : '#7a2a9a'; q.fillRect(i * 64, 0, 64, h); } q.fillStyle = '#e2a92e'; q.fillRect(0, 0, w, 10); q.globalCompositeOperation = 'destination-out'; q.fillStyle = '#000'; for (let i = 0; i < 8; i++) { q.beginPath(); q.moveTo(i * 64, h); q.lineTo(i * 64 + 32, h - 46); q.lineTo(i * 64 + 64, h); q.closePath(); q.fill(); } q.globalCompositeOperation = 'source-over'; q.strokeStyle = '#e2a92e'; q.lineWidth = 6; q.beginPath(); for (let i = 0; i < 8; i++) { q.moveTo(i * 64, h - 3); q.lineTo(i * 64 + 32, h - 49); q.lineTo(i * 64 + 64, h - 3); } q.stroke(); });
-    const md = mat('#e9dfda', { map: txMuro('rayas', '#5a1f7a', '#7a2a9a'), roughness: .7, side: T.DoubleSide }), techo = new T.Mesh(new T.PlaneGeometry(9, 3.3), md); techo.rotation.x = -Math.PI / 2 + .28; techo.position.set(0, 5.3, 1.5); techo.castShadow = true; PA.add(techo);
-    const fal = new T.Mesh(new T.PlaneGeometry(9, 1), new T.MeshStandardMaterial({ map: txd, transparent: true, alphaTest: .5, side: T.DoubleSide, roughness: .7 })); fal.position.set(0, 4.42, 3.06); PA.add(fal); [-4.3, 4.3].forEach(x => { const va = cil(.06, .06, 4.9, mat('#e2a92e', { metalness: .85, roughness: .3 }), 8); va.position.set(x, 2.45, 2.9); PA.add(va); });
-    const tap = new T.Mesh(new T.PlaneGeometry(2.4, 1.5), new T.MeshStandardMaterial({ map: txPendon(), transparent: true, alphaTest: .5, roughness: .6 })); tap.scale.y = 1.5; tap.position.set(0, .1, 2.74); PA.add(tap);   /* repostero con el escudo, colgado de la balaustrada */
+    const md = mat('#e9dfda', { map: txMuro('rayas', '#5a1f7a', '#7a2a9a'), roughness: .7, side: T.DoubleSide }), techo = new T.Mesh(new T.PlaneGeometry(9, 3.3), md); techo.rotation.x = -Math.PI / 2 + .28; techo.position.set(0, 6.2, 1.5); techo.castShadow = true; PA.add(techo);
+    const fal = new T.Mesh(new T.PlaneGeometry(9, 1), new T.MeshStandardMaterial({ map: txd, transparent: true, alphaTest: .5, side: T.DoubleSide, roughness: .7 })); fal.position.set(0, 5.32, 3.06); PA.add(fal); [-4.3, 4.3].forEach(x => { const va = cil(.06, .06, 5.8, mat('#e2a92e', { metalness: .85, roughness: .3 }), 8); va.position.set(x, 2.9, 2.9); PA.add(va); });
+    const tap = new T.Mesh(new T.PlaneGeometry(2.4, 1.5), new T.MeshStandardMaterial({ map: txPendon(), transparent: true, alphaTest: .5, roughness: .6 })); tap.scale.set(.8, 1.2, 1); tap.position.set(0, -.2, 2.74); PA.add(tap);   /* repostero con el escudo, colgado de la balaustrada */
     MU.patio.palco = PA; const esc = MU.g;
-    conExtra(['rey', 'reina'], () => { if (MU.g !== esc) return; [['rey', -1.25], ['reina', 1.25]].forEach(([k, x]) => { const r = persona(PA, k, 2.2, x, 1.5, 0, 'saluda'); if (r) r.traverse(m => { if (m.isMesh && m.material.emissive) { m.material.emissiveMap = m.material.map; m.material.emissive.set('#5a4a3a'); } }); }); });
+    /* los reyes salen de la sala por el arco del centro, se asoman a la balaustrada (sobre su tarima) y saludan */
+    cargaExtra(['rey', 'reina']);
+    conExtra(['rey', 'reina'], () => { if (MU.g !== esc) return; [['rey', -1.05, 0], ['reina', 1.05, 1.3]].forEach(([k, x, ret]) => { const xi = x * .34, r = persona(PA, k, 3, xi, -3.6, 0, 'quieto'); if (!r) return;
+        r.traverse(m => { if (m.isMesh && m.material.emissive) { m.material.emissiveMap = m.material.map; m.material.emissive.set('#8a7a66'); } });
+        const L1 = 4.2, L2 = Math.hypot(x - xi, 1.25), V = 1.35; let te = -(1.4 + ret), fase = 0;
+        anim(dt => { if (fase === 2) return; te += dt; if (te < 0) return; if (!fase) { fase = 1; gesto(r, 'anda'); }
+          const d = Math.min(te * V, L1 + L2); let px, pz, ry; if (d < L1) { px = xi; pz = -3.6 + d; ry = 0; } else { const k2 = (d - L1) / L2; px = xi + (x - xi) * k2; pz = .6 + 1.25 * k2; ry = Math.atan2(x - xi, 1.25) * (1 - k2 * k2) + (x < 0 ? .12 : -.12) * k2 * k2; }
+          r.position.set(px, .5 * clamp((pz - .7) / .35, 0, 1), pz); r.rotation.y = ry; if (d >= L1 + L2) { fase = 2; gesto(r, 'saluda'); } }); }); });
     /* gradas del público, a los dos lados del palco, y faroles */
     const mg = mat('#8f7868', { roughness: .9 }); [-1, 1].forEach(sg => [0, 1, 2].forEach(f => { const gr = caja(13, .5 + f * .55, 1.5, mg); gr.position.set(sg * 12.2, (.5 + f * .55) / 2, -7.4 - f * 1.5); gr.receiveShadow = true; g.add(gr); }));
     [[-18, 3.5], [18, 3.5], [-5.4, -6.4], [5.4, -6.4], [-17.5, -4.5], [17.5, -4.5]].forEach(([x, z], i) => farola(g, x, z, 4.4, .1 + i * .1, null, { luz: i < 2 && !LITE ? 10 : 0 }));
@@ -363,7 +420,7 @@ function desfile(g) {
   /* el público: relleno en las gradas y a pie de calle, y delante, los personajes con nombre */
   const sitios = []; [-1, 1].forEach(sg => { [0, 1, 2].forEach(f => { for (let i = 0; i < 12; i++) sitios.push([sg * (6.3 + i * 1.05) + rnd(-.15, .15), .5 + f * .55, -7.4 - f * 1.5 + rnd(-.2, .2)]); }); for (let i = 0; i < 13; i++) sitios.push([sg * (5.6 + i * 1.02) + rnd(-.2, .2), 0, -5.9 + rnd(-.25, .25)]); for (let i = 0; i < 6; i++) sitios.push([sg * (9.5 + i * 1.3) + rnd(-.3, .3), 0, ZR + 3.7 + rnd(-.3, .9)]); }); for (let i = 0; i < 9; i++) sitios.push([-4.4 + i * 1.1, 0, -6.9 + rnd(-.2, .2)]);
   gentio(g, LITE ? sitios.filter((s2, i) => i % 2 === 0) : sitios);
-  const FILA = [['sonia', 1.75, -3.6], ['josep', 1.85, -2.5], ['roser', 1.6, -1.45], ['hector', 1.8, 1.4], ['jaume', 1.7, 2.5], ['aldeana', 1.75, 3.9], ['aldeano', 1.8, -4.9], ['herrero', 1.9, 5.2], ['sirvienta', 1.7, -6.2], ['mage', 1.8, 6.5], ['ranger', 1.8, -7.5], ['rogue', 1.75, 7.8], ['barbarian', 1.9, -8.8]];
+  const FILA = [['sonia', 1.75, -3.6], ['josep', 1.85, -2.5], ['roser', 1.6, -1.45], ['hector', 1.8, 1.4], ['jaume', 1.7, 2.5], ['aldeana', 1.75, 3.9], ['aldeano', 1.8, -4.9], ['herrero', 1.9, 5.2], ['bonifacio', 1.85, 6.6], ['arabe', 1.9, -11.4]];   /* el pretendiente mira el desfile entre el público, a un lado; Bonifacio aplaude desde el público (no tiene paso de desfile) */
   FILA.forEach(([k, alto, x], i) => conExtra([k], () => { if (MU.g !== esc) return; persona(g, k, alto, x, ZR - 3.5 - (i % 2) * .5, rnd(-.15, .15), i % 3 ? 'vitorea' : 'saluda'); }));
   /* la comitiva */
   const COM = [], paso = 3.3; let hueco = 0; const pone = (f) => { const i = hueco++; COM.push({ i, f, o: null }); return COM[COM.length - 1]; };
@@ -373,24 +430,36 @@ function desfile(g) {
     for (let i = 0; i < 14; i++) { const cc = ['#ffd27a', '#ff8fd0', '#8fd8ff'][i % 3], mm = new T.MeshStandardMaterial({ color: '#6a5a3a', emissive: cc, emissiveIntensity: 2, roughness: .3 }), b = bola(.08, mm, 8); b.position.set(-2.3 + i * 4.6 / 13, 1.22, 1.25); G.add(b); anim((dt, tt) => { mm.emissiveIntensity = (i + Math.floor(tt * 4)) % 3 ? .6 : 2.6; }); }
     monta(G); c.o = G; c.carro = true; return c; };
   camina('maestro', 2, 'Walking');
-  camina('knight', 1.95, 'anda', true); camina('brocoli', 1.8, 'Walking'); camina('buho', 1.7, 'Walking');
+  camina('soldado3', 2, 'anda', true); camina('brocoli', 1.8, 'Walking'); camina('buho', 1.7, 'Walking');
   carroza('#6a1f8a', G => { const gu = pon(G, 'gusano', 1.9, 0, 1.18, 0, { ry: Math.PI / 2, mide: true }); anim((dt, tt) => ondula(gu, tt, .16, 3)); [-1.6, 1.6].forEach(x => { const c = pieza('caramelo', .8); c.position.set(x, 1.18, 0); G.add(c); anim(dt => { c.rotation.y += dt * 1.5; }); }); });
   const chef = camina('chef', 2, null); anim((dt, tt) => { if (chef.o) ondula(chef.o, tt, .14, 3); });
-  camina('hechicera', 1.85, 'anda', true); camina('adales', 1.85, 'anda', true); camina('arabe', 1.9, 'anda', true);
+  camina('hechicera', 1.85, 'anda', true); camina('adales', 1.85, 'anda', true);
   carroza('#a82a3a', G => { [-1.2, 1.2].forEach((x, i) => { const pa = cil(.05, .05, 2.6, oro, 8); pa.position.set(x, 2.4, 0); G.add(pa); const cb = pieza('caballo', 1.5); cb.rotation.y = Math.PI / 2; G.add(cb); anim((dt, tt) => { cb.position.set(x, 1.5 + Math.sin(tt * 2.4 + i * 3) * .35, 0); }); }); const co = pieza('copa', 1.3, { emis: '#ffb000', emisI: .3 }); co.position.set(0, 1.18, 0); G.add(co); anim(dt => { co.rotation.y += dt; }); });
-  camina('bufon', 1.75, 'vitorea', true); camina('bonifacio', 1.85, 'aplaude', true); camina('ladron', 1.75, 'anda', true);
+  camina('bufon', 1.75, 'anda', true); camina('ladron', 1.75, 'anda', true);
   const largo = Math.max(hueco * paso + 8, 46), vel = 1.7; let av = 0;
   anim((dt, tt) => { av += vel * dt; COM.forEach(c => { if (!c.o) return; let x = ((av - c.i * paso - (c.carro ? paso * .5 : 0)) % largo + largo) % largo - largo / 2 - 4; c.o.position.x = x; c.o.position.z = ZR + (c.carro ? 0 : Math.sin(c.i * 2.3) * .35); if (c.carro) c.o.position.y = Math.abs(Math.sin(tt * 5 + c.i)) * .015; }); });
   /* confeti desde las almenas y fuegos tras la torre */
   let cf = 0; anim(dt => { cf -= dt; if (cf <= 0) { cf = 1.6; confeti(new T.Vector3(rnd(-10, 10), 9, rnd(-6, 2)), LITE ? 30 : 70); } });
 }
-/* música del desfile: si existe packs/meviland/musica/desfile-bucle.mp3 (con entrada y final opcionales) suena esa; si no, la fanfarria del juego */
-const MUSD = { fuente: null, gan: null, hay: false };   /* hay: poner a true cuando Josep suba la música del desfile (así no se pide un archivo que aún no existe) */
-function musicaDesfile() {
-  const ac = au(); if (!ac || !MUSD.hay) return; const B = '../packs/meviland/musica/desfile-', trae = n => fetch(B + n + '.mp3').then(r => r.ok ? r.arrayBuffer() : Promise.reject()).then(b => ac.decodeAudioData(b));
-  trae('bucle').then(bu => trae('entrada').catch(() => null).then(en => { if (J.fase !== 'final' && J.fase !== 'fin') return; musica(null); const gan = ac.createGain(); gan.gain.value = .8; gan.connect(AU.master); MUSD.gan = gan; let t0 = ac.currentTime + .05; if (en) { const s1 = ac.createBufferSource(); s1.buffer = en; s1.connect(gan); s1.start(t0); t0 += en.duration; } const s2 = ac.createBufferSource(); s2.buffer = bu; s2.loop = true; s2.connect(gan); s2.start(t0); MUSD.fuente = s2; })).catch(() => {});
+/* PIROTECNIA (la de WONDERWALK: sus texturas de chispa y la grabación de cohetes de Josep): cada cohete sube dejando estela,
+   estalla en una palmera que cae y se apaga, da su fogonazo al cielo y suena con su estallido, que llega un poco después según la distancia */
+function fuegos(g, o) {
+  const NP = LITE ? 80 : 170, MAX = LITE ? 4 : 8, tl = new T.TextureLoader(), TXF = ['flare_01', 'spark_06', 'star_07', 'star_09'].map(n => { const k = 'piro_' + n; if (!TEX[k]) { TEX[k] = tl.load('../packs/wonderwalk/fx/' + n + '.png'); TEX[k].encoding = T.sRGBEncoding; } return TEX[k]; });
+  const lista = [], luz = new T.PointLight('#ffffff', 0, 140, 1.2); g.add(luz); let tm = .4; suena('amb', 'piro', { bucle: true, vol: .32, entra: 1.2 });
+  anim((dt, tt) => { tm -= dt;
+    if (tm <= 0 && lista.filter(f => f.on).length < MAX) { tm = rnd(.3, .85); let f = lista.find(q2 => !q2.on);
+      if (!f) { const ge = new T.BufferGeometry(); ge.setAttribute('position', new T.Float32BufferAttribute(new Float32Array((NP + 14) * 3), 3)); const pts = new T.Points(ge, new T.PointsMaterial({ map: TXF[0], size: 1.5, transparent: true, depthWrite: false, blending: T.AdditiveBlending, fog: false, sizeAttenuation: true })); pts.frustumCulled = false; g.add(pts); f = { pts, v: new Float32Array(NP * 3) }; lista.push(f); }
+      f.c = [rnd(-o.x, o.x), rnd(o.y0, o.y1), rnd(o.z0, o.z1)]; f.sub = rnd(.6, 1); f.t = -f.sub; f.on = true; f.son = false; f.col = new T.Color().setHSL(Math.random(), 1, .62); f.tipo = ri(3); f.pts.material.map = TXF[1 + ri(3)]; f.pts.material.needsUpdate = true; sint(900 + Math.random() * 500, f.sub * .8, 'sine', .012);
+      for (let i = 0; i < NP; i++) { const u = Math.random() * 2 - 1, ph = Math.random() * 6.283, q2 = Math.sqrt(1 - u * u), sp = (f.tipo === 1 ? 10 : 6 + Math.random() * 5) * (.85 + Math.random() * .3); f.v[i * 3] = q2 * Math.cos(ph) * sp; f.v[i * 3 + 1] = u * sp * (f.tipo === 2 ? .45 : 1); f.v[i * 3 + 2] = q2 * Math.sin(ph) * sp; } }
+    let fl = 0, fc = null; lista.forEach(f => { if (!f.on) { f.pts.visible = false; return; } f.t += dt; const P = f.pts.geometry.attributes.position, m = f.pts.material; f.pts.visible = true;
+      if (f.t < 0) { const k2 = 1 + f.t / f.sub; for (let i = 0; i < NP + 14; i++) P.setXYZ(i, f.c[0] + Math.sin(i + tt * 20) * .06, i < 14 ? lerp(0, f.c[1], k2) - i * .3 : -999, f.c[2]); m.size = .9; m.opacity = .9; m.color.set('#ffd9a0'); }
+      else { const t2 = f.t, dur = 2.7, fr = Math.exp(-t2 * 1.1), s2 = (1 - fr) / 1.1; if (t2 > dur) { f.on = false; f.pts.visible = false; return; }
+        if (!f.son) { f.son = true; const d = Math.hypot(f.c[0] - CAM.position.x, f.c[1] - CAM.position.y, f.c[2] - CAM.position.z); setTimeout(() => fx('piro' + (1 + ri(5)), clamp(1.15 - d / 70, .25, .9), rnd(.9, 1.1)), Math.min(400, d * 3)); }
+        for (let i = 0; i < NP; i++) P.setXYZ(i, f.c[0] + f.v[i * 3] * s2, f.c[1] + f.v[i * 3 + 1] * s2 - 1.6 * t2 * t2, f.c[2] + f.v[i * 3 + 2] * s2); for (let i = NP; i < NP + 14; i++) P.setXYZ(i, 0, -999, 0);
+        m.color.copy(f.col); m.size = 2.9 * (1 - t2 / dur * .5) * (1 + Math.sin(tt * 40) * .12); m.opacity = clamp(1.25 - t2 / dur * 1.25, 0, 1); if (t2 < .5 && 1 - t2 / .5 > fl) { fl = 1 - t2 / .5; fc = f; } }
+      P.needsUpdate = true; });
+    luz.intensity = fl * 2.4; if (fc) { luz.color.copy(fc.col); luz.position.set(fc.c[0], fc.c[1], fc.c[2] + 6); } });
 }
-function paraMusicaDesfile() { if (!MUSD.fuente) return; const ac = AU.ac, s2 = MUSD.fuente, gan = MUSD.gan; MUSD.fuente = null; fetch('../packs/meviland/musica/desfile-final.mp3').then(r => r.ok ? r.arrayBuffer() : Promise.reject()).then(b => ac.decodeAudioData(b)).then(fi => { s2.stop(); const s3 = ac.createBufferSource(); s3.buffer = fi; s3.connect(gan); s3.start(); }).catch(() => { gan.gain.linearRampToValueAtTime(0, ac.currentTime + 1.5); setTimeout(() => { try { s2.stop(); } catch (e) {} }, 1600); }); }
 
 /* ======================= SALAS NUEVAS ======================= */
 /* ---------- GOLOSINAS · Las Galletas Gemelas (parejas) ---------- */

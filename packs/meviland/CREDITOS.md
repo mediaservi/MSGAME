@@ -15,5 +15,13 @@ La nevera, el aro cósmico, los cristales, la olla, el río de chocolate, la mon
 - **Árboles:** los del kit de naturaleza de WONDERWALK (`packs/wonderwalk/naturaleza.*`, Quaternius, CC0 1.0).
 - **Farol y corona:** `packs/modelos/a3D-farol.glb` y `a3D-corona.glb` (modelos propios).
 - **Ardilla:** `juegos/diana/ardilla-anim.webp` (modelo CC0 de grab3d.com, ver los créditos de WONDERWALK).
-- **Personajes invitados:** la familia (`juegos/diana/fam-*.glb`), la hechicera, el ladrón, los soldados, los reyes, Adalés y su pretendiente, el bufón, los aldeanos y el herrero (modelos propios); Bonifacio y la sirvienta (DIANA); el caballero, la maga, el bárbaro, la exploradora y la pícara de **KayKit Adventurers** (Kay Lousberg, CC0 1.0), con sus animaciones.
+- **Personajes invitados:** todos propios: la familia (`juegos/diana/fam-*.glb`), la hechicera, el ladrón, los soldados, los reyes, Adalés y su pretendiente, el bufón, los aldeanos, el herrero y Bonifacio.
 - **Tipos de letra del pergamino y los rótulos:** Berkshire Swash y Dancing Script (SIL OFL 1.1), ya incluidos en `fuentes/`.
+
+## v18.43 · voz, música y logo
+
+- **Voz de Mevi** (`voz/<idioma>/*.mp3`): voz sintética generada con el modelo **Kokoro-82M** (hexgrad, licencia Apache 2.0), mezcla de sus voces `ef_dora` y `af_bella`, y subida de tono y de formantes para darle timbre de niña. El catalán se dice con la misma voz y la fonética catalana de **eSpeak NG**.
+- **Música** (`musica/`): `menu.mp3` es «Echoes of Brass 1», de surprising_media (Pixabay, n.º 437044), y `desfile.mp3` es «Circus Comes to Town (60 sec)», de moonpub (Pixabay, n.º 617987). Licencia de contenido de Pixabay (uso libre, también comercial, sin atribución obligatoria). Solo se ha igualado el volumen.
+- **Pirotecnia:** texturas de chispa de `packs/wonderwalk/fx/` (Kenney, Particle Pack, CC0) y la grabación de cohetes de `packs/wonderwalk/sfx/` (ver los créditos de WONDERWALK).
+- **Logo** (`juegos/logo_meviland.webp`): hecho por código con el tipo **Bowlby One** (Vernon Adams, SIL OFL 1.1), ya incluido en `fuentes/`.
+- **Público del desfile** (`gentio.webp`): retratos de los personajes propios (aldeana, aldeano, herrero y Adalés) con la ropa, la piel, el pelo y el tocado cambiados por código. No lleva material de terceros.

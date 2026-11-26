@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.42**
+**Versión actual: v18.43**
 
 ## Cómo se juega
 
@@ -36,20 +36,31 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 - **DIANA** *(en desarrollo)*: hachas y arco, dardos, el barreño de feria, tartazos y bomberos: cinco formas de acertar al centro.
-- **MEVILAND** *(nuevo)*: el reino de fantasía de Mevi, en 3D y en primera persona; un patio de armas al atardecer, cuatro mundos (Fantasía, Absurdo, Golosinas y Feria) con tres salas cada uno, doce pruebas, puertas trampa y cuatro finales, uno secreto.
+- **MEVILAND** *(nuevo)*: el reino de fantasía de Mevi, en 3D y en primera persona; la gran plaza de la muralla al atardecer, cuatro mundos (Fantasía, Absurdo, Golosinas y Feria) con tres salas cada uno, doce pruebas, puertas trampa y cuatro finales, uno secreto.
 - **RUNAS** *(nuevo)*: dibuja runas en el aire con la mano delante de la cámara (o con el móvil o el ratón) para deshacer las sombras que van a por el cristal de Mevi; hasta 4 a la vez, jefe final y supermagia con los dos brazos arriba.
 
-## Cambios de la versión actual (v18.42)
+## Cambios de la versión actual (v18.43)
+- **MEVILAND · voz, música, logo y carátula.**
+  - **Mevi tiene voz propia, grabada:** una voz de niña en español, inglés y catalán para todas sus frases y para leer el pergamino de bienvenida (la pluma escribe a su paso). La voz del navegador queda solo de respaldo. La música baja un poco mientras habla.
+  - **Música:** un tema de metales en los menús y un tema de circo para el Gran Desfile, que dura lo que su música y termina con su último golpe.
+  - **Logo de MEVILAND:** letras de piedra en arco, con filete de oro y volumen, en los colores del reino. Es el mismo en la carátula, en el menú y en el pergamino.
+  - **Carátula nueva**, con la gran plaza de la muralla al atardecer; el título va arriba y ya no tapa a Mevi.
+  - La plaza se llama ahora **Gran Plaza de la Muralla**.
+  - **Personajes:** solo los de la casa, todos del mismo estilo. Los paseantes siguen circuitos despejados y andan sin tirones. Nadie se queda en pose de T.
+  - **Gran Desfile:** pirotecnia de verdad (estela, palmera, fogonazo y estallido). El palco real es una logia gótica que da a una sala con fondo (tapiz, vidrieras, lámpara de velas y tronos): los reyes salen por el arco, se asoman a la balaustrada y saludan. Bonifacio aplaude desde el público y el pretendiente mira el desfile a un lado, entre la gente.
+  - **Público del mismo estilo que los personajes:** el relleno de las gradas son ahora los personajes 3D de la casa retratados con otra ropa, otros tonos de piel, otro pelo y otros tocados (sombreros de paja, boinas, velos, tocas, coronas de flores), con niños entre los mayores. Ya no hay salto entre la primera fila y el fondo.
+
+### v18.42
 - **MEVILAND pasa de parque a reino: «el reino de fantasía de Mevi».**
   - **Pergamino de bienvenida** al empezar, escrito a pluma, con firma de Mevi y sello de lacre.
-  - **Patio de armas al atardecer.** La plaza es ahora el patio de una fortaleza: muralla de sillería, portón del castillo en el centro con sus dos torres, y las cuatro puertas de los mundos abiertas en la propia muralla, de madera con herrajes y un detalle de cada mundo, con su rótulo de tablón encima. Cada puerta tiene su magia de polvo de luz, distinta en cada mundo. Tras el portón se alza el Castillo de las Estrellas en lo alto de su cerro, inspirado libremente en el Castell de Montsoriu (Montseny): tres recintos amurallados y la torre del homenaje redonda.
+  - **La gran plaza de la muralla, al atardecer.** La plaza es ahora la de una fortaleza: muralla de sillería, portón del castillo en el centro con sus dos torres, y las cuatro puertas de los mundos abiertas en la propia muralla, de madera con herrajes y un detalle de cada mundo, con su rótulo de tablón encima. Cada puerta tiene su magia de polvo de luz, distinta en cada mundo. Tras el portón se alza el Castillo de las Estrellas en lo alto de su cerro, inspirado libremente en el Castell de Montsoriu (Montseny): tres recintos amurallados y la torre del homenaje redonda.
   - **Hora dorada y luces que se encienden.** Los exteriores van en hora dorada o al atardecer, con colores de valor medio (nada de blancos que deslumbren en proyección). Faroles de aceite, antorchas y ventanas se encienden uno tras otro al llegar a cada sitio, y la tarde avanza con cada Llave Estelar hasta la noche del final.
   - **Detalles del reino:** estatua de bronce de Mevi, coronada, en la fuente; farolas de forja con llama y un pendón con la M gótica dorada; ventanas geminadas con vidriera; banderas que ondean (la catalana y la del visitante, según la región o el idioma del dispositivo, sin consultar ningún servicio externo); nubes, una bandada de aves, la ardilla de WONDERWALK, dos soldados de guardia y paseantes de las historias de Mevi.
   - **Mevi es un personaje más del mundo:** camina a vuestro lado, pisa el suelo y da sombra. Todos los personajes con esqueleto se asientan en el suelo midiendo sus pies ya animados.
   - **Mundos con tres salas encadenadas, también en Fácil.** Se entra por un túnel corto que se recorre andando en primera persona, decorado según el mundo, y al salir se desvela el mundo. Al superar una sala no se vuelve al patio: se pasa a un muro decorado con dos o tres puertas donde elegir (cada muro es distinto), con puertas trampa en Medio y Difícil y una puerta sorpresa en Fácil.
   - **Dos salas nuevas:** Las Galletas Gemelas (parejas, en Golosinas) y La Caseta de Tiro (dianas doradas sí, moradas no, en la Feria).
   - **Las Mevis del espejo están dentro del espejo:** se ven tras el cristal, recortadas por el marco.
-  - **Gran Desfile de verdad:** al abrir el portón se entra al patio de armas del castillo, de noche y en fiestas. Los reyes saludan desde el palco, el público llena las gradas y la comitiva pasa por la calle con sus carrozas, todos pisando el suelo. Preparado el hueco para la música del desfile.
+  - **Gran Desfile de verdad:** al abrir el portón se entra al patio del castillo, de noche y en fiestas. Los reyes saludan desde el palco, el público llena las gradas y la comitiva pasa por la calle con sus carrozas, todos pisando el suelo. Preparado el hueco para la música del desfile.
   - Probado con partidas completas en Fácil y Difícil. Pendiente: la voz grabada de Mevi (sigue la del navegador).
 
 ### v18.41
