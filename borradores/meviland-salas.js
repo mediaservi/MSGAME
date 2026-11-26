@@ -524,24 +524,23 @@ function bosqueNat(g, tipo, n, f, niebla) { const N = NAT[tipo]; if (!N) return 
 /* la bandera de la izquierda es la del visitante: la del idioma si lo ha elegido a mano y, si no, la de su país según la región y la zona horaria
    del propio dispositivo (no se consulta ningún servicio externo ni se envía nada: es un dato que ya tiene el navegador) */
 const ZONAS = { 'Europe/Madrid': 'es', 'Atlantic/Canary': 'es', 'Africa/Ceuta': 'es', 'Europe/Andorra': 'ad', 'Europe/London': 'gb', 'Europe/Paris': 'fr', 'Europe/Berlin': 'de', 'Europe/Rome': 'it', 'Europe/Lisbon': 'pt', 'America/Mexico_City': 'mx', 'America/Bogota': 'co', 'America/Santiago': 'cl', 'America/Lima': 'pe', 'America/New_York': 'us', 'America/Chicago': 'us', 'America/Denver': 'us', 'America/Los_Angeles': 'us' };
-const BANDERAS = ['es', 'cat', 'eus', 'gal', 'ad', 'gb', 'us', 'en', 'fr', 'de', 'it', 'pt', 'mx', 'ar', 'co', 'cl', 'pe'];
+/* v18.50 · bandera de cada idioma de la consola (los que no tienen un país claro, la del reino de Mevi) */
+const BAN_IMG = ['es', 'en', 'gb', 'us', 'ad', 'mx', 'ar', 'co', 'cl', 'pe', 'fr', 'de', 'it', 'pt', 'nl', 'pl', 'ru', 'ua', 'hu', 'id', 'ro', 'se', 'dk', 'no', 'fi', 'cz', 'gr', 'jp', 'cn', 'vn', 'tr', 'il', 'in', 'th', 'kr'];   /* packs/meviland/banderas/<código>.webp */
+const BAN_IDIOMA = { gl: 'gal', eu: 'eus', fr: 'fr', de: 'de', it: 'it', pt: 'pt', nl: 'nl', pl: 'pl', ru: 'ru', uk: 'ua', tr: 'tr', he: 'il', zh: 'cn', ja: 'jp', ko: 'kr', hi: 'in', id: 'id', sv: 'se', da: 'dk', no: 'no', fi: 'fi', cs: 'cz', ro: 'ro', el: 'gr', hu: 'hu', th: 'th', vi: 'vn' };
+const BANDERAS = ['es', 'cat', 'eus', 'gal', 'ad', 'gb', 'us', 'en', 'fr', 'de', 'it', 'pt', 'mx', 'ar', 'co', 'cl', 'pe', 'nl', 'pl', 'ru', 'ua', 'hu', 'id', 'ro', 'se', 'dk', 'no', 'fi', 'cz', 'gr', 'jp', 'cn', 'vn', 'tr', 'il', 'in', 'th', 'kr'];
 function paisVisitante() {
-  let elegido = null; try { elegido = (location.search.match(/[?&]lang=(es|en|ca)/) || [])[1] || null; } catch (e) {}
   let pais = null; try { const ls = (navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || '']); for (const l of ls) { const m = /^([a-z]{2,3})(?:-[A-Za-z]{4})?(?:-([A-Za-z]{2}))?/.exec(l || ''); if (!m) continue; if (m[1] === 'eu') { pais = 'eus'; break; } if (m[1] === 'gl') { pais = 'gal'; break; } if (m[2]) { pais = m[2].toLowerCase(); break; } }
     const z = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; if (!pais || !BANDERAS.includes(pais)) pais = ZONAS[z] || (/^America\/Argentina/.test(z) ? 'ar' : pais); } catch (e) {}
-  /* si el idioma se ha elegido a mano (en el menú del juego o, dentro de MSGAME, en el de la consola), manda el idioma (y no el enlace con el que se abrió ni el país del aparato): cada idioma, su bandera */
-  if (window.LG_MANO || EMB) return LG === 'en' ? 'en' : LG === 'ca' ? 'cat' : (['es', 'mx', 'ar', 'co', 'cl', 'pe'].includes(pais) ? pais : 'es');   /* v18.49 · inglés: siempre la mixta británica y estadounidense; catalán: la senyera también a la izquierda (dos senyeras) */
-  if (elegido === 'en') return pais === 'gb' || pais === 'us' ? pais : 'en';   /* inglés: mitad británica, mitad estadounidense */
-  if (pais && BANDERAS.includes(pais)) return pais;
-  return { es: 'es', en: 'en', ca: 'es' }[LG] || 'reino';
+  /* v18.50 · manda el idioma de la pantalla: catalán, dos senyeras; inglés, la mixta británica y estadounidense; español, la española (o la del país hispanohablante del visitante); el resto, la de su idioma */
+  return UL === 'en' ? 'en' : UL === 'ca' ? 'cat' : UL === 'es' ? (['es', 'mx', 'ar', 'co', 'cl', 'pe'].includes(pais) ? pais : 'es') : (BAN_IDIOMA[UL] || 'reino');   /* v18.49 · inglés: siempre la mixta británica y estadounidense; catalán: la senyera también a la izquierda (dos senyeras) */
 }
 function txBandera(c) {
   const k = 'ban' + c; if (TXS[k]) return TXS[k];
-  return TXS[k] = lienzo(384, 256, (q, w, h) => {
+  const tx = TXS[k] = lienzo(384, 256, (q, w, h) => {
     const fH = (cs, ps) => { let y = 0; cs.forEach((col, i) => { const hh = h * (ps ? ps[i] : 1 / cs.length); q.fillStyle = col; q.fillRect(0, y, w, hh + 1); y += hh; }); }, fV = cs => cs.forEach((col, i) => { q.fillStyle = col; q.fillRect(i * w / cs.length, 0, w / cs.length + 1, h); }), esc = (x, y, r, col) => { q.fillStyle = col; q.beginPath(); q.arc(x, y, r, 0, 7); q.fill(); };
     const gb = () => { q.fillStyle = '#1f3a8a'; q.fillRect(0, 0, w, h); q.strokeStyle = '#f2ede4'; q.lineWidth = h * .2; q.beginPath(); q.moveTo(0, 0); q.lineTo(w, h); q.moveTo(w, 0); q.lineTo(0, h); q.stroke(); q.strokeStyle = '#c22a3a'; q.lineWidth = h * .07; q.stroke(); q.fillStyle = '#f2ede4'; q.fillRect(w / 2 - h * .17, 0, h * .34, h); q.fillRect(0, h / 2 - h * .17, w, h * .34); q.fillStyle = '#c22a3a'; q.fillRect(w / 2 - h * .1, 0, h * .2, h); q.fillRect(0, h / 2 - h * .1, w, h * .2); };
     const us = () => { for (let i = 0; i < 13; i++) { q.fillStyle = i % 2 ? '#f2ede4' : '#b8283a'; q.fillRect(0, i * h / 13, w, h / 13 + 1); } q.fillStyle = '#28356e'; q.fillRect(0, 0, w * .42, h * 7 / 13); q.fillStyle = '#f2ede4'; for (let y = 0; y < 5; y++) for (let x = 0; x < 6; x++) { estrella2D(q, w * .035 + x * w * .07, h * .05 + y * h * .105, 6, 2.6, 5); q.fill(); } };
-    if (c === 'es') { fH(['#b8202e', '#f0c020', '#b8202e'], [.25, .5, .25]); esc(w * .3, h * .5, h * .11, '#a8501e'); q.fillStyle = '#b8202e'; q.fillRect(w * .3 - h * .07, h * .44, h * .14, h * .1); }
+    if (c === 'es') fH(['#c60b1e', '#ffc400', '#c60b1e'], [.25, .5, .25]);   /* el escudo, fiel, llega con la imagen (banderas/es.webp) */
     else if (c === 'cat') fH(['#f0c020', '#c8202e', '#f0c020', '#c8202e', '#f0c020', '#c8202e', '#f0c020', '#c8202e', '#f0c020']);
     else if (c === 'eus') { q.fillStyle = '#c8202e'; q.fillRect(0, 0, w, h); q.strokeStyle = '#1f8a45'; q.lineWidth = h * .17; q.beginPath(); q.moveTo(0, 0); q.lineTo(w, h); q.moveTo(w, 0); q.lineTo(0, h); q.stroke(); q.fillStyle = '#f2ede4'; q.fillRect(w / 2 - h * .085, 0, h * .17, h); q.fillRect(0, h / 2 - h * .085, w, h * .17); }
     else if (c === 'gal') { q.fillStyle = '#f2ede4'; q.fillRect(0, 0, w, h); q.strokeStyle = '#3f98e0'; q.lineWidth = h * .22; q.beginPath(); q.moveTo(0, 0); q.lineTo(w, h); q.stroke(); }
@@ -555,10 +554,31 @@ function txBandera(c) {
     else if (c === 'co') fH(['#f0c820', '#1f3a9a', '#c8202e'], [.5, .25, .25]);
     else if (c === 'cl') { fH(['#f2ede4', '#c8202e']); q.fillStyle = '#1f3a9a'; q.fillRect(0, 0, h / 2, h / 2); q.fillStyle = '#f2ede4'; estrella2D(q, h / 4, h / 4, h * .14, h * .06, 5); q.fill(); }
     else if (c === 'pe') { fV(['#c8202e', '#f2ede4', '#c8202e']); }
+    /* v18.50 · banderas de los demás idiomas de la consola (simplificadas, para verse de lejos) */
+    else if (c === 'nl') fH(['#ae1c28', '#f2ede4', '#21468b']); else if (c === 'pl') fH(['#f2ede4', '#d4213d']); else if (c === 'ru') fH(['#f2ede4', '#1c3f94', '#d52b1e']);
+    else if (c === 'ua') fH(['#0057b7', '#ffd700']); else if (c === 'hu') fH(['#ce2939', '#f2ede4', '#477050']); else if (c === 'id') fH(['#d0202e', '#f2ede4']);
+    else if (c === 'ro') fV(['#002b7f', '#fcd116', '#ce1126']);
+    else if (['se', 'dk', 'no', 'fi'].includes(c)) { const [f, x1, x2] = { se: ['#006aa7', '#fecc00', null], dk: ['#c8102e', '#f2ede4', null], no: ['#ba0c2f', '#f2ede4', '#00205b'], fi: ['#f2ede4', '#002f6c', null] }[c]; q.fillStyle = f; q.fillRect(0, 0, w, h); const cx = w * .36, cr = (k, col) => { q.fillStyle = col; q.fillRect(cx - h * k / 2, 0, h * k, h); q.fillRect(0, h / 2 - h * k / 2, w, h * k); }; cr(.22, x1); if (x2) cr(.11, x2); }
+    else if (c === 'cz') { fH(['#f2ede4', '#d7141a']); q.fillStyle = '#11457e'; q.beginPath(); q.moveTo(0, 0); q.lineTo(w * .45, h / 2); q.lineTo(0, h); q.closePath(); q.fill(); }
+    else if (c === 'gr') { for (let i = 0; i < 9; i++) { q.fillStyle = i % 2 ? '#f2ede4' : '#0d5eaf'; q.fillRect(0, i * h / 9, w, h / 9 + 1); } q.fillStyle = '#0d5eaf'; q.fillRect(0, 0, h * 5 / 9, h * 5 / 9); q.fillStyle = '#f2ede4'; q.fillRect(h * 2 / 9, 0, h / 9, h * 5 / 9); q.fillRect(0, h * 2 / 9, h * 5 / 9, h / 9); }
+    else if (c === 'jp') { q.fillStyle = '#f2ede4'; q.fillRect(0, 0, w, h); esc(w / 2, h / 2, h * .3, '#bc002d'); }
+    else if (c === 'cn' || c === 'vn') { q.fillStyle = '#de2910'; q.fillRect(0, 0, w, h); q.fillStyle = '#ffde00'; if (c === 'vn') { estrella2D(q, w / 2, h / 2, h * .3, h * .12, 5); q.fill(); } else { estrella2D(q, w * .17, h * .27, h * .15, h * .06, 5); q.fill(); [[.33, .1], [.4, .2], [.4, .35], [.33, .45]].forEach(([x, y]) => { estrella2D(q, w * x, h * y, h * .05, h * .02, 5); q.fill(); }); } }
+    else if (c === 'tr') { q.fillStyle = '#e30a17'; q.fillRect(0, 0, w, h); esc(w * .38, h / 2, h * .25, '#f2ede4'); esc(w * .43, h / 2, h * .2, '#e30a17'); q.fillStyle = '#f2ede4'; estrella2D(q, w * .58, h / 2, h * .11, h * .045, 5); q.fill(); }
+    else if (c === 'il') { q.fillStyle = '#f2ede4'; q.fillRect(0, 0, w, h); q.fillStyle = '#0038b8'; q.fillRect(0, h * .1, w, h * .14); q.fillRect(0, h * .76, w, h * .14); q.strokeStyle = '#0038b8'; q.lineWidth = h * .035; [0, Math.PI].forEach(r0 => { q.beginPath(); for (let k = 0; k < 3; k++) { const a2 = r0 - Math.PI / 2 + k * Math.PI * 2 / 3; q[k ? 'lineTo' : 'moveTo'](w / 2 + Math.cos(a2) * h * .17, h / 2 + Math.sin(a2) * h * .17); } q.closePath(); q.stroke(); }); }
+    else if (c === 'in') { fH(['#ff9933', '#f2ede4', '#138808']); q.strokeStyle = '#000080'; q.lineWidth = h * .025; q.beginPath(); q.arc(w / 2, h / 2, h * .13, 0, 7); q.stroke(); }
+    else if (c === 'th') fH(['#a51931', '#f4f5f8', '#2d2a4a', '#f4f5f8', '#a51931'], [1 / 6, 1 / 6, 2 / 6, 1 / 6, 1 / 6]);
+    else if (c === 'kr') { q.fillStyle = '#f2ede4'; q.fillRect(0, 0, w, h); const r = h * .2; q.fillStyle = '#cd2e3a'; q.beginPath(); q.arc(w / 2, h / 2, r, Math.PI, 0); q.fill(); q.fillStyle = '#0047a0'; q.beginPath(); q.arc(w / 2, h / 2, r, 0, Math.PI); q.fill(); esc(w / 2 - r / 2, h / 2, r / 2, '#cd2e3a'); esc(w / 2 + r / 2, h / 2, r / 2, '#0047a0'); q.fillStyle = '#1a1a1a'; [[.2, .22], [.8, .22], [.2, .78], [.8, .78]].forEach(([x, y]) => { for (let k = 0; k < 3; k++) q.fillRect(w * x - h * .08, h * y - h * .07 + k * h * .055, h * .16, h * .035); }); }
     else { q.fillStyle = '#6a1f6e'; q.fillRect(0, 0, w, h); q.save(); const e = 150 / 2160; q.translate(w / 2 - 1130 * e, h / 2 + 52); q.scale(e, -e); q.fillStyle = '#e2a92e'; q.fill(new Path2D(M_GOTICA)); q.restore(); }
-    const gr = q.createLinearGradient(0, 0, w, 0); for (let i = 0; i <= 8; i++) gr.addColorStop(i / 8, i % 2 ? 'rgba(0,0,0,.16)' : 'rgba(255,255,255,.12)'); q.fillStyle = gr; q.fillRect(0, 0, w, h);   /* brillo de seda en los pliegues */
-    q.strokeStyle = '#e2a92e'; q.lineWidth = 7; q.beginPath(); q.moveTo(w, 2); q.lineTo(w * .8, h / 2); q.lineTo(w, h - 2); q.stroke(); q.globalCompositeOperation = 'destination-out'; q.fillStyle = '#000'; q.beginPath(); q.moveTo(w + 2, 5); q.lineTo(w * .8 + 6, h / 2); q.lineTo(w + 2, h - 5); q.closePath(); q.fill(); q.globalCompositeOperation = 'source-over';   /* remate en V (cola de golondrina), ribeteado */
+    acabaBandera(q, w, h);
   });
+  /* v18.50 · las banderas de los países van con su imagen fiel (escudos y emblemas completos); mientras carga, la dibujada */
+  if (BAN_IMG.includes(c)) { const im = new Image(); im.onload = () => { const cv = tx.image, q = cv.getContext('2d'); q.globalCompositeOperation = 'source-over'; q.clearRect(0, 0, cv.width, cv.height); q.drawImage(im, 0, 0, cv.width, cv.height); acabaBandera(q, cv.width, cv.height); tx.needsUpdate = true; }; im.src = '../packs/meviland/banderas/' + c + '.webp?v=18.50'; }
+  return tx;
+}
+/* el acabado de toda bandera: brillo de seda en los pliegues y el remate en cola de golondrina, ribeteado */
+function acabaBandera(q, w, h) {
+  const gr = q.createLinearGradient(0, 0, w, 0); for (let i = 0; i <= 8; i++) gr.addColorStop(i / 8, i % 2 ? 'rgba(0,0,0,.16)' : 'rgba(255,255,255,.12)'); q.fillStyle = gr; q.fillRect(0, 0, w, h);   /* brillo de seda en los pliegues */
+  q.strokeStyle = '#e2a92e'; q.lineWidth = 7; q.beginPath(); q.moveTo(w, 2); q.lineTo(w * .8, h / 2); q.lineTo(w, h - 2); q.stroke(); q.globalCompositeOperation = 'destination-out'; q.fillStyle = '#000'; q.beginPath(); q.moveTo(w + 2, 5); q.lineTo(w * .8 + 6, h / 2); q.lineTo(w + 2, h - 5); q.closePath(); q.fill(); q.globalCompositeOperation = 'source-over';   /* remate en V (cola de golondrina), ribeteado */
 }
 /* bandera en su asta, ondeando al viento (la tela sale hacia +x desde el punto dado) */
 function bandera(padre, x, y, z, an, cod) {
@@ -668,14 +688,17 @@ function porton(g, PZ, banIzq) {
   [-1, 1].forEach(sg => { const to = cil(2.5, 2.8, 13, pie, 18); to.position.set(sg * 5.6, 6.5, .4); sombra(to); G.add(to); const co = cil(2.9, 2.5, .8, pie2, 18); co.position.set(sg * 5.6, 13.2, .4); G.add(co); for (let i = 0; i < 16; i++) { const an2 = i / 16 * 6.283, mc = caja(.34, .9, .62, pie2); mc.position.set(sg * 5.6 + Math.cos(an2) * 2.62, 12.5, .4 + Math.sin(an2) * 2.62); mc.rotation.y = -an2 + Math.PI / 2; G.add(mc); }   /* matacanes */ for (let i = 0; i < 8; i++) { const a = i / 8 * 6.283, al = caja(1, 1, .7, pie2); al.position.set(sg * 5.6 + Math.cos(a) * 2.5, 14.1, .4 + Math.sin(a) * 2.5); al.rotation.y = -a + Math.PI / 2; al.castShadow = true; G.add(al); }
     ventana(G, sg * 5.6, 9.2, 3.2, .62, 1.5, 1 + (sg > 0 ? .4 : 0)); ventana(G, sg * 5.6, 4.9, 3.26, .55, 1.3, 1.6 + (sg > 0 ? .4 : 0));   /* sin telas en el muro: los estandartes van solo en las farolas */ antorcha(G, sg * 3.3, 4.4, 1.95, 0, .9 + (sg > 0 ? .3 : 0));
     const asta = cil(.08, .08, 5.4, pie2, 6); asta.position.set(sg * 5.6, 16.9, .4); G.add(asta); const pomo = bola(.16, mat('#e2a92e', { metalness: .9, roughness: .25 }), 10); pomo.position.set(sg * 5.6, 19.65, .4); G.add(pomo); bandera(G, sg * 5.6, 18.5, .4, 3.3, sg < 0 ? (banIzq || paisVisitante()) : 'cat'); });   /* a la izquierda, la bandera del visitante; a la derecha, siempre la catalana */
-  const cu = caja(8.4, 11, 2.6, pie); cu.position.set(0, 5.5, .2); sombra(cu); G.add(cu); for (let i = 0; i < 5; i++) { const al = caja(1, 1, 1, pie2); al.position.set(-3.4 + i * 1.7, 11.5, 1); al.castShadow = true; G.add(al); }
+  /* v18.50 · el lienzo del portón tiene el hueco de la puerta de verdad: al abrirse las hojas se ve la plaza interior del castillo (vistaPatio) */
+  const an0 = 2.3, al0 = 7.2, rc0 = al0 * .58, lienzoP = new T.Shape(); lienzoP.moveTo(-4.2, 0); lienzoP.lineTo(4.2, 0); lienzoP.lineTo(4.2, 11); lienzoP.lineTo(-4.2, 11); lienzoP.lineTo(-4.2, 0);
+  const hu0 = new T.Path(); hu0.moveTo(-an0, 0); hu0.lineTo(-an0, rc0); hu0.quadraticCurveTo(-an0, rc0 + (al0 - rc0) * .72, 0, al0); hu0.quadraticCurveTo(an0, rc0 + (al0 - rc0) * .72, an0, rc0); hu0.lineTo(an0, 0); hu0.lineTo(-an0, 0); lienzoP.holes.push(hu0);
+  const txc = txPiedra('#a58a78', '#c9ad8f', '#6a564e').clone(); txc.needsUpdate = true; txc.wrapS = txc.wrapT = T.RepeatWrapping; txc.repeat.set(4 / 8.4, 6 / 11);
+  const cu = new T.Mesh(new T.ExtrudeGeometry(lienzoP, { depth: 2.6, bevelEnabled: false, curveSegments: 14 }), mat('#d9cbc0', { map: txc, roughness: .92 })); cu.position.set(0, 0, -1.1); sombra(cu); G.add(cu); for (let i = 0; i < 5; i++) { const al = caja(1, 1, 1, pie2); al.position.set(-3.4 + i * 1.7, 11.5, 1); al.castShadow = true; G.add(al); }
   const pta = puertaGrande(); pta.position.set(0, 0, 1.52); G.add(pta); G.userData.puerta = pta;
   return G;
 }
 function puertaGrande() {
   const an = 4.6, al = 7.2, G = new T.Group(), rec = al * .58; const ojiva = (w, top, r) => { const sh = r || new T.Shape(); sh.moveTo(-w, 0); sh.lineTo(-w, rec); sh.quadraticCurveTo(-w, rec + (top - rec) * .72, 0, top); sh.quadraticCurveTo(w, rec + (top - rec) * .72, w, rec); sh.lineTo(w, 0); sh.lineTo(-w, 0); return sh; };
   const marco = ojiva(an / 2 + .6, al + .7); marco.holes.push(ojiva(an / 2, al, new T.Path())); const mm = new T.Mesh(new T.ExtrudeGeometry(marco, { depth: .5, bevelEnabled: true, bevelSize: .07, bevelThickness: .07, bevelSegments: 1, curveSegments: 12 }), mat('#8f7868', { roughness: .9 })); mm.position.z = -.2; mm.castShadow = true; G.add(mm);
-  const fondo = new T.Mesh(new T.ShapeGeometry(ojiva(an / 2, al), 12), new T.MeshBasicMaterial({ color: '#fff0c0' })); fondo.position.z = -.12; G.add(fondo);
   const tx = lz(512, 512, (q, w, h) => { for (let i = 0; i < 8; i++) { q.fillStyle = mezcla('#4a2f20', '#6a4630', Math.random()); q.fillRect(i * 64, 0, 64, h); q.fillStyle = 'rgba(10,4,6,.6)'; q.fillRect(i * 64, 0, 4, h); } for (let i = 0; i < 3500; i++) { q.fillStyle = `rgba(${ri(2) ? '255,225,190' : '15,6,8'},${rnd(.02, .08)})`; q.fillRect(rnd(0, w), rnd(0, h), 2, rnd(3, 9)); }
     const met = q.createLinearGradient(0, 0, 0, 30); met.addColorStop(0, '#8a8490'); met.addColorStop(1, '#3a3440'); [70, 200, 330, 460].forEach(y => { q.fillStyle = met; q.fillRect(0, y - 13, w, 26); q.strokeStyle = 'rgba(10,5,10,.7)'; q.lineWidth = 2; q.strokeRect(0, y - 13, w, 26); for (let x = 20; x < w; x += 44) { q.fillStyle = '#b0aab8'; q.beginPath(); q.arc(x, y, 6, 0, 7); q.fill(); q.stroke(); } }); });
   const hojas = [-1, 1].map(sg => { const piv = new T.Group(); piv.position.set(sg * an / 2, 0, 0); G.add(piv); const sh = new T.Shape(); sh.moveTo(0, 0); sh.lineTo(0, rec); sh.quadraticCurveTo(0, rec + (al - rec) * .72, -sg * an / 2, al); sh.lineTo(-sg * an / 2, 0); sh.lineTo(0, 0); const geo = new T.ExtrudeGeometry(sh, { depth: .2, bevelEnabled: false, curveSegments: 12 }), uv = geo.attributes.uv, pp = geo.attributes.position; for (let i = 0; i < uv.count; i++) uv.setXY(i, Math.abs(pp.getX(i)) / (an / 2), pp.getY(i) / al); const h = new T.Mesh(geo, mat('#e6dcd4', { map: tx, roughness: .75 })); h.castShadow = true; piv.add(h); return piv; });
@@ -697,6 +720,7 @@ function plaza(op) {
     if (op.radio) return;
     /* la muralla exterior de la fortaleza cierra la plaza: portón del castillo en el centro y dos puertas de mundo en cada lienzo lateral */
     const PZ = -18.5; P.pz = PZ; const PT = porton(g, PZ, op.bandera); P.portal = PT; P.puerta = PT.userData.puerta; PT.userData.sel = 'portal'; P.ph = 12.5;
+    if (window.vistaPatio) P.patio = vistaPatio(g, PZ);   /* tras el portón, la plaza interior con el balcón de los reyes */
     const V = [[8, PZ], [13.4, -13], [15.8, -3.6], [17, 9], [17.4, 22]], HM = 7.6, OM = { gro: 1.4, c1: '#a58a78', c2: '#c9ad8f' };
     [-1, 1].forEach(sg => { for (let i = 0; i < V.length - 1; i++) { muralla(g, sg * V[i][0], V[i][1], sg * V[i + 1][0], V[i + 1][1], HM, OM); if (i) { const txt = txPiedra('#a58a78', '#c9ad8f').clone(); txt.needsUpdate = true; txt.wrapS = txt.wrapT = T.RepeatWrapping; txt.repeat.set(1.25, 4.2); const to = caja(3, HM + 2.6, 3, mat('#e6dcd6', { map: txt, roughness: .9 })); to.position.set(sg * V[i][0], (HM + 2.6) / 2, V[i][1]); to.rotation.y = .4 * sg; sombra(to); g.add(to); for (let j = 0; j < 4; j++) { const al = caja(.8, .7, .8, mat('#9d8676', { roughness: .92 })); al.position.set(sg * V[i][0] + [-1, 1, -1, 1][j] * 1.05, HM + 2.95, V[i][1] + [-1, -1, 1, 1][j] * 1.05); al.rotation.y = .4 * sg; g.add(al); } } } });
     /* cerraduras de las Llaves Estelares, sobre el arco del portón */
@@ -723,7 +747,7 @@ function plaza(op) {
     chispasAmbiente(g, LITE ? 40 : (MU.hora > .4 ? 130 : 60), '#ffd58a', 16);   /* luciérnagas */
     if (MU.hora < .9) { bandada(g, 7, 30, -90); bandada(g, 5, 38, -120); }
     ardilla(g, [-9, 9, -8, 3.5]); if (window.paseantes && !op.sinGente) { paseantes(g); guardia(g, PZ); }
-    if (window.montsoriu) montsoriu(g, { x: 0, y: -5, z: PZ - 100, s: 1.9, arboles: LITE ? 60 : 150 });   /* tras el portón, el Castillo de las Estrellas en su cerro */
+    if (window.montsoriu) montsoriu(g, { x: 0, y: -5, z: PZ - 100, s: 1.9, fz: .6, arboles: LITE ? 60 : 150 });   /* tras el portón, el Castillo de las Estrellas en su cerro */
   });
 }
 function llenaSlot(i, ya) {
@@ -766,10 +790,11 @@ function ceremonia(i, fin) {
 }
 function abrePortal() {
   const P = MU.plaza; viaje(new T.Vector3(0, 3, -3.5), new T.Vector3(0, 4.2, P.pz), 2.6, () => {});
+  if (window.cargaExtra) cargaExtra(['rey', 'reina']); if (P.patio) P.patio.userData.enciende();
   P.puerta.userData.abre = .16; fx('victoria'); confeti(new T.Vector3(0, 6, P.pz + 5), LITE ? 40 : 110); di(t('portalAbre')); meviGesto('senala');
-  const hz = brillo('#fff0c0', 9, 0); hz.position.set(0, 3.4, P.pz + 2.4); MU.g.add(hz); let k = 0; anim((dt, tt) => { k = Math.min(1, k + dt / 2.5); hz.material.opacity = k * (.4 + Math.sin(tt * 3) * .08); if (Math.random() < dt * 20 * k) chispas(new T.Vector3(rnd(-.4, .4), rnd(.3, 6.5), P.pz + 2.2), 1, ['#fff0c0', '#ffd23f', '#ffffff'], { vel: 1.2, g: -.4, vida: 1.1, tam: .22 }); });
+  const hz = brillo('#fff0c0', 9, 0); hz.position.set(0, 3.4, P.pz + 2.4); MU.g.add(hz); let k = 0; anim((dt, tt) => { k = Math.min(1, k + dt / 2.5); hz.material.opacity = k * (.16 + Math.sin(tt * 3) * .04); if (Math.random() < dt * 20 * k) chispas(new T.Vector3(rnd(-.4, .4), rnd(.3, 6.5), P.pz + 2.2), 1, ['#fff0c0', '#ffd23f', '#ffffff'], { vel: 1.2, g: -.4, vida: 1.1, tam: .22 }); });
   ORDEN_T.forEach(k2 => { P.arcos[k2].A.userData.no = true; });
-  setTimeout(() => selecciona([P.portal], 1.4, () => { fx('nivel'); di(t('portalCruza')); P.puerta.userData.abre = 1; viaje(new T.Vector3(0, 2.4, P.pz + 5), new T.Vector3(0, 3, P.pz - 12), 1.9, () => {}); setTimeout(() => final(), 1500); }, id => { P.hoverPortal = !!id; P.puerta.userData.abre = id ? .3 : .16; }), BOT ? 300 : 2500);
+  setTimeout(() => selecciona([P.portal], 1.4, () => { fx('nivel'); di(t('portalCruza')); P.puerta.userData.abre = 1; viaje(new T.Vector3(0, 2.4, P.pz + 4), new T.Vector3(0, 3.6, P.pz - 14), 1.5, () => viaje(new T.Vector3(0, 2.4, P.pz - 5), new T.Vector3(0, 4.4, P.pz - 16), 1.6, () => {})); setTimeout(() => final(), 2900);   /* se cruza el portón andando y se entra en la plaza interior */ }, id => { P.hoverPortal = !!id; P.puerta.userData.abre = id ? .3 : .16; }), BOT ? 300 : 2500);
 }
 
 /* ======================= TIERRAS Y PUERTAS ======================= */
@@ -788,7 +813,7 @@ function mkCtx(g) {
     quita(o) { const i = ctx.objs.indexOf(o); if (i >= 0) ctx.objs.splice(i, 1); },
     bien(pos, n, pr) { J.combo++; ctx.aciertos++; const v = Math.round((n || 50) * (1 + Math.min(J.combo, 10) * .1)); suma(v); ctx.prog = Math.min(ctx.meta, ctx.prog + (pr === undefined ? 1 : pr)); ctx.barra();
       if (pos) { const [x, y] = aPantalla(pos); flota('+' + v, x, y); chispas(pos, 18, [TIERRAS[J.tierra].col, '#ffffff', '#ffd23f'], { vel: 3.5, tam: .3 }); }
-      marimba(72 + [0, 2, 4, 7, 9, 12][Math.min(5, J.combo % 6)], .16); if (J.combo % 5 === 0) { grito(tA('bien')[ri(tA('bien').length)], 900); meviGesto('feliz'); } },
+      marimba(72 + [0, 2, 4, 7, 9, 12][Math.min(5, J.combo % 6)], .16); if (J.combo % 5 === 0) { grito(trd(tA('bien')[ri(tA('bien').length)]), 900); meviGesto('feliz'); } },
     mal(pos) { J.combo = 0; ctx.fallos++; const v = 20 + J.modo * 15; suma(-v); fx('error', .7); if (pos) { const [x, y] = aPantalla(pos); flota('-' + v, x, y, true); } },
     barra() { barra(t('b_' + ctx.id) + '  ' + Math.min(ctx.prog, ctx.meta) + ' / ' + ctx.meta, ctx.prog / ctx.meta); } };
   return ctx;
@@ -1179,13 +1204,13 @@ function panelFin(tipo) {
 
 /* ======================= MENÚ, PAUSA Y BUCLE ======================= */
 /* el nombre de la tierra con su «de» en cada idioma (del Absurdo, de l'Absurd) */
-function nomLlave(k) { if (LG === 'en') return t('t_' + k); if (k === 'absurdo') return LG === 'ca' ? "de l'Absurd" : 'del Absurdo'; return 'de ' + t('t_' + k); }
+function nomLlave(k) { if (LG === 'en') return t0('t_' + k); if (k === 'absurdo') return LG === 'ca' ? "de l'Absurd" : 'del Absurdo'; return 'de ' + t0('t_' + k); }   /* va dentro de otra frase: en el idioma de las voces */
 function abre(id) { document.querySelectorAll('.pan').forEach(p => p.classList.toggle('on', p.id === id)); $('pie').classList.toggle('off', id !== 'pIni'); }
 function textosUI() {
-  document.documentElement.lang = LG; cargaVoz(LG); $('tLema').textContent = t('lema'); $('tPausa').textContent = t('pausa'); $('bSigue').textContent = t('sigue'); $('bSalir').textContent = t('salir'); $('bOtra').textContent = t('otra'); $('bMenu').textContent = t('terminar'); $('bVoz').title = t('voz');
+  document.documentElement.lang = UL; cargaVoz(LG); pideTextos(); $('tLema').textContent = t('lema'); $('tPausa').textContent = t('pausa'); $('bSigue').textContent = t('sigue'); $('bSalir').textContent = t('salir'); $('bOtra').textContent = t('otra'); $('bMenu').textContent = t('terminar'); $('bVoz').title = t('voz');
   const niv = $('niv'); niv.innerHTML = ''; [0, 1, 2].forEach(m => { const d = document.createElement('div'); d.className = 'modo m' + m + (m === J.modo ? ' sel' : ''); d.tabIndex = 0; d.dataset.m = m; d.innerHTML = `<b>${t('m' + m)}</b><em>${t('m' + m + 'e')}</em><span>${t('m' + m + 'd')}</span><div class="ll">${'<i></i>'.repeat(m + 2)}</div>`; d.querySelectorAll('.ll i').forEach(i => { i.style.backgroundImage = `url(${TEX.llave})`; }); d.onclick = () => empieza(m); d.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); empieza(m); } }; niv.appendChild(d); });
   document.querySelectorAll('#lenguas button').forEach(b => b.classList.toggle('sel', b.dataset.lang === LG));
-  $('pie').textContent = 'MEVILAND · MSGAME v18.49 2026 ' + ({ es: 'es un proyecto hecho con', en: 'is a project made with', ca: 'és un projecte fet amb' })[LG] + ' 𑣲 by mediaservi.com';
+  $('pie').textContent = 'MEVILAND · MSGAME v18.50 2026 ' + trd(({ es: 'es un proyecto hecho con', en: 'is a project made with', ca: 'és un projecte fet amb' })[LG]) + ' 𑣲 by mediaservi.com';
   $('bVoz').textContent = VOZ.on ? '🔊' : '🔇';
 }
 function menu() {
@@ -1210,9 +1235,19 @@ $('bSalir').onclick = () => { PAUSA = false; AU.ac && AU.ac.resume(); if (EMB) m
 $('bOtra').onclick = () => { abre('pIni'); textosUI(); empieza(J.modo); };
 $('bMenu').onclick = () => { if (EMB) manda({ t: 'fin', v: J.pts }); else menu(); };
 $('bVoz').onclick = () => { VOZ.on = !VOZ.on; try { localStorage.setItem('MEVILAND_VOZ', VOZ.on ? '1' : '0'); } catch (e) {} if (!VOZ.on) callaVoz(); $('bVoz').textContent = VOZ.on ? '🔊' : '🔇'; };
-document.querySelectorAll('#lenguas button').forEach(b => b.onclick = () => { LG = b.dataset.lang; window.LG_MANO = true; if (J.fase === 'menu') setTimeout(menu, 0); try { localStorage.setItem('VJSHOW_LANG', LG); } catch (e) {} textosUI(); });
-/* v18.49 · dentro de MSGAME el idioma se cambia en la consola (también desde AJUSTES con el juego abierto): se sigue el idioma de la página de fuera al momento */
-if (EMB) try { const de = parent.document.documentElement; new MutationObserver(() => { const l = String(de.lang || '').toLowerCase().split('-')[0]; if (!['es', 'en', 'ca'].includes(l) || l === LG) return; LG = l; window.LG_MANO = true; if (J.fase === 'menu') setTimeout(menu, 0); textosUI(); }).observe(de, { attributes: true, attributeFilter: ['lang'] }); } catch (e) {}
+/* v18.50 · cambio de idioma (botones del juego suelto o, dentro de MSGAME, el de la consola): pantalla en UL, voces en LG */
+function ponIdioma(l) { UL = l; LG = window.MSIDIOMA ? MSIDIOMA.base(l) : l; TRD = UL !== LG && window.MSIDIOMA ? MSIDIOMA.traductor(LG, UL) : null; window.LG_MANO = true; if (J.fase === 'menu') setTimeout(menu, 0); textosUI(); }
+/* con traducción automática: se piden de una vez todos los textos y las frases de Mevi; al llegar, se repintan los menús */
+function pideTextos() {
+  if (!TRD) return; const v = []; Object.entries(TX[LG] || {}).forEach(([k, x]) => { if (k === 'pgTxt') x.split('|').forEach(y => v.push(y.replace(/<\/?b>/g, ''))); else if (typeof x === 'string') v.push(x); else if (Array.isArray(x) && k !== 'palabras') x.forEach(y => { if (typeof y === 'string') v.push(y); }); });   /* las palabras de la Sopa de Letras se quedan en el idioma de las voces: sus letras son el juego */
+  if (TRD.nPedidos === v.length) return; TRD.nPedidos = v.length; TRD.pide(v);   /* (los textos de cada parte del juego se cargan por separado: se vuelve a pedir si hay más) */
+  if (TRD.pedido) return; TRD.pedido = true;
+  fetch('../packs/meviland/voz/' + LG + '-textos.json?v=18.50').then(r => r.ok ? r.json() : []).then(a => TRD.pide(a)).catch(() => {});
+  let tq = 0; TRD.listo(() => { clearTimeout(tq); tq = setTimeout(textosUI, 400); });
+}
+document.querySelectorAll('#lenguas button').forEach(b => b.onclick = () => { try { localStorage.setItem('VJSHOW_LANG', b.dataset.lang); } catch (e) {} ponIdioma(b.dataset.lang); });
+/* dentro de MSGAME el idioma se cambia en la consola (también desde AJUSTES con el juego abierto): se sigue al momento */
+if (window.MSIDIOMA) MSIDIOMA.sigue(l => { if (l !== UL) ponIdioma(l); });
 if (EMB) { $('hud').style.left = 'calc(var(--u)*1.2 + 54px)'; }
 /* con el mando del móvil o el teclado, los paneles se manejan apuntando */
 let enMenu = null;

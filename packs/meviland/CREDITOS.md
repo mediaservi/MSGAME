@@ -25,3 +25,8 @@ La nevera, el aro cósmico, los cristales, la olla, el río de chocolate, la mon
 - **Pirotecnia:** texturas de chispa de `packs/wonderwalk/fx/` (Kenney, Particle Pack, CC0) y la grabación de cohetes de `packs/wonderwalk/sfx/` (ver los créditos de WONDERWALK).
 - **Logo** (`juegos/logo_meviland.webp`): hecho por código con el tipo **Bowlby One** (Vernon Adams, SIL OFL 1.1), ya incluido en `fuentes/`.
 - **Público del desfile** (`gentio.webp`): retratos de los personajes propios (aldeana, aldeano, herrero y Adalés) con la ropa, la piel, el pelo y el tocado cambiados por código. No lleva material de terceros.
+
+## v18.50 · banderas e idiomas
+
+- **Banderas de los países** (`banderas/<código>.webp`), pasadas a imagen a partir de los dibujos vectoriales de **country-flag-icons** (© 2020 catamphetamine, licencia MIT) y, las de México, Portugal, Andorra, Perú y Argentina, de **flag-icons** (© 2013 Panayiotis Lipiridis, licencia MIT), para que escudos y emblemas salgan completos. Las licencias están junto a las imágenes. La de España se ha compuesto con el escudo oficial; la de Estados Unidos, con sus 50 estrellas, y la del inglés (mitad británica, mitad estadounidense) se hacen por código a partir de esas.
+- **Traducción automática** de los textos a los idiomas que no son español, inglés o catalán: la hace el traductor en línea que ya usa la consola, y se guarda en el propio aparato.

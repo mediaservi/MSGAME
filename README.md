@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.49**
+**Versión actual: v18.50**
 
 ## Cómo se juega
 
@@ -39,7 +39,21 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **MEVILAND** *(nuevo)*: el reino de fantasía de Mevi, en 3D y en primera persona; la gran plaza de la muralla al atardecer, cuatro mundos (Fantasía, Absurdo, Golosinas y Feria) con tres salas cada uno, doce pruebas, puertas trampa y cuatro finales, uno secreto.
 - **RUNAS** *(nuevo)*: dibuja runas en el aire con la mano delante de la cámara (o con el móvil o el ratón) para deshacer las sombras que van a por el cristal de Mevi; hasta 4 a la vez, jefe final y supermagia con los dos brazos arriba.
 
-## Cambios de la versión actual (v18.49)
+## Cambios de la versión actual (v18.50)
+- **Norma de idiomas (para todos los juegos):**
+  - **Textos y subtítulos en el idioma de la consola**, sea cual sea. Español, inglés y catalán van traducidos a mano; el resto, con traducción automática que se guarda en el aparato y, sin conexión, deja el texto en inglés (o en español para las lenguas de España).
+  - **Voces:** catalán con la voz catalana; español, gallego, euskera y demás lenguas de España, con la española; el resto del mundo, con la inglesa.
+  - Pieza común `lib/idioma.js` para que cada juego lo aplique.
+- **Consola:**
+  - lo que salía en inglés con los idiomas traducidos (PLAYERS, 1 PLAYER, TURNS, «CAR») ya sale traducido;
+  - lo que se ve se traduce antes que el resto, y las lenguas cercanas al español se traducen desde el español;
+  - los nombres por defecto («Jugador 1») van en el idioma elegido.
+- **MEVILAND:**
+  - todo traducido (menús, pergamino, subtítulos de Mevi y pie) y Mevi habla con la voz que toca;
+  - cada idioma trae su bandera (gallega, ikurriña, francesa, alemana, japonesa…); en catalán ondean dos senyeras;
+  - **el portón del castillo se abre de verdad:** al abrirse las hojas se ve la plaza interior, con la fachada de la sala gótica, el balcón con los reyes saludando, pendones, antorchas y el pueblo esperando, y se entra andando.
+
+### v18.49
 - **MEVILAND · banderas por idioma.** En catalán ondean dos senyeras; en inglés, la mixta británica y estadounidense; en español, la española. Si se cambia el idioma en la consola o en AJUSTES con el juego abierto, las banderas cambian al momento.
 
 ### v18.48

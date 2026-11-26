@@ -66,10 +66,11 @@ Object.assign(TX.ca, { fd_desfile: 'Amb dues Claus Estel·lars s\'obre el portal
 const PG = { on: false, fin: false, i: 0, n: 0, t: 0, f: null, letras: [] };
 function pergamino(fin) {
   const el = $('perga'), tx = $('pgTxt'); PG.f = fin; PG.on = true; PG.fin = false; PG.i = 0; PG.t = -.9; el.classList.remove('fin'); $('pgSub').textContent = t('pgSub'); $('pgSigue').textContent = t('pgSigue'); tx.innerHTML = ''; PG.letras = [];
-  t('pgTxt').split('|').forEach((par, pi) => { const p = document.createElement('div'); if (pi) p.style.marginTop = '.5em'; par.split(/(<b>.*?<\/b>)/).forEach(tr => { const neg = /^<b>/.test(tr), txt = tr.replace(/<\/?b>/g, ''); const cont = neg ? document.createElement('b') : p; txt.split(/(\s+)/).forEach(pal => { if (!pal) return; if (/^\s+$/.test(pal)) { cont.appendChild(document.createTextNode(' ')); return; } const w = document.createElement('span'); w.style.whiteSpace = 'nowrap'; pal.split('').forEach(ch => { const i = document.createElement('i'); i.textContent = ch; w.appendChild(i); PG.letras.push(i); }); cont.appendChild(w); }); if (neg) p.appendChild(cont); }); tx.appendChild(p); });
+  const pgT = TRD ? t0('pgTxt').split('|').map(x => trd(x.replace(/<\/?b>/g, ''))).join('|') : t0('pgTxt');   /* traducido: cada párrafo, sin negritas */
+  pgT.split('|').forEach((par, pi) => { const p = document.createElement('div'); if (pi) p.style.marginTop = '.5em'; par.split(/(<b>.*?<\/b>)/).forEach(tr => { const neg = /^<b>/.test(tr), txt = tr.replace(/<\/?b>/g, ''); const cont = neg ? document.createElement('b') : p; txt.split(/(\s+)/).forEach(pal => { if (!pal) return; if (/^\s+$/.test(pal)) { cont.appendChild(document.createTextNode(' ')); return; } const w = document.createElement('span'); w.style.whiteSpace = 'nowrap'; pal.split('').forEach(ch => { const i = document.createElement('i'); i.textContent = ch; w.appendChild(i); PG.letras.push(i); }); cont.appendChild(w); }); if (neg) p.appendChild(cont); }); tx.appendChild(p); });
   PG.n = PG.letras.length; el.style.display = 'flex'; void el.offsetWidth; el.classList.add('on'); fx('carta', .8);
   /* Mevi lee el pergamino en voz alta y la pluma escribe a su paso */
-  callaVoz(); PG.cps = 30; setTimeout(() => { if (!PG.on || PG.fin) return; const ms = vozGrabada(t('pgTxt').replace(/<\/?b>/g, '').replace(/\|/g, ' ')); if (ms) { PG.cps = PG.n / (ms / 1000) * 1.04; VOZ.tFin = performance.now() + ms; } }, 900);
+  callaVoz(); PG.cps = 30; setTimeout(() => { if (!PG.on || PG.fin) return; const ms = vozGrabada(t0('pgTxt').replace(/<\/?b>/g, '').replace(/\|/g, ' ')); if (ms) { PG.cps = PG.n / (ms / 1000) * 1.04; VOZ.tFin = performance.now() + ms; } }, 900);
 }
 function pasaPergamino(dt) {
   if (!PG.on) return; const el = $('perga'); PG.t += dt;
@@ -281,11 +282,11 @@ function paseantes(g) {
    tres recintos amurallados escalonados, el patio de armas, la sala gótica con su terrado y, presidiéndolo todo, la torre del homenaje redonda.
    Se construye por código y a escala; se ve a lo lejos tras el Gran Portal y de cerca en el gran desfile. */
 function montsoriu(g, o) {
-  o = o || {}; const C = new T.Group(); C.position.set(o.x || 0, o.y || 0, o.z || 0); C.scale.setScalar(o.s || 1); g.add(C); const nb = o.niebla !== false;
+  o = o || {}; const C = new T.Group(); C.position.set(o.x || 0, o.y || 0, o.z || 0); C.scale.setScalar(o.s || 1); g.add(C); const nb = o.niebla !== false, FZ = o.fz || .8;   /* FZ: fondo del cerro (menos, para que no se meta en la plaza interior del castillo) */
   const txc = txPiedra('#a58a78', '#c9ad8f', '#6a564e').clone(); txc.needsUpdate = true; txc.wrapS = txc.wrapT = T.RepeatWrapping; txc.repeat.set(7, 4); const piedra = mat('#b39a84', { map: txc, roughness: .92, fog: nb }), piedra2 = mat('#9d8676', { roughness: .92, fog: nb }), teja = mat('#7a3a36', { roughness: .7, fog: nb }), bosque = mat('#2c5a3a', { roughness: 1, flatShading: true, fog: nb }), bosque2 = mat('#3f6e3c', { roughness: 1, flatShading: true, fog: nb });
   /* el cerro, en tres escalones, y su bosque */
-  [[62, 44, 9, 0], [44, 30, 8, 9], [28, 17, 7, 17]].forEach(([r0, r1, h, y], i) => { const m = new T.Mesh(new T.CylinderGeometry(r1, r0, h, 20, 1), i ? bosque2 : bosque); m.position.y = y + h / 2; m.scale.z = .8; m.receiveShadow = true; C.add(m); });
-  const nA = o.arboles || 150, dm = new T.Object3D(), pone = (i, d, hN) => { const a = rnd(0, 6.283), n = ri(3), R = [rnd(46, 60), rnd(31, 42), rnd(19, 26)][n]; d.position.set(Math.cos(a) * R, [rnd(1, 6), rnd(9.5, 14), rnd(17.5, 21)][n] - .4, Math.sin(a) * R * .8); const e = rnd(4.5, 8) / (hN || 4.6); d.scale.set(e, e * rnd(.9, 1.2), e); d.rotation.y = rnd(0, 6); };
+  [[62, 44, 9, 0], [44, 30, 8, 9], [28, 17, 7, 17]].forEach(([r0, r1, h, y], i) => { const m = new T.Mesh(new T.CylinderGeometry(r1, r0, h, 20, 1), i ? bosque2 : bosque); m.position.y = y + h / 2; m.scale.z = FZ; m.receiveShadow = true; C.add(m); });
+  const nA = o.arboles || 150, dm = new T.Object3D(), pone = (i, d, hN) => { const a = rnd(0, 6.283), n = ri(3), R = [rnd(46, 60), rnd(31, 42), rnd(19, 26)][n]; d.position.set(Math.cos(a) * R, [rnd(1, 6), rnd(9.5, 14), rnd(17.5, 21)][n] - .4, Math.sin(a) * R * FZ); const e = rnd(4.5, 8) / (hN || 4.6); d.scale.set(e, e * rnd(.9, 1.2), e); d.rotation.y = rnd(0, 6); };
   if (!(bosqueNat(C, 'Pine_5', Math.round(nA * .6), pone, nb) && bosqueNat(C, 'CommonTree_5', Math.round(nA * .4), pone, nb))) { const arb = new T.InstancedMesh(new T.ConeGeometry(1.5, 4.6, 10), bosque, nA); for (let i = 0; i < nA; i++) { pone(i, dm, 4.6); dm.position.y += 2.3 * dm.scale.y; dm.updateMatrix(); arb.setMatrixAt(i, dm.matrix); } C.add(arb); }
   /* murallas: anillo poligonal con almenas y torres cuadradas en los quiebros */
   const almena = [], vent = [];
@@ -412,6 +413,37 @@ function patioCastillo(o) {
     [[-9, 4.5, -2, 2.2, 26], [9, 4.5, -2, 2.2, 26], [0, 6, -8, 1.6, 24]].forEach(([x, y, z, i2, d]) => { if (LITE && x > 0) return; const pl = new T.PointLight('#ffb468', i2, d, 1.6); pl.position.set(x, y, z); g.add(pl); }); g.add(new T.HemisphereLight('#c8a8ff', '#5a3a30', .45));
     if (o.f) o.f(g);
   });
+}
+/* v18.50 · tras el portón de la plaza: la plaza interior del castillo, con la fachada de la sala gótica y el balcón de los reyes.
+   Se ve por el hueco de la puerta al abrirse las hojas; queda tapada por el lienzo y las torres desde la plaza. */
+function vistaPatio(g, PZ) {
+  const G = new T.Group(); g.add(G); const ZF = PZ - 17, HF = 9.5, OM = { gro: 1.2, c1: '#a58a78', c2: '#c9ad8f' }, esc = MU.g;
+  muralla(G, -11, ZF, 11, ZF, HF, OM); muralla(G, -9.5, PZ - 1.4, -11, ZF, 7, OM); muralla(G, 9.5, PZ - 1.4, 11, ZF, 7, OM);   /* fachada y lados */
+  const fz = ZF + OM.gro / 2 + .02, pie2 = mat('#9d8676', { roughness: .92 }), pie = mat('#d9c6a6', { roughness: .85 });
+  /* la logia del balcón: tres arcos apuntados que dejan ver la sala gótica iluminada, con su tapiz */
+  const txL = lz(768, 512, (q, w, h) => { q.clearRect(0, 0, w, h); [w * .2, w * .5, w * .8].forEach((cx, i) => { const aw = 92, r0 = 250, tp = 70; const arco = () => { q.beginPath(); q.moveTo(cx - aw, h); q.lineTo(cx - aw, r0); q.quadraticCurveTo(cx - aw, r0 - (r0 - tp) * .75, cx, tp); q.quadraticCurveTo(cx + aw, r0 - (r0 - tp) * .75, cx + aw, r0); q.lineTo(cx + aw, h); q.closePath(); };
+      q.save(); arco(); q.clip(); const gr = q.createRadialGradient(cx, h * .45, 10, cx, h * .5, 220); gr.addColorStop(0, '#ffe2a0'); gr.addColorStop(.55, '#d88a48'); gr.addColorStop(1, '#5a2a16'); q.fillStyle = gr; q.fillRect(cx - aw, 0, aw * 2, h);
+      if (i === 1) { q.fillStyle = '#6a2a8a'; q.fillRect(cx - 52, 150, 104, 190); q.strokeStyle = '#e2a92e'; q.lineWidth = 6; q.strokeRect(cx - 44, 158, 88, 174); q.save(); const e = 70 / 2160; q.translate(cx - 1130 * e, 285); q.scale(e, -e); q.fillStyle = '#f0c040'; q.fill(new Path2D(M_GOTICA)); q.restore(); }
+      else { q.fillStyle = 'rgba(60,24,12,.55)'; q.fillRect(cx - aw, h * .78, aw * 2, h * .22); }
+      q.restore(); arco(); q.lineWidth = 16; q.strokeStyle = '#d9c6a6'; q.stroke(); q.lineWidth = 4; q.strokeStyle = '#8f7868'; q.stroke(); }); });
+  const PY = 4.2, logia = new T.Mesh(new T.PlaneGeometry(7.2, 4.8), new T.MeshBasicMaterial({ map: txL, transparent: true, alphaTest: .5 })); logia.position.set(0, PY + 2.4, fz + .01); G.add(logia);
+  const brl = brillo('#ffcf80', 7, .22); brl.position.set(0, PY + 2.4, fz + .6); G.add(brl);
+  /* el balcón: losa sobre ménsulas, balaustrada, dosel de tela y el repostero con el escudo */
+  const B = new T.Group(); B.position.set(0, PY, fz); G.add(B); const losa = caja(8.2, .45, 2.2, pie2); losa.position.set(0, -.22, 1.1); losa.castShadow = true; B.add(losa);
+  [-3.4, -1.1, 1.1, 3.4].forEach(x => { const me = caja(.5, 1.3, 1.2, pie2); me.position.set(x, -1, .6); me.rotation.x = .5; B.add(me); });
+  const bar = caja(8.2, .2, .26, pie2); bar.position.set(0, 1, 2.1); B.add(bar); for (let i = 0; i < 15; i++) { const ba = cil(.08, .12, .95, pie, 8); ba.position.set(-3.8 + i * 7.6 / 14, .48, 2.1); B.add(ba); }
+  const tap = new T.Mesh(new T.PlaneGeometry(2.2, 1.4), new T.MeshStandardMaterial({ map: txPendon(), transparent: true, alphaTest: .5, roughness: .6 })); tap.scale.set(.8, 1.2, 1); tap.position.set(0, -.25, 2.25); B.add(tap);
+  const md = mat('#e9dfda', { map: txMuro('rayas', '#5a1f7a', '#7a2a9a'), roughness: .7, side: T.DoubleSide }), dos = new T.Mesh(new T.PlaneGeometry(8.6, 2.6), md); dos.rotation.x = -Math.PI / 2 + .3; dos.position.set(0, 5.4, 1.1); B.add(dos);
+  [-4.1, 4.1].forEach(x => { const va = cil(.06, .06, 5, mat('#e2a92e', { metalness: .85, roughness: .3 }), 8); va.position.set(x, 2.5, 2.2); B.add(va); });
+  /* pendones, ventanales y antorchas en la fachada */
+  [-7.6, 7.6].forEach(x => pendon(G, x, 8.2, fz + .08, 1.3, '#2f2a8a', 3)); [-6.6, 6.6].forEach((x, i) => { ventana(G, x, 3.4, fz + .02, .7, 1.6, .3 + i * .2); antorcha(G, x + (x < 0 ? 1.6 : -1.6), 3, fz + .04, 0, .2 + i * .2); });
+  /* el reino espera en la plaza: público a los dos lados del paseo */
+  if (window.gentio) { const si = []; [-1, 1].forEach(sg => { for (let i = 0; i < (LITE ? 4 : 7); i++) si.push([sg * (5.6 + (i % 2) * .9) + rnd(-.2, .2), 0, PZ - 4 - i * 1.6]); }); gentio(G, si); }
+  /* al abrirse el portón: luz cálida dentro y los reyes asomados al balcón, saludando */
+  const luz = new T.PointLight('#ffc27a', 0, 22, 1.6); luz.position.set(0, 6, ZF + 6); G.add(luz);
+  G.userData.enciende = () => { let k = 0; anim(dt => { k = Math.min(1, k + dt / 1.5); luz.intensity = k * 2.2; });
+    conExtra(['rey', 'reina'], () => { if (MU.g !== esc) return; [['rey', -1], ['reina', 1]].forEach(([n, x]) => { const r = persona(B, n, 2.4, x, 1.05, 0, 'saluda'); if (r) r.traverse(m => { if (m.isMesh && m.material.emissive) { m.material.emissiveMap = m.material.map; m.material.emissive.set('#8a7a66'); } }); }); }); };
+  return G;
 }
 /* GRAN DESFILE: una comitiva de verdad, por la calle del patio, entre el público y bajo el palco de los reyes */
 function desfile(g) {

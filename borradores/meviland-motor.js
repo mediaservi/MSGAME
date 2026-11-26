@@ -12,9 +12,16 @@ const baraja = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { co
 const suave = k => k * k * (3 - 2 * k);
 
 /* ---------- idioma ---------- */
-let LG = (() => { let l = (location.search.match(/[?&]lang=(es|en|ca)/) || [])[1]; try { if (!l && EMB) l = parent.document.documentElement.lang; } catch (e) {} try { l = l || localStorage.getItem('VJSHOW_LANG'); } catch (e) {} l = String(l || navigator.language || 'es').toLowerCase().split('-')[0]; return l === 'en' || l === 'ca' ? l : 'es'; })();
+/* v18.50 · NORMA de idiomas (lib/idioma.js): UL es el idioma de la pantalla (cualquiera); LG, el de las voces y de los textos de origen
+   (es, en o ca). Si no coinciden, lo que se ve se traduce solo y la voz sigue hablando en LG. */
+let UL = window.MSIDIOMA ? MSIDIOMA.elegido() : 'es';
+let LG = window.MSIDIOMA ? MSIDIOMA.base(UL) : (['en', 'ca'].includes(UL) ? UL : 'es');
+let TRD = UL !== LG && window.MSIDIOMA ? MSIDIOMA.traductor(LG, UL) : null;
+const VOZDE = new Map();   /* texto en pantalla (traducido) → texto original, el que tiene voz grabada */
+const trd = s => { if (!TRD || typeof s !== 'string') return s; const d = TRD.get(s); if (d == null || d === s) return s; VOZDE.set(d, s); if (VOZDE.size > 600) VOZDE.delete(VOZDE.keys().next().value); return d; };
 const TX = {};   /* los textos están en meviland-salas.js; t('clave') los busca en el idioma activo */
-const t = (k, ...a) => { let s = (TX[LG] && TX[LG][k]) || TX.es[k] || k; a.forEach((v, i) => { s = s.replace('{' + i + '}', v); }); return s; };
+const t0 = (k, ...a) => { let s = (TX[LG] && TX[LG][k]) || TX.es[k] || k; a.forEach((v, i) => { s = s.replace('{' + i + '}', VOZDE.get(v) || v); }); return s; };   /* en el idioma de las voces */
+const t = (k, ...a) => trd(t0(k, ...a));
 
 /* ---------- comunicación con MSGAME ---------- */
 const manda = m => { if (EMB) try { parent.postMessage(m, location.origin); } catch (e) {} };
@@ -212,7 +219,7 @@ function vozHuella(t2) { let h = 0x811c9dc5; for (let i = 0; i < t2.length; i++)
 function callaVoz() { if (VOZ.el) { try { VOZ.el.pause(); } catch (e) {} VOZ.el = null; } try { window.speechSynthesis && speechSynthesis.cancel(); } catch (e) {} }
 /* dice una frase con la voz grabada; devuelve lo que dura en ms (0 si no hay grabación) */
 function vozGrabada(txt) {
-  const man = VOZ.man[LG]; if (!man) return 0; let h = vozHuella(txt); if (!man[h] && VOZ.alt) h = vozHuella(VOZ.alt); VOZ.alt = null; if (!man[h]) return 0;
+  const man = VOZ.man[LG]; if (!man) return 0; txt = VOZDE.get(txt) || txt; let h = vozHuella(txt); if (!man[h] && VOZ.alt) h = vozHuella(VOZDE.get(VOZ.alt) || VOZ.alt); VOZ.alt = null; if (!man[h]) return 0;
   if (VOZ.on) { const a = new Audio('../packs/meviland/voz/' + LG + '/' + h + '.mp3?v=18.47'); a.volume = 1; a.play().catch(() => {}); VOZ.el = a; }
   return man[h];
 }
@@ -222,7 +229,7 @@ function di(txt, ms) {
   const el = $('sub'), sp = $('subT'); sp.textContent = txt; el.classList.add('on'); clearTimeout(subTimer); callaVoz();
   let dur = ms || Math.max(2600, txt.length * 62); const grab = vozGrabada(txt);
   if (grab) dur = Math.max(ms || 0, grab + 450);
-  else if (VOZ.on && window.speechSynthesis && VOZ.man[LG] !== null) { try { const u = new SpeechSynthesisUtterance(txt.replace(/[«»¡!¿]/g, '')); const v = vozDe(LG); if (v) u.voice = v; u.lang = v ? v.lang : ({ es: 'es-ES', en: 'en-GB', ca: 'ca-ES' })[LG]; u.rate = 1.04; u.pitch = 1.6; u.volume = .9; u.onend = () => { VOZ.tFin = Math.min(VOZ.tFin, performance.now() + 300); }; speechSynthesis.speak(u); } catch (e) {} }
+  else if (VOZ.on && window.speechSynthesis && VOZ.man[LG] !== null) { try { const u = new SpeechSynthesisUtterance((VOZDE.get(txt) || txt).replace(/[«»¡!¿]/g, '')); const v = vozDe(LG); if (v) u.voice = v; u.lang = v ? v.lang : ({ es: 'es-ES', en: 'en-GB', ca: 'ca-ES' })[LG]; u.rate = 1.04; u.pitch = 1.6; u.volume = .9; u.onend = () => { VOZ.tFin = Math.min(VOZ.tFin, performance.now() + 300); }; speechSynthesis.speak(u); } catch (e) {} }
   VOZ.tFin = performance.now() + dur; subTimer = setTimeout(() => el.classList.remove('on'), dur);
   return dur;
 }
