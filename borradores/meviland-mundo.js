@@ -65,10 +65,10 @@ Object.assign(TX.ca, { fd_desfile: 'Amb dues Claus Estel·lars s\'obre el portal
 /* ======================= PERGAMINO DE BIENVENIDA ======================= */
 const PG = { on: false, fin: false, i: 0, n: 0, t: 0, f: null, letras: [] };
 function pergamino(fin) {
-  const el = $('perga'), tx = $('pgTxt'); PG.f = fin; PG.on = true; PG.fin = false; PG.i = 0; PG.t = -.9; el.classList.remove('fin'); $('pgSub').textContent = t('pgSub'); $('pgSigue').textContent = t('pgSigue'); tx.innerHTML = ''; PG.letras = [];
+  const el = $('perga'), tx = $('pgTxt'); PG.f = fin; PG.on = true; PG.fin = false; PG.pide = false; PG.i = 0; PG.t = -.9; el.classList.remove('fin'); $('pgSub').textContent = t('pgSub'); $('pgSigue').textContent = '👆 ' + t('pgSigue'); tx.innerHTML = ''; PG.letras = [];
   const pgT = TRD ? t0('pgTxt').split('|').map(x => trd(x.replace(/<\/?b>/g, ''))).join('|') : t0('pgTxt');   /* traducido: cada párrafo, sin negritas */
   pgT.split('|').forEach((par, pi) => { const p = document.createElement('div'); if (pi) p.style.marginTop = '.5em'; par.split(/(<b>.*?<\/b>)/).forEach(tr => { const neg = /^<b>/.test(tr), txt = tr.replace(/<\/?b>/g, ''); const cont = neg ? document.createElement('b') : p; txt.split(/(\s+)/).forEach(pal => { if (!pal) return; if (/^\s+$/.test(pal)) { cont.appendChild(document.createTextNode(' ')); return; } const w = document.createElement('span'); w.style.whiteSpace = 'nowrap'; pal.split('').forEach(ch => { const i = document.createElement('i'); i.textContent = ch; w.appendChild(i); PG.letras.push(i); }); cont.appendChild(w); }); if (neg) p.appendChild(cont); }); tx.appendChild(p); });
-  PG.n = PG.letras.length; el.style.display = 'flex'; void el.offsetWidth; el.classList.add('on'); fx('carta', .8);
+  PG.n = PG.letras.length; ST.classList.add('enPerga'); el.style.display = 'flex'; void el.offsetWidth; el.classList.add('on'); fx('carta', .8);
   /* Mevi lee el pergamino en voz alta y la pluma escribe a su paso */
   callaVoz(); PG.cps = 30; setTimeout(() => { if (!PG.on || PG.fin) return; const ms = vozGrabada(t0('pgTxt').replace(/<\/?b>/g, '').replace(/\|/g, ' ')); if (ms) { PG.cps = PG.n / (ms / 1000) * 1.04; VOZ.tFin = performance.now() + ms; } }, 900);
 }
@@ -77,8 +77,9 @@ function pasaPergamino(dt) {
   if (!PG.fin) { const hasta = Math.min(PG.n, Math.floor(Math.max(0, PG.t) * (PG.cps || 30))); if (hasta > PG.i) { for (let i = PG.i; i < hasta; i++) PG.letras[i].classList.add('v'); if (Math.floor(hasta / 4) !== Math.floor(PG.i / 4)) sint(1700 + Math.random() * 900, .025, 'triangle', .012); PG.i = hasta; }   /* el rasgueo de la pluma */
     if (PG.i >= PG.n) { PG.fin = true; PG.t = 0; el.classList.add('fin'); setTimeout(() => fx('popg', .7), 250); } }
   const pulsa = PTR.toca; if (pulsa) PTR.toca = false;
-  if (pulsa && !PG.fin && PG.t > .2) { PG.letras.forEach(i => i.classList.add('v')); PG.i = PG.n; }
-  else if ((pulsa && PG.fin && PG.t > .5) || (BOT && PG.t > .1)) { PG.on = false; callaVoz(); el.classList.remove('on'); setTimeout(() => { if (!PG.on) el.style.display = ''; }, 650); const f = PG.f; PG.f = null; if (f) f(); }
+  /* v18.59 · un toque basta para entrar (antes hacían falta dos y el primero, al abrirse, no contaba); al acabar de leer, Mevi pide que se toque y, si nadie lo hace, sigue sola */
+  if (PG.fin && !PG.pide && PG.t > .6 && !(VOZ.el && !VOZ.el.paused && !VOZ.el.ended)) { PG.pide = true; PG.tp = PG.t; di(t('tocaPerga'), 2200); }
+  if ((pulsa && PG.t > -.6) || (PG.pide && PG.t - PG.tp > 4.5) || (BOT && PG.t > .1)) { PG.on = false; ST.classList.remove('enPerga'); callaVoz(); el.classList.remove('on'); setTimeout(() => { if (!PG.on) el.style.display = ''; }, 650); const f = PG.f; PG.f = null; if (f) f(); }
 }
 $('perga').addEventListener('pointerdown', () => { au(); PTR.toca = true; });
 
@@ -162,6 +163,7 @@ const TUN = {
 function tunel(k) {
   const T0 = TIERRAS[k], U = TUN[k], LAR = 20, RAD = 2.7; J.fase = 'tunel'; musica(T0.mus); lugar(t('t_' + k)); crono(null); barra(null); meta(null); MU.sel = null; retiAnillo(0);
   transicion(() => nuevaEscena(g => {
+    MEVI.ax = .5;   /* v18.59 · en el túnel, más hacia el centro: en la esquina salía cortada */
     ESC.fog = new T.Fog(U.nie, 3, 19); MU.luzT0 = .1; g.add(new T.AmbientLight(U.luz, .34)); g.add(new T.HemisphereLight(U.luz, U.suelo, .3));
     const tx = (U.tx[0] === 'piedra' ? txPiedra(U.tx[1], U.tx[2]) : txMuro.apply(null, U.tx)).clone(); tx.needsUpdate = true; tx.wrapS = tx.wrapT = T.RepeatWrapping; tx.repeat.set(4, LAR / 3);
     const bov = new T.Mesh(new T.CylinderGeometry(RAD, RAD, LAR, 28, 1, true, Math.PI / 2, Math.PI), mat('#e9dfda', { map: tx, side: T.BackSide, roughness: .85 })); bov.rotation.x = Math.PI / 2; bov.position.set(0, 1.1, -LAR / 2 + 2); g.add(bov);

@@ -33,9 +33,11 @@
   #crono{font:700 calc(var(--u)*1.8)/1 "Share Tech Mono",ui-monospace,monospace;color:#fff;min-width:3.2em;text-align:right}
   #crono.prisa{color:#ff6b6b;animation:lat .5s infinite alternate}
   @keyframes lat{to{transform:scale(1.12)}}
-  #pts{position:absolute;right:calc(var(--u)*1.4);top:calc(var(--u)*1.1);display:none;font:400 calc(var(--u)*2.6)/1 LG,sans-serif;color:#fff;text-shadow:0 calc(var(--u)*.25) 0 #6a1b9a,0 0 calc(var(--u)*1.2) rgba(255,120,240,.6);z-index:4}
+  #pts{position:absolute;left:calc(var(--u)*1.6);top:calc(var(--u)*8.2);display:none;font:400 calc(var(--u)*3.6)/1 LG,sans-serif;transform-origin:0 50%;color:#fff;text-shadow:0 calc(var(--u)*.25) 0 #6a1b9a,0 0 calc(var(--u)*1.2) rgba(255,120,240,.6);z-index:4}
   #pts.on{display:block}
-  #pts small{display:block;font:700 calc(var(--u)*1)/1 BSC,sans-serif;color:#ffe78a;letter-spacing:.12em;text-align:right;margin-bottom:calc(var(--u)*.3)}
+  #pts small{display:block;font:700 calc(var(--u)*1.1)/1 BSC,sans-serif;color:#ffe78a;letter-spacing:.12em;text-align:left;margin-bottom:calc(var(--u)*.3);text-shadow:0 1px 3px #000}
+  #pts.pum{animation:pum .45s cubic-bezier(.3,1.8,.5,1)} @keyframes pum{40%{transform:scale(1.28)}}   /* v18.59 · el marcador, arriba a la izquierda (lo tapaban los botones) y late al llegarle puntos */
+  .fl.vuela{animation:none;transition:left .7s cubic-bezier(.5,0,.6,1),top .7s cubic-bezier(.5,0,.6,1),opacity .7s,transform .7s;z-index:6}
   /* barra de la prueba (energía, tiempo, progreso) */
   #barra{position:absolute;left:50%;top:calc(var(--u)*1.4);transform:translateX(-50%);width:calc(var(--u)*25);display:none;z-index:4}
   #barra.on{display:block}
@@ -87,6 +89,7 @@
   #cargaT{font:500 calc(var(--u)*1.2)/1 BSC5,BSC,sans-serif;color:#d9c8ff;letter-spacing:.06em}
   .esq{position:absolute;top:calc(var(--u)*1.2);right:calc(var(--u)*1.2);display:flex;gap:calc(var(--u)*.6);z-index:9}
   .esq button.b{font-size:calc(var(--u)*1.1);padding:calc(var(--u)*.45) calc(var(--u)*.9)}
+  @media (pointer:coarse){.esq{gap:max(calc(var(--u)*.8),10px)}.esq button.b{min-width:48px;min-height:48px;font-size:max(calc(var(--u)*1.3),17px);display:inline-flex;align-items:center;justify-content:center}}   /* v18.59 · con el dedo, botones de 48 px como mínimo y separados */
   #pFin{background:radial-gradient(ellipse at 50% 45%,rgba(24,6,56,.78),rgba(10,3,24,.9))}
   #pFin h2{margin:0;font:400 calc(var(--u)*4.6)/1 LG,sans-serif;color:#ffe27a;text-align:center;text-shadow:0 calc(var(--u)*.35) 0 #8a2be2,0 0 calc(var(--u)*2.2) rgba(255,180,60,.6)}
   #pFin p{margin:0;max-width:64%;text-align:center;font:500 calc(var(--u)*1.7)/1.35 BSC5,BSC,sans-serif;color:#f3eaff}
@@ -98,7 +101,13 @@
   #pIdioma h2{margin:0;font:400 calc(var(--u)*3.4)/1 LG,sans-serif;color:#fff;letter-spacing:.04em}
   #idiomas{display:grid;grid-template-columns:repeat(6,calc(var(--u)*13.6));gap:calc(var(--u)*.6)}
   #idiomas button.b{font:400 calc(var(--u)*1.2)/1.15 LIL,sans-serif;letter-spacing:0;padding:calc(var(--u)*.6) calc(var(--u)*.3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #idiomas button .ban{width:calc(var(--u)*1.9);height:calc(var(--u)*1.27);vertical-align:-.22em;margin-right:calc(var(--u)*.45);border-radius:calc(var(--u)*.15);box-shadow:0 0 0 1px rgba(60,20,0,.45)}   /* v18.59 · bandera de cada idioma */
   #pPausa h2{margin:0;font:400 calc(var(--u)*5)/1 LG,sans-serif;color:#fff}
+  #pPausa .fila{flex-direction:column;gap:calc(var(--u)*2.6)}
+  #bSigue{font-size:calc(var(--u)*2.6);padding:calc(var(--u)*1.1) calc(var(--u)*3.4);min-height:56px;color:#fff;background:linear-gradient(#8dff6a,#2fbf3a 55%,#16862a);border-color:#0b4a14;box-shadow:0 calc(var(--u)*.4) 0 #0b4a14;text-shadow:0 2px 0 #0b4a14}
+  #bSalir{font-size:calc(var(--u)*1.3);padding:calc(var(--u)*.6) calc(var(--u)*1.4);min-height:44px;opacity:.92}
+  #salirSeg{display:none;align-items:center;gap:calc(var(--u)*1);font:400 calc(var(--u)*1.8)/1 LIL,sans-serif;color:#fff}
+  #salirSeg.on{display:flex} #salirSeg button.b{min-width:56px;min-height:48px;font-size:calc(var(--u)*1.8)} #bSalSi{color:#fff;background:linear-gradient(#ff9a9a,#e23a3a 55%,#9a1414);border-color:#5a0a0a;box-shadow:0 calc(var(--u)*.32) 0 #5a0a0a}
   #pie{position:absolute;left:0;right:0;bottom:calc(var(--u)*.6);text-align:center;font:500 calc(var(--u)*.95)/1 BSC5,BSC,sans-serif;color:rgba(255,255,255,.55);pointer-events:none;z-index:9}
   #pie.off{display:none}
   /* móvil de pie: el escenario 16:9 ocupa el centro; los textos crecen un poco */
@@ -123,9 +132,16 @@
   #pgFirma{font:700 calc(var(--u)*3.2)/1 DSC,cursive;color:#3a1a50;transform:rotate(-4deg);opacity:0;transition:opacity .8s}
   #pgSello{width:calc(var(--u)*6.4);height:calc(var(--u)*6.4);opacity:0;transform:scale(1.6) rotate(-14deg);transition:opacity .25s,transform .35s cubic-bezier(.3,1.6,.5,1);filter:drop-shadow(0 calc(var(--u)*.3) calc(var(--u)*.4) rgba(60,10,10,.6))}
   #perga.fin #pgFirma{opacity:1} #perga.fin #pgSello{opacity:1;transform:scale(1) rotate(-14deg)}
-  #pgSigue{font:700 calc(var(--u)*1.3)/1 BSC,sans-serif;letter-spacing:.14em;color:#8a5a12;opacity:0;transition:opacity .6s;text-transform:uppercase}
+  #st.enPerga #sub{z-index:9}   /* v18.59 · lo que dice Mevi se lee también sobre el pergamino */
+  #pgSigue{font:700 calc(var(--u)*1.8)/1 BSC,sans-serif;letter-spacing:.12em;color:#7a1f3a;opacity:0;transition:opacity .6s;text-transform:uppercase}
   #perga.fin #pgSigue{opacity:.9;animation:pgP 1.6s ease-in-out infinite}
   @keyframes pgP{50%{opacity:.35}}
+  /* v18.59 · móvil o tableta en vertical: Mevi pide girarlo y el juego espera en pausa */
+  #gira{position:fixed;inset:0;z-index:50;display:none;flex-direction:column;align-items:center;justify-content:center;gap:5vh;background:radial-gradient(ellipse at 50% 40%,#3a1670,#0d0820 70%);color:#fff;text-align:center;padding:6vw}
+  #gira.on{display:flex} #gira .gm{position:relative;width:min(56vw,40vh);aspect-ratio:1} #gira .gm img{width:100%;height:100%;object-fit:contain}
+  #gira .gm i{position:absolute;right:-6%;bottom:12%;font-style:normal;font-size:min(18vw,13vh);animation:gira 2.4s ease-in-out infinite;transform-origin:50% 50%}
+  @keyframes gira{0%,25%{transform:rotate(0)}55%,85%{transform:rotate(-90deg)}100%{transform:rotate(0)}}
+  #gira b{font:400 min(8vw,5vh)/1.15 LG,sans-serif;letter-spacing:.02em;text-shadow:0 .4vh 0 #6a1b9a}
 </style>
 </head>
 <body>
@@ -155,16 +171,18 @@
     <div class="fila" id="lenguas" style="display:none"><button type="button" class="b" data-lang="es">ES</button><button type="button" class="b" data-lang="ca">CA</button><button type="button" class="b" data-lang="en">EN</button></div>
   </div>
   <div class="pan" id="pIdioma"><h2 id="tIdioma">🌐</h2><div id="idiomas"></div><div class="fila"><button type="button" class="b" id="bIdiVuelve"></button></div></div>
-  <div class="pan" id="pPausa"><h2 id="tPausa">PAUSA</h2><div class="fila"><button type="button" class="b" id="bSigue"></button><button type="button" class="b" id="bSalir"></button></div></div>
+  <div class="pan" id="pPausa"><h2 id="tPausa">PAUSA</h2><div class="fila"><button type="button" class="b" id="bSigue"></button><button type="button" class="b" id="bSalir"></button><div id="salirSeg"><span id="tSeguro"></span><button type="button" class="b" id="bSalSi" aria-label="Sí">✔</button><button type="button" class="b" id="bSalNo" aria-label="No">✖</button></div></div></div>
   <div class="pan" id="pFin"><h2 id="fTit"></h2><p id="fTxt"></p><dl id="fDl"></dl><div class="fila"><button type="button" class="b" id="bOtra"></button><button type="button" class="b" id="bMenu"></button></div></div>
   <div id="pie">MEVILAND · MSGAME · mediaservi.com</div>
+</div>
+<div id="gira" aria-live="polite"><div class="gm"><img alt="" src="mevi2d/img/mevi-saluda1.webp"><i>📱</i></div><b id="tGira"></b>
 </div>
 <script src="../lib/three.min.js"></script>
 <script src="../lib/gltf.js?v=18.41"></script>
 <script src="../lib/mevicara.js?v=18.37"></script>
-<script src="../lib/idioma.js?v=18.51"></script>
-<script src="meviland-motor.js?v=18.51"></script>
-<script src="meviland-salas.js?v=18.51"></script>
-<script src="meviland-mundo.js?v=18.51"></script>
+<script src="../lib/idioma.js?v=18.59"></script>
+<script src="meviland-motor.js?v=18.59"></script>
+<script src="meviland-salas.js?v=18.59"></script>
+<script src="meviland-mundo.js?v=18.59"></script>
 </body>
 </html>

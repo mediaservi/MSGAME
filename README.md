@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.58**
+**Versión actual: v18.59**
 
 ## Cómo se juega
 
@@ -39,7 +39,21 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **MEVILAND** *(nuevo)*: el reino de fantasía de Mevi, en 3D y en primera persona; la gran plaza de la muralla al atardecer, cuatro mundos (Fantasía, Absurdo, Golosinas y Feria) con tres salas cada uno, doce pruebas, puertas trampa y cuatro finales, uno secreto.
 - **RUNAS** *(nuevo)*: dibuja runas en el aire con la mano delante de la cámara (o con el móvil o el ratón) para deshacer las sombras que van a por el cristal de Mevi; hasta 4 a la vez, jefe final y supermagia con los dos brazos arriba.
 
-## Cambios de la versión actual (v18.58)
+## Cambios de la versión actual (v18.59)
+- **MEVILAND, más fácil para los peques y para jugar con el dedo:**
+  - con el dedo, las puertas solo se abren al tocarlas (antes la mirilla se quedaba donde se levantó el dedo y abría sola las puertas nuevas); con ratón, mando o móvil sigue funcionando apuntando y manteniendo;
+  - los PUNTOS pasan arriba a la izquierda, más grandes (los tapaban los botones), y cada «+50» vuela hasta el marcador;
+  - en un móvil o tableta en vertical, Mevi pide girarlo y el juego espera en pausa;
+  - botones 🌐 🔊 ❚❚ de 48 px como mínimo con el dedo;
+  - pausa: «▶ Seguir» grande y verde; «🏠 Salir» más pequeño, aparte, y pregunta «¿Seguro?» antes de perder la partida;
+  - la cámara rodea la fuente camino del portón (antes la cruzaba por dentro);
+  - Sopa de Letras: las letras van repartidas en tres anillos y se ven desde más arriba, sin montarse;
+  - Lavadora: apoyada en sus patas con la puerta a media altura (antes se clavaba en el suelo) y, en FÁCIL, calcetines más grandes, más lentos y fáciles de tocar;
+  - pergamino de bienvenida: un toque basta para entrar; al acabar de leerlo, Mevi dice «¡Toca el pergamino!» y, si nadie lo toca, sigue sola;
+  - el selector de idioma lleva la bandera de cada idioma;
+  - Mevi ya no tapa al Señor Brócoli ni el pedestal morado, sale entera en el túnel y el gusano de Caramelos asoma entre los caramelos.
+
+### v18.58
 - **Voz de Mevi en español:** «¿Otra música? Cámbiala con el casete» con el acento bien puesto en «CÁMbiala».
 
 ### v18.57

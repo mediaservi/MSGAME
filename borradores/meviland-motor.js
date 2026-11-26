@@ -214,13 +214,13 @@ function suena(canal, n, o) {
    Si una frase no tiene grabación (por ejemplo, el saludo con los nombres de los jugadores) se usa la que se indique en VOZ.alt y,
    en último caso, la voz del navegador. */
 const VOZ = { on: (() => { try { return localStorage.getItem('MEVILAND_VOZ') !== '0'; } catch (e) { return true; } })(), habla: 0, cola: [], tFin: 0, man: {}, el: null, alt: null };
-function cargaVoz(l) { if (VOZ.man[l] !== undefined) return; VOZ.man[l] = null; fetch('../packs/meviland/voz/' + l + '.json?v=18.47').then(r => r.ok ? r.json() : {}).then(j => { VOZ.man[l] = j || {}; }).catch(() => { VOZ.man[l] = {}; }); }
+function cargaVoz(l) { if (VOZ.man[l] !== undefined) return; VOZ.man[l] = null; fetch('../packs/meviland/voz/' + l + '.json?v=18.59').then(r => r.ok ? r.json() : {}).then(j => { VOZ.man[l] = j || {}; }).catch(() => { VOZ.man[l] = {}; }); }
 function vozHuella(t2) { let h = 0x811c9dc5; for (let i = 0; i < t2.length; i++) { const c = t2.charCodeAt(i); h ^= c & 255; h = Math.imul(h, 0x01000193) >>> 0; h ^= c >> 8; h = Math.imul(h, 0x01000193) >>> 0; } return ('0000000' + h.toString(16)).slice(-8); }
 function callaVoz() { if (VOZ.el) { try { VOZ.el.pause(); } catch (e) {} VOZ.el = null; } try { window.speechSynthesis && speechSynthesis.cancel(); } catch (e) {} }
 /* dice una frase con la voz grabada; devuelve lo que dura en ms (0 si no hay grabación) */
 function vozGrabada(txt) {
   const man = VOZ.man[LG]; if (!man) return 0; txt = VOZDE.get(txt) || txt; let h = vozHuella(txt); if (!man[h] && VOZ.alt) h = vozHuella(VOZDE.get(VOZ.alt) || VOZ.alt); VOZ.alt = null; if (!man[h]) return 0;
-  if (VOZ.on) { const a = new Audio('../packs/meviland/voz/' + LG + '/' + h + '.mp3?v=18.47'); a.volume = 1; a.play().catch(() => {}); VOZ.el = a; }
+  if (VOZ.on) { const a = new Audio('../packs/meviland/voz/' + LG + '/' + h + '.mp3?v=18.59'); a.volume = 1; a.play().catch(() => {}); VOZ.el = a; }
   return man[h];
 }
 function vozDe(l) { const vs = speechSynthesis.getVoices(), pref = { es: 'es', en: 'en', ca: 'ca' }[l]; return vs.find(v => v.lang.toLowerCase().startsWith(pref) && /female|mujer|monica|paulina|helena|laura|lucia|elvira|samantha|google/i.test(v.name)) || vs.find(v => v.lang.toLowerCase().startsWith(pref)) || (l === 'ca' ? vs.find(v => v.lang.toLowerCase().startsWith('es')) : null); }
@@ -235,7 +235,11 @@ function di(txt, ms) {
 }
 const hablando = () => performance.now() < VOZ.tFin;
 function grito(txt, ms) { const g = $('grito'); g.textContent = txt; g.classList.add('on'); setTimeout(() => g.classList.remove('on'), ms || 1300); }
-function flota(txt, x, y, mal) { const d = document.createElement('div'); d.className = 'fl' + (mal ? ' mal' : ''); d.textContent = txt; d.style.left = x + 'px'; d.style.top = y + 'px'; ST.appendChild(d); setTimeout(() => d.remove(), 1000); }
+function flota(txt, x, y, mal) { const d = document.createElement('div'); d.className = 'fl' + (mal ? ' mal' : ''); d.textContent = txt; d.style.left = x + 'px'; d.style.top = y + 'px'; ST.appendChild(d); setTimeout(() => d.remove(), 1000);
+  const pt = document.getElementById('pts'); if (mal || !/^\+/.test(String(txt)) || !pt || !pt.classList.contains('on')) return;   /* v18.59 · lo ganado vuela hasta el marcador y lo hace latir */
+  const v = document.createElement('div'); v.className = 'fl vuela'; v.textContent = txt; v.style.left = x + 'px'; v.style.top = y + 'px'; ST.appendChild(v); const r = ST.getBoundingClientRect(), q = document.getElementById('ptsV').getBoundingClientRect();
+  requestAnimationFrame(() => requestAnimationFrame(() => { v.style.left = (q.left - r.left + q.width / 2) + 'px'; v.style.top = (q.top - r.top + q.height / 2) + 'px'; v.style.opacity = '.2'; v.style.transform = 'translate(-50%,-50%) scale(.6)'; }));
+  setTimeout(() => { v.remove(); pt.classList.remove('pum'); void pt.offsetWidth; pt.classList.add('pum'); }, 720); }
 
 /* ---------- Mevi en 3D: la anfitriona que acompaña a los jugadores ---------- */
 /* Mevi no va pegada a la pantalla: es un personaje más del mundo. Camina por el suelo a la derecha de los jugadores, da sombra
@@ -272,7 +276,7 @@ function pasaMevi(dt) {
   else {   /* su sitio: el punto del suelo que cae abajo a la derecha de la vista (pies y sombra siempre dentro de la pantalla, sea cual sea el formato) */
     const vc = MEVI.vc || (MEVI.vc = new T.PerspectiveCamera()); vc.fov = CAM.fov; vc.aspect = CAM.aspect; vc.near = CAM.near; vc.far = CAM.far; vc.updateProjectionMatrix();
     if (typeof MU !== 'undefined' && !MU.libre) { vc.position.copy(MU.cp); vc.lookAt(MU.cm); MV1.copy(MU.cp); } else { vc.position.copy(MV1); vc.quaternion.copy(CAM.getWorldQuaternion(MEVI.q || (MEVI.q = new T.Quaternion()))); }
-    vc.updateMatrixWorld(true); const ax = CAM.aspect < 1 ? .5 : .66; MV3.set(ax, -.8, .5).unproject(vc).sub(MV1).normalize();
+    vc.updateMatrixWorld(true); const ax = CAM.aspect < 1 ? .5 : (MEVI.ax !== undefined ? MEVI.ax : .66);   /* v18.59 · MEVI.ax: cada sala puede ponerla en otro lado para que no tape nada */ MV3.set(ax, -.8, .5).unproject(vc).sub(MV1).normalize();
     MV2.y = 0; if (MV2.lengthSq() < 1e-4) MV2.set(0, 0, -1); MV2.normalize();
     let tt2 = MV3.y < -.02 ? (MEVI.suelo - MV1.y) / MV3.y : 99; const plano = Math.hypot(MV3.x, MV3.z) * tt2;
     if (plano > 3 && plano < 11) MEVI.dest.copy(MV1).addScaledVector(MV3, tt2); else { const dd = clamp(plano, 3.4, 8); MEVI.dest.copy(MV1).addScaledVector(MV2, dd * .86).addScaledVector(MV3.set(-MV2.z, 0, MV2.x), dd * .5 * (CAM.aspect < 1 ? .5 : 1)); }
@@ -291,13 +295,14 @@ function pasaMevi(dt) {
 }
 
 /* ---------- mando: ratón, dedo, teclado o móvil de MSGAME ---------- */
-const PTR = { x: .5, y: .5, px: .5, py: .5, vel: 0, down: false, toca: false, ultimo: 0, on: false };
+const PTR = { x: .5, y: .5, px: .5, py: .5, vel: 0, down: false, toca: false, ultimo: 0, on: false, tactil: false };
 const RAY = new T.Raycaster(), NDC = new T.Vector2();
 function ponPtr(x, y) { PTR.x = clamp(x, 0, 1); PTR.y = clamp(y, 0, 1); PTR.ultimo = performance.now(); }
-ST.addEventListener('pointermove', e => { const r = ST.getBoundingClientRect(); ponPtr((e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height); });
-ST.addEventListener('pointerdown', e => { if (e.target.closest('button,.modo')) return; au(); const r = ST.getBoundingClientRect(); ponPtr((e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height); PTR.down = true; PTR.toca = true; });
+ST.addEventListener('pointermove', e => { if (e.pointerType === 'mouse') PTR.tactil = false; const r = ST.getBoundingClientRect(); ponPtr((e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height); });
+ST.addEventListener('pointerdown', e => { PTR.tactil = e.pointerType === 'touch' || e.pointerType === 'pen'; if (e.target.closest('button,.modo')) return; au(); const r = ST.getBoundingClientRect(); ponPtr((e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height); PTR.down = true; PTR.toca = true; });
 addEventListener('pointerup', () => { PTR.down = false; }); addEventListener('pointercancel', () => { PTR.down = false; });
 addEventListener('keydown', e => {
+  PTR.tactil = false;
   if (e.key === ' ' || e.key === 'Enter') { if (!e.repeat) PTR.toca = true; PTR.down = true; au(); }
   else if (e.key.startsWith('Arrow')) { const d = .03; if (e.key === 'ArrowLeft') PTR.x -= d; if (e.key === 'ArrowRight') PTR.x += d; if (e.key === 'ArrowUp') PTR.y -= d; if (e.key === 'ArrowDown') PTR.y += d; ponPtr(PTR.x, PTR.y); e.preventDefault(); }
   else if (e.key === 'Escape' || e.key === 'p' || e.key === 'P') { if (window.JUEGO) JUEGO.pausa(); }
@@ -305,7 +310,7 @@ addEventListener('keydown', e => {
 addEventListener('keyup', e => { if (e.key === ' ' || e.key === 'Enter') PTR.down = false; });
 let padD = false;
 addEventListener('message', e => { const m = e.data; if (!m || typeof m !== 'object' || e.source !== parent) return;
-  if (m.t === 'pad') { ponPtr(m.x, m.y); if (m.d && !padD) PTR.toca = true; PTR.down = !!m.d; padD = !!m.d; au(); }
+  if (m.t === 'pad') { PTR.tactil = false; ponPtr(m.x, m.y); if (m.d && !padD) PTR.toca = true; PTR.down = !!m.d; padD = !!m.d; au(); }
   else if (m.t === 'fire') { PTR.toca = true; PTR.down = true; setTimeout(() => { if (!padD) PTR.down = false; }, 350); au(); }
   else if (m.t === 'pausa') { if (window.JUEGO) JUEGO.pausaExt(!!m.v); }
   else if (m.t === 'jug') { if (window.JUEGO) JUEGO.jugadores(m); }
