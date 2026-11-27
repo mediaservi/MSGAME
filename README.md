@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.70**
+**Versión actual: v18.71**
 
 ## Cómo se juega
 
@@ -31,7 +31,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **LA FORTUNA:** ruleta de premios para eventos, con existencias reales.
 - **BOLERA:** bolos con física real y pantallas con visuales.
 - **PATOPESCA:** la pesca de patitos de la feria.
-- **ENCESTA:** recreativa 3D con BALLHOP (con música dinámica) y BASKET.
+- **ENCESTA:** tres modos en un cartucho: BALLHOP (rampa con aros, con música dinámica), BASKET (canasta de recreativa) y STREET (cancha de barrio con tus grafitis de GRAFFER).
 - **SHATEKI:** galería de tiro japonesa en 3D con rifle de corchos; solo te llevas lo que cae del estante.
 - **WONDERWALK** *(en desarrollo)*: paseo hasta el castillo buscando los objetos de tu lista.
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
@@ -39,7 +39,12 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **MEVILAND** *(nuevo)*: el reino de fantasía de Mevi, en 3D y en primera persona; la gran plaza de la muralla al atardecer, cuatro mundos (Fantasía, Absurdo, Golosinas y Feria) con tres salas cada uno, doce pruebas, puertas trampa y cuatro finales, uno secreto.
 - **RUNAS** *(nuevo)*: dibuja runas en el aire con la mano delante de la cámara (o con el móvil o el ratón) para deshacer las sombras que van a por el cristal de Mevi; hasta 4 a la vez, jefe final y supermagia con los dos brazos arriba.
 
-## Cambios de la versión actual (v18.70)
+## Cambios de la versión actual (v18.71)
+- **ENCESTA · modo nuevo STREET:** la canasta sale a una cancha de barrio al anochecer, entre vallas de malla, con muro de ladrillo, zona pintada en el asfalto, farola, neumáticos y un radiocasete cuyos altavoces laten con la música. En el muro salen tus dos últimos murales del modo libre de GRAFFER (se guardan solos en el aparato mientras pintas); si aún no has pintado ninguno, lleva dos grafitis de la casa.
+- **ENCESTA · BASKET, máquina nueva:** rampa de goma, mueble rojo, jaula de rejilla con marcos azules y tubos de neón, tablero en arco y cabecera con llamas de neón.
+- **ENCESTA · carátula nueva** partida en diagonal: la canasta a un lado y el tablero de aros al otro. El modo se elige en el menú del cartucho: BALLHOP, BASKET o STREET.
+
+### v18.70
 - **BASKET · máquina nueva:** balón negro con circuitos de neón, llamas de neón alrededor del tablero, tablero con contorno luminoso y mueble rojo a los lados de la rampa.
 - **BALLHOP · la feria alrededor:** a los lados de tu máquina hay ahora dos máquinas de bolas clásicas en 3D. En FÁCIL se lanza con un solo toque: apuntar y lanzar, sin medidor de fuerza.
 
@@ -1701,6 +1706,16 @@ Sigue de la v7.3:
 - **Cómo se elige:** con el ratón, con el dedo, con el teclado o con el mando de la tele, que salta de caja en caja. Las teclas de la consola (JUGAR, EXPULSAR, MANDO, JUGADORES y RÉCORDS) también funcionan.
 - **En el móvil**, abajo hay una tira con las 8 carátulas para elegir con el dedo.
 - **Si el navegador no tiene 3D**, se queda la home de siempre.
+
+## Fichas de los juegos
+
+### ENCESTA
+- **De qué va:** tres juegos de lanzar en un cartucho. BALLHOP: la bola sube por la rampa, salta y cae en los aros. BASKET: canasta de recreativa por niveles. STREET: la misma canasta en una cancha de barrio.
+- **Jugadores y controles:** de 1 a varios, por turnos; ratón, dedo, mando o el móvil como mando. Apuntar y lanzar (en FÁCIL, BALLHOP se lanza con un toque).
+- **Una idea de:** Josep · mediaservi.com
+- **Coworker:** Claude, la IA de Anthropic. El diseño, el código, las texturas y las escenas 3D de ENCESTA están creados en un 95 % por Claude a partir de la idea de Josep.
+- **Referencias e inspiración:** las máquinas de feria de bolas y de canastas, y las canchas de barrio con vallas y muros pintados.
+- **Assets:** modelos 3D de las máquinas de bolas y balón de neón · mediaservi. Texturas, grafitis de la casa y escenas · dibujados por código. Muro de ladrillo · biblioteca de paredes de GRAFFER. Murales del muro · los que pinta cada jugador en GRAFFER.
 
 ## Licencia
 
