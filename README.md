@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.69**
+**Versión actual: v18.70**
 
 ## Cómo se juega
 
@@ -39,7 +39,11 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **MEVILAND** *(nuevo)*: el reino de fantasía de Mevi, en 3D y en primera persona; la gran plaza de la muralla al atardecer, cuatro mundos (Fantasía, Absurdo, Golosinas y Feria) con tres salas cada uno, doce pruebas, puertas trampa y cuatro finales, uno secreto.
 - **RUNAS** *(nuevo)*: dibuja runas en el aire con la mano delante de la cámara (o con el móvil o el ratón) para deshacer las sombras que van a por el cristal de Mevi; hasta 4 a la vez, jefe final y supermagia con los dos brazos arriba.
 
-## Cambios de la versión actual (v18.69)
+## Cambios de la versión actual (v18.70)
+- **BASKET · máquina nueva:** balón negro con circuitos de neón, llamas de neón alrededor del tablero, tablero con contorno luminoso y mueble rojo a los lados de la rampa.
+- **BALLHOP · la feria alrededor:** a los lados de tu máquina hay ahora dos máquinas de bolas clásicas en 3D. En FÁCIL se lanza con un solo toque: apuntar y lanzar, sin medidor de fuerza.
+
+### v18.69
 - **Norma de dificultad · FÁCIL más fácil:** en la BOLERA se lanza con dos pulsaciones (sin el paso del efecto); en KRAZYGOLF el hoyo tira un poco de la bola que pasa cerca; en DIANA · TARTAZOS las caras aguantan más tiempo asomadas.
 
 ### v18.68
