@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.71**
+**Versión actual: v18.72**
 
 ## Cómo se juega
 
@@ -39,7 +39,12 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **MEVILAND** *(nuevo)*: el reino de fantasía de Mevi, en 3D y en primera persona; la gran plaza de la muralla al atardecer, cuatro mundos (Fantasía, Absurdo, Golosinas y Feria) con tres salas cada uno, doce pruebas, puertas trampa y cuatro finales, uno secreto.
 - **RUNAS** *(nuevo)*: dibuja runas en el aire con la mano delante de la cámara (o con el móvil o el ratón) para deshacer las sombras que van a por el cristal de Mevi; hasta 4 a la vez, jefe final y supermagia con los dos brazos arriba.
 
-## Cambios de la versión actual (v18.71)
+## Cambios de la versión actual (v18.72)
+- **ENCESTA · STREET, de noche:** luz de anochecer con la pista iluminada, asfalto mojado con charcos, rótulo de neón en el muro, guirnaldas de bombillas que siguen el ritmo y se encienden todas al encestar, carteles pegados, bajante, cielo con estrellas y altavoces con aro luminoso. El marcador ya dice STREET.
+- **ENCESTA · BALLHOP:** mueble rojo, torres azules y llamas de neón tras el marcador, de la misma familia que la máquina de BASKET.
+- **ENCESTA · BASKET:** rejilla lateral más discreta.
+
+### v18.71
 - **ENCESTA · modo nuevo STREET:** la canasta sale a una cancha de barrio al anochecer, entre vallas de malla, con muro de ladrillo, zona pintada en el asfalto, farola, neumáticos y un radiocasete cuyos altavoces laten con la música. En el muro salen tus dos últimos murales del modo libre de GRAFFER (se guardan solos en el aparato mientras pintas); si aún no has pintado ninguno, lleva dos grafitis de la casa.
 - **ENCESTA · BASKET, máquina nueva:** rampa de goma, mueble rojo, jaula de rejilla con marcos azules y tubos de neón, tablero en arco y cabecera con llamas de neón.
 - **ENCESTA · carátula nueva** partida en diagonal: la canasta a un lado y el tablero de aros al otro. El modo se elige en el menú del cartucho: BALLHOP, BASKET o STREET.
