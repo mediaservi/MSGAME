@@ -1231,7 +1231,7 @@ function textosUI() {
   document.documentElement.lang = UL; cargaVoz(LG); pideTextos(); $('tLema').textContent = t('lema'); $('tPausa').textContent = t('pausa'); $('bSigue').textContent = '▶  ' + t('sigue'); $('bSalir').textContent = '🏠 ' + t('salir'); $('tSeguro').textContent = t('seguro'); $('tGira').textContent = t('gira'); $('bOtra').textContent = t('otra'); $('bMenu').textContent = t('terminar'); $('bVoz').title = t('voz');
   const niv = $('niv'); niv.innerHTML = ''; [0, 1, 2].forEach(m => { const d = document.createElement('div'); d.className = 'modo m' + m + (m === J.modo ? ' sel' : ''); d.tabIndex = 0; d.dataset.m = m; d.innerHTML = `<b>${t('m' + m)}</b><em>${t('m' + m + 'e')}</em><span>${t('m' + m + 'd')}</span><div class="ll">${'<i></i>'.repeat(m + 2)}</div>`; d.querySelectorAll('.ll i').forEach(i => { i.style.backgroundImage = `url(${TEX.llave})`; }); d.onclick = () => empieza(m); d.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); empieza(m); } }; niv.appendChild(d); });
   document.querySelectorAll('#lenguas button').forEach(b => b.classList.toggle('sel', b.dataset.lang === LG));
-  $('pie').textContent = 'MEVILAND · MSGAME v18.60 2026 ' + trd(({ es: 'es un proyecto hecho con', en: 'is a project made with', ca: 'és un projecte fet amb' })[LG]) + ' 𑣲 by mediaservi.com';
+  $('pie').textContent = 'MEVILAND · MSGAME v18.61 2026 ' + trd(({ es: 'es un proyecto hecho con', en: 'is a project made with', ca: 'és un projecte fet amb' })[LG]) + ' 𑣲 by mediaservi.com';
   $('bVoz').textContent = VOZ.on ? '🔊' : '🔇'; $('bIdioma').textContent = '🌐 ' + UL.toUpperCase(); $('bIdioma').title = t('idioma'); $('tIdioma').textContent = '🌐 ' + t('idioma'); $('bIdiVuelve').textContent = t('volver');
 }
 function menu() {

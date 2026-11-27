@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.60**
+**Versión actual: v18.61**
 
 ## Cómo se juega
 
@@ -39,7 +39,15 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **MEVILAND** *(nuevo)*: el reino de fantasía de Mevi, en 3D y en primera persona; la gran plaza de la muralla al atardecer, cuatro mundos (Fantasía, Absurdo, Golosinas y Feria) con tres salas cada uno, doce pruebas, puertas trampa y cuatro finales, uno secreto.
 - **RUNAS** *(nuevo)*: dibuja runas en el aire con la mano delante de la cámara (o con el móvil o el ratón) para deshacer las sombras que van a por el cristal de Mevi; hasta 4 a la vez, jefe final y supermagia con los dos brazos arriba.
 
-## Cambios de la versión actual (v18.60)
+## Cambios de la versión actual (v18.61)
+- **Sala inmersiva y todos los controles (primeros arreglos de la norma):**
+  - con pantallas de salida abiertas, WONDERWALK, KRAZYGOLF, EK CHUAH, DIANA, RUNAS y MEVILAND ya se ven en las paredes (antes salían en negro);
+  - el teclado y el mando de la tele funcionan aunque la ventana activa sea una pantalla de salida, y en la pared frontal también el ratón o el dedo;
+  - en los juegos con la cámara en movimiento (CITY RUNNER, DUSTY RUN, WONDERWALK, MEVILAND, SHATEKI y EK CHUAH), el juego sale solo en la pared frontal; si otra pared lo tenía puesto, enseña los turnos y el QR, para no marear.
+- **DIANA:** las modalidades y los niveles se eligen con el mando de la tele o las flechas (saltan de tarjeta en tarjeta y OK elige) y con el móvil (la mira señala la tarjeta y el gatillo la elige).
+- **CITY RUNNER y DUSTY RUN:** con el teclado o el mando de la tele, ◀ ▶ cambian de carril y ▲ salta.
+
+### v18.60
 - **Norma de idiomas en WONDERWALK, KRAZYGOLF, EL MISTERIO DE EK CHUAH, DIANA y RUNAS:** los textos, menús y subtítulos salen en el idioma elegido en la consola, sea cual sea (francés, alemán, gallego, japonés…), con traducción automática que se guarda en el aparato; si se cambia el idioma con el juego abierto, el juego lo sigue al momento. Las voces siguen la norma: catalán con la voz catalana; español y las demás lenguas de España, con la española; el resto, con la inglesa.
 - **KRAZYGOLF en inglés y en catalán:** hasta ahora solo hablaba español. Menús, narrador, nombres de los hoyos y de las pelotas, tarjeta y el SIMULATOR entero (palos, campo y avisos), traducidos a mano.
 - **Traducción automática más rápida en todos los juegos:** en los juegos que repintan la pantalla sin parar, los textos pendientes de traducir no salían nunca de la cola. MEVILAND también se beneficia.

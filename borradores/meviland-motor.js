@@ -27,7 +27,7 @@ const t = (k, ...a) => trd(t0(k, ...a));
 const manda = m => { if (EMB) try { parent.postMessage(m, location.origin); } catch (e) {} };
 
 /* ---------- render ---------- */
-const R = new T.WebGLRenderer({ canvas: CV, antialias: !LITE, powerPreference: 'high-performance' });
+const R = new T.WebGLRenderer({ canvas: CV, antialias: !LITE, powerPreference: 'high-performance', preserveDrawingBuffer: /[?&]sala=1/.test(location.search) })   /* v18.60 · NORMA sala: con pantallas de salida, la consola copia esta imagen para las paredes */;
 R.outputEncoding = T.sRGBEncoding; R.toneMapping = T.ACESFilmicToneMapping; R.toneMappingExposure = .92;
 R.shadowMap.enabled = !LITE; R.shadowMap.type = T.PCFSoftShadowMap;
 R.setPixelRatio(Math.min(LITE ? 1 : 1.75, window.devicePixelRatio || 1));
