@@ -376,9 +376,29 @@
     let carro = null; const ruedas = []; suv.traverse(o => { if (!carro && /^body(_\d+)?$/.test(o.name)) carro = o; }); ['front-left', 'front-right', 'back-left', 'back-right'].forEach(n => { let w = null; suv.traverse(o => { if (!w && new RegExp('^wheel-' + n + '(_\\d+)?$').test(o.name)) w = o; }); if (w) ruedas.push(w); }); const y0c = carro ? carro.position.y : .2;
     ruedas.forEach(w => { w.rotation.order = 'YXZ'; }); suv.traverse(o => { if (/^wheel-back(_\d+)?$/.test(o.name)) o.visible = false; });   // como el de 2D: la matrícula en el portón
     let zTr = -1.2; if (carro && carro.geometry) { const p = carro.geometry.attributes.position; let m = 0; for (let i = 0; i < p.count; i++) { const x = p.getX(i), y = p.getY(i), z = p.getZ(i); if (Math.abs(x) < .3 && y > .35 && y < .62) { m = Math.min(m, z); } } if (m < 0) zTr = m; }
+    /* v18.67 · el todoterreno de la casa: el modelo propio, en polígonos planos y repintado en naranja teja, sustituye a la carrocería de serie (que queda de reserva mientras carga) */
+    const DU = { pl: null, fr: null, f: null };
+    if (carro && carro.geometry) { const pon = () => { const L = new T.GLTFLoader(); L.setMeshoptDecoder(window.MeshoptDecoder); L.load('packs/racer/duster.glb?v=' + C.v, gl => { try { if (!C.vivo()) return; const d = gl.scene, w = new T.Group(); d.rotation.y = Math.PI / 2; w.add(d);
+        d.traverse(o => { if (!o.isMesh) return; const mp = o.material.map; let tx = mp; try { const im = mp.image, cv = document.createElement('canvas'); cv.width = im.width; cv.height = im.height; const q = cv.getContext('2d'); q.drawImage(im, 0, 0); const D = q.getImageData(0, 0, cv.width, cv.height), p = D.data;
+            for (let i = 0; i < p.length; i += 4) { const r = p[i], g2 = p[i + 1], b2 = p[i + 2], mx = Math.max(r, g2, b2), mn = Math.min(r, g2, b2), v = mx / 255, sa = mx ? (mx - mn) / mx : 0; let c;
+              if (sa > .32 && r > g2 && g2 > b2 * .9 && r - b2 > 50) { const k = v > .78 ? 1.08 : v > .5 ? .94 : .74; c = [184 * k, 84 * k, 44 * k]; }   /* la chapa: naranja teja, en tres tonos planos */
+              else if (sa > .5 && r > 150 && g2 < 90) c = [215, 38, 30];   /* pilotos */
+              else if (v < .3) c = [26, 27, 30];   /* plásticos, neumáticos y bajos */
+              else if (v < .62) c = sa < .2 ? [52, 62, 72] : [70, 60, 52];   /* cristales */
+              else c = [214, 218, 222];   /* llantas, faros y molduras */
+              p[i] = Math.min(255, c[0]); p[i + 1] = Math.min(255, c[1]); p[i + 2] = Math.min(255, c[2]); }
+            q.putImageData(D, 0, 0); tx = new T.CanvasTexture(cv); tx.flipY = mp.flipY; tx.encoding = mp.encoding; tx.wrapS = mp.wrapS; tx.wrapT = mp.wrapT; } catch (e) {}
+          o.material = new T.MeshStandardMaterial({ map: tx, roughness: .5, metalness: .1, flatShading: true, envMapIntensity: .7 }); o.castShadow = true; });
+        w.updateMatrixWorld(true); let bb = new T.Box3().setFromObject(w); const s0 = bb.getSize(new T.Vector3()); carro.geometry.computeBoundingBox(); const kb = carro.geometry.boundingBox, ks = kb.getSize(new T.Vector3());
+        w.scale.setScalar(ks.z / s0.z * 1.2); w.updateMatrixWorld(true); bb = new T.Box3().setFromObject(w); const ce = bb.getCenter(new T.Vector3()); w.position.set(-ce.x, -y0c / CS - bb.min.y, (kb.min.z + kb.max.z) / 2 - ce.z);
+        /* la matrícula y los pilotos, a la medida de este coche: la placa ocupa lo que una de verdad (algo más de un cuarto del ancho) y va pegada al portón */
+        const an = bb.max.x - bb.min.x, al = bb.max.y - bb.min.y, toca = (yy, xx) => { const rc = new T.Raycaster(new T.Vector3(ce.x + xx, yy, bb.min.z - 1), new T.Vector3(0, 0, 1)), h = rc.intersectObject(w, true)[0]; return h ? h.point.z : bb.min.z; }, yP = bb.min.y + al * .37, yF = bb.min.y + al * .56, zP = toca(yP, 0), zF = toca(yF, an * .36), ox = w.position.x, oy = w.position.y, oz = w.position.z;
+        DU.f = () => { if (DU.pl) { const k = an * .27 / .52; DU.pl.scale.setScalar(k); DU.pl.position.set(ox + ce.x, oy + yP, oz + zP - .008); } if (DU.fr) DU.fr.forEach((h, i) => { h.position.set(ox + ce.x + (i ? 1 : -1) * an * .36, oy + yF, oz + zF - .03); }); }; DU.f();
+        carro.add(w); carro.material = new T.MeshBasicMaterial({ visible: false }); suv.traverse(o => { if (/^wheel-/.test(o.name)) o.visible = false; }); } catch (e) { console.warn('duster', e); } }, undefined, () => {}); };
+      if (window.MeshoptDecoder) pon(); else { const e = document.createElement('script'); e.src = 'lib/meshopt.js'; e.onload = pon; document.head.appendChild(e); } }
     try { const pc = C.plate(), pt = new T.CanvasTexture(pc); pt.encoding = T.sRGBEncoding; pt.anisotropy = 8; const pw = .52, ph = pw * pc.height / pc.width, pl = new T.Mesh(new T.PlaneGeometry(pw, ph), new T.MeshStandardMaterial({ map: pt, roughness: .6, metalness: .2 }));
-      pl.position.set(0, .49, zTr - .012); pl.rotation.y = Math.PI; if (carro) carro.add(pl); } catch (e) {}
-    const freno = [-1, 1].map(sd => { const h = halo(0xff2a1a, .55); h.position.set(sd * .55, .42, zTr - .05); if (carro) carro.add(h); return h; });
+      pl.position.set(0, .49, zTr - .012); pl.rotation.y = Math.PI; if (carro) carro.add(pl); DU.pl = pl; } catch (e) {}
+    const freno = [-1, 1].map(sd => { const h = halo(0xff2a1a, .55); h.position.set(sd * .55, .42, zTr - .05); if (carro) carro.add(h); return h; }); DU.fr = freno; if (DU.f) DU.f();
     const mancha = C.cvTex(128, 128, (q, w, h) => { const gr = q.createRadialGradient(w / 2, h / 2, 0, w / 2, h / 2, w / 2); gr.addColorStop(0, 'rgba(0,0,0,.85)'); gr.addColorStop(.6, 'rgba(0,0,0,.45)'); gr.addColorStop(1, 'rgba(0,0,0,0)'); q.fillStyle = gr; q.fillRect(0, 0, w, h); });
     const sombraM = new T.MeshBasicMaterial({ map: mancha, transparent: true, depthWrite: false, opacity: .8 }), sombraC = sombraM.clone(), sombra = new T.Mesh(new T.PlaneGeometry(1, 1), sombraC); sombra.rotation.x = -Math.PI / 2; sombra.scale.set(2.1, 3.5, 1); sombra.position.y = .02; sc.add(sombra);
     const PD_ = piezasD(C, piezas(Object.assign({}, C, { T3: { env: ENV_D } })), uT), vivos = new Map(), sombraI = new T.PlaneGeometry(1, 1);
@@ -441,7 +461,7 @@
       coche.position.set(rx, sy, 0); coche.rotation.set(rxp, ry, rz); if (carro) carro.position.y = y0c - (g.land || 0) * .07 + vib;
       coche.visible = !(g.inv && Math.floor(gt * 12) % 2 && g.inv < 1.3);
       const wr = .3 * CS; ruedaA += (juega ? v : 0) / wr * dt; ruedas.forEach((w, i) => { w.rotation.x = ruedaA; w.rotation.y = i < 2 ? Math.max(-.35, Math.min(.35, -ld * .12)) : 0; });
-      const fr = (g.inv > 1 || g.slip > 0) ? 1 : .25; freno.forEach(h => { h.material.opacity = fr; h.scale.setScalar(fr > .5 ? .9 : .45); });
+      const fr = (g.inv > 1 || g.slip > 0) ? 1 : .25; freno.forEach(h => { h.material.opacity = fr; h.scale.setScalar((fr > .5 ? .9 : .45) * (DU.f ? .6 : 1)); });
       tinte.setRGB(1, 1, 1).lerp(BARRO, Math.min(1, g.dirt || 0) * .55); if (pintura) pintura.color.copy(tinte);
       sombra.position.x = rx; sombra.scale.set(2.1 * (1 - (g.jy || 0) * .3), 3.5 * (1 - (g.jy || 0) * .3), 1); sombraC.opacity = .8 - (g.jy || 0) * .45;
       // polvo de las ruedas y nubes de polvo en los bordes del camino
