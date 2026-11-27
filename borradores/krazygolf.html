@@ -56,6 +56,7 @@ function paso(dt) { const h = HOYOS[E.h], b = E.bola, B = BOLAS[E.tipo], r = B.r
   const circ = (cx, cy, cr, emp, kk) => { const dx = b.x - cx, dy = b.y - cy, d = Math.hypot(dx, dy) || .001; if (d < r + cr) { const nx = dx / d, ny = dy / d, vn = b.vx * nx + b.vy * ny; b.x = cx + nx * (r + cr); b.y = cy + ny * (r + cr); if (vn < 0) { b.vx -= (1 + re * kk) * vn * nx; b.vy -= (1 + re * kk) * vn * ny; } b.vx += nx * emp; b.vy += ny * emp; bota(); return true; } };
   (h.topes || []).forEach(t => circ(t[0], t[1], t[2], 160, 1.5)); if (h.robot && circ(h.robot.x, h.robot.y, h.robot.r, 260, 1)) E.toco.robot = 1;
   const v = Math.hypot(b.vx, b.vy), dh = Math.hypot(b.x - h.hoyo[0], b.y - h.hoyo[1]);
+  if (NV === 'easy' && dh >= HR + r * .2 && dh < HR * 2.6) { const kk = 1 - (dh - HR) / (HR * 1.6); b.vx += (h.hoyo[0] - b.x) / dh * 520 * kk * dt; b.vy += (h.hoyo[1] - b.y) / dh * 520 * kk * dt; }   /* v18.69 · en FÁCIL, el hoyo tira un poco de la bola que pasa cerca */
   if (dh < HR + r * .2) { const nx2 = (h.hoyo[0] - b.x) / (dh || 1), ny2 = (h.hoyo[1] - b.y) / (dh || 1), cae = 1 - dh / (HR + r * .2);   /* v12.29 · el borde del hoyo: inclina la bola hacia dentro; centrada y lenta, cae; rápida, ronda el borde o pasa por encima */
     b.vx += nx2 * 900 * cae * dt; b.vy += ny2 * 900 * cae * dt;
     const lim2 = 230 + 260 * (1 - dh / HR);

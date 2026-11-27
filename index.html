@@ -3884,7 +3884,7 @@ body.gm-modos #gmUI{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '18.68';
+    const APP_VERSION = '18.69';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -7956,7 +7956,7 @@ body.gm-modos #gmUI{display:none!important}
           if (next) g.fr++; sw = { t: 0, full: full || over, over, turn: next }; g.st = 'sweep'; g.stT = 0;
         }
         g.key = k => { if (g.st !== 'aim' && g.st !== 'meter' && g.st !== 'spin') return false; if (k === 'ArrowLeft' || k === 'ArrowRight') { g.padAim = false; g.pos = clamp(g.pos + (k === 'ArrowLeft' ? -.06 : .06), -LW / 2 + BR, LW / 2 - BR); return true; } if (k === 'ArrowUp' || k === 'ArrowDown') { g.hook = clamp(g.hook + (k === 'ArrowUp' ? .25 : -.25), -1, 1); return true; } return false; };
-        g.fire = () => { if (G.phase !== 'play') return; if (g.st === 'aim') { g.st = 'meter'; g.stT = 0; g.aimX = g.padAim ? aimFromPad() : g.pos * .3; SFX.play('carga'); } else if (g.st === 'meter') { g.pw = g.meter; g.st = 'spin'; g.stT = 0; SFX.play('key'); } else if (g.st === 'spin') throwBall(g.pw, clamp(g.hook + g.spinM, -1, 1)); };
+        g.fire = () => { if (G.phase !== 'play') return; if (g.st === 'aim') { g.st = 'meter'; g.stT = 0; g.aimX = g.padAim ? aimFromPad() : g.pos * .3; SFX.play('carga'); } else if (g.st === 'meter') { if (nvB() === 'easy') { throwBall(g.meter, clamp(g.hook, -1, 1)); return; }   /* v18.69 · en FÁCIL, dos pulsaciones: fuerza y lanzar, sin el paso del efecto */ g.pw = g.meter; g.st = 'spin'; g.stT = 0; SFX.play('key'); } else if (g.st === 'spin') throwBall(g.pw, clamp(g.hook + g.spinM, -1, 1)); };
         g.click = () => {}; g._dbg = { ball: () => ball, pins: () => pins, rep: () => REP };   // pruebas
         const aimFromPad = () => clamp((pad.x / W - .5) * 1.5, -.62, .62);
         let hold = null;
