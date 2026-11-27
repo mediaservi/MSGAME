@@ -297,7 +297,7 @@ const EMB = /[?&]emb=1/.test(location.search), PH = { on: false, x: .5, y: .5, d
 if (window.MSAudio) MSAudio.mudo = () => { try { return EMB && !!parent.APP_MUTED; } catch (e) { return false; } };
 const avisa = m => { if (EMB) { try { parent.postMessage(m, location.origin); } catch (e) {} } };
 function puntos() { const LH = E.modo === 'sim' ? SM.ruta.map(i => CAMPO[i]) : HOYOS; return LH.reduce((s, h, i) => { const g = E.tarjeta[i]; return s + (g === undefined ? 0 : Math.max(0, h.par + 4 - g) * 100 + (g === 1 ? 300 : 0)); }, 0); }
-function finPartida() { E.finT = E.t; musica('final'); setTimeout(() => suena('cartas-abanico', { v: .7 }), 300); avisa({ t: 'pts', v: puntos() }); }
+function finPartida() { E.finT = E.t; if (E.modo !== 'sim') musica('final'); setTimeout(() => suena('cartas-abanico', { v: .7 }), 300); avisa({ t: 'pts', v: puntos() }); }
 addEventListener('message', e => { const m = e.data; if (e.origin !== location.origin || !m || typeof m !== 'object') return;
   if (m.t === 'pad') { PH.x = +m.x || 0; PH.y = +m.y || 0; PH.down = !!m.d; PH.g = +m.g || 0; PH.t = performance.now(); PH.on = true; }
   else if (m.t === 'raton') PH.on = false; else if (m.t === 'pausa') { E.pausa = !!m.v; if (window.MSAudio) MSAudio.pausa(E.pausa); }
@@ -337,5 +337,5 @@ function sube(tel) { if (E.modo === 'sim' && E.fase !== 'titulo' && E.fase !== '
 cv.addEventListener('pointerdown', e => { cv.setPointerCapture(e.pointerId); PH.on = false; baja(e.clientX, e.clientY); }); cv.addEventListener('pointermove', e => { if (!PH.on) mueve(e.clientX, e.clientY); }); cv.addEventListener('pointerup', () => sube()); cv.addEventListener('pointercancel', () => { E.arr = null; SM.hold = null; if (E.fase === 'swing') E.fase = 'apunta'; });
 addEventListener('keydown', e => { if (simTecla(e.key, true)) e.preventDefault(); }); addEventListener('keyup', e => { simTecla(e.key, false); });
 window.__kg = E; window.__kgH = HOYOS; window.__g3 = G3; </script>
-<script src="krazygolf-sim.js?v=18.60"></script>
+<script src="krazygolf-sim.js?v=18.62"></script>
 <script>'use strict'; window.__sm = SM; { const mm = (location.search.match(/[?&]modo=(\w+)/) || [])[1]; if (mm === 'krazy' || mm === 'clasico') { E.modo = mm; E.h = 0; E.tarjeta = []; empiezaHoyo(); } else if (mm === 'sim3' || mm === 'sim9') { E.modo = 'sim'; simEmpieza(+mm.slice(3)); } } requestAnimationFrame(tick);</script></body></html>
