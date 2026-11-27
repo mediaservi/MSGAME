@@ -309,7 +309,9 @@ function paseantes(g) {
     ['hechicera', 1.8, [[7.4, -8.2], [11.2, -7.6], [11.6, -1.8], [7.6, .4], [5.2, -4.4]]], ['aldeana', 1.7, [[2.2, -8.4], [-2.4, -8.6], [-2.6, -12.8], [2.4, -12.6]]]];
   RUTAS.forEach(([k, alto, ruta], n) => conExtra([k], () => { if (MU.g !== esc) return; const p = persona(g, k, alto, ruta[0][0], ruta[0][1], 0, 'anda'); if (!p) return; const yo = cuerpo(() => p.position, .38); let i = 0, pausa = 0, atasco = 0; const v = .95 + n * .06, d = new T.Vector3(), sig = () => ruta[(i + 1) % ruta.length];
     p.rotation.y = Math.atan2(sig()[0] - p.position.x, sig()[1] - p.position.z);
-    anim(dt => { const o = sig(); d.set(o[0] - p.position.x, 0, o[1] - p.position.z); const L = d.length(), ry = Math.atan2(d.x, d.z); let dr = ry - p.rotation.y; while (dr > Math.PI) dr -= 6.283; while (dr < -Math.PI) dr += 6.283;
+    anim(dt => { if (MU.portal && Math.abs(p.position.x) < 3.6 && p.position.z < -5 && p.position.z > -13.5) { const sx = p.position.x >= 0 ? 1 : -1; if (pausa > 0) { pausa = 0; gesto(p, 'anda'); } p.rotation.y = sx * Math.PI / 2; p.position.x += sx * v * 1.3 * dt; return; }   /* v18.62 · al abrirse el portón, quien pasa por delante se aparta a un lado */
+      if (MU.portal && pausa <= 0) { const o2 = sig(); if (Math.abs(o2[0]) < 3.6 && o2[1] < -5 && o2[1] > -13.5) { i = (i + 1) % ruta.length; pausa = 2; gesto(p, 'quieto'); return; } }
+      const o = sig(); d.set(o[0] - p.position.x, 0, o[1] - p.position.z); const L = d.length(), ry = Math.atan2(d.x, d.z); let dr = ry - p.rotation.y; while (dr > Math.PI) dr -= 6.283; while (dr < -Math.PI) dr += 6.283;
       if (pausa > 0) { pausa -= dt; if (pausa <= 0) gesto(p, 'anda'); return; }
       p.rotation.y += dr * Math.min(1, dt * 4); if (Math.abs(dr) > .9) return;   /* primero se gira; no anda de lado ni marcha atrás */
       if (L < .2) { i = (i + 1) % ruta.length; if (Math.random() < .35) { pausa = rnd(2.5, 5); gesto(p, 'quieto'); } return; }

@@ -174,7 +174,8 @@ function lz(w, h, f, rep) { const tx = lienzo(w, h, f, rep); tx.userData.tmp = t
 function tira(g) { g.traverse(o => { if (o.geometry && !o.geometry.userData.mod) o.geometry.dispose(); const ms = o.material ? (Array.isArray(o.material) ? o.material : [o.material]) : []; ms.forEach(m => { ['map', 'emissiveMap', 'alphaMap'].forEach(k => { if (m[k] && m[k].userData && m[k].userData.tmp) m[k].dispose(); }); m.dispose(); }); }); }
 function nuevaEscena(f) {
   if (MU.g) { ESC.remove(MU.g); tira(MU.g); }
-  MU.g = new T.Group(); ESC.add(MU.g); MU.vivos = []; MU.obs = []; MU.cuerpos = []; MEVI.visible = true; MEVI.modo = 'sigue'; MEVI.ax = undefined; MEVI.salto = true; MEVI.suelo = 0; MEVI.dx = 2.7; MEVI.dz = 4.6; MEVI.alto = 1.15; MU.upd = null; MU.anim = []; MU.mx = []; MU.luz = []; MU.luzN = 0; MU.luzT0 = undefined; MU.yaLuz = false; MU.sel = null; MU.libre = false; MU.viaje = null; MU.mira = .16; ESC.fog = null;
+  if (MU.limpia) MU.limpia.forEach(f => { try { f(); } catch (e) {} }); MU.limpia = [];   /* v18.63 · lo que una sala deja sonando se apaga al salir */
+  MU.g = new T.Group(); ESC.add(MU.g); MU.vivos = []; MU.obs = []; MU.cuerpos = []; MU.portal = false; MEVI.visible = true; MEVI.modo = 'sigue'; MEVI.ax = undefined; MEVI.salto = true; MEVI.suelo = 0; MEVI.dx = 2.7; MEVI.dz = 4.6; MEVI.alto = 1.15; MU.upd = null; MU.anim = []; MU.mx = []; MU.luz = []; MU.luzN = 0; MU.luzT0 = undefined; MU.yaLuz = false; MU.sel = null; MU.libre = false; MU.viaje = null; MU.mira = .16; ESC.fog = null;
   f(MU.g); MU.cp.copy(MU.cam.p); MU.cm.copy(MU.cam.m);
 }
 /* v18.51 · nadie atraviesa nada: obstáculos fijos de cada escena (fuente, farolas, árboles, guardias…) y cuerpos que se mueven
@@ -809,7 +810,8 @@ function ceremonia(i, fin) {
   MU.cam.m.set(0, 4.6, -16);
 }
 function abrePortal() {
-  const P = MU.plaza; viaje(new T.Vector3(0, 3.2, -5.8), new T.Vector3(0, 4.2, P.pz), 2.8, () => {}, new T.Vector3(MU.cp.x >= 0 ? 10 : -10, 3.6, -3));   /* v18.59 · rodea la fuente por un lado (antes la cruzaba por dentro) */
+  const P = MU.plaza; MU.portal = true;   /* v18.62 · los paseantes dejan libre el paso del portón (antes la cabeza de alguno asomaba al pie de la vista final) */
+  viaje(new T.Vector3(0, 3.2, -5.8), new T.Vector3(0, 4.2, P.pz), 2.8, () => {}, new T.Vector3(MU.cp.x >= 0 ? 10 : -10, 3.6, -3));   /* v18.59 · rodea la fuente por un lado (antes la cruzaba por dentro) */
   if (window.cargaExtra) cargaExtra(['rey', 'reina']); if (P.patio) P.patio.userData.enciende();
   P.puerta.userData.abre = .16; fx('victoria'); confeti(new T.Vector3(0, 6, P.pz + 5), LITE ? 40 : 110); di(t('portalAbre')); meviGesto('senala');
   const hz = brillo('#fff0c0', 9, 0); hz.position.set(0, 3.4, P.pz + 2.4); MU.g.add(hz); let k = 0; anim((dt, tt) => { k = Math.min(1, k + dt / 2.5); hz.material.opacity = k * (.16 + Math.sin(tt * 3) * .04); if (Math.random() < dt * 20 * k) chispas(new T.Vector3(rnd(-.4, .4), rnd(.3, 6.5), P.pz + 2.2), 1, ['#fff0c0', '#ffd23f', '#ffffff'], { vel: 1.2, g: -.4, vida: 1.1, tam: .22 }); });
@@ -1108,6 +1110,31 @@ SALAS.rio = { dur: [50, 45, 42], crea(ctx) {
 } };
 
 /* ---------- FERIA · La Montaña Rusa Estelar ---------- */
+/* v18.63 · sonido de montaña rusa de verdad, hecho en el momento: rodadura que crece con la velocidad, el ta-tac de las ruedas en las juntas de la vía, el trinquete de la cadena en las subidas, el siseo del raíl y el viento en las bajadas */
+function sonidoRusa() {
+  const ac = au(), S = { pon() {} }; if (!ac || !AU.fx) return S;
+  const sr = ac.sampleRate, buf = (seg, f) => { const b = ac.createBuffer(1, Math.floor(sr * seg), sr), d = b.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = f(); return b; };
+  let ul = 0; const marron = buf(3, () => (ul = (ul + .02 * (Math.random() * 2 - 1)) / 1.02) * 3.5), blanco = buf(2, () => Math.random() * 2 - 1);
+  const bucle = b => { const x = ac.createBufferSource(); x.buffer = b; x.loop = true; return x; }, filtro = (tipo, f, q) => { const x = ac.createBiquadFilter(); x.type = tipo; x.frequency.value = f; if (q) x.Q.value = q; return x; }, gan = () => { const x = ac.createGain(); x.gain.value = 0; return x; };
+  const out = gan(); out.connect(AU.fx);
+  const r = bucle(marron), rf = filtro('lowpass', 180), rg = gan(); r.connect(rf); rf.connect(rg); rg.connect(out);
+  const h = bucle(blanco), hf = filtro('bandpass', 3200, 4), hg = gan(); h.connect(hf); hf.connect(hg); hg.connect(out);
+  const w = bucle(blanco), wf = filtro('bandpass', 900, .6), wg = gan(); w.connect(wf); wf.connect(wg); wg.connect(out);
+  [r, h, w].forEach(x => x.start());
+  const golpe = (t, fq, vol, dur, cadena) => { const x = ac.createBufferSource(); x.buffer = blanco; const f = filtro('bandpass', fq, cadena ? 9 : 2.5), g = ac.createGain(); g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(.0001, t + dur); x.connect(f); f.connect(g); g.connect(out); x.start(t, Math.random()); x.stop(t + dur + .02);
+    const o = ac.createOscillator(), og = ac.createGain(); o.type = 'sine'; o.frequency.setValueAtTime(cadena ? 1400 : 95, t); og.gain.setValueAtTime(vol * (cadena ? .25 : .9), t); og.gain.exponentialRampToValueAtTime(.0001, t + dur * 1.4); o.connect(og); og.connect(out); o.start(t); o.stop(t + dur * 1.5); };
+  let dist = 0, cad = 0, vivo = performance.now();
+  S.pon = (v, sube, dd) => { vivo = performance.now(); const t = ac.currentTime, k = Math.min(1, v / 14);
+    out.gain.setTargetAtTime(AU.on ? 1 : 0, t, .2);
+    rg.gain.setTargetAtTime(.35 + k * 1.1, t, .15); rf.frequency.setTargetAtTime(140 + k * 520, t, .2);
+    hg.gain.setTargetAtTime(k * k * .22, t, .2); hf.frequency.setTargetAtTime(2600 + k * 1600, t, .3);
+    wg.gain.setTargetAtTime(Math.max(0, k - .35) * .9, t, .25); wf.frequency.setTargetAtTime(600 + k * 900, t, .3);
+    dist += dd; if (dist > 1.6) { dist %= 1.6; golpe(t, 900 + Math.random() * 300, .22 + k * .25, .05); golpe(t + .045 + .3 / Math.max(2, v), 900, .16 + k * .2, .04); }
+    if (sube > .12 && v < 9) { cad += dd; if (cad > .35) { cad = 0; golpe(t, 2400, .3, .03, true); } } else cad = 0; };
+  const vig = setInterval(() => { if (performance.now() - vivo > 300) try { out.gain.setTargetAtTime(0, ac.currentTime, .1); } catch (e) {} }, 200);
+  MU.limpia.push(() => { clearInterval(vig); try { out.gain.setTargetAtTime(0, ac.currentTime, .05); } catch (e) {} setTimeout(() => { [r, h, w].forEach(x => { try { x.stop(); } catch (e) {} }); try { out.disconnect(); } catch (e) {} }, 400); });
+  return S;
+}
 SALAS.montana = { dur: [48, 44, 40], crea(ctx) {
   const g = ctx.g; ctx.meta = [14, 18, 22][ctx.modo]; MU.libre = true; MU.mira = 0; MEVI.modo = 'camara';   /* Mevi va sentada en la vagoneta */
   const pts = [[0, 1.6, 10], [11, 3, 7], [17, 8, -4], [12, 13, -16], [0, 9, -22], [-10, 4, -24], [-18, 9, -12], [-16, 5, 0], [-8, 2.2, 8]].map(p => new T.Vector3(...p));
@@ -1127,15 +1154,15 @@ SALAS.montana = { dur: [48, 44, 40], crea(ctx) {
   anim((dt, tt) => { morro.position.copy(CAM.position); morro.quaternion.copy(CAM.quaternion); luzM.forEach((mm, i) => { mm.emissiveIntensity = (i + Math.floor(tt * 5)) % 3 ? .7 : 2.6; }); });
   const E = []; const nE = 34; for (let i = 0; i < nE; i++) { const u = (i + .5) / nE, s = rnd(-2.2, 2.2), p = lado(u, s); p.y += rnd(1.6, 3); const m = new T.Mesh(new T.PlaneGeometry(.9, .9), new T.MeshBasicMaterial({ map: TEX.estrella, color: '#ffd23f', transparent: true, depthWrite: false })); m.position.copy(p); g.add(m); const hl = brillo('#ffd23f', 1.4, .5); m.add(hl); m.userData.est = true; ctx.diana(m, 'est'); E.push({ m, u, vis: true }); }
   let u = 0, vu = 0, vueltas = 0;
-  const camP = new T.Vector3(), camM = new T.Vector3();
+  const camP = new T.Vector3(), camM = new T.Vector3(), LV = cv.getLength(), dF = 2.7 / LV, SR = sonidoRusa();   /* v18.63 · vamos en el asiento de atrás: delante, en la vía, el primer coche del tren */
   const coloca = dt => { const tg = cv.getTangentAt(u), p = cv.getPointAt(u); const obj = .045 * ctx.vel * (1 + clamp(-tg.y, -.5, .8) * .9); vu = lerp(vu, obj, .05); const u0 = u; u = (u + vu * dt) % 1; if (u < u0) { vueltas++; E.forEach(e => { e.vis = true; e.m.visible = true; if (!ctx.objs.includes(e.m)) ctx.objs.push(e.m); }); }
-    va.position.copy(p); va.lookAt(p.clone().add(tg)); camP.copy(p).add(new T.Vector3(0, 1.55, 0)).addScaledVector(tg, -.4); camM.copy(cv.getPointAt((u + .03) % 1)).add(new T.Vector3(0, 1.2, 0));
+    const uf = (u + dF) % 1, pf = cv.getPointAt(uf); va.position.copy(pf); va.lookAt(pf.clone().add(cv.getTangentAt(uf))); camP.copy(p).add(new T.Vector3(0, 1.8, 0)).addScaledVector(tg, -.3); camM.copy(cv.getPointAt((u + .045) % 1)).add(new T.Vector3(0, .85, 0)); SR.pon(vu * LV, tg.y, vu * LV * dt);
     RIG.position.set(0, 0, 0); CAM.position.copy(camP); const ox = (PTR.x - .5) * 3, oy = (.5 - PTR.y) * 2; const rt = new T.Vector3().crossVectors(tg, up).normalize(); CAM.lookAt(camM.clone().addScaledVector(rt, ox).add(new T.Vector3(0, oy, 0))); MU.cp.copy(camP); MU.cm.copy(camM); };
   coloca(0);
   anim((dt, tt) => E.forEach((e, i) => { e.m.lookAt(CAM.position); e.m.rotateZ(tt * 2 + i); }));
   return {
     previa(dt) { if (J.sala && J.sala.fase !== 'juego') coloca(dt * .2); }, empieza() { fx('sorpresa'); },
-    paso(dt) { coloca(dt); if (Math.random() < dt * 2) sint(nota(40 + ri(5)), .1, 'sawtooth', .02); },
+    paso(dt) { coloca(dt); },
     toca(h) { const m = h && deQuien(h.object, 'est'); if (!m) return; const e = E.find(e => e.m === m); e.vis = false; m.visible = false; ctx.quita(m); fx('moneda'); ctx.bien(m.position.clone(), 40); },
     bot() { const e = E.filter(e => e.vis).map(e => ({ e, d: e.m.position.distanceTo(CAM.position) })).filter(o => { const v = o.e.m.position.clone().project(CAM); return v.z < 1 && Math.abs(v.x) < .8 && Math.abs(v.y) < .8; }).sort((a, b) => a.d - b.d)[0]; return e ? e.e.m : null; }, botT: .25
   };
@@ -1231,7 +1258,7 @@ function textosUI() {
   document.documentElement.lang = UL; cargaVoz(LG); pideTextos(); $('tLema').textContent = t('lema'); $('tPausa').textContent = t('pausa'); $('bSigue').textContent = '▶  ' + t('sigue'); $('bSalir').textContent = '🏠 ' + t('salir'); $('tSeguro').textContent = t('seguro'); $('tGira').textContent = t('gira'); $('bOtra').textContent = t('otra'); $('bMenu').textContent = t('terminar'); $('bVoz').title = t('voz');
   const niv = $('niv'); niv.innerHTML = ''; [0, 1, 2].forEach(m => { const d = document.createElement('div'); d.className = 'modo m' + m + (m === J.modo ? ' sel' : ''); d.tabIndex = 0; d.dataset.m = m; d.innerHTML = `<b>${t('m' + m)}</b><em>${t('m' + m + 'e')}</em><span>${t('m' + m + 'd')}</span><div class="ll">${'<i></i>'.repeat(m + 2)}</div>`; d.querySelectorAll('.ll i').forEach(i => { i.style.backgroundImage = `url(${TEX.llave})`; }); d.onclick = () => empieza(m); d.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); empieza(m); } }; niv.appendChild(d); });
   document.querySelectorAll('#lenguas button').forEach(b => b.classList.toggle('sel', b.dataset.lang === LG));
-  $('pie').textContent = 'MEVILAND · MSGAME v18.62 2026 ' + trd(({ es: 'es un proyecto hecho con', en: 'is a project made with', ca: 'és un projecte fet amb' })[LG]) + ' 𑣲 by mediaservi.com';
+  $('pie').textContent = 'MEVILAND · MSGAME v18.63 2026 ' + trd(({ es: 'es un proyecto hecho con', en: 'is a project made with', ca: 'és un projecte fet amb' })[LG]) + ' 𑣲 by mediaservi.com';
   $('bVoz').textContent = VOZ.on ? '🔊' : '🔇'; $('bIdioma').textContent = '🌐 ' + UL.toUpperCase(); $('bIdioma').title = t('idioma'); $('tIdioma').textContent = '🌐 ' + t('idioma'); $('bIdiVuelve').textContent = t('volver');
 }
 function menu() {

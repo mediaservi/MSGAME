@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.62**
+**Versión actual: v18.63**
 
 ## Cómo se juega
 
@@ -39,7 +39,13 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **MEVILAND** *(nuevo)*: el reino de fantasía de Mevi, en 3D y en primera persona; la gran plaza de la muralla al atardecer, cuatro mundos (Fantasía, Absurdo, Golosinas y Feria) con tres salas cada uno, doce pruebas, puertas trampa y cuatro finales, uno secreto.
 - **RUNAS** *(nuevo)*: dibuja runas en el aire con la mano delante de la cámara (o con el móvil o el ratón) para deshacer las sombras que van a por el cristal de Mevi; hasta 4 a la vez, jefe final y supermagia con los dos brazos arriba.
 
-## Cambios de la versión actual (v18.62)
+## Cambios de la versión actual (v18.63)
+- **PUNTERÍA ALPINE y WESTERN · el oso de los montes:** un oso pardo en 3D, feroz, que avanza gruñendo con la cabeza baja. Aguanta dos disparos (se frena y destella) y cae al tercero, desplomándose de lado. Por el oso, ALPINE y WESTERN pasan a **+12**.
+- **MEVILAND · Montaña Rusa Estelar:** ahora vamos en el asiento de atrás y se ve el primer coche del tren delante, sobre la vía. Sonido de verdad: rodadura que crece con la velocidad, el ta-tac de las ruedas en las juntas, el trinquete de la cadena en las subidas, el siseo del raíl y el viento en las bajadas.
+- **MEVILAND · portón del castillo:** al abrirse, los paseantes se apartan a un lado; ya no asoma ninguna cabeza al pie de la vista.
+- **KRAZYGOLF · SIMULATOR:** la tarjeta numera bien los hoyos (salía «NaN»); `?modo=sim` abre la elección de recorrido; en la sala inmersiva, el SIMULATOR va solo en la pared frontal, porque su cámara sigue a la bola.
+
+### v18.62
 - **KRAZYGOLF · SIMULATOR sin música:** en el campo solo suena el ambiente de pájaros (la música del modo se cambiará). KRAZY y CLÁSICO siguen con su música.
 
 ### v18.61
