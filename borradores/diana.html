@@ -51,6 +51,7 @@
   </div>
   <div id="pie">DIANA · MSGAME · mediaservi.com</div>
 </div>
+<script src="../lib/idioma.js?v=18.60"></script>
 <script>
 'use strict';
 var H3 = { st: 0 };   // el herrero del barreño (se carga al dibujar)
@@ -65,8 +66,9 @@ const TX = {
   ca: { elige: 'Tria com vols encertar el centre', facil: 'Fàcil', normal: 'Normal', dificil: 'Difícil', otra: 'Una altra', modos: 'Tria mode', puntos: 'punts', fin: 'Fi de la ronda!',
     hachas: 'DESTRALS I ARC', hachasD: 'Tria destral o arc. Compte amb el vent', dardos: 'DARDS', dardosD: 'Partida de 301: deixa-ho a 0 just', barreno: 'A LA GALLEDA', barrenoD: 'Encerta la diana i a l\'aigua!', tartazos: 'PASTISSADES', tartazosD: 'Pastissos, ous i farina a la cara que surt', bomberos: 'BOMBERS', bomberosD: 'Mantén premut i apaga els focs',
     diana: 'DIANA!', ay: 'AI!', eh: 'EH, TU!', rpts: 'R · PTS', cuervoD: 'AL CORB NO! −1 BOLA', ardillaD: 'L\'ESQUIROL! −1 BOLA', agua: 'A L\'AIGUA!', viento: 'Vent', lanzas: 'Llançaments', tiempo: 'Temps', fuegos: 'Focs', apaga: 'APAGAT!', ayuda: 'Apunta i toca per llançar', ayudaB: 'Mantén premut per tirar aigua', quema: 'L\'edifici crema!', ronda: 'Ronda', quedan: 'Queden', pasado: 'T\'HAS PASSAT!', atajado: 'ATURAT!', hacha: 'DESTRAL', arco: 'ARC', eligeArma: 'Tria la teva arma al banc', sinMun: 'Sense munició!', ay_hachas: 'Tria destral o arc i clava-ho al centre. Compte amb el vent!', ay_dardos: 'Resta de 301 a 0 just: si et passes, la ronda no compta', ay_barreno: 'Encerta la diana per tirar-lo a l\'aigua. No li donis a en Bonifaci!', ay_tartazos: 'Llança pastissos, ous i farina a les cares que treuen el cap', ay_bomberos: 'Mantén premut per tirar aigua i apaga els focs', ave: 'S\'HO ENDÚ!', choff: 'XOF!' } };
-const LG = (() => { const q = (location.search.match(/[?&]lang=(\w+)/) || [])[1]; let l = q || ''; if (!l) try { l = (parent.document.documentElement.lang || '') } catch (e) {} if (!l) l = navigator.language || 'es'; l = l.slice(0, 2).toLowerCase(); return TX[l] ? l : (/^(es|gl|eu)/.test(l) ? 'es' : 'en'); })();
-const T = k => TX[LG][k] || TX.es[k] || k; document.documentElement.lang = LG;
+/* v18.60 · NORMA de idiomas: textos en el idioma de la consola (cualquiera); los de origen, en español, inglés o catalán (MSIDIOMA) */
+const JI = MSIDIOMA.juego({ repinta: () => { if (E.fase === 'ini') menu(); }, cambia: () => { LG = JI.LG; if (E.fase === 'ini') menu(); } }); let LG = JI.LG; JI.pide(Object.values(TX[LG] || {}));
+const T = k => JI.U(TX[LG][k] || TX.es[k] || k); document.documentElement.lang = JI.UL;
 const EMB = /[?&]emb=1/.test(location.search), VQ = (location.search.match(/[?&]v=([\w.]+)/) || [])[1] || '1';
 const manda = m => { if (EMB) try { parent.postMessage(m, location.origin); } catch (e) {} };
 const $ = id => document.getElementById(id), st = $('st'), cv = $('cv'), x = cv.getContext('2d');

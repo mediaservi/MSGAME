@@ -99,6 +99,7 @@
     <div class="fila"><button type="button" id="otra" data-t="otra">JUGAR DE NUEVO (PROBAR OTRA RUTA)</button><button type="button" class="peq" id="terminar" data-t="terminar">Terminar</button></div>
   </div>
 </div>
+<script src="../lib/idioma.js?v=18.60"></script>
 <script>
 'use strict';
 /* ---------- textos (español, inglés y catalán) ---------- */
@@ -132,13 +133,12 @@ const SUBS = {
   finSol: [{ a: 2.2, b: 8.8, q: 'Ek Chuah', es: '¡La bendición de Ek Chuah os acompaña, nobles viajeros! El tesoro del conocimiento maya vuelve a brillar.', en: 'The blessing of Ek Chuah goes with you, noble travelers! The treasure of Mayan knowledge shines once again.', ca: "La benedicció d'Ek Chuah us acompanya, nobles viatgers! El tresor del coneixement maia torna a brillar." }],
   finJade: [{ a: 2.2, b: 8.8, q: { es: 'Sabiduría Maya', en: 'Mayan Wisdom', ca: 'Saviesa Maia' }, es: '¡Habéis despertado la sabiduría celeste de los antiguos mayas! La armonía de Ek Chuah guiará siempre vuestro camino.', en: 'You have awakened the celestial wisdom of the ancient Mayans! The harmony of Ek Chuah will always guide your path.', ca: "Heu despertat la saviesa celeste dels antics maies! L'harmonia d'Ek Chuah guiarà sempre el vostre camí." }] };
 const EMB = /[?&]emb=1/.test(location.search), VQ = (location.search.match(/[?&]v=([\w.]+)/) || [])[1] || '1';
-let LG = (location.search.match(/[?&]lang=(es|en|ca)/) || [])[1];
-try { if (!LG && EMB) LG = parent.document.documentElement.lang; } catch (e) {}
-try { LG = LG || localStorage.getItem('VJSHOW_LANG'); } catch (e) {}
-LG = String(LG || navigator.language || 'es').toLowerCase().split('-')[0]; if (!TX[LG]) LG = ['eu', 'gl', 'pt', 'ast', 'an', 'qu', 'gn', 'ay'].indexOf(LG) >= 0 ? 'es' : 'en';
-const T = k => (TX[LG] || TX.es)[k] || TX.es[k] || k;
+/* v18.60 · NORMA de idiomas: textos y subtítulos en el idioma de la consola (cualquiera); los de origen, en español, inglés o catalán (MSIDIOMA) */
+const JI = MSIDIOMA.juego({ repinta: () => repintaIdioma(), cambia: () => { LG = JI.LG; repintaIdioma(); } }); let LG = JI.LG;
+const T = k => JI.U((TX[LG] || TX.es)[k] || TX.es[k] || k);
+function repintaIdioma() { subLg = ''; rotK = ''; document.documentElement.lang = JI.UL; document.querySelectorAll('[data-t]').forEach(e => { e.textContent = T(e.dataset.t); }); document.querySelectorAll('[data-lang]').forEach(b => b.classList.toggle('sel', b.dataset.lang === JI.UL)); }
 const $ = id => document.getElementById(id), st = $('st'), cv = $('fx'), x = cv.getContext('2d');
-function idioma(l) { LG = l; document.documentElement.lang = l; document.querySelectorAll('[data-t]').forEach(e => { e.textContent = T(e.dataset.t); }); document.querySelectorAll('[data-lang]').forEach(b => b.classList.toggle('sel', b.dataset.lang === l)); }
+function idioma(l) { JI.pon(l); LG = JI.LG; document.documentElement.lang = l; document.querySelectorAll('[data-t]').forEach(e => { e.textContent = T(e.dataset.t); }); document.querySelectorAll('[data-lang]').forEach(b => b.classList.toggle('sel', b.dataset.lang === l)); }
 document.querySelectorAll('[data-lang]').forEach(b => b.addEventListener('click', e => { e.stopPropagation(); idioma(b.dataset.lang); }));
 
 /* ---------- sonido sintetizado (Web Audio) ---------- */
@@ -171,7 +171,7 @@ const POOL = {}; let actual = null, subK = '', subAct = null, subLg = '', rotK =
 function subs() { let c = null; const v = actual;
   if (v && subK && (E.esc === 'video' || E.esc === 'prueba') && v.classList.contains('on') && !v.ended) { const t = v.currentTime; c = (SUBS[subK] || []).find(q => t >= q.a && t <= q.b) || null; }
   if (c && E.esc === 'prueba' && E.armado && PRUEBA[E.prueba].zonas.some(z => z.r[3] > 80 && z.r[0] < 70 && z.r[2] > 30)) c = null;
-  if (c !== subAct || subLg !== LG) { subAct = c; subLg = LG; const el = $('subs'); if (!c) el.classList.remove('on'); else { $('subsQ').textContent = typeof c.q === 'string' ? c.q : (c.q[LG] || c.q.es); $('subsT').textContent = c[LG] || c.es; el.classList.add('on'); } }
+  if (c !== subAct || subLg !== LG) { subAct = c; subLg = LG; const el = $('subs'); if (!c) el.classList.remove('on'); else { $('subsQ').textContent = typeof c.q === 'string' ? c.q : JI.U(c.q[LG] || c.q.es); $('subsT').textContent = JI.U(c[LG] || c.es); el.classList.add('on'); } }
   /* rótulos de los blancos que llevan nombre (los dos arcos), mientras se puede disparar */
   const rk = E.esc === 'prueba' && E.armado ? E.prueba + LG : ''; if (rk !== rotK) { rotK = rk; document.querySelectorAll('.rot').forEach(n => n.remove()); if (rk) PRUEBA[E.prueba].zonas.forEach(z => { if (!z.rot) return; const d = document.createElement('div'); d.className = 'rot'; d.style.left = (z.r[0] + z.r[2]) / 2 + '%'; d.style.top = (z.r[3] - 2) + '%'; d.textContent = T(z.rot); st.appendChild(d); }); } }
 function vid(k) { if (POOL[k]) return POOL[k]; const v = document.createElement('video'); v.playsInline = true; v.setAttribute('playsinline', ''); v.preload = 'metadata'; v.src = '../juegos/ekchuah/' + VID[k] + '.mp4?v=' + VQ;
@@ -271,7 +271,7 @@ function tick(now) { const dt = Math.min(.05, (now - t0) / 1000); t0 = now; if (
   subs();
   requestAnimationFrame(tick); }
 document.body.appendChild($('subs'));   /* fuera del escenario: de pie se coloca bajo el vídeo */
-idioma(LG); antorchas(); inicio(); mide(); requestAnimationFrame(tick);
+idioma(JI.UL); JI.pide(Object.values(TX[LG] || {}).concat(...Object.values(SUBS).map(v => v.map(q => q[LG])))); antorchas(); inicio(); mide(); requestAnimationFrame(tick);
 if (/[?&]prueba=(\w+)/.test(location.search)) { const k = location.search.match(/[?&]prueba=(\w+)/)[1]; conGuia('chica'); setTimeout(() => { saltar(false); E.ant = 3; antorchas(); $('hud').classList.add('on'); prueba(k); }, 50); }   /* para probar una prueba suelta: ?prueba=jade */
 window.EK = E;
 </script>

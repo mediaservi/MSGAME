@@ -63,6 +63,7 @@
     <div class="fila"><button id="bOtra" data-t="otra"></button><button id="bSal" class="sec" data-t="salir"></button></div>
   </div>
 </div>
+<script src="../lib/idioma.js?v=18.60"></script>
 <script src="../lib/mevi2d.js"></script>
 <script>
 'use strict';
@@ -92,8 +93,10 @@ const TX = {
     m_ini: 'Les ombres volen el cristall! Dibuixa la runa que porten.', m_jefe: 'El Senyor de les Ombres! Dibuixa les seves runes en ordre.', m_super: 'Supermàgia a punt! Aixeca els dos braços.', m_superM: 'Supermàgia a punt! Prem el botó o la barra.',
     m_nuevas: 'Runes noves! El cercle i el llamp.', m_ultima: 'Últim atac!', m_bien: 'Així es fa!', m_ay: 'Compte amb el cristall!',
     r_h: 'Ratlla', r_v: 'Pal', r_V: 'Ve', r_A: 'Teulada', r_O: 'Cercle', r_Z: 'Llamp', superMagia: 'SUPERMÀGIA!', ya: 'JA!', jefe: 'SENYOR DE LES OMBRES', nada: 'Quina runa és?', cristal: 'Cristall' } };
-const LG = (() => { const q = (location.search.match(/[?&]lang=(\w+)/) || [])[1]; let l = q || ''; if (!l) try { l = parent.document.documentElement.lang || ''; } catch (e) {} if (!l) l = navigator.language || 'es'; l = l.slice(0, 2).toLowerCase(); return TX[l] ? l : (/^(es|gl|eu)/.test(l) ? 'es' : 'en'); })();
-const T = (k, o) => { let s = TX[LG][k] || TX.es[k] || k; if (o) for (const p in o) s = s.replace('{' + p + '}', o[p]); return s; }; document.documentElement.lang = LG;
+/* v18.60 · NORMA de idiomas: textos en el idioma de la consola (cualquiera); los de origen, en español, inglés o catalán (MSIDIOMA) */
+const JI = MSIDIOMA.juego({ repinta: () => repintaIdioma(), cambia: () => { LG = JI.LG; repintaIdioma(); } }); let LG = JI.LG; JI.pide(Object.values(TX[LG] || {}).filter(v => !/\{/.test(v)));
+const T = (k, o) => { let s = TX[LG][k] || TX.es[k] || k; if (o) for (const p in o) s = s.replace('{' + p + '}', o[p]); return JI.U(s); }; document.documentElement.lang = JI.UL;
+function repintaIdioma() { document.querySelectorAll('[data-t]').forEach(e => { e.textContent = T(e.dataset.t); }); try { niveles(); botonCam(); leyenda(); } catch (e) {} }
 document.querySelectorAll('[data-t]').forEach(e => { e.textContent = T(e.dataset.t); });
 const EMB = /[?&]emb=1/.test(location.search), manda = m => { if (EMB) try { parent.postMessage(m, location.origin); } catch (e) {} };
 const $ = id => document.getElementById(id), st = $('st'), cv = $('cv'), x = cv.getContext('2d');
