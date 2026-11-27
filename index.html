@@ -3884,7 +3884,7 @@ body.gm-modos #gmUI{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '18.64';
+    const APP_VERSION = '18.65';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -5778,7 +5778,7 @@ body.gm-modos #gmUI{display:none!important}
           g.inks.forEach(k => { k.t += dt * (1 + pad.shake * 4); }); g.inks = g.inks.filter(k => k.t < 7);
           stateTick(g);
         };
-        function addScore(v, X, Y, label, col) { g.combo++; g.maxc = Math.max(g.maxc, g.combo); g.hits++; g.shots++; const mul = Math.min(8, 1 + Math.floor(g.combo / 8)); g.score += v * mul; g.energy = Math.min(100, g.energy + 2); pop((label ? label + ' ' : '') + '+' + v * mul, X, Y, col || '#fff', label ? 20 : 16); send({ t: 'hit', s: Math.min(1, Math.max(pad.sp, g.sp || 0) / 3) }); }
+        function addScore(v, X, Y, label, col) { g.combo++; g.maxc = Math.max(g.maxc, g.combo); g.hits++; g.shots++; const mul = Math.min(8, 1 + Math.floor(g.combo / 8)); g.score += v * mul; g.energy = Math.min(100, g.energy + (opt.diff === 'hard' ? 1 : 2)); pop((label ? label + ' ' : '') + '+' + v * mul, X, Y, col || '#fff', label ? 20 : 16); send({ t: 'hit', s: Math.min(1, Math.max(pad.sp, g.sp || 0) / 3) }); }
         function hitObj(o, ht) {
           const sp = Math.max(pad.sp, g.sp || 0), col = o.col, prec = 1 - Math.abs(ht - .55) * 1.6;
           if (o.k === 'ink') { SFX.play('balloon'); burst(o.sx, o.sy, o.inkCol, 40, H * .6); addScore(150, o.sx, o.sy, TT('¡SALVADO!'), o.inkCol); return; }
@@ -7241,7 +7241,7 @@ body.gm-modos #gmUI{display:none!important}
         return P;
       })();
       function Shooter(opt) {
-        const sc = SCN[opt.scene] || SCN.western, sid = opt.scene in SCN ? opt.scene : 'western', df = { easy: [.55, 2.2, 3, 2.5, 240, 2, 40, 4, 2, .05, 1.5], normal: (sid === 'western' || sid === 'haunted' || sid === 'warfront' ? [1, 1.3, 8, 1.4, 160, 3, 30, 4, 2, .02, 1.5] : [1, 1.2, 10, 1.15, 130, 3, 30, 6, 1.5, .015, 1.5]), hard: [1.3, .85, 14, .8, 90, 4, 25, 9, 1, 0, 2.3] }[opt.diff] || (sid === 'western' || sid === 'haunted' || sid === 'warfront' ? [1, 1.3, 8, 1.4, 160, 3, 30, 4, 2, .02, 1.5] : [1, 1.2, 10, 1.15, 130, 3, 30, 6, 1.5, .015, 1.5]);   /* en MEDIO, las escenas donde te disparan desde las ventanas (blancos estrechos) llevan su propio ajuste */   /* v18.64 · NORMA DE DIFICULTAD: cada nivel fija, además de [velocidad, tiempo a la vista, energía que quita cada daño], [el tiempo mínimo a la vista, los segundos que tarda en doblarse la velocidad, los blancos a la vez al empezar, cada cuántos segundos cabe uno más, el máximo, lo que cura cada acierto y el margen de acierto]. Antes la rampa, el mínimo y el tope eran iguales en los tres niveles y a los dos minutos FÁCIL era como MEDIO */
+        const sc = SCN[opt.scene] || SCN.western, sid = opt.scene in SCN ? opt.scene : 'western', df = { easy: [.55, 2.2, 3, 2.5, 240, 2, 40, 4, 2, .05, 1.5], normal: (sid === 'western' || sid === 'haunted' || sid === 'warfront' ? [1, 1.3, 8, 1.4, 160, 3, 30, 4, 2, .02, 1.5] : [1, 1.2, 10, 1.15, 130, 3, 30, 6, 1.5, .015, 1.5]), hard: [1.3, .85, 14, 1, 90, 4, 25, 7, 1, .01, 1.5] }[opt.diff] || (sid === 'western' || sid === 'haunted' || sid === 'warfront' ? [1, 1.3, 8, 1.4, 160, 3, 30, 4, 2, .02, 1.5] : [1, 1.2, 10, 1.15, 130, 3, 30, 6, 1.5, .015, 1.5]);   /* en MEDIO, las escenas donde te disparan desde las ventanas (blancos estrechos) llevan su propio ajuste */   /* v18.64 · NORMA DE DIFICULTAD: cada nivel fija, además de [velocidad, tiempo a la vista, energía que quita cada daño], [el tiempo mínimo a la vista, los segundos que tarda en doblarse la velocidad, los blancos a la vez al empezar, cada cuántos segundos cabe uno más, el máximo, lo que cura cada acierto y el margen de acierto]. Antes la rampa, el mínimo y el tope eran iguales en los tres niveles y a los dos minutos FÁCIL era como MEDIO */
         const g = { id: 'shoot', name: 'PUNTERÍA', score: 0, combo: 0, maxc: 0, hits: 0, shots: 0, energy: 100, t: 0, dur: opt.dur, T: [], ammo: 6, rel: 0, holes: [], spawnT: 0, flash: 0, wave: 1 };
         const SPIDS = G.match && G.match.sim ? G.match.ids.slice() : [act], SK = ['ammo', 'rel', 'flash', 'combo', 'maxc', 'score', 'hits', 'shots', 'esc'];
         g.ps = SPIDS.map(i => ({ i, ammo: 6, rel: 0, flash: 0, combo: 0, maxc: 0, score: 0, hits: 0, shots: 0, esc: 0 }));
@@ -7354,7 +7354,8 @@ body.gm-modos #gmUI{display:none!important}
           busy.add(o.slot = e.k); SFX.play(e.g ? 'tierra' : 'puerta', 0, 700); o.wk = pts; o.seg = 0; o.x = e.x; o.fy = e.y; o.zv = .17 * sp; o.sh = 1; o.k = 'z'; o.grave = e.g; o.rise = e.g ? 0 : 1; o.fi = !e.g; o.alpha = e.g ? 1 : 0; o.vx = 1e-3; o.D = Math.max(H * .05, M.zs * (o.fy - M.zh)); o.r = o.D / 1.81; o.y = o.fy - bot(o); return true; }
         function spawn() {
           const tot = SP.reduce((a, s) => a + s[5], 0); let q = Math.random() * tot, d = SP[0]; for (const s of SP) { q -= s[5]; if (q <= 0) { d = s; break; } }
-          const sp = df[0] * Math.min(df[10], 1 + g.t / df[4]);   /* la velocidad tiene tope */ let mode = d[4], o = mk(emo(d[0], { '🪿': '🦢' }[d[0]] || '🎯'), d[1], d[2], H * d[3] * 1.45); o.fx = d[6] || '💥'; o.e0 = d[0]; if (d[0] === '🐻') o.hp = 3; if ((sid === 'western' || sid === 'alpine') && d[0] === '🦅') SFX.play('graz');   /* v18.13 · el cuervo grazna al entrar */
+          const sp = df[0] * Math.min(df[10], 1 + g.t / df[4]);   /* la velocidad tiene tope */
+          if (d[4] === 'pop' && d[1] === 'e' && g.T.filter(q => q.pop && !q.dead && q.k === 'e').length >= (opt.diff === 'normal' ? 2 : 1)) return;   /* v18.65 · NORMA: los que asoman para disparar, de uno en uno (dos en MEDIO): que cada daño se pueda evitar */ let mode = d[4], o = mk(emo(d[0], { '🪿': '🦢' }[d[0]] || '🎯'), d[1], d[2], H * d[3] * 1.45); o.fx = d[6] || '💥'; o.e0 = d[0]; if (d[0] === '🐻') o.hp = 3; if ((sid === 'western' || sid === 'alpine') && d[0] === '🦅') SFX.play('graz');   /* v18.13 · el cuervo grazna al entrar */
           const free = L.win.map((w, i) => i).filter(i => !busy.has('w' + i)), sides = L.side.map((s, i) => i).filter(i => !busy.has('s' + i)), doors = (L.door || []).map((w, i) => i).filter(i => !busy.has('d' + i));
           /* v13.0 · cada figura sigue su lógica: lo que va por el suelo o se posa no sale volando; si en esta escena no tiene sitio, no sale */
           if (mode === 'pop' && !free.length && !sides.length && !doors.length) { if (!L.ground) return; mode = 'run'; }

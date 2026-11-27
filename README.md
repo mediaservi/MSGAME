@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.64**
+**Versión actual: v18.65**
 
 ## Cómo se juega
 
@@ -39,7 +39,10 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **MEVILAND** *(nuevo)*: el reino de fantasía de Mevi, en 3D y en primera persona; la gran plaza de la muralla al atardecer, cuatro mundos (Fantasía, Absurdo, Golosinas y Feria) con tres salas cada uno, doce pruebas, puertas trampa y cuatro finales, uno secreto.
 - **RUNAS** *(nuevo)*: dibuja runas en el aire con la mano delante de la cámara (o con el móvil o el ratón) para deshacer las sombras que van a por el cristal de Mevi; hasta 4 a la vez, jefe final y supermagia con los dos brazos arriba.
 
-## Cambios de la versión actual (v18.64)
+## Cambios de la versión actual (v18.65)
+- **Norma de dificultad · DIFÍCIL justo:** en PUNTERÍA, los que asoman para disparar salen de uno en uno (dos en MEDIO) y en DIFÍCIL se ven al menos 1 s, con la aceleración limitada: ya no hay daños imposibles de evitar. En PALOTERAPIA DIFÍCIL cada acierto devuelve menos energía.
+
+### v18.64
 - **Reglas antes de jugar, en todos los juegos:** antes de la partida sale una tarjeta de REGLAS con los dibujos del propio juego: en verde, a qué se dispara (o se golpea, se pesca, se coge) con sus puntos; en rojo, lo que no se toca y lo que resta; y debajo, dos o tres normas cortas (qué quita energía, el oso aguanta tres disparos, al final llega el jefe…). Después, como siempre, la tarjeta de los mandos. En WONDERWALK, KRAZYGOLF, EK CHUAH, DIANA, RUNAS y MEVILAND, tres frases antes de empezar. Se salta con un toque.
 - **Norma de dificultad (FÁCIL, MEDIO y DIFÍCIL de verdad distintos):**
   - **PUNTERÍA:** cada nivel fija su tiempo mínimo a la vista, lo que tarda en acelerarse, cuántos blancos caben a la vez, lo que cura cada acierto y la ayuda de puntería (antes eran iguales en los tres y a los dos minutos FÁCIL era como MEDIO). En FÁCIL los que disparan se ven entre 2,5 y 4,5 s, hay 2 a 4 blancos a la vez, cada daño quita 3, no se gasta munición, dar a un amigo resta solo 100 y, entre un amigo y un enemigo pegados, cuenta el enemigo.
