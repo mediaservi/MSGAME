@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.65**
+**Versión actual: v18.66**
 
 ## Cómo se juega
 
@@ -39,7 +39,15 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **MEVILAND** *(nuevo)*: el reino de fantasía de Mevi, en 3D y en primera persona; la gran plaza de la muralla al atardecer, cuatro mundos (Fantasía, Absurdo, Golosinas y Feria) con tres salas cada uno, doce pruebas, puertas trampa y cuatro finales, uno secreto.
 - **RUNAS** *(nuevo)*: dibuja runas en el aire con la mano delante de la cámara (o con el móvil o el ratón) para deshacer las sombras que van a por el cristal de Mevi; hasta 4 a la vez, jefe final y supermagia con los dos brazos arriba.
 
-## Cambios de la versión actual (v18.65)
+## Cambios de la versión actual (v18.66)
+- **El vikingo sabio:** personaje 3D nuevo, con su báculo de runas, que guarda el cristal en RUNAS (gesticula cuando Mevi avisa) y acompaña en DIANA · hachas y arco, junto a las tiendas.
+- **Norma de dificultad, segunda tanda:**
+  - **PUNTERÍA ALPINE:** ya se puede perder: el lobo o el oso que cruzan el prado sin caer quitan energía.
+  - **PUNTERÍA:** si dos blancos se solapan, cuenta el que queda más centrado bajo la mira; los animales de cuatro patas cuentan a todo lo ancho; en ZOMBIELAND DIFÍCIL los zombis llegan antes.
+  - **PATOPESCA:** el patito que brilla al lanzar es el que se pesca.
+  - **EL MISTERIO DE EK CHUAH** y el **SIMULATOR de KRAZYGOLF** ya siguen el nivel del jugador (tiempo de cada prueba y fuerza del viento).
+
+### v18.65
 - **Norma de dificultad · DIFÍCIL justo:** en PUNTERÍA, los que asoman para disparar salen de uno en uno (dos en MEDIO) y en DIFÍCIL se ven al menos 1 s, con la aceleración limitada: ya no hay daños imposibles de evitar. En PALOTERAPIA DIFÍCIL cada acierto devuelve menos energía.
 
 ### v18.64

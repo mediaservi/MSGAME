@@ -278,6 +278,10 @@ function pintaFondo(t) { if (!FONDO) fondo(); x.drawImage(FONDO, 0, 0, W, H);
   const cy = LINEA() + H * .07; x.save(); x.translate(W / 2, cy); x.scale(1, .22); x.rotate(t * .15); x.strokeStyle = 'rgba(185,139,255,.55)'; x.lineWidth = W * .002; x.shadowColor = '#b98bff'; x.shadowBlur = 14;
   [.36, .3].forEach(k => { x.beginPath(); x.arc(0, 0, W * k, 0, TAU); x.stroke(); }); for (let i = 0; i < 12; i++) { x.save(); x.rotate(i * TAU / 12); x.translate(W * .33, 0); x.rotate(Math.PI / 2); glifo(x, TODAS[i % 6], 0, 0, W * .03, 'rgba(210,180,255,.6)', W * .002); x.restore(); } x.restore();
   x.save(); x.setLineDash([W * .01, W * .008]); x.strokeStyle = `rgba(255,80,140,${.25 + .15 * Math.sin(t * 3)})`; x.lineWidth = 2; x.beginPath(); x.moveTo(0, LINEA()); x.lineTo(W, LINEA()); x.stroke(); x.restore(); }
+/* v18.66 · el vikingo sabio de las runas guarda el cristal con su báculo: habla con las manos cuando Mevi avisa de algo */
+const VIK = new Image(); VIK.src = '../juegos/hit3d/vikingo-habla.webp?v=18.66'; let vikT = 0;
+function vikingo(t, dt) { if (!VIK.complete || !VIK.naturalWidth || E.fase === 'ini') return; vikT = E.mevi ? vikT + dt : 0; const hh = H * .24, ww = hh * 240 / 300, X = W / 2 + H * .24, Yp = LINEA() + H * .045, fi = E.mevi ? Math.floor(vikT / 3.97 * 12) % 12 : 0;
+  x.save(); x.fillStyle = 'rgba(0,0,0,.35)'; x.beginPath(); x.ellipse(X, Yp, hh * .26, hh * .05, 0, 0, 6.283); x.fill(); x.translate(X, Yp); x.scale(1, 1 + Math.sin(t * 1.6) * .006); x.drawImage(VIK, fi * 240, 0, 240, 300, -ww * .5, -hh * .91, ww, hh); x.restore(); }
 function cristal(t) { const X = W / 2, Y = LINEA() + H * .02, s = H * .07, k = E.vidas / NIV[E.niv].vidas;
   x.save(); x.translate(X, Y + Math.sin(t * 2) * s * .06); x.shadowColor = '#7ef9ff'; x.shadowBlur = s * (.6 + .4 * Math.sin(t * 3)); const g = x.createLinearGradient(0, -s, 0, s); g.addColorStop(0, '#e9feff'); g.addColorStop(.5, `hsl(${190 + (1 - k) * 160},90%,60%)`); g.addColorStop(1, '#3a1a8a');
   x.fillStyle = g; x.beginPath(); x.moveTo(0, -s); x.lineTo(s * .45, -s * .2); x.lineTo(s * .3, s * .7); x.lineTo(0, s); x.lineTo(-s * .3, s * .7); x.lineTo(-s * .45, -s * .2); x.closePath(); x.fill();
@@ -326,7 +330,7 @@ function tick(now) { requestAnimationFrame(tick); const dt = Math.min(.05, (now 
   if (E.fase === 'juego' && !E.pausa) paso(dt);
   const t = now / 1000; x.save(); if (E.sacude > 0) { E.sacude -= dt; x.translate(R(-1, 1) * H * .012 * E.sacude, R(-1, 1) * H * .012 * E.sacude); }
   pintaFondo(t); if (E.fase !== 'ini') siluetas(now);
-  E.enem.forEach(o => sombra(o, t)); cristal(t);
+  vikingo(t, dt); E.enem.forEach(o => sombra(o, t)); cristal(t);
   E.trazos = E.trazos.filter(r => (r.t += dt) < .7); E.trazos.forEach(r => trazo(r.P, r.col, 1 - r.t / .7, H * .008));
   Object.values(VAR).forEach(v => { if (v.down) trazo(v.pts, v.col, 1, H * .008); });
   E.rayos = E.rayos.filter(r => (r.t += dt) < .35); E.rayos.forEach(rayo);

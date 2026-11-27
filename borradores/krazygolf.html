@@ -337,5 +337,5 @@ function sube(tel) { if (E.modo === 'sim' && E.fase !== 'titulo' && E.fase !== '
 cv.addEventListener('pointerdown', e => { cv.setPointerCapture(e.pointerId); PH.on = false; baja(e.clientX, e.clientY); }); cv.addEventListener('pointermove', e => { if (!PH.on) mueve(e.clientX, e.clientY); }); cv.addEventListener('pointerup', () => sube()); cv.addEventListener('pointercancel', () => { E.arr = null; SM.hold = null; if (E.fase === 'swing') E.fase = 'apunta'; });
 addEventListener('keydown', e => { if (simTecla(e.key, true)) e.preventDefault(); }); addEventListener('keyup', e => { simTecla(e.key, false); });
 window.__kg = E; window.__kgH = HOYOS; window.__g3 = G3; </script>
-<script src="krazygolf-sim.js?v=18.63"></script>
+<script src="krazygolf-sim.js?v=18.66"></script>
 <script>'use strict'; window.__sm = SM; { const mm = (location.search.match(/[?&]modo=(\w+)/) || [])[1]; if (mm === 'krazy' || mm === 'clasico') { E.modo = mm; E.h = 0; E.tarjeta = []; empiezaHoyo(); } else if (mm === 'sim3' || mm === 'sim9') { E.modo = 'sim'; simEmpieza(+mm.slice(3)); } else if (mm === 'sim') { E.modo = 'sim'; E.fase = 'simsel'; } }   /* v18.63 · ?modo=sim abre la elección de recorrido del SIMULATOR */ requestAnimationFrame(tick);</script></body></html>
