@@ -142,12 +142,13 @@ function reconoce(P) {
   const cuerda = Math.hypot(P[P.length - 1][0] - P[0][0], P[P.length - 1][1] - P[0][1]);
   /* una raya: alargada y casi recta (lo que mide el trazo apenas pasa de la distancia entre los extremos) */
   const a0 = P[0], a1 = P[P.length - 1], dv = Math.max(...P.map(p => Math.abs((a1[0] - a0[0]) * (a0[1] - p[1]) - (a0[0] - p[0]) * (a1[1] - a0[1])) / Math.max(cuerda, 1e-6)));   // lo que se aparta de la recta entre los extremos
-  if (Math.min(w, h) / M < .32 && L / Math.max(cuerda, 1e-6) < 1.45 && dv / Math.max(cuerda, 1e-6) < .13) return { k: w > h ? 'h' : 'v', s: 1 - Math.min(w, h) / M };
+  const FAC = (() => { try { return E.niv === 'facil'; } catch (e) { return false; } })(), RY = FAC ? [.38, 1.9, .2] : [.32, 1.45, .13];   /* v18.64 · en FÁCIL las rayas se aceptan con más holgura y el parecido que basta es menor: eran lo que peor reconocía a un niño */
+  if (Math.min(w, h) / M < RY[0] && L / Math.max(cuerda, 1e-6) < RY[1] && dv / Math.max(cuerda, 1e-6) < RY[2]) return { k: w > h ? 'h' : 'v', s: 1 - Math.min(w, h) / M };
   const Q = normaliza(remuestrea(P)); let mejor = null;
   PLANT.forEach(t => { let a = -.3, b = .3; const f = th => dist(gira(Q, th), t.P); const g = .618; let x1g = g * a + (1 - g) * b, x2g = (1 - g) * a + g * b, f1 = f(x1g), f2 = f(x2g);
     for (let i = 0; i < 8; i++) { if (f1 < f2) { b = x2g; x2g = x1g; f2 = f1; x1g = g * a + (1 - g) * b; f1 = f(x1g); } else { a = x1g; x1g = x2g; f1 = f2; x2g = (1 - g) * a + g * b; f2 = f(x2g); } }
     const d = Math.min(f1, f2, f(0)); if (!mejor || d < mejor.d) mejor = { k: t.k, d }; });
-  const s = 1 - mejor.d / .5; return s >= .58 ? { k: mejor.k, s } : null; }
+  const s = 1 - mejor.d / .5; return s >= (FAC ? .5 : .58) ? { k: mejor.k, s } : null; }
 
 /* ---------------- sonido (sintetizado: funciona sin archivos) y música ---------------- */
 let AC = null, MUDO = false, MUS = null; const ac = () => { if (!AC) try { AC = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) {} if (AC && AC.state === 'suspended') AC.resume().catch(() => {}); return AC; };
@@ -164,7 +165,7 @@ async function musica() {
 function paraMusica() { if (!MUS || !MUS.g || !AC) { MUS = null; return; } const m = MUS; MUS = null; try { m.g.gain.setTargetAtTime(0, AC.currentTime, .25); m.s.stop(AC.currentTime + 1.2); } catch (e) {} }
 
 /* ---------------- estado ---------------- */
-const NIV = { facil: { vel: .62, vidas: 5, ritmo: .7 }, normal: { vel: 1, vidas: 4, ritmo: 1 }, dificil: { vel: 1.35, vidas: 3, ritmo: 1.3 } };
+const NIV = { facil: { vel: .62, vidas: 5, ritmo: .7, tope: 1.1 }, normal: { vel: 1, vidas: 5, ritmo: .9, tope: 1.3 }, dificil: { vel: 1.3, vidas: 3, ritmo: 1.2, tope: 1.9 } };
 const DUR = 150, JEFES = [70, 128];
 const E = { fase: 'ini', niv: 'normal', t: 0, pts: 0, vidas: 4, combo: 0, comboT: 0, superE: 0, enem: [], part: [], trazos: [], rayos: [], textos: [], pausa: false, sacude: 0, jefes: 0, sigue: 2, mevi: null, nuevas: false, ultima: false, jug: '' };
 const COLV = ['#3bf3ff', '#ff3bd4', '#ffd23f', '#7dff3a'];
@@ -180,7 +181,7 @@ function acabaTrazo(v) { if (!v.down) return; v.down = false; const P = v.pts; v
   hechizo(r.k, c[0] * W, c[1] * H, v.col); }
 
 /* ---------------- las sombras ---------------- */
-function nuevaSombra() { const disp = E.t > 45 || E.niv === 'dificil' ? TODAS : BASICAS, n = E.t < 25 ? 1 : E.t < 60 ? (Math.random() < .55 ? 1 : 2) : (Math.random() < .35 ? 1 : Math.random() < .7 ? 2 : 3);
+function nuevaSombra() { const disp = E.niv !== 'facil' && (E.t > 45 || E.niv === 'dificil') ? TODAS : BASICAS,   /* v18.64 · en FÁCIL, solo las runas básicas */ n = E.t < 25 ? 1 : E.t < 60 ? (Math.random() < .55 ? 1 : 2) : (Math.random() < .35 ? 1 : Math.random() < .7 ? 2 : 3);
   const r = H * R(.045, .06), runas = []; for (let i = 0; i < n; i++) runas.push(disp[Math.random() * disp.length | 0]);
   E.enem.push({ x: R(.1, .9) * W, y: -r * 2, r, runas, vy: H * R(.035, .055) * NIV[E.niv].vel * (1 + E.t / 260), ph: R(0, TAU), hue: R(250, 300), t: 0, golpe: 0 }); }
 function nuevoJefe() { const disp = TODAS, n = E.niv === 'facil' ? 5 : E.niv === 'dificil' ? 9 : 7, runas = []; for (let i = 0; i < n; i++) runas.push(disp[Math.random() * disp.length | 0]);
@@ -340,7 +341,7 @@ function tick(now) { requestAnimationFrame(tick); const dt = Math.min(.05, (now 
   if (E.pausa) { x.fillStyle = 'rgba(0,0,0,.5)'; x.fillRect(0, 0, W, H); x.font = `${H * .1}px LG`; x.textAlign = 'center'; x.fillStyle = '#fff'; x.fillText('II', W / 2, H / 2); }
   x.restore(); if (E.fase === 'ini') previa(); }
 function paso(dt) { E.t += dt; if (E.comboT > 0) { E.comboT -= dt; if (E.comboT <= 0) E.combo = 0; }
-  const ritmo = NIV[E.niv].ritmo * (0.55 + E.t / 70), hayJefe = E.enem.some(o => o.jefe);
+  const ritmo = NIV[E.niv].ritmo * Math.min(NIV[E.niv].tope, 0.55 + E.t / 70),   /* v18.64 · el ritmo ya no crece sin tope */ hayJefe = E.enem.some(o => o.jefe);
   E.sigue -= dt * (hayJefe ? .45 : 1); if (E.sigue <= 0 && E.t < DUR - 4) { nuevaSombra(); E.sigue = R(1.6, 2.8) / ritmo; }
   if (E.jefes < JEFES.length && E.t >= JEFES[E.jefes]) { E.jefes++; nuevoJefe(); if (E.jefes === JEFES.length) E.ultima = true; }
   if (!E.nuevas && (E.t > 45 || E.niv === 'dificil') && E.t > 3) { E.nuevas = true; if (!E.mevi) di('m_nuevas', 3.5); }

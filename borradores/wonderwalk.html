@@ -836,11 +836,11 @@ const NARR = { on: (() => { try { return localStorage.getItem('WW_NARRADOR') !==
 const vozUrl = (c) => '../packs/wonderwalk/voz/' + c + '-' + (VOZD[LG] ? LG : 'es') + '.mp3';
 function vozPre() { try { VOZ.flat().forEach(c => { const u = vozUrl(c); if (!NARR.pre[u]) { const a = new Audio(); a.preload = 'auto'; a.src = u; NARR.pre[u] = a; } }); } catch (e) {} }
 function narra(pg) { try { const n = NARR.n = (NARR.n || 0) + 1; if (NARR.a) { try { NARR.a.onended = null; NARR.a.onerror = null; NARR.a.pause(); } catch (e) {} NARR.a = null; } NARR.suena = false; NARR.k = pg === undefined || pg === null ? '' : pg;
-  if (typeof pg !== 'number' || !VOZ[pg] || !NARR.on || MUDO()) return; const cl = VOZ[pg]; let i = 0;
+  if (typeof pg !== 'number' || !VOZ[pg] || !NARR.on || MUDO() || !vocesOk()) return; const cl = VOZ[pg]; let i = 0;
   /* cada llamada es una tanda: si llega otra (cambio de página, apagar y encender), la anterior no sigue ni toca el estado */
   const sig = () => { if (NARR.n !== n) return; if (i >= cl.length) { NARR.a = null; NARR.suena = false; return; } const u = vozUrl(cl[i++]), a = NARR.pre[u] || new Audio(u); NARR.pre[u] = a; try { a.currentTime = 0; } catch (e) {} a.volume = 1; a.onended = () => { if (NARR.n !== n) return; NARR.suena = false; setTimeout(sig, 300); }; a.onerror = () => { if (NARR.n === n) sig(); }; NARR.a = a; NARR.suena = true; const q = a.play(); if (q && q.catch) q.catch(() => { if (NARR.n === n && NARR.a === a) NARR.suena = false; }); };
   sig(); } catch (e) {} }
-const vozOn = () => NARR.on && !MUDO();
+const vocesOk = () => { try { return localStorage.getItem('MSGAME_VOCES') !== '0'; } catch (e) { return true; } };   /* v18.64 · el interruptor «Voces» de la consola */ addEventListener('message', e => { const m = e.data; if (m && m.t === 'voces' && !m.v) { try { narra(''); } catch (x) {} } }); const vozOn = () => NARR.on && !MUDO() && vocesOk();
 const CUENTO = ['Cada año, con la luna llena, el castillo celebra la fiesta más alegre del reino. Pero esta vez unos ladrones encapuchados han escondido por el camino todo lo que hace falta para el banquete.', 'La hechicera del camino buscó a alguien valiente y de buen corazón… y eligió a Mevi. «Toma mi varita mágica: con ella encontrarás todo lo que esté escondido.»', '«Tráeme lo que te pida y te abriré la puerta secreta del castillo.» Y así, varita en mano, empieza el paseo de Mevi…'], HECHP = new Image(); HECHP.src = '../packs/wonderwalk/hechicera.webp';
 function cuento(dt) { const port = W < H * .9, pg = E.cp || 0, tx = T(CUENTO[pg]); E.ct = (E.ct || 0) + dt; if (NARR.k !== pg) narra(pg); const dur = vozOn() && VOZD[LG] ? VOZD[LG][pg] : tx.length / 26, k = lim(E.ct / dur, 0, 1); E.ck = k;
   if (!M3.ok) {

@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.63**
+**Versión actual: v18.64**
 
 ## Cómo se juega
 
@@ -39,7 +39,22 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **MEVILAND** *(nuevo)*: el reino de fantasía de Mevi, en 3D y en primera persona; la gran plaza de la muralla al atardecer, cuatro mundos (Fantasía, Absurdo, Golosinas y Feria) con tres salas cada uno, doce pruebas, puertas trampa y cuatro finales, uno secreto.
 - **RUNAS** *(nuevo)*: dibuja runas en el aire con la mano delante de la cámara (o con el móvil o el ratón) para deshacer las sombras que van a por el cristal de Mevi; hasta 4 a la vez, jefe final y supermagia con los dos brazos arriba.
 
-## Cambios de la versión actual (v18.63)
+## Cambios de la versión actual (v18.64)
+- **Reglas antes de jugar, en todos los juegos:** antes de la partida sale una tarjeta de REGLAS con los dibujos del propio juego: en verde, a qué se dispara (o se golpea, se pesca, se coge) con sus puntos; en rojo, lo que no se toca y lo que resta; y debajo, dos o tres normas cortas (qué quita energía, el oso aguanta tres disparos, al final llega el jefe…). Después, como siempre, la tarjeta de los mandos. En WONDERWALK, KRAZYGOLF, EK CHUAH, DIANA, RUNAS y MEVILAND, tres frases antes de empezar. Se salta con un toque.
+- **Norma de dificultad (FÁCIL, MEDIO y DIFÍCIL de verdad distintos):**
+  - **PUNTERÍA:** cada nivel fija su tiempo mínimo a la vista, lo que tarda en acelerarse, cuántos blancos caben a la vez, lo que cura cada acierto y la ayuda de puntería (antes eran iguales en los tres y a los dos minutos FÁCIL era como MEDIO). En FÁCIL los que disparan se ven entre 2,5 y 4,5 s, hay 2 a 4 blancos a la vez, cada daño quita 3, no se gasta munición, dar a un amigo resta solo 100 y, entre un amigo y un enemigo pegados, cuenta el enemigo.
+  - **PALOTERAPIA:** en FÁCIL los objetos tardan el doble en llegar, hay más margen para golpear y cada fallo quita 2; MEDIO, algo más amable.
+  - **CITY RUNNER y DUSTY RUN:** en FÁCIL salen menos muros, más estrechos y más despacio; en MEDIO y DIFÍCIL los premios curan menos, para que la energía baje de verdad.
+  - **PATOPESCA:** en FÁCIL basta con apuntar al patito y el pirata resta 50; MEDIO y DIFÍCIL, algo más vivos.
+  - **BASKET:** en FÁCIL la meta es menor y casi cualquier fuerza del medidor vale. **SHATEKI:** 9, 7 o 6 corchos según el nivel y, en FÁCIL, los premios caen con menos golpe.
+  - **RUNAS:** el ritmo ya no crece sin tope; en MEDIO, 5 vidas; en FÁCIL solo salen las runas básicas y las rayas se reconocen con más holgura.
+  - DIANA, RUNAS y MEVILAND enseñan ya el nivel de cada jugador en la consola.
+- **Arreglos:** con el dedo, el disparo o el anzuelo salen donde se toca (salían donde se había tocado la vez anterior); en PATOPESCA, apuntar al aro de un patito de delante ya no manda el anzuelo a la fila de atrás.
+- **Voces:** interruptor nuevo en los ajustes de sonido, «Voces de los juegos y de Mevi», aparte de la música y los efectos. Calla a Mevi en la portada y a los narradores de MEVILAND y WONDERWALK.
+- **PUNTERÍA con los modelos 3D de la casa en lugar de emojis:** botella, lata y gallina en WESTERN; lobo, jabalí, perro, pato, oca, gallina y plato en ALPINE; gema, meteorito y pulpo en GALAXY; cerebro, rata, perro y murciélago en ZOMBIELAND; gato negro, araña y murciélago en HAUNTED; bomba, bandera blanca, paloma y, nuevo, el médico de la cruz roja (no se le dispara) en WARFRONT. El jabalí sustituye al zorro en ALPINE.
+- **DIANA · hachas y arco:** arco y flechas nuevos, realistas (madera, cuerda y plumas de verdad), en lugar de los de dibujo.
+
+### v18.63
 - **PUNTERÍA ALPINE y WESTERN · el oso de los montes:** un oso pardo en 3D, feroz, que avanza gruñendo con la cabeza baja. Aguanta dos disparos (se frena y destella) y cae al tercero, desplomándose de lado. Por el oso, ALPINE y WESTERN pasan a **+12**.
 - **MEVILAND · Montaña Rusa Estelar:** ahora vamos en el asiento de atrás y se ve el primer coche del tren delante, sobre la vía. Sonido de verdad: rodadura que crece con la velocidad, el ta-tac de las ruedas en las juntas, el trinquete de la cadena en las subidas, el siseo del raíl y el viento en las bajadas.
 - **MEVILAND · portón del castillo:** al abrirse, los paseantes se apartan a un lado; ya no asoma ninguna cabeza al pie de la vista.

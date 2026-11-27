@@ -210,10 +210,13 @@ function suena(canal, n, o) {
 ['pointerdown', 'keydown'].forEach(ev => addEventListener(ev, () => { if (AU.ac && AU.ac.state === 'suspended') AU.ac.resume(); Object.values(PISTAS).forEach(p => { if (p && p.espera) { p.espera = false; p.a.play().catch(() => { p.espera = true; }); } }); }, true));
 
 /* ---------- voz de Mevi (narración, también para quien no ve bien la pantalla) ---------- */
+/* v18.64 · el interruptor «Voces» de los ajustes de la consola manda sobre el del juego */
+const vocesOk = () => { try { return localStorage.getItem('MSGAME_VOCES') !== '0'; } catch (e) { return true; } };
+addEventListener('message', e => { const m = e.data; if (m && m.t === 'voces' && !m.v) { try { if (VOZ.el) VOZ.el.pause(); } catch (x) {} try { window.speechSynthesis && speechSynthesis.cancel(); } catch (x) {} } });
 /* La voz de Mevi va grabada (packs/meviland/voz/<idioma>/<huella>.mp3, una por frase; <idioma>.json guarda lo que dura cada una).
    Si una frase no tiene grabación (por ejemplo, el saludo con los nombres de los jugadores) se usa la que se indique en VOZ.alt y,
    en último caso, la voz del navegador. */
-const VOZ = { on: (() => { try { return localStorage.getItem('MEVILAND_VOZ') !== '0'; } catch (e) { return true; } })(), habla: 0, cola: [], tFin: 0, man: {}, el: null, alt: null };
+const VOZ = { get on() { return this.on0 && vocesOk(); }, set on(v) { this.on0 = !!v; }, on0: (() => { try { return localStorage.getItem('MEVILAND_VOZ') !== '0'; } catch (e) { return true; } })(), habla: 0, cola: [], tFin: 0, man: {}, el: null, alt: null };
 function cargaVoz(l) { if (VOZ.man[l] !== undefined) return; VOZ.man[l] = null; fetch('../packs/meviland/voz/' + l + '.json?v=18.59').then(r => r.ok ? r.json() : {}).then(j => { VOZ.man[l] = j || {}; }).catch(() => { VOZ.man[l] = {}; }); }
 function vozHuella(t2) { let h = 0x811c9dc5; for (let i = 0; i < t2.length; i++) { const c = t2.charCodeAt(i); h ^= c & 255; h = Math.imul(h, 0x01000193) >>> 0; h ^= c >> 8; h = Math.imul(h, 0x01000193) >>> 0; } return ('0000000' + h.toString(16)).slice(-8); }
 function callaVoz() { if (VOZ.el) { try { VOZ.el.pause(); } catch (e) {} VOZ.el = null; } try { window.speechSynthesis && speechSynthesis.cancel(); } catch (e) {} }
