@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.67**
+**Versión actual: v18.68**
 
 ## Cómo se juega
 
@@ -39,7 +39,10 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **MEVILAND** *(nuevo)*: el reino de fantasía de Mevi, en 3D y en primera persona; la gran plaza de la muralla al atardecer, cuatro mundos (Fantasía, Absurdo, Golosinas y Feria) con tres salas cada uno, doce pruebas, puertas trampa y cuatro finales, uno secreto.
 - **RUNAS** *(nuevo)*: dibuja runas en el aire con la mano delante de la cámara (o con el móvil o el ratón) para deshacer las sombras que van a por el cristal de Mevi; hasta 4 a la vez, jefe final y supermagia con los dos brazos arriba.
 
-## Cambios de la versión actual (v18.67)
+## Cambios de la versión actual (v18.68)
+- **DUSTY RUN · el pinar, a la altura del coche nuevo:** pinos con las ramas marcadas y caídas y troncos redondos, sombras alargadas de los árboles sobre el suelo, matas de hierba, helechos y piedras junto al camino, matorrales con volumen, suelo del bosque con claros de sol y una sierra con bruma al fondo.
+
+### v18.67
 - **DUSTY RUN · todoterreno nuevo:** el coche es ahora el modelo 3D propio, en polígonos planos y repintado en naranja teja, con su matrícula y sus luces de freno.
 
 ### v18.66
