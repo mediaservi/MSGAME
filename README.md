@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.91**
+**Versión actual: v18.92**
 
 ## Cómo se juega
 
@@ -48,7 +48,10 @@ MSGAME es una sala de juegos en 3D que corre en el navegador. Para la pantalla g
 - **Como mando:** cualquier móvil con un navegador actual (Android 9 o iOS 15 en adelante).
 - **En una tele o un proyector:** conecta el ordenador por HDMI y usa la tele solo como pantalla. El navegador propio de las teles y proyectores (Google TV, Android TV, webOS, Tizen…) no tiene potencia para MSGAME; si se abre ahí, la app lo avisa con estos requisitos.
 
-## Cambios de la versión actual (v18.91)
+## Cambios de la versión actual (v18.92)
+- **La página no espera a ningún archivo para pintarse:** el silencio al dejar de verse (v18.90) iba en un archivo aparte (`lib/silencio.js`) cargado al principio de la página; si esa petición se quedaba colgada, la pestaña se quedaba en blanco dando vueltas. Ahora va escrito dentro de cada página (consola y juegos), sin pedir nada.
+
+## Cambios de la v18.91
 - **Efectos nuevos en la biblioteca común** (`packs/comun/fx/`, recortados y nivelados, con sus créditos de Pixabay en `packs/comun/CREDITOS.md`): motor del coche (bucle, arranque y acelerón), botella, plato, ventana y cristal que se rompen, tres tintineos de cristal, seis gruñidos de esfuerzo, un crujido y un grito (estos dos, reservados: no van en juegos para todos los públicos).
 - **DUSTY RUN suena a todoterreno:** el motor ruge en la salida, se oye durante toda la carrera y sube de vueltas cuanto más corres (baja un poco en los saltos); el turbo ⚡ da un acelerón y chocar con el coche patrulla rompe un cristal.
 - **CITY RUNNER:** la corredora suelta un «¡hup!» de esfuerzo en algunos saltos y al chocar.
