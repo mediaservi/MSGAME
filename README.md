@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.86**
+**Versión actual: v18.87**
 
 ## Cómo se juega
 
@@ -39,7 +39,13 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **MEVILAND** *(nuevo)*: el reino de fantasía de Mevi, en 3D y en primera persona; la gran plaza de la muralla al atardecer, cuatro mundos (Fantasía, Absurdo, Golosinas y Feria) con tres salas cada uno, doce pruebas, puertas trampa y cuatro finales, uno secreto.
 - **RUNAS** *(nuevo)*: dibuja runas en el aire con la mano delante de la cámara (o con el móvil o el ratón) para deshacer las runas que caen de la aurora boreal hacia el cristal que guarda un vikingo sabio, en un claro de bosque nórdico junto a un fiordo; hasta 4 a la vez, tormenta final y supermagia con los dos brazos arriba.
 
-## Cambios de la versión actual (v18.86)
+## Cambios de la versión actual (v18.87)
+- **DIANA · HACHAS Y ARCO, de frente:** el hacha se queda clavada con el filo dentro de la madera, justo donde deja la muesca; el arco se lleva delante, la flecha apunta a la mira y va y se clava recta.
+- **Suena a lo que es:** hacha y flecha en madera, golpe de madera si das en la empalizada, los postes o los bancos (y el arma se queda clavada), lona que se rasga si das en una tienda (y queda la raja), tierra si das en el suelo.
+- **A ellos no:** si le das al vikingo sabio, su alma sube en un remolino pixelado de aurora y vuelve en una luz cegadora (−500); el herrero cae de lado y vuelve al rato (−300); al perro que cruza por delante de la diana, −200.
+- **RUNAS, carátula nueva:** ilustrada, con el vikingo sabio de frente alzando el báculo.
+
+### v18.86
 - **RUNAS, escenario nuevo por capas:** un claro de bosque nórdico ancestral junto a un fiordo, montado como un decorado de dibujos animados (cielo, montañas con el agua y primer plano), con falso 3D: lo de detrás se desliza según por dónde anda la varita.
 - **Efectos vivos entre las capas:** aurora boreal y nubes por detrás de las montañas, el agua refleja la aurora y ondea, el fuego de los braseros arde, los glifos de los menhires laten y se encienden con cada hechizo, cae nieve, y de vez en cuando un lobo o un oso cruzan por el fondo del claro.
 - **Sin Mevi en RUNAS:** los avisos salen como subtítulos, con letra de aire antiguo pero legible.
