@@ -51,6 +51,24 @@ Efectos que comparten todos los juegos (`packs/comun/fx/`). Recortados (sin sile
 | `sorpresa.mp3` | voz, reacción | KRAZYGOLF; WONDERWALK (ladrón); LA FORTUNA | Pixabay · universfield · shock-gasp-female · 383751 |
 | `splat.mp3` | impacto, cómico | KRAZYGOLF; PALOTERAPIA; GRAFFER | Pixabay · universfield · cartoon-splat · 310479 |
 | `victoria.mp3` | victoria, fanfarria | todos: fin de partida ganada | Pixabay · pw23check · winning · 218995 |
+| `motor-interior.mp3` | motor, coche, bucle | DUSTY RUN: motor del todoterreno durante la carrera, más agudo cuanto más corre | Pixabay · dbsound · engine-and-road-noise-inside-car · 250807 |
+| `motor-acelera.mp3` | motor, coche, acelerón | DUSTY RUN: turbo ⚡ recogido | Pixabay · dragon-studio · car-engine · 372477 |
+| `motor-ruge.mp3` | motor, coche, arranque | DUSTY RUN: salida de la carrera | Pixabay · dragon-studio · car-engine-roaring · 376881 |
+| `botella-rompe.mp3` | cristal, rotura, botella | PUNTERÍA Western: dar a una botella | Pixabay · universfield · bottle-shatter · 229205 |
+| `plato-rompe.mp3` | cerámica, rotura, plato | PUNTERÍA Alpine: dar a un plato de tiro | Pixabay · freesound_community · plate-break-1 · 36468 |
+| `ventana-rompe.mp3` | cristal, rotura, ventana | DUSTY RUN: chocar con el coche patrulla | Pixabay · kave_msri · window-break-sfx · 333914 |
+| `cristal-rompe.mp3` | cristal, rotura, grande | PUNTERÍA Galaxy: dar al platillo volante (cúpula de cristal) | Pixabay · dragon-studio · glass-breaking · 511313 |
+| `cristal-1.mp3` | cristal, tintineo | libre: brindis, premio pequeño, objeto de cristal que se toca | Pixabay · freesound_community · cristal · 43446 |
+| `cristal-2.mp3` | cristal, tintineo | libre | Pixabay · freesound_community · cristal · 43446 |
+| `cristal-3.mp3` | cristal, tintineo | libre | Pixabay · freesound_community · cristal · 43446 |
+| `hueso-cruje.mp3` | golpe, crujido | reservado: no se usa en juegos para todos los públicos | Pixabay · universfield · bone-break · 191978 |
+| `grito-caida.mp3` | voz, grito, hombre | reservado: no se usa en juegos para todos los públicos | Pixabay · u_r7cny11q7r · man-death-scream · 186763 |
+| `esfuerzo-1.mp3` | voz, esfuerzo, gruñido | CITY RUNNER: salto de la corredora y choque | Pixabay · freesound_community · grunts · 33249 |
+| `esfuerzo-2.mp3` | voz, esfuerzo, gruñido | CITY RUNNER: salto de la corredora y choque | Pixabay · freesound_community · grunts · 33249 |
+| `esfuerzo-3.mp3` | voz, esfuerzo, gruñido | CITY RUNNER: salto de la corredora y choque | Pixabay · freesound_community · grunts · 33249 |
+| `esfuerzo-4.mp3` | voz, esfuerzo, gruñido | CITY RUNNER: salto de la corredora y choque | Pixabay · freesound_community · grunts · 33249 |
+| `esfuerzo-5.mp3` | voz, esfuerzo, gruñido | CITY RUNNER: salto de la corredora y choque | Pixabay · freesound_community · grunts · 33249 |
+| `esfuerzo-6.mp3` | voz, esfuerzo, gruñido | CITY RUNNER: salto de la corredora y choque | Pixabay · freesound_community · grunts · 33249 |
 
 
 ## Freesound (CC0, sin obligación de citar) · v18.17

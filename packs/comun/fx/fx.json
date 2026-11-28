@@ -19,6 +19,22 @@
   ],
   "bucle": true
  },
+ "botella-rompe": {
+  "archivo": "botella-rompe.mp3",
+  "dur": 1.43,
+  "autor": "universfield",
+  "titulo": "bottle-shatter",
+  "id": "229205",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "cristal",
+   "rotura",
+   "botella"
+  ],
+  "juegos": [
+   "PUNTERÍA Western: dar a una botella"
+  ]
+ },
  "burbuja": {
   "archivo": "burbuja.mp3",
   "dur": 1.21,
@@ -214,6 +230,67 @@
    "LA FORTUNA (preparar la ruleta)"
   ]
  },
+ "cristal-1": {
+  "archivo": "cristal-1.mp3",
+  "dur": 0.5,
+  "autor": "freesound_community",
+  "titulo": "cristal",
+  "id": "43446",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "cristal",
+   "tintineo"
+  ],
+  "juegos": [
+   "libre: brindis, premio pequeño, objeto de cristal que se toca"
+  ]
+ },
+ "cristal-2": {
+  "archivo": "cristal-2.mp3",
+  "dur": 0.51,
+  "autor": "freesound_community",
+  "titulo": "cristal",
+  "id": "43446",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "cristal",
+   "tintineo"
+  ],
+  "juegos": [
+   "libre"
+  ]
+ },
+ "cristal-3": {
+  "archivo": "cristal-3.mp3",
+  "dur": 0.98,
+  "autor": "freesound_community",
+  "titulo": "cristal",
+  "id": "43446",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "cristal",
+   "tintineo"
+  ],
+  "juegos": [
+   "libre"
+  ]
+ },
+ "cristal-rompe": {
+  "archivo": "cristal-rompe.mp3",
+  "dur": 2.34,
+  "autor": "dragon-studio",
+  "titulo": "glass-breaking",
+  "id": "511313",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "cristal",
+   "rotura",
+   "grande"
+  ],
+  "juegos": [
+   "PUNTERÍA Galaxy: dar al platillo volante (cúpula de cristal)"
+  ]
+ },
  "cuervo-1": {
   "archivo": "cuervo-1.mp3",
   "dur": 1.77,
@@ -386,6 +463,102 @@
    "WONDERWALK («no era ese»)"
   ]
  },
+ "esfuerzo-1": {
+  "archivo": "esfuerzo-1.mp3",
+  "dur": 0.4,
+  "autor": "freesound_community",
+  "titulo": "grunts",
+  "id": "33249",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "voz",
+   "esfuerzo",
+   "gruñido"
+  ],
+  "juegos": [
+   "CITY RUNNER: salto de la corredora y choque"
+  ]
+ },
+ "esfuerzo-2": {
+  "archivo": "esfuerzo-2.mp3",
+  "dur": 0.41,
+  "autor": "freesound_community",
+  "titulo": "grunts",
+  "id": "33249",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "voz",
+   "esfuerzo",
+   "gruñido"
+  ],
+  "juegos": [
+   "CITY RUNNER: salto de la corredora y choque"
+  ]
+ },
+ "esfuerzo-3": {
+  "archivo": "esfuerzo-3.mp3",
+  "dur": 0.42,
+  "autor": "freesound_community",
+  "titulo": "grunts",
+  "id": "33249",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "voz",
+   "esfuerzo",
+   "gruñido"
+  ],
+  "juegos": [
+   "CITY RUNNER: salto de la corredora y choque"
+  ]
+ },
+ "esfuerzo-4": {
+  "archivo": "esfuerzo-4.mp3",
+  "dur": 0.41,
+  "autor": "freesound_community",
+  "titulo": "grunts",
+  "id": "33249",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "voz",
+   "esfuerzo",
+   "gruñido"
+  ],
+  "juegos": [
+   "CITY RUNNER: salto de la corredora y choque"
+  ]
+ },
+ "esfuerzo-5": {
+  "archivo": "esfuerzo-5.mp3",
+  "dur": 0.44,
+  "autor": "freesound_community",
+  "titulo": "grunts",
+  "id": "33249",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "voz",
+   "esfuerzo",
+   "gruñido"
+  ],
+  "juegos": [
+   "CITY RUNNER: salto de la corredora y choque"
+  ]
+ },
+ "esfuerzo-6": {
+  "archivo": "esfuerzo-6.mp3",
+  "dur": 0.5,
+  "autor": "freesound_community",
+  "titulo": "grunts",
+  "id": "33249",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "voz",
+   "esfuerzo",
+   "gruñido"
+  ],
+  "juegos": [
+   "CITY RUNNER: salto de la corredora y choque"
+  ]
+ },
  "fallo": {
   "archivo": "fallo.mp3",
   "dur": 3.17,
@@ -526,6 +699,37 @@
    "BOLERA (bolos chocando, suave)"
   ]
  },
+ "grito-caida": {
+  "archivo": "grito-caida.mp3",
+  "dur": 1.06,
+  "autor": "u_r7cny11q7r",
+  "titulo": "man-death-scream",
+  "id": "186763",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "voz",
+   "grito",
+   "hombre"
+  ],
+  "juegos": [
+   "reservado: no se usa en juegos para todos los públicos"
+  ]
+ },
+ "hueso-cruje": {
+  "archivo": "hueso-cruje.mp3",
+  "dur": 0.87,
+  "autor": "universfield",
+  "titulo": "bone-break",
+  "id": "191978",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "golpe",
+   "crujido"
+  ],
+  "juegos": [
+   "reservado: no se usa en juegos para todos los públicos"
+  ]
+ },
  "laser": {
   "archivo": "laser.mp3",
   "dur": 2.38,
@@ -561,6 +765,55 @@
    "WONDERWALK (monedas)",
    "SHATEKI (premio)",
    "KRAZYGOLF (bonificación)"
+  ]
+ },
+ "motor-acelera": {
+  "archivo": "motor-acelera.mp3",
+  "dur": 3.04,
+  "autor": "dragon-studio",
+  "titulo": "car-engine",
+  "id": "372477",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "motor",
+   "coche",
+   "acelerón"
+  ],
+  "juegos": [
+   "DUSTY RUN: turbo ⚡ recogido"
+  ]
+ },
+ "motor-interior": {
+  "archivo": "motor-interior.mp3",
+  "dur": 12.0,
+  "autor": "dbsound",
+  "titulo": "engine-and-road-noise-inside-car",
+  "id": "250807",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "motor",
+   "coche",
+   "bucle"
+  ],
+  "juegos": [
+   "DUSTY RUN: motor del todoterreno durante la carrera, más agudo cuanto más corre"
+  ],
+  "bucle": true
+ },
+ "motor-ruge": {
+  "archivo": "motor-ruge.mp3",
+  "dur": 4.01,
+  "autor": "dragon-studio",
+  "titulo": "car-engine-roaring",
+  "id": "376881",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "motor",
+   "coche",
+   "arranque"
+  ],
+  "juegos": [
+   "DUSTY RUN: salida de la carrera"
   ]
  },
  "nivel": {
@@ -667,6 +920,22 @@
   ],
   "juegos": [
    "todos: potenciadores y menús"
+  ]
+ },
+ "plato-rompe": {
+  "archivo": "plato-rompe.mp3",
+  "dur": 1.24,
+  "autor": "freesound_community",
+  "titulo": "plate-break-1",
+  "id": "36468",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "cerámica",
+   "rotura",
+   "plato"
+  ],
+  "juegos": [
+   "PUNTERÍA Alpine: dar a un plato de tiro"
   ]
  },
  "pop": {
@@ -807,21 +1076,6 @@
    "GRAFFER"
   ]
  },
- "victoria": {
-  "archivo": "victoria.mp3",
-  "dur": 4.51,
-  "autor": "pw23check",
-  "titulo": "winning",
-  "id": "218995",
-  "origen": "Pixabay",
-  "etiquetas": [
-   "victoria",
-   "fanfarria"
-  ],
-  "juegos": [
-   "todos: fin de partida ganada"
-  ]
- },
  "telefono-timbre": {
   "archivo": "telefono-timbre.mp3",
   "dur": 4.6,
@@ -838,6 +1092,37 @@
   "juegos": [
    "sala MSGAME (teléfono rojo: mando móvil)",
    "WONDERWALK (llamadas)"
+  ]
+ },
+ "ventana-rompe": {
+  "archivo": "ventana-rompe.mp3",
+  "dur": 1.17,
+  "autor": "kave_msri",
+  "titulo": "window-break-sfx",
+  "id": "333914",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "cristal",
+   "rotura",
+   "ventana"
+  ],
+  "juegos": [
+   "DUSTY RUN: chocar con el coche patrulla"
+  ]
+ },
+ "victoria": {
+  "archivo": "victoria.mp3",
+  "dur": 4.51,
+  "autor": "pw23check",
+  "titulo": "winning",
+  "id": "218995",
+  "origen": "Pixabay",
+  "etiquetas": [
+   "victoria",
+   "fanfarria"
+  ],
+  "juegos": [
+   "todos: fin de partida ganada"
   ]
  }
 }

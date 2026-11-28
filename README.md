@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.90**
+**Versión actual: v18.91**
 
 ## Cómo se juega
 
@@ -48,7 +48,14 @@ MSGAME es una sala de juegos en 3D que corre en el navegador. Para la pantalla g
 - **Como mando:** cualquier móvil con un navegador actual (Android 9 o iOS 15 en adelante).
 - **En una tele o un proyector:** conecta el ordenador por HDMI y usa la tele solo como pantalla. El navegador propio de las teles y proyectores (Google TV, Android TV, webOS, Tizen…) no tiene potencia para MSGAME; si se abre ahí, la app lo avisa con estos requisitos.
 
-## Cambios de la versión actual (v18.90)
+## Cambios de la versión actual (v18.91)
+- **Efectos nuevos en la biblioteca común** (`packs/comun/fx/`, recortados y nivelados, con sus créditos de Pixabay en `packs/comun/CREDITOS.md`): motor del coche (bucle, arranque y acelerón), botella, plato, ventana y cristal que se rompen, tres tintineos de cristal, seis gruñidos de esfuerzo, un crujido y un grito (estos dos, reservados: no van en juegos para todos los públicos).
+- **DUSTY RUN suena a todoterreno:** el motor ruge en la salida, se oye durante toda la carrera y sube de vueltas cuanto más corres (baja un poco en los saltos); el turbo ⚡ da un acelerón y chocar con el coche patrulla rompe un cristal.
+- **CITY RUNNER:** la corredora suelta un «¡hup!» de esfuerzo en algunos saltos y al chocar.
+- **PUNTERÍA:** la botella del WESTERN y el plato de tiro de ALPINE se rompen de verdad al darles, y el platillo de GALAXY revienta su cúpula de cristal.
+- Nuevo en el motor de sonido: **bucles de efectos** que siguen la partida y se apagan solos en la pausa, al acabar o al salir.
+
+## Cambios de la v18.90
 - **Silencio al apagar:** cuando la pantalla deja de verse (tele o proyector en reposo, pestaña en segundo plano, app de la tele cerrada) se calla toda la música y los sonidos al momento, en la consola y en todos los juegos; al volver, suena otra vez lo que sonaba.
 - **Aviso en las teles:** abierta en el navegador de una tele o un proyector con sistema propio, MSGAME explica que ahí no puede ir fluida, da los requisitos mínimos y cómo jugar (ordenador por HDMI y el móvil de mando). «Probar igualmente» la abre en su carga ligera. En español, inglés y catalán.
 - **Requisitos mínimos** en este README.
