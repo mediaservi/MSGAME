@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.92**
+**Versión actual: v18.93**
 
 ## Cómo se juega
 
@@ -48,7 +48,10 @@ MSGAME es una sala de juegos en 3D que corre en el navegador. Para la pantalla g
 - **Como mando:** cualquier móvil con un navegador actual (Android 9 o iOS 15 en adelante).
 - **En una tele o un proyector:** conecta el ordenador por HDMI y usa la tele solo como pantalla. El navegador propio de las teles y proyectores (Google TV, Android TV, webOS, Tizen…) no tiene potencia para MSGAME; si se abre ahí, la app lo avisa con estos requisitos.
 
-## Cambios de la versión actual (v18.92)
+## Cambios de la versión actual (v18.93)
+- **Arreglado el cuelgue al abrir MSGAME (desde la v18.90):** al escribir la dirección, Chrome (ordenador y móvil) empieza a cargar la página por adelantado y oculta. El silencio de la v18.90 contestaba «audio reanudado» sin reanudarlo y la consola lo reintentaba sin fin: la pestaña se quedaba en blanco dando vueltas. Ahora, mientras la página no se ve, esa respuesta espera de verdad a que se vea. Probado con la página oculta al cargar: antes se colgaba, ahora responde y suena al verse.
+
+## Cambios de la v18.92
 - **La página no espera a ningún archivo para pintarse:** el silencio al dejar de verse (v18.90) iba en un archivo aparte (`lib/silencio.js`) cargado al principio de la página; si esa petición se quedaba colgada, la pestaña se quedaba en blanco dando vueltas. Ahora va escrito dentro de cada página (consola y juegos), sin pedir nada.
 
 ## Cambios de la v18.91
