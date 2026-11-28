@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.74**
+**Versión actual: v18.75**
 
 ## Cómo se juega
 
@@ -39,7 +39,11 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **MEVILAND** *(nuevo)*: el reino de fantasía de Mevi, en 3D y en primera persona; la gran plaza de la muralla al atardecer, cuatro mundos (Fantasía, Absurdo, Golosinas y Feria) con tres salas cada uno, doce pruebas, puertas trampa y cuatro finales, uno secreto.
 - **RUNAS** *(nuevo)*: dibuja runas en el aire con la mano delante de la cámara (o con el móvil o el ratón) para deshacer las sombras que van a por el cristal de Mevi; hasta 4 a la vez, jefe final y supermagia con los dos brazos arriba.
 
-## Cambios de la versión actual (v18.74)
+## Cambios de la versión actual (v18.75)
+- **Los juegos estrella, a la vista:** MEVILAND sube a la balda de arriba del videoclub, junto a EL MISTERIO DE EK CHUAH y frente a WONDERWALK; los tres van los primeros en la lista de todos los juegos, en la tira del móvil y en la portada ligera, y Mevi empieza recomendando MEVILAND.
+- **Arreglo · accesos directos:** `?juego=wonderwalk`, `krazygolf`, `shateki`, `ekchuah`, `diana`, `runas` y `meviland` abrían el juego de al lado.
+
+### v18.74
 - **Arreglo · reglas antes de jugar en WONDERWALK, KRAZYGOLF, EK CHUAH, DIANA, RUNAS y MEVILAND:** tocar el cartel de reglas sacaba del juego en vez de empezar. Ahora el cartel se cierra al tocarlo, con cualquier tecla, con su botón «Jugar» o solo a los 10 segundos (con su barra de tiempo), y el botón de salir vuelve a funcionar.
 
 ### v18.73
