@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.87**
+**Versión actual: v18.88**
 
 ## Cómo se juega
 
@@ -39,7 +39,10 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **MEVILAND** *(nuevo)*: el reino de fantasía de Mevi, en 3D y en primera persona; la gran plaza de la muralla al atardecer, cuatro mundos (Fantasía, Absurdo, Golosinas y Feria) con tres salas cada uno, doce pruebas, puertas trampa y cuatro finales, uno secreto.
 - **RUNAS** *(nuevo)*: dibuja runas en el aire con la mano delante de la cámara (o con el móvil o el ratón) para deshacer las runas que caen de la aurora boreal hacia el cristal que guarda un vikingo sabio, en un claro de bosque nórdico junto a un fiordo; hasta 4 a la vez, tormenta final y supermagia con los dos brazos arriba.
 
-## Cambios de la versión actual (v18.87)
+## Cambios de la versión actual (v18.88)
+- **Versión nueva, copia limpia:** la primera vez que arranca una versión distinta, MSGAME vacía lo que tenía guardado en ese equipo y se recarga una vez; así las carátulas, sonidos y fondos nuevos se ven a la primera (antes hacía falta una segunda carga).
+
+### v18.87
 - **DIANA · HACHAS Y ARCO, de frente:** el hacha se queda clavada con el filo dentro de la madera, justo donde deja la muesca; el arco se lleva delante, la flecha apunta a la mira y va y se clava recta.
 - **Suena a lo que es:** hacha y flecha en madera, golpe de madera si das en la empalizada, los postes o los bancos (y el arma se queda clavada), lona que se rasga si das en una tienda (y queda la raja), tierra si das en el suelo.
 - **A ellos no:** si le das al vikingo sabio, su alma sube en un remolino pixelado de aurora y vuelve en una luz cegadora (−500); el herrero cae de lado y vuelve al rato (−300); al perro que cruza por delante de la diana, −200.
