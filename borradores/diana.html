@@ -52,6 +52,7 @@
   <div id="pie">DIANA · MSGAME · mediaservi.com</div>
 </div>
 <script src="../lib/idioma.js?v=18.60"></script>
+<script src="../lib/vikingo3d.js?v=18.82"></script>
 <script>
 'use strict';
 var H3 = { st: 0 };   // el herrero del barreño (se carga al dibujar)
@@ -314,7 +315,12 @@ function llama(X, Y, s, t) { x.save(); x.globalCompositeOperation = 'lighter'; f
 /* ---------- dibujo ---------- */
 /* v18.16 · el fondo del barreño, vivo: farolillos que respiran, el tiovivo con su corona de bombillas que corren, la noria girando sus luces, ventanas encendidas y el herrero atendiendo su puesto */
 const VIK = img('../juegos/hit3d/vikingo-habla.webp');
-function vikingo() { if (!VIK.complete || !VIK.naturalWidth) return; const [X, Yp] = P(.735, .625), hh = PS(.19), ww = hh * 240 / 300, t = E.t || performance.now() / 1000, c = t % 14, fi = c < 3 ? Math.floor(c / 3 * 12) % 12 : 0;   /* cada tanto gesticula; el resto del tiempo, quieto y respirando */
+/* v18.82 · el vikingo, vivo: el modelo con esqueleto respira y gesticula de verdad; su estampa queda de reserva mientras carga o si el equipo no puede con el 3D */
+const V3 = window.VIKINGO3D ? VIKINGO3D.crea({ px: 420, luz: 0xffd9a0, luzI: 1.5, contra: 0xff9a4a, contraI: .9, cielo: 0xffe6c4, suelo: 0x3a2a1e, amb: .9, gema: 0xffb347 }) : { listo: false }; let vikU = 0;
+function vikingo() { const [X, Yp] = P(.735, .625), hh = PS(.19), ww = hh * 240 / 300, t = E.t || performance.now() / 1000, c = t % 14, fi = c < 3 ? Math.floor(c / 3 * 12) % 12 : 0;
+  if (V3.listo) { const ah = performance.now() / 1000, dt = Math.min(.05, vikU ? ah - vikU : 0); vikU = ah; x.save(); const gs = x.createRadialGradient(X, Yp, 0, X, Yp, hh * .28); gs.addColorStop(0, 'rgba(20,12,6,.5)'); gs.addColorStop(1, 'rgba(20,12,6,0)'); x.fillStyle = gs; x.beginPath(); x.ellipse(X, Yp, hh * .28, hh * .06, 0, 0, Math.PI * 2); x.fill();
+    x.filter = 'brightness(.86) sepia(.14)'; V3.pinta(x, X, Yp, hh * .86, { dt, habla: c < 3.6, mira: -.35 }); x.restore(); return; }
+  if (!VIK.complete || !VIK.naturalWidth) return;   /* cada tanto gesticula; el resto del tiempo, quieto y respirando */
   x.save(); const gs = x.createRadialGradient(X, Yp, 0, X, Yp, hh * .28); gs.addColorStop(0, 'rgba(20,12,6,.5)'); gs.addColorStop(1, 'rgba(20,12,6,0)'); x.fillStyle = gs; x.beginPath(); x.ellipse(X, Yp, hh * .28, hh * .06, 0, 0, Math.PI * 2); x.fill();
   const k = 1 + Math.sin(t * 1.6) * .006; x.translate(X, Yp); x.scale(1, k); x.filter = 'brightness(.82) sepia(.18)'; x.drawImage(VIK, fi * 240, 0, 240, 300, -ww * .5, -hh * .91, ww, hh); x.restore(); }
 function vida() { const FAROL = [[.135, .165], [.188, .155], [.242, .13], [.647, .07], [.684, .09], [.725, .115], [.768, .13], [.815, .145], [.872, .15]]; const VENTANA = [[.297, .465], [.364, .53], [.498, .565], [.565, .555], [.608, .565], [.668, .555], [.705, .555], [.773, .565], [.825, .555]]; const t = E.t || performance.now() / 1000, k = cover().k * IW / 1377; x.save(); x.globalCompositeOperation = 'lighter';

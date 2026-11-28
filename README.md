@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.81**
+**Versión actual: v18.82**
 
 ## Cómo se juega
 
@@ -37,9 +37,14 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 - **DIANA** *(en desarrollo)*: hachas y arco, dardos, el barreño de feria, tartazos y bomberos: cinco formas de acertar al centro.
 - **MEVILAND** *(nuevo)*: el reino de fantasía de Mevi, en 3D y en primera persona; la gran plaza de la muralla al atardecer, cuatro mundos (Fantasía, Absurdo, Golosinas y Feria) con tres salas cada uno, doce pruebas, puertas trampa y cuatro finales, uno secreto.
-- **RUNAS** *(nuevo)*: dibuja runas en el aire con la mano delante de la cámara (o con el móvil o el ratón) para deshacer las sombras que van a por el cristal de Mevi; hasta 4 a la vez, jefe final y supermagia con los dos brazos arriba.
+- **RUNAS** *(nuevo)*: dibuja runas en el aire con la mano delante de la cámara (o con el móvil o el ratón) para deshacer las runas que caen de la aurora boreal hacia el cristal de Mevi, que guarda un vikingo sabio; hasta 4 a la vez, tormenta final y supermagia con los dos brazos arriba.
 
-## Cambios de la versión actual (v18.81)
+## Cambios de la versión actual (v18.82)
+- **RUNAS, paisaje nuevo:** noche nórdica con cordilleras nevadas, fiordo, abetos y piedras rúnicas, bajo una aurora boreal viva que se mueve por todo el cielo y se refleja en el agua.
+- **RUNAS, sin fantasmas:** las runas ya no las trae nadie; caen de la aurora envueltas en su luz, con un reguero de polvo mágico que baja del cielo. El jefe final es ahora la TORMENTA DE RUNAS.
+- **El vikingo sabio, vivo:** modelo 3D con esqueleto en RUNAS y en DIANA · HACHAS Y ARCO. Respira, habla con las manos y, en RUNAS, camina hasta ponerse bajo la runa que más aprieta y alza el báculo con cada hechizo. El báculo es una pieza aparte sujeta a la mano.
+
+### v18.81
 - **Carteles de reglas:** Zombiella y el zombi del móvil salen también en el cartel de puntos de PALOTERAPIA · ZOMBIES y PUNTERÍA · ZOMBIELAND: cada personaje aparece con su cara, aunque comparta diana con otro.
 
 ### v18.80
