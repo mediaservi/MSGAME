@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.77**
+**Versión actual: v18.78**
 
 ## Cómo se juega
 
@@ -39,7 +39,17 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **MEVILAND** *(nuevo)*: el reino de fantasía de Mevi, en 3D y en primera persona; la gran plaza de la muralla al atardecer, cuatro mundos (Fantasía, Absurdo, Golosinas y Feria) con tres salas cada uno, doce pruebas, puertas trampa y cuatro finales, uno secreto.
 - **RUNAS** *(nuevo)*: dibuja runas en el aire con la mano delante de la cámara (o con el móvil o el ratón) para deshacer las sombras que van a por el cristal de Mevi; hasta 4 a la vez, jefe final y supermagia con los dos brazos arriba.
 
-## Cambios de la versión actual (v18.77)
+## Cambios de la versión actual (v18.78)
+- **Sello CLAUDE + MEDIASERVI:** los juegos hechos entre los dos llevan su sello de coautoría: en la carátula, junto al de edad; en el bocadillo que describe cada juego al señalarlo, donde ahora salen también la edad recomendada y los jugadores; y en las fichas de este README.
+- **Bocadillo descriptivo para todos:** EL MISTERIO DE EK CHUAH, DIANA, RUNAS y MEVILAND no tenían descripción al señalarlos; ya la tienen, en español, inglés y catalán.
+- **Carteles de reglas:** las figuras salen enteras (algunas perdían los pies) y las etiquetas de puntos ya no tocan el borde.
+- **BOLERA:** partida corta de 5 turnos por defecto; la de 10, en las opciones del cartucho.
+- **MEVILAND · FÁCIL:** dos salas por mundo en vez de tres: la partida de los peques dura un tercio menos.
+- **DIANA · FÁCIL:** menos temblor de pulso y, en DARDOS, ya no existe «te has pasado»: el dardo que sobra cierra la partida.
+- **PALOTERAPIA y CITY RUNNER / DUSTY RUN:** con temas de más de 124 BPM el juego cuenta a mitad de tempo y suelta como mucho un objeto por pulso, para que el ritmo no se dispare ahora que sigue a la música de verdad.
+- **DUSTY RUN:** el arco de salida ya dice DUSTY RUN.
+
+### v18.77
 - **DUSTY RUN · todoterreno nuevo, hecho en casa:** el coche se modela por código, sin modelos de fuera: carrocería de superficies lisas en naranja teja, techo, pilares y bajos negros, pilotos traseros en flecha que se encienden, lunas tintadas, alerón, barras de techo, retrovisores, pasos de rueda con aleta y llantas negras de doce radios que giran. Pesa 1 MB menos que el anterior.
 
 ### v18.76
@@ -1733,10 +1743,13 @@ Sigue de la v7.3:
 ## Fichas de los juegos
 
 ### ENCESTA
+<img src="logos/sello-claude.png" alt="Sello CLAUDE + MEDIASERVI" width="72" align="right">
+
+- **Sellos:** 👤 1–4 jugadores · edad recomendada +3 · sello **CLAUDE + MEDIASERVI** (juego hecho entre los dos)
 - **De qué va:** tres juegos de lanzar en un cartucho. BALLHOP: la bola sube por la rampa, salta y cae en los aros. BASKET: canasta de recreativa por niveles. STREET: la misma canasta en una cancha de barrio.
 - **Jugadores y controles:** de 1 a varios, por turnos; ratón, dedo, mando o el móvil como mando. Apuntar y lanzar (en FÁCIL, BALLHOP se lanza con un toque).
 - **Una idea de:** Josep · mediaservi.com
-- **Coworker:** Claude, la IA de Anthropic. El diseño, el código, las texturas y las escenas 3D de ENCESTA están creados en un 95 % por Claude a partir de la idea de Josep.
+- <img src="logos/sello-claude.png" alt="" width="28" align="top"> **Coworker:** Claude, la IA de Anthropic. El diseño, el código, las texturas y las escenas 3D de ENCESTA están creados en un 95 % por Claude a partir de la idea de Josep.
 - **Referencias e inspiración:** las máquinas de feria de bolas y de canastas, y las canchas de barrio con vallas y muros pintados.
 - **Assets:** modelos 3D de las máquinas de bolas y balón de neón · mediaservi. Texturas, grafitis de la casa y escenas · dibujados por código. Muro de ladrillo · biblioteca de paredes de GRAFFER. Murales del muro · los que pinta cada jugador en GRAFFER.
 

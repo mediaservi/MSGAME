@@ -166,7 +166,7 @@ const PAL = ['#ff3b4f', '#ffd23f', '#35d46a', '#3b8cff', '#a65cff', '#ff7ad1'];
 const BOT = /[?&]bot=1/.test(location.search), RAPIDO = /[?&]rapido=1/.test(location.search);
 const J = { modo: 1, llaves: [], pts: 0, combo: 0, patos: 0, salasOk: 0, salasN: 0, tierra: null, cola: [], patoEn: {}, nombres: [], t0: 0, fase: 'carga', primera: true };
 const necesarias = () => J.modo + 2;
-const salasPorTierra = () => 3;   /* tres salas encadenadas en cada tierra, también en FÁCIL */
+const salasPorTierra = () => J.modo === 0 ? 2 : 3;   /* tres salas encadenadas en cada tierra; en FÁCIL, dos: la partida de los peques dura un tercio menos */
 
 /* ======================= ESCENA ======================= */
 const MU = { g: null, tt: 0, cam: { p: new T.Vector3(0, 1.7, 9), m: new T.Vector3(0, 2, -6) }, cp: new T.Vector3(0, 1.7, 9), cm: new T.Vector3(0, 2, -6), mira: .16, libre: false, upd: null, anim: [], mx: [], luz: [], sel: null, viaje: null };
