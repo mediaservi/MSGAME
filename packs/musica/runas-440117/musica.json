@@ -1,0 +1,23 @@
+{
+ "bpm": 100.0,
+ "tiempo": 0.6,
+ "fundido": 0.25,
+ "nota": "RUNAS: entrada = 46 tiempos; juego = bucle de 32 compases; tension = bucle de 12 compases (las tormentas); final = el cierre del tema.",
+ "fuente": "«Epic Eagle Flight» de juliush (Pixabay, 440117)",
+ "entrada": [
+  0,
+  27.8977
+ ],
+ "juego": [
+  27.8977,
+  104.6913
+ ],
+ "tension": [
+  105.2413,
+  134.0389
+ ],
+ "final": [
+  134.4589,
+  141.8725
+ ]
+}

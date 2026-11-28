@@ -1,0 +1,19 @@
+{
+ "bpm": 90.0,
+ "tiempo": 0.66673,
+ "fundido": 0.3,
+ "nota": "RUNAS · la última tormenta: entrada = 4 compases; juego = bucle de 24 compases; final = el cierre del tema.",
+ "fuente": "«The Northmen Saga» de onecinematicstudio (Pixabay, 529048)",
+ "entrada": [
+  0.0,
+  10.6677
+ ],
+ "juego": [
+  10.6677,
+  74.6738
+ ],
+ "final": [
+  75.0938,
+  90.7748
+ ]
+}

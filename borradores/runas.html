@@ -65,7 +65,8 @@
 </div>
 <script src="../lib/idioma.js?v=18.60"></script>
 <script src="../lib/mevi2d.js"></script>
-<script src="../lib/vikingo3d.js?v=18.84"></script>
+<script src="../lib/msaudio.js?v=18.85"></script>
+<script src="../lib/vikingo3d.js?v=18.85"></script>
 <script>
 'use strict';
 /* ---------------- textos (es · en · ca) ---------------- */
@@ -152,18 +153,19 @@ function reconoce(P) {
   const s = 1 - mejor.d / .5; return s >= (FAC ? .5 : .58) ? { k: mejor.k, s } : null; }
 
 /* ---------------- sonido (sintetizado: funciona sin archivos) y música ---------------- */
-let AC = null, MUDO = false, MUS = null; const ac = () => { if (!AC) try { AC = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) {} if (AC && AC.state === 'suspended') AC.resume().catch(() => {}); return AC; };
+let AC = null, MUDO = false; const ac = () => { if (!AC) try { AC = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) {} if (AC && AC.state === 'suspended') AC.resume().catch(() => {}); return AC; };
 function tono(f, d, tipo, v, f2, ret) { const a = ac(); if (!a || MUDO) return; const t = a.currentTime + (ret || 0), o = a.createOscillator(), g = a.createGain(); o.type = tipo || 'sine'; o.frequency.setValueAtTime(f, t); if (f2) o.frequency.exponentialRampToValueAtTime(f2, t + d); g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(v || .2, t + .01); g.gain.exponentialRampToValueAtTime(.001, t + d); o.connect(g); g.connect(a.destination); o.start(t); o.stop(t + d + .05); }
 function ruido(d, v, f) { const a = ac(); if (!a || MUDO) return; const n = a.sampleRate * d | 0, b = a.createBuffer(1, n, a.sampleRate), q = b.getChannelData(0); for (let i = 0; i < n; i++) q[i] = (Math.random() * 2 - 1) * (1 - i / n); const s = a.createBufferSource(), fl = a.createBiquadFilter(), g = a.createGain(); fl.type = 'lowpass'; fl.frequency.value = f || 1200; g.gain.value = v || .3; s.buffer = b; s.connect(fl); fl.connect(g); g.connect(a.destination); s.start(); }
 const SFX = { zap: k => { const b = { h: 660, v: 740, V: 880, A: 990, O: 523, Z: 1175 }[k] || 700; tono(b, .25, 'triangle', .18, b * 2); tono(b * 1.5, .3, 'sine', .1, b * 3, .05); },
   boom: () => { ruido(.45, .35, 900); tono(110, .4, 'sawtooth', .12, 40); }, fallo: () => tono(220, .25, 'square', .07, 140), ay: () => { ruido(.5, .4, 500); tono(90, .6, 'sawtooth', .2, 45); },
   super: () => { [523, 659, 784, 1047, 1319].forEach((f, i) => tono(f, .6, 'triangle', .14, f * 1.5, i * .07)); ruido(1.2, .35, 3000); }, traza: () => tono(1400 + Math.random() * 300, .05, 'sine', .025) };
-async function musica() {
-  const a = ac(); if (!a || MUS) return; MUS = { on: true };
-  try { const [j, b] = await Promise.all([fetch('../packs/musica/haunted-256804/musica.json').then(r => r.json()), fetch('../packs/musica/haunted-256804/musica.mp3').then(r => r.arrayBuffer())]);
-    const buf = await a.decodeAudioData(b), s = a.createBufferSource(), g = a.createGain(); s.buffer = buf; s.loop = true; s.loopStart = j.juego[0]; s.loopEnd = j.juego[1]; g.gain.value = MUDO ? 0 : .5; s.connect(g); g.connect(a.destination); s.start(0, j.entrada[0]);
-    Object.assign(MUS, { s, g, j, buf }); } catch (e) {} }
-function paraMusica() { if (!MUS || !MUS.g || !AC) { MUS = null; return; } const m = MUS; MUS = null; try { m.g.gain.setTargetAtTime(0, AC.currentTime, .25); m.s.stop(AC.currentTime + 1.2); } catch (e) {} }
+/* v18.85 · música dinámica (lib/msaudio.js): el tema celta lleva la partida (entrada, bucle y un tramo más intenso para la primera tormenta) y el tema nórdico entra con la última tormenta y cierra con su final */
+let M1 = null, M2 = null, MACT = null, pausaM = false;
+function musica() { if (!window.MSAudio) return; MSAudio.mudo = () => MUDO; MSAudio.despierta(); paraMusica(.3);
+  M1 = M1 || MSAudio.musica('../packs/musica/runas-440117/'); M2 = M2 || MSAudio.musica('../packs/musica/runas-529048/'); M1.empieza(); MACT = M1; }
+function paraMusica(s) { [M1, M2].forEach(m => { if (m) m.para(s || 1); }); MACT = null; }
+function musicaTormenta(ultima) { if (!MACT) return; if (ultima) { M1.para(1.4); M2.empieza('juego', { ya: true }); MACT = M2; } else M1.cambia('tension', { ya: true }); }
+function musicaSigue() { if (window.MSAudio && E.pausa !== pausaM) { pausaM = E.pausa; MSAudio.pausa(pausaM); } if (MACT === M1 && M1 && E.fase === 'juego' && !E.enem.some(o => o.jefe)) M1.cambia('juego'); }
 
 /* ---------------- estado ---------------- */
 const NIV = { facil: { vel: .62, vidas: 5, ritmo: .7, tope: 1.1 }, normal: { vel: 1, vidas: 5, ritmo: .9, tope: 1.3 }, dificil: { vel: 1.3, vidas: 3, ritmo: 1.2, tope: 1.9 } };
@@ -214,7 +216,7 @@ st.addEventListener('pointerdown', e => { if (e.target.closest('button,.pan.on')
 st.addEventListener('pointermove', e => { const v = varita('raton', '#ffffff'); [v.x, v.y] = enSt(e.clientX, e.clientY); v.visto = performance.now(); sigueTrazo(v); });
 addEventListener('pointerup', () => acabaTrazo(varita('raton', '#ffffff'))); addEventListener('pointercancel', () => acabaTrazo(varita('raton', '#ffffff')));
 addEventListener('keydown', e => { if (e.key === ' ' || e.key === 'Enter') { if (E.fase === 'juego') { supermagia(); e.preventDefault(); } else if (E.fase === 'ini') { empieza(); e.preventDefault(); } }
-  else if (e.key === 'm' || e.key === 'M') { MUDO = !MUDO; if (MUS && MUS.g) MUS.g.gain.value = MUDO ? 0 : .5; } else if (e.key === 'p' || e.key === 'P') E.pausa = !E.pausa; });
+  else if (e.key === 'm' || e.key === 'M') { MUDO = !MUDO; if (window.MSAudio) MSAudio.aplica(); } else if (e.key === 'p' || e.key === 'P') E.pausa = !E.pausa; });
 let padD = false;
 addEventListener('message', e => { const m = e.data; if (!m || typeof m !== 'object' || e.source !== parent) return;
   if (m.t === 'pad') { const v = varita('movil', '#ffd23f'); v.x = lim(+m.x || 0, 0, 1); v.y = lim(+m.y || 0, 0, 1); v.visto = performance.now(); if (m.d && !padD) empiezaTrazo(v); else if (!m.d && padD) acabaTrazo(v); else sigueTrazo(v); padD = !!m.d; }
@@ -377,7 +379,7 @@ function cursores(now) { Object.values(VAR).forEach(v => { if (v.id === 'raton' 
 
 /* ---------------- el bucle ---------------- */
 let ult = performance.now();
-function tick(now) { requestAnimationFrame(tick); const dt = Math.min(.05, (now - ult) / 1000); ult = now; camara(now); if (!W) tam();
+function tick(now) { requestAnimationFrame(tick); musicaSigue(); const dt = Math.min(.05, (now - ult) / 1000); ult = now; camara(now); if (!W) tam();
   if (E.fase === 'juego' && !E.pausa) paso(dt);
   const t = now / 1000; x.save(); if (E.sacude > 0) { E.sacude -= dt; x.translate(R(-1, 1) * H * .012 * E.sacude, R(-1, 1) * H * .012 * E.sacude); }
   pintaFondo(t); if (E.fase !== 'ini') siluetas(now);
@@ -398,7 +400,7 @@ function tick(now) { requestAnimationFrame(tick); const dt = Math.min(.05, (now 
 function paso(dt) { E.t += dt; if (E.comboT > 0) { E.comboT -= dt; if (E.comboT <= 0) E.combo = 0; }
   const ritmo = NIV[E.niv].ritmo * Math.min(NIV[E.niv].tope, 0.55 + E.t / 70),   /* v18.64 · el ritmo ya no crece sin tope */ hayJefe = E.enem.some(o => o.jefe);
   E.sigue -= dt * (hayJefe ? .45 : 1); if (E.sigue <= 0 && E.t < DUR - 4) { nuevaSombra(); E.sigue = R(1.6, 2.8) / ritmo; }
-  if (E.jefes < JEFES.length && E.t >= JEFES[E.jefes]) { E.jefes++; nuevoJefe(); if (E.jefes === JEFES.length) E.ultima = true; }
+  if (E.jefes < JEFES.length && E.t >= JEFES[E.jefes]) { E.jefes++; nuevoJefe(); if (E.jefes === JEFES.length) E.ultima = true; musicaTormenta(E.jefes === JEFES.length); }
   if (!E.nuevas && (E.t > 45 || E.niv === 'dificil') && E.t > 3) { E.nuevas = true; if (!E.mevi) di('m_nuevas', 3.5); }
   E.enem.forEach(o => { o.t += dt; o.golpe = Math.max(0, o.golpe - dt); o.y += (o.jefe && o.y < H * .36 ? H * .25 : o.vy) * dt; if (o.y + o.r * .7 >= LINEA() && !o.muerta) { o.muerta = true; E.vidas -= o.jefe ? 2 : 1; E.sacude = .6; SFX.ay(); di('m_ay', 2); for (let i = 0; i < 50; i++) chispa(o.x, LINEA(), '#ff5a7a', 2); } });
   E.enem = E.enem.filter(o => !o.muerta);
@@ -417,7 +419,7 @@ function leyenda() { $('leyenda').innerHTML = TODAS.map(k => `<div class="runa">
 function inicio() { E.fase = 'ini'; $('ini').classList.add('on'); $('fin').classList.remove('on'); leyenda(); niveles(); botonCam(); if (CAM.quiere) abreCam(); else estado(T('sinCam')); setTimeout(() => $('bJugar').focus(), 50); }
 function empieza() { ac(); musica(); Object.assign(E, { fase: 'cuenta', cuenta: 0, t: 0, pts: 0, vidas: NIV[E.niv].vidas, combo: 0, comboT: 0, superE: 0, superAv: false, enem: [], part: [], trazos: [], rayos: [], textos: [], jefes: 0, sigue: 1.5, nuevas: false, ultima: false, mevi: null, pausa: false });
   $('ini').classList.remove('on'); $('fin').classList.remove('on'); manda({ t: 'pts', v: 0 }); }
-function acaba() { if (E.fase !== 'juego') return; E.fase = 'fin'; paraMusica(); Object.values(VAR).forEach(acabaTrazo); texto(T('fin'), W / 2, H * .45, '#ffd23f', 2.4);
+function acaba() { if (E.fase !== 'juego') return; E.fase = 'fin'; if (MACT) { MACT.final(); MACT = null; } else paraMusica(); Object.values(VAR).forEach(acabaTrazo); texto(T('fin'), W / 2, H * .45, '#ffd23f', 2.4);
   setTimeout(() => { if (EMB) manda({ t: 'fin', v: E.pts }); else { $('finPts').textContent = E.pts + ' ' + T('puntos'); $('fin').classList.add('on'); $('bOtra').focus(); } }, 2600); }
 $('bJugar').onclick = empieza; $('bOtra').onclick = () => inicio(); $('bSal').onclick = () => { if (EMB) manda({ t: 'sal' }); else inicio(); };
 $('bCam').onclick = () => { CAM.quiere = !CAM.quiere; guarda(); botonCam(); if (CAM.quiere) abreCam(); else { cierraCam(); estado(T('sinCam')); } };

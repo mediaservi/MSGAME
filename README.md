@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.84**
+**Versión actual: v18.85**
 
 ## Cómo se juega
 
@@ -39,7 +39,10 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **MEVILAND** *(nuevo)*: el reino de fantasía de Mevi, en 3D y en primera persona; la gran plaza de la muralla al atardecer, cuatro mundos (Fantasía, Absurdo, Golosinas y Feria) con tres salas cada uno, doce pruebas, puertas trampa y cuatro finales, uno secreto.
 - **RUNAS** *(nuevo)*: dibuja runas en el aire con la mano delante de la cámara (o con el móvil o el ratón) para deshacer las runas que caen de la aurora boreal hacia el cristal de Mevi, que guarda un vikingo sabio; hasta 4 a la vez, tormenta final y supermagia con los dos brazos arriba.
 
-## Cambios de la versión actual (v18.84)
+## Cambios de la versión actual (v18.85)
+- **RUNAS, música propia y dinámica:** un tema celta lleva la partida (entrada, bucle y un tramo más intenso cuando llega la primera tormenta) y un tema nórdico épico entra con la última tormenta y cierra con su final. Antes sonaba una música prestada de otro juego.
+
+### v18.84
 - **PUNTERÍA · GALAXY:** el astronauta al que no hay que disparar es ahora el modelo 3D de la casa, con esqueleto: flota moviendo brazos y piernas y sale dando vueltas si le das. Va sin insignias en el traje.
 - **El vikingo sabio empuña el báculo:** antes el palo le atravesaba la muñeca; ahora lo agarra con el puño cerrado, antebrazo al frente, y lo levanta de verdad con cada hechizo (RUNAS y DIANA).
 
