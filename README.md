@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.85**
+**Versión actual: v18.86**
 
 ## Cómo se juega
 
@@ -37,9 +37,16 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **KRAZYGOLF** *(en desarrollo)*: minigolf clásico en 3D o en modo KRAZY.
 - **DIANA** *(en desarrollo)*: hachas y arco, dardos, el barreño de feria, tartazos y bomberos: cinco formas de acertar al centro.
 - **MEVILAND** *(nuevo)*: el reino de fantasía de Mevi, en 3D y en primera persona; la gran plaza de la muralla al atardecer, cuatro mundos (Fantasía, Absurdo, Golosinas y Feria) con tres salas cada uno, doce pruebas, puertas trampa y cuatro finales, uno secreto.
-- **RUNAS** *(nuevo)*: dibuja runas en el aire con la mano delante de la cámara (o con el móvil o el ratón) para deshacer las runas que caen de la aurora boreal hacia el cristal de Mevi, que guarda un vikingo sabio; hasta 4 a la vez, tormenta final y supermagia con los dos brazos arriba.
+- **RUNAS** *(nuevo)*: dibuja runas en el aire con la mano delante de la cámara (o con el móvil o el ratón) para deshacer las runas que caen de la aurora boreal hacia el cristal que guarda un vikingo sabio, en un claro de bosque nórdico junto a un fiordo; hasta 4 a la vez, tormenta final y supermagia con los dos brazos arriba.
 
-## Cambios de la versión actual (v18.85)
+## Cambios de la versión actual (v18.86)
+- **RUNAS, escenario nuevo por capas:** un claro de bosque nórdico ancestral junto a un fiordo, montado como un decorado de dibujos animados (cielo, montañas con el agua y primer plano), con falso 3D: lo de detrás se desliza según por dónde anda la varita.
+- **Efectos vivos entre las capas:** aurora boreal y nubes por detrás de las montañas, el agua refleja la aurora y ondea, el fuego de los braseros arde, los glifos de los menhires laten y se encienden con cada hechizo, cae nieve, y de vez en cuando un lobo o un oso cruzan por el fondo del claro.
+- **Sin Mevi en RUNAS:** los avisos salen como subtítulos, con letra de aire antiguo pero legible.
+- **Carátula nueva**, hecha con el escenario y el vikingo del juego.
+- **El báculo ya no atraviesa al vikingo:** lo lleva con el brazo abierto, por fuera de la capa y de las piernas.
+
+### v18.85
 - **RUNAS, música propia y dinámica:** un tema celta lleva la partida (entrada, bucle y un tramo más intenso cuando llega la primera tormenta) y un tema nórdico épico entra con la última tormenta y cierra con su final. Antes sonaba una música prestada de otro juego.
 
 ### v18.84

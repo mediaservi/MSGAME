@@ -9,6 +9,8 @@
      La cámara se procesa en este equipo con MediaPipe (lib/manos.js): no se graba ni se envía ninguna imagen. En pantalla solo salen las siluetas de neón. -->
 <style>
   @font-face{font-family:LG;src:url(../fuentes/luckiest-guy.woff2) format("woff2")}
+@font-face{font-family:UA;src:url(../fuentes/uncial-antiqua-ext.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:UA;src:url(../fuentes/uncial-antiqua.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
   @font-face{font-family:AW;src:url(../fuentes/audiowide.woff2) format("woff2")}
   @font-face{font-family:BSC;src:url(../fuentes/barlow-semi-condensed-700.woff2) format("woff2")}
   html,body{margin:0;height:100%;background:#05030c;overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none;font-family:BSC,"Segoe UI",Arial,sans-serif;color:#fff}
@@ -64,14 +66,13 @@
   </div>
 </div>
 <script src="../lib/idioma.js?v=18.60"></script>
-<script src="../lib/mevi2d.js"></script>
 <script src="../lib/msaudio.js?v=18.85"></script>
-<script src="../lib/vikingo3d.js?v=18.85"></script>
+<script src="../lib/vikingo3d.js?v=18.86"></script>
 <script>
 'use strict';
 /* ---------------- textos (es · en · ca) ---------------- */
 const TX = {
-  es: { sub: 'La magia de Mevi', jugar: '¡A jugar!', camara: 'Cámara', camSi: 'Cámara: sí', camNo: 'Cámara: no', facil: 'Fácil', normal: 'Normal', dificil: 'Difícil',
+  es: { sub: 'El círculo de las runas', jugar: '¡A jugar!', camara: 'Cámara', camSi: 'Cámara: sí', camNo: 'Cámara: no', facil: 'Fácil', normal: 'Normal', dificil: 'Difícil',
     mMano: 'Junta pulgar e índice y dibuja en el aire', mMovil: 'Mantén el botón del móvil y muévelo', mRaton: 'Arrastra con el ratón o el dedo',
     fin: '¡FIN DEL HECHIZO!', otra: 'Otra vez', salir: 'Salir', puntos: 'puntos', tiempo: 'Tiempo', combo: 'COMBO',
     abriendo: 'Abriendo la cámara…', cargando: 'Cargando el detector de manos…', teVeo: 'Te veo: {n} mano(s). Pellizca para dibujar.', ponte: 'Ponte delante de la cámara, a 1,5–3 m, con luz de frente.',
@@ -79,7 +80,7 @@ const TX = {
     m_ini: '¡Las runas caen de la aurora hacia el cristal! Dibuja cada una para deshacerla.', m_jefe: '¡La tormenta de runas! Dibújalas en orden.', m_super: '¡Supermagia lista! Levanta los dos brazos.', m_superM: '¡Supermagia lista! Pulsa el botón o la barra.',
     m_nuevas: '¡Runas nuevas! El círculo y el rayo.', m_ultima: '¡Último ataque!', m_bien: '¡Así se hace!', m_ay: '¡Cuidado con el cristal!',
     r_h: 'Raya', r_v: 'Palo', r_V: 'Uve', r_A: 'Tejado', r_O: 'Círculo', r_Z: 'Rayo', superMagia: '¡SUPERMAGIA!', ya: '¡YA!', jefe: 'TORMENTA DE RUNAS', nada: '¿Qué runa es?', cristal: 'Cristal' },
-  en: { sub: 'Mevi\'s magic', jugar: 'Play!', camara: 'Camera', camSi: 'Camera: on', camNo: 'Camera: off', facil: 'Easy', normal: 'Normal', dificil: 'Hard',
+  en: { sub: 'The circle of runes', jugar: 'Play!', camara: 'Camera', camSi: 'Camera: on', camNo: 'Camera: off', facil: 'Easy', normal: 'Normal', dificil: 'Hard',
     mMano: 'Pinch thumb and index and draw in the air', mMovil: 'Hold the phone button and move it', mRaton: 'Drag with the mouse or your finger',
     fin: 'SPELL OVER!', otra: 'Play again', salir: 'Exit', puntos: 'points', tiempo: 'Time', combo: 'COMBO',
     abriendo: 'Opening the camera…', cargando: 'Loading the hand detector…', teVeo: 'I can see {n} hand(s). Pinch to draw.', ponte: 'Stand in front of the camera, 1.5–3 m away, with light on your face.',
@@ -87,7 +88,7 @@ const TX = {
     m_ini: 'Runes are falling from the aurora onto the crystal! Draw each one to undo it.', m_jefe: 'The rune storm! Draw them in order.', m_super: 'Super magic ready! Raise both arms.', m_superM: 'Super magic ready! Press the button or the space bar.',
     m_nuevas: 'New runes! The circle and the lightning.', m_ultima: 'Final attack!', m_bien: 'Well done!', m_ay: 'Watch the crystal!',
     r_h: 'Line', r_v: 'Stick', r_V: 'Vee', r_A: 'Roof', r_O: 'Circle', r_Z: 'Lightning', superMagia: 'SUPER MAGIC!', ya: 'GO!', jefe: 'RUNE STORM', nada: 'Which rune?', cristal: 'Crystal' },
-  ca: { sub: 'La màgia de la Mevi', jugar: 'A jugar!', camara: 'Càmera', camSi: 'Càmera: sí', camNo: 'Càmera: no', facil: 'Fàcil', normal: 'Normal', dificil: 'Difícil',
+  ca: { sub: 'El cercle de les runes', jugar: 'A jugar!', camara: 'Càmera', camSi: 'Càmera: sí', camNo: 'Càmera: no', facil: 'Fàcil', normal: 'Normal', dificil: 'Difícil',
     mMano: 'Ajunta polze i índex i dibuixa a l\'aire', mMovil: 'Mantén el botó del mòbil i mou-lo', mRaton: 'Arrossega amb el ratolí o el dit',
     fin: 'FI DE L\'ENCANTERI!', otra: 'Una altra', salir: 'Sortir', puntos: 'punts', tiempo: 'Temps', combo: 'COMBO',
     abriendo: 'Obrint la càmera…', cargando: 'Carregant el detector de mans…', teVeo: 'Et veig: {n} mà(ns). Pessiga per dibuixar.', ponte: 'Posa\'t davant de la càmera, a 1,5–3 m, amb llum de cara.',
@@ -209,6 +210,13 @@ function chispa(X, Y, col, f) { E.part.push({ x: X, y: Y, vx: R(-1, 1) * H * .25
 function texto(s, X, Y, col, k) { E.textos.push({ s, x: X, y: Y, col, k: k || 1, t: 0 }); }
 function glifoGrande(k, X, Y) { E.textos.push({ g: k, x: X, y: Y, t: 0, k: 1 }); }
 function di(k, d) { E.mevi = { s: T(k), t: 0, d: d || 3 }; }
+/* v18.86 · los avisos ya no los da nadie en un bocadillo: salen escritos abajo, como un subtítulo, con letra de aire antiguo pero que se lee de un vistazo */
+try { document.fonts.load('20px UA'); } catch (e) {}
+function subtitulo(s, a) { x.save(); x.globalAlpha = a; let fs = H * .04; x.textAlign = 'center'; x.textBaseline = 'middle'; x.font = `${fs}px UA, BSC, sans-serif`; let w = x.measureText(s).width; if (w > W * .8) { fs *= W * .8 / w; x.font = `${fs}px UA, BSC, sans-serif`; w = W * .8; }
+  const Y = H * .928, an = w + H * .3, alto = H * .068, g = x.createLinearGradient(W / 2 - an / 2, 0, W / 2 + an / 2, 0); g.addColorStop(0, 'rgba(3,10,24,0)'); g.addColorStop(.14, 'rgba(3,10,24,.8)'); g.addColorStop(.86, 'rgba(3,10,24,.8)'); g.addColorStop(1, 'rgba(3,10,24,0)'); x.fillStyle = g; x.fillRect(W / 2 - an / 2, Y - alto / 2, an, alto);
+  const l = x.createLinearGradient(W / 2 - an / 2, 0, W / 2 + an / 2, 0); l.addColorStop(0, 'rgba(126,249,255,0)'); l.addColorStop(.5, 'rgba(126,249,255,.8)'); l.addColorStop(1, 'rgba(126,249,255,0)'); x.fillStyle = l; x.fillRect(W / 2 - an / 2, Y - alto / 2, an, Math.max(1, H * .002)); x.fillRect(W / 2 - an / 2, Y + alto / 2, an, Math.max(1, H * .002));
+  x.shadowColor = '#2bffb0'; x.shadowBlur = H * .012; x.fillStyle = '#eafff6'; x.fillText(s, W / 2, Y + fs * .04); x.shadowBlur = 0;
+  glifo(x, 'V', W / 2 - w / 2 - H * .05, Y, H * .03, 'rgba(126,249,255,.9)', H * .004, a); glifo(x, 'A', W / 2 + w / 2 + H * .05, Y, H * .03, 'rgba(126,249,255,.9)', H * .004, a); x.restore(); }
 
 /* ---------------- entradas: ratón / dedo, teclado y móvil ---------------- */
 const enSt = (cx, cy) => { const r = st.getBoundingClientRect(); return [(cx - r.left) / r.width, (cy - r.top) / r.height]; };
@@ -267,46 +275,59 @@ function camara(now) {
   if (E.fase === 'ini') estado(L.length ? T('teVeo', { n: L.length }) : T('ponte')); }
 
 /* ---------------- el fondo (se pinta una vez por tamaño) ---------------- */
-let FONDO = null; const EST = Array.from({ length: 190 }, () => [Math.random(), Math.random() * .52, Math.random() * 1.5 + .3, Math.random() * TAU]);
-/* v18.82 · paisaje nórdico de noche: cordilleras nevadas, el fiordo que refleja el cielo, la orilla con abetos y las piedras rúnicas; la aurora se pinta viva encima, cada fotograma */
-function fondo() { const c = document.createElement('canvas'); c.width = Math.max(2, W * DPR | 0); c.height = Math.max(2, H * DPR | 0); const f = c.getContext('2d'); f.scale(DPR, DPR);
-  let sem = 7; const rnd = () => (sem = (sem * 16807) % 2147483647) / 2147483647;
-  const g = f.createLinearGradient(0, 0, 0, H * .7); g.addColorStop(0, '#020716'); g.addColorStop(.5, '#071a33'); g.addColorStop(1, '#12365a'); f.fillStyle = g; f.fillRect(0, 0, W, H);
-  /* cordilleras: tres planos, con nieve en las cumbres */
-  const sierra = (yb, amp, n, col, nieve, s0) => { sem = s0; const P = [[0, yb]]; for (let i = 0; i <= n; i++) P.push([W * i / n, yb - amp * (.25 + .75 * rnd()) * (i % 2 ? 1 : .45)]); P.push([W, yb]);
-    f.fillStyle = col; f.beginPath(); f.moveTo(0, H); P.forEach(q => f.lineTo(q[0], q[1])); f.lineTo(W, H); f.fill();
-    if (nieve) { f.fillStyle = nieve; for (let i = 2; i < P.length - 1; i += 2) { const [X, Y] = P[i], a = P[i - 1], b = P[i + 1], k = .42; f.beginPath(); f.moveTo(X, Y); f.lineTo(X + (a[0] - X) * k, Y + (a[1] - Y) * k); f.lineTo(X + (a[0] - X) * k * .45, Y + (a[1] - Y) * k * .62); f.lineTo(X, Y + (b[1] - Y) * k * .38); f.lineTo(X + (b[0] - X) * k * .5, Y + (b[1] - Y) * k * .7); f.lineTo(X + (b[0] - X) * k, Y + (b[1] - Y) * k); f.closePath(); f.fill(); } } };
-  sierra(H * .62, H * .2, 14, '#0e2742', 'rgba(150,215,225,.35)', 11); sierra(H * .64, H * .27, 9, '#0a1c33', 'rgba(170,235,235,.5)', 29); sierra(H * .66, H * .13, 18, '#07142a', null, 53);
-  /* el fiordo */
-  const a = f.createLinearGradient(0, H * .64, 0, H * .76); a.addColorStop(0, '#0d3550'); a.addColorStop(1, '#061a2e'); f.fillStyle = a; f.fillRect(0, H * .645, W, H * .12);
-  /* la orilla nevada */
-  const o = f.createLinearGradient(0, H * .73, 0, H); o.addColorStop(0, '#86b3c8'); o.addColorStop(.2, '#44728f'); o.addColorStop(1, '#122a47'); f.fillStyle = o; f.beginPath(); f.moveTo(0, H * .76);
-  for (let i = 0; i <= 28; i++) f.lineTo(W * i / 28, H * (.745 + Math.sin(i * 1.3) * .008 + Math.sin(i * .45 + 1) * .012)); f.lineTo(W, H); f.lineTo(0, H); f.fill();
-  /* abetos a los lados y piedras rúnicas */
-  const abeto = (X, Y, h) => { f.fillStyle = '#04101e'; f.fillRect(X - h * .025, Y - h * .12, h * .05, h * .14); for (let k = 0; k < 5; k++) { const w = h * (.3 - k * .05), y = Y - h * (.1 + k * .17); f.beginPath(); f.moveTo(X - w, y); f.lineTo(X, y - h * .3); f.lineTo(X + w, y); f.fill(); }
-    f.fillStyle = 'rgba(190,230,240,.35)'; for (let k = 0; k < 5; k++) { const w = h * (.3 - k * .05), y = Y - h * (.1 + k * .17); f.beginPath(); f.moveTo(X - w * .15, y - h * .2); f.lineTo(X, y - h * .3); f.lineTo(X + w * .55, y - h * .1); f.lineTo(X + w * .1, y - h * .17); f.fill(); } };
-  sem = 91; [[.03, .8, .3], [.09, .775, .2], [.145, .79, .25], [.2, .768, .15], [.97, .8, .31], [.915, .778, .21], [.86, .792, .26], [.8, .768, .15], [.255, .762, .1], [.745, .762, .1]].forEach(([u, v, h]) => abeto(u * W, v * H, h * H));
-  const piedra = (X, Y, h, k) => { f.fillStyle = '#16263c'; f.beginPath(); f.moveTo(X - h * .2, Y); f.lineTo(X - h * .16, Y - h * .8); f.lineTo(X - h * .02, Y - h); f.lineTo(X + h * .15, Y - h * .86); f.lineTo(X + h * .21, Y); f.fill(); f.fillStyle = 'rgba(190,230,240,.3)'; f.beginPath(); f.moveTo(X - h * .16, Y - h * .8); f.lineTo(X - h * .02, Y - h); f.lineTo(X + h * .15, Y - h * .86); f.lineTo(X, Y - h * .8); f.fill(); glifo(f, k, X, Y - h * .45, h * .3, 'rgba(126,249,255,.75)', h * .035); };
-  piedra(W * .3, H * .835, H * .12, TODAS[0]); piedra(W * .7, H * .835, H * .12, TODAS[2]); piedra(W * .385, H * .8, H * .075, TODAS[4]); piedra(W * .615, H * .8, H * .075, TODAS[5]);
-  FONDO = c; }
-/* un rayo de cortina, blanco: se tiñe al dibujarlo */
-const RAYO_A = (() => { const c = document.createElement('canvas'); c.width = 8; c.height = 128; const f = c.getContext('2d'), mk = (h, l) => { const g = f.createLinearGradient(0, 0, 0, 128); g.addColorStop(0, `hsla(${h + 110},100%,${l}%,0)`); g.addColorStop(.3, `hsla(${h + 60},100%,${l}%,.5)`); g.addColorStop(.78, `hsla(${h},100%,${l}%,1)`); g.addColorStop(1, `hsla(${h},100%,${l}%,0)`); return g; };
-  return [140, 165, 280].map(h => { const k = document.createElement('canvas'); k.width = 32; k.height = 128; const q = k.getContext('2d'); q.fillStyle = mk(h, 60); q.fillRect(0, 0, 32, 128); q.globalCompositeOperation = 'destination-in'; const m = q.createLinearGradient(0, 0, 32, 0); m.addColorStop(0, 'rgba(0,0,0,0)'); m.addColorStop(.5, 'rgba(0,0,0,1)'); m.addColorStop(1, 'rgba(0,0,0,0)'); q.fillStyle = m; q.fillRect(0, 0, 32, 128); return k; }); })();
-const AUR = [{ y: .33, a: .07, f: .9, v: .11, h: .27, c: 0, al: .34 }, { y: .25, a: .06, f: 1.4, v: -.08, h: .21, c: 1, al: .27 }, { y: .38, a: .05, f: 1.9, v: .15, h: .2, c: 2, al: .22 }];
-const auroraY = (b, u, t) => H * (b.y + Math.sin(u * TAU * b.f + t * b.v * TAU) * b.a + Math.sin(u * TAU * b.f * 2.3 - t * b.v * 9 + b.c) * b.a * .35);
-function aurora(t) { x.save(); x.globalCompositeOperation = 'lighter'; const N = 110, w = W / N * 5;
-  AUR.forEach(b => { for (let i = 0; i <= N; i++) { const u = i / N, yb = auroraY(b, u, t), k = .55 + .45 * Math.sin(u * 37 + t * 1.7 + b.c * 2) * Math.sin(u * 11 - t * .9), hh = H * b.h * (.7 + .3 * Math.sin(u * 23 + t * .6 + b.c));
-      x.globalAlpha = b.al * lim(k, .12, 1) * (E.flash > 0 ? 1.4 : 1); x.drawImage(RAYO_A[b.c], u * W - w / 2, yb - hh, w, hh * 1.12); } });
-  /* el reflejo en el fiordo */
-  const g = x.createLinearGradient(0, H * .645, 0, H * .76); g.addColorStop(0, `rgba(80,255,190,${.2 + .06 * Math.sin(t * .7)})`); g.addColorStop(.6, 'rgba(120,120,255,.07)'); g.addColorStop(1, 'rgba(80,255,190,0)'); x.globalAlpha = 1; x.fillStyle = g;
-  for (let i = 0; i < 26; i++) { const u = (i + .5) / 26, k = .4 + .6 * Math.abs(Math.sin(u * 9 + t * .5)); x.globalAlpha = k; x.fillRect(u * W - W / 52, H * .647, W / 26 * (.5 + .4 * Math.sin(i * 3 + t)), H * .11); }
-  x.restore(); }
-const LINEA = () => H * .84;
-function pintaFondo(t) { if (!FONDO) fondo(); x.drawImage(FONDO, 0, 0, W, H);
-  x.save(); x.globalCompositeOperation = 'lighter'; EST.forEach(([a, b, s, p]) => { x.fillStyle = `rgba(255,255,255,${.35 + .35 * Math.sin(t * s + p)})`; x.fillRect(a * W, b * H * .8, s, s); }); x.restore();
-  aurora(t);
+/* v18.86 · escenario por capas, como un decorado de dibujos animados: cielo, montañas con el fiordo, y el claro del bosque en primer plano.
+   Entre capa y capa van los efectos vivos: la aurora y las nubes detrás de las montañas, el reflejo en el agua, el fuego de los braseros,
+   los glifos de los menhires que laten, la nieve y algún animal que cruza al fondo. */
+const CAPA = {}; ['cielo.webp', 'montes.webp', 'frente.webp', 'glifos.webp', 'agua.png'].forEach(f => { const im = new Image(); im.onload = () => { CAPA[f.split('.')[0]] = im; FONDO = null; }; im.src = '../juegos/runas/' + f + '?v=18.86'; });
+const FAUNA = {}; [['lobo', 'm-lobo-anim'], ['oso', 'oso-anim']].forEach(([k, u]) => { const im = new Image(); im.onload = () => { FAUNA[k] = im; }; im.src = '../juegos/hit3d/' + u + '.webp?v=18.86'; });
+let FONDO = null; const EST = Array.from({ length: 60 }, () => [Math.random(), Math.random() * .42, Math.random() * 1.6 + .6, Math.random() * TAU]);
+/* las capas, ya a la medida del lienzo (se rehacen al cambiar de tamaño) */
+function fondo() { const mk = (im, k) => { if (!im) return null; const c = document.createElement('canvas'); c.width = Math.max(2, W * DPR * k | 0); c.height = Math.max(2, H * DPR * k | 0); c.getContext('2d').drawImage(im, 0, 0, c.width, c.height); return c; };
+  FONDO = { cielo: mk(CAPA.cielo, 1.03), montes: mk(CAPA.montes, 1.07), frente: mk(CAPA.frente, 1), ag: document.createElement('canvas') }; FONDO.ag.width = 480; FONDO.ag.height = 270; }
+/* un rayo de cortina de aurora, de cada color */
+const RAYO_A = (() => { const mk = (f, h, l) => { const g = f.createLinearGradient(0, 0, 0, 128); g.addColorStop(0, `hsla(${h + 110},100%,${l}%,0)`); g.addColorStop(.3, `hsla(${h + 60},100%,${l}%,.5)`); g.addColorStop(.78, `hsla(${h},100%,${l}%,1)`); g.addColorStop(1, `hsla(${h},100%,${l}%,0)`); return g; };
+  return [140, 165, 280].map(h => { const k = document.createElement('canvas'); k.width = 32; k.height = 128; const q = k.getContext('2d'); q.fillStyle = mk(q, h, 60); q.fillRect(0, 0, 32, 128); q.globalCompositeOperation = 'destination-in'; const m = q.createLinearGradient(0, 0, 32, 0); m.addColorStop(0, 'rgba(0,0,0,0)'); m.addColorStop(.5, 'rgba(0,0,0,1)'); m.addColorStop(1, 'rgba(0,0,0,0)'); q.fillStyle = m; q.fillRect(0, 0, 32, 128); return k; }); })();
+const AUR = [{ y: .36, a: .07, f: .9, v: .11, h: .3, c: 0, al: .36 }, { y: .27, a: .06, f: 1.4, v: -.08, h: .23, c: 1, al: .28 }, { y: .43, a: .05, f: 1.9, v: .15, h: .22, c: 2, al: .24 }];
+const auroraY = (b, u, t) => b.y + Math.sin(u * TAU * b.f + t * b.v * TAU) * b.a + Math.sin(u * TAU * b.f * 2.3 - t * b.v * 9 + b.c) * b.a * .35;
+/* la aurora se pinta en cualquier lienzo: en el cielo, del derecho; en el agua, del revés y aplastada */
+function aurora(c, t, w, h, y0, ky, al) { const N = 110, an = w / N * 5; AUR.forEach(b => { for (let i = 0; i <= N; i += (ky < 0 ? 2 : 1)) { const u = i / N, yb = auroraY(b, u, t), k = .55 + .45 * Math.sin(u * 37 + t * 1.7 + b.c * 2) * Math.sin(u * 11 - t * .9), hh = b.h * (.7 + .3 * Math.sin(u * 23 + t * .6 + b.c));
+    c.globalAlpha = b.al * lim(k, .12, 1) * al; const Y = y0 + (yb - hh) * h * ky, HH = hh * 1.12 * h * ky; c.drawImage(RAYO_A[b.c], u * w - an / 2, Math.min(Y, Y + HH), an * (ky < 0 ? 2 : 1), Math.abs(HH)); } }); c.globalAlpha = 1; }
+/* nubes: unas pocas, blandas, que cruzan despacio por detrás de las montañas */
+const NUBE = (() => { const c = document.createElement('canvas'); c.width = 256; c.height = 96; const f = c.getContext('2d'); [[70, 56, 46], [120, 44, 52], [170, 54, 44], [210, 62, 30], [40, 64, 28], [140, 66, 40]].forEach(([X, Y, R0]) => { const g = f.createRadialGradient(X, Y, 0, X, Y, R0); g.addColorStop(0, 'rgba(120,150,190,.55)'); g.addColorStop(1, 'rgba(120,150,190,0)'); f.fillStyle = g; f.fillRect(0, 0, 256, 96); }); return c; })();
+const NUBES = [[.1, .2, .5, .011], [.55, .3, .38, .016], [.85, .14, .44, .008], [.33, .4, .3, .02]];
+/* el fuego de los braseros */
+const BRAS = [[.0605, .648], [.9365, .642]];
+const LLAMA = (() => { const c = document.createElement('canvas'); c.width = c.height = 64; const f = c.getContext('2d'), g = f.createRadialGradient(32, 38, 0, 32, 32, 30); g.addColorStop(0, 'rgba(255,250,200,1)'); g.addColorStop(.25, 'rgba(255,190,60,.9)'); g.addColorStop(.6, 'rgba(255,90,20,.45)'); g.addColorStop(1, 'rgba(255,60,0,0)'); f.fillStyle = g; f.fillRect(0, 0, 64, 64); return c; })();
+function fuego(t) { x.save(); x.globalCompositeOperation = 'lighter'; BRAS.forEach(([u, v], n) => { const X = u * W, Y = v * H, s = H * .05, pul = .75 + .25 * Math.sin(t * 9 + n * 2) * Math.sin(t * 5.3 + n);
+    const g = x.createRadialGradient(X, Y, 0, X, Y, H * .3); g.addColorStop(0, `rgba(255,150,50,${.2 * pul})`); g.addColorStop(.4, `rgba(255,110,30,${.07 * pul})`); g.addColorStop(1, 'rgba(255,90,20,0)'); x.fillStyle = g; x.fillRect(X - H * .3, Y - H * .3, H * .6, H * .6);
+    for (let i = 0; i < 9; i++) { const ph = (t * (1.1 + i * .13) + i * .37 + n * .5) % 1, sx = Math.sin(t * 7 + i * 2.1 + n) * s * .22 * (1 - ph) + Math.sin(i * 1.7) * s * .3 * (1 - ph), k = (1 - ph) * (.55 + .45 * Math.sin(i * 3.3)); x.globalAlpha = (1 - ph) * .7; x.drawImage(LLAMA, X + sx - s * k * .5, Y - ph * s * 1.9 - s * k * .9, s * k, s * k * 1.5); }
+    x.globalAlpha = 1; for (let i = 0; i < 6; i++) { const ph = (t * (.35 + i * .06) + i * .21 + n * .3) % 1; x.fillStyle = `rgba(255,${190 - ph * 90 | 0},70,${(1 - ph) * .9})`; const r0 = W / 900 * (1.4 - ph * .6); x.fillRect(X + Math.sin(ph * 9 + i * 2 + n) * s * .7, Y - s - ph * H * .16, r0, r0); } }); x.restore(); }
+/* la nieve que cae y los animales que cruzan por el fondo del claro */
+const COPOS = Array.from({ length: 46 }, () => [Math.random(), Math.random(), .4 + Math.random() * .9, Math.random() * TAU]);
+const BICHO = { t: 9, k: null, x: 0, d: 1, n: 0 };
+function fauna(t, dt) { if (E.pausa) dt = 0; if (!BICHO.k) { BICHO.t -= dt; if (BICHO.t <= 0 && (FAUNA.lobo || FAUNA.oso)) { BICHO.k = BICHO.n++ % 3 === 2 && FAUNA.oso ? 'oso' : (FAUNA.lobo ? 'lobo' : 'oso'); BICHO.d = Math.random() < .5 ? 1 : -1; BICHO.x = BICHO.d > 0 ? .19 : .81; } return; }
+  const im = FAUNA[BICHO.k], oso = BICHO.k === 'oso', hh = H * (oso ? .1 : .062), ww = hh * 1.5, v = oso ? .016 : .03; BICHO.x += BICHO.d * v * dt; if (BICHO.x < .18 || BICHO.x > .82) { BICHO.k = null; BICHO.t = R(14, 30); return; }
+  const fi = Math.floor(t * (oso ? 7 : 10)) % 12, X = BICHO.x * W, Y = H * .668, a = lim(Math.min(BICHO.x - .18, .82 - BICHO.x) * 30, 0, 1);
+  x.save(); x.globalAlpha = a; x.filter = 'brightness(.5) saturate(.6)'; x.translate(X, Y); x.scale(BICHO.d, 1); x.drawImage(im, fi * 300, 0, 300, 200, -ww / 2, -hh * .93, ww, hh); x.restore(); }
+/* falso 3D: el claro y el juego no se mueven; lo de detrás se desliza según por dónde anda la varita (y un vaivén lento), más cuanto más cerca está */
+let PAN = 0; const LINEA = () => H * .84;
+function pintaFondo(t, dt) { if (!FONDO) fondo(); const F = FONDO; let px = 0, pn = 0; const ah = performance.now(); Object.values(VAR).forEach(v => { if (ah - v.visto < 2500) { px += v.x - .5; pn++; } });
+  PAN += ((pn ? lim(px / pn * 2, -1, 1) : 0) * .8 + Math.sin(t * .13) * .2 - PAN) * Math.min(1, (dt || .016) * 2.2); const mx = -W * .035 - PAN * W * .026, my = -H * .028, cx = -W * .015 - PAN * W * .007;
+  if (F.cielo) x.drawImage(F.cielo, cx, -H * .01, W * 1.03, H * 1.03); else { x.fillStyle = '#06122a'; x.fillRect(0, 0, W, H); }
+  x.save(); x.globalCompositeOperation = 'lighter'; EST.forEach(([a, b, s, p]) => { x.fillStyle = `rgba(255,255,255,${.25 + .45 * Math.sin(t * s + p)})`; x.fillRect(a * W, b * H, s * W / 900, s * W / 900); });
+  x.translate(-PAN * W * .011, 0); aurora(x, t, W * 1.03, H, 0, 1, E.flash > 0 ? 1.4 : 1); x.restore();
+  NUBES.forEach(([u, v, s, vel], i) => { const X = ((u + t * vel) % 1.4 - .2) * W - PAN * W * .016; x.globalAlpha = .5; x.drawImage(NUBE, X - s * W / 2, v * H, s * W, s * W * .3); }); x.globalAlpha = 1;
+  if (F.montes) x.drawImage(F.montes, mx, my, W * 1.07, H * 1.07);
+  /* el agua, viva: el reflejo de la aurora del revés y unas ondas de luz, solo donde hay agua */
+  if (CAPA.agua) { const c = F.ag, q = c.getContext('2d'), w = c.width, h = c.height; q.globalCompositeOperation = 'source-over'; q.clearRect(0, 0, w, h); q.globalCompositeOperation = 'lighter'; aurora(q, t, w, h, h * .56 + h * .5 * .42, -.42, 1.5);
+    for (let i = 0; i < 26; i++) { const yy = h * (.56 + .013 * i + .004 * Math.sin(t * 1.3 + i)), ph = (t * (.05 + (i % 5) * .012) + i * .137) % 1; q.fillStyle = `rgba(190,255,240,${.1 + .12 * Math.sin(t * 2 + i * 1.7)})`; q.fillRect(w * (.3 + .4 * ph) + Math.sin(i * 7) * w * .1, yy, w * (.02 + .03 * Math.abs(Math.sin(i * 3.1 + t * .7))), 1); }
+    q.globalCompositeOperation = 'destination-in'; q.drawImage(CAPA.agua, 0, 0, w, h); x.save(); x.globalCompositeOperation = 'lighter'; x.globalAlpha = .8; x.drawImage(c, mx, my, W * 1.07, H * 1.07); x.restore(); }
+  if (F.frente) x.drawImage(F.frente, 0, 0, W, H);
+  fauna(t, dt || 0); fuego(t);
+  if (CAPA.glifos) { x.save(); x.globalCompositeOperation = 'lighter'; x.globalAlpha = lim(.3 + .22 * Math.sin(t * 1.3) + VK.h * .7 + (E.flash > 0 ? .5 : 0), 0, 1); x.drawImage(CAPA.glifos, 0, 0, W, H); x.restore(); }
+  x.save(); x.fillStyle = 'rgba(235,245,255,.75)'; COPOS.forEach(([a, b, s, p]) => { const yy = (b + t * .03 * s) % 1, xx = (a + Math.sin(t * .4 + p) * .012 + t * .004) % 1; x.fillRect(xx * W, yy * H, s * W / 700, s * W / 700); }); x.restore();
   /* el círculo mágico del suelo, con el cristal en el centro */
-  const cy = LINEA() + H * .07; x.save(); x.translate(W / 2, cy); x.scale(1, .22); x.rotate(t * .15); x.strokeStyle = 'rgba(126,249,255,.6)'; x.lineWidth = W * .002; x.shadowColor = '#3bf3ff'; x.shadowBlur = 14;
+  const cy = LINEA() + H * .07; x.save(); x.translate(W / 2, cy); x.scale(1, .22); x.rotate(t * .15); x.globalCompositeOperation = 'lighter'; x.strokeStyle = 'rgba(126,249,255,.85)'; x.lineWidth = W * .0028; x.shadowColor = '#3bf3ff'; x.shadowBlur = 18;
   [.36, .3].forEach(k => { x.beginPath(); x.arc(0, 0, W * k, 0, TAU); x.stroke(); }); for (let i = 0; i < 12; i++) { x.save(); x.rotate(i * TAU / 12); x.translate(W * .33, 0); x.rotate(Math.PI / 2); glifo(x, TODAS[i % 6], 0, 0, W * .03, 'rgba(190,250,255,.7)', W * .002); x.restore(); } x.restore();
   x.save(); x.setLineDash([W * .01, W * .008]); x.strokeStyle = `rgba(255,80,140,${.25 + .15 * Math.sin(t * 3)})`; x.lineWidth = 2; x.beginPath(); x.moveTo(0, LINEA()); x.lineTo(W, LINEA()); x.stroke(); x.restore(); }
 /* v18.82 · el vikingo sabio, vivo: modelo con esqueleto que respira, camina hasta ponerse bajo la runa que más aprieta, habla con las manos cuando Mevi avisa y alza el báculo con cada hechizo.
@@ -382,7 +403,7 @@ let ult = performance.now();
 function tick(now) { requestAnimationFrame(tick); musicaSigue(); const dt = Math.min(.05, (now - ult) / 1000); ult = now; camara(now); if (!W) tam();
   if (E.fase === 'juego' && !E.pausa) paso(dt);
   const t = now / 1000; x.save(); if (E.sacude > 0) { E.sacude -= dt; x.translate(R(-1, 1) * H * .012 * E.sacude, R(-1, 1) * H * .012 * E.sacude); }
-  pintaFondo(t); if (E.fase !== 'ini') siluetas(now);
+  pintaFondo(t, dt); if (E.fase !== 'ini') siluetas(now);
   vikingo(t, dt); E.enem.forEach(o => sombra(o, t)); cristal(t);
   E.trazos = E.trazos.filter(r => (r.t += dt) < .7); E.trazos.forEach(r => trazo(r.P, r.col, 1 - r.t / .7, H * .008));
   Object.values(VAR).forEach(v => { if (v.down) trazo(v.pts, v.col, 1, H * .008); });
@@ -392,7 +413,7 @@ function tick(now) { requestAnimationFrame(tick); musicaSigue(); const dt = Math
     x.save(); x.globalAlpha = a; x.font = `${H * .045 * o.k}px LG`; x.textAlign = 'center'; x.fillStyle = o.col; x.shadowColor = o.col; x.shadowBlur = 14; x.fillText(o.s, o.x, o.y - o.t * H * .06); x.restore(); });
   if (E.fase === 'juego' || E.fase === 'fin') hud(); cursores(now);
   if (E.flash > 0) { E.flash -= dt * 1.5; x.fillStyle = `rgba(255,255,255,${Math.max(0, E.flash) * .7})`; x.fillRect(0, 0, W, H); }
-  if (E.mevi && window.MEVI2D) { E.mevi.t += dt; const a = Math.min(1, E.mevi.t * 4, (E.mevi.d - E.mevi.t) * 2); if (a <= 0) E.mevi = null; else try { MEVI2D.dice(x, { texto: E.mevi.s, X: W * .03, Y: H * .93, W: W * .62, h: H * .075, t: E.mevi.t, a }); } catch (e) {} }
+  if (E.mevi) { E.mevi.t += dt; const a = Math.min(1, E.mevi.t * 4, (E.mevi.d - E.mevi.t) * 2); if (a <= 0) E.mevi = null; else subtitulo(E.mevi.s, a); }
   if (E.fase === 'cuenta') { const k = 3 - Math.floor(E.cuenta); x.save(); x.font = `${H * .3}px LG`; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#ffd23f'; x.shadowColor = '#ff9d00'; x.shadowBlur = 30; x.globalAlpha = 1 - (E.cuenta % 1); x.fillText(k > 0 ? String(k) : T('ya'), W / 2, H * .45); x.restore();
     E.cuenta += dt; if (E.cuenta >= 3.6) { E.fase = 'juego'; di('m_ini', 4); } }
   if (E.pausa) { x.fillStyle = 'rgba(0,0,0,.5)'; x.fillRect(0, 0, W, H); x.font = `${H * .1}px LG`; x.textAlign = 'center'; x.fillStyle = '#fff'; x.fillText('II', W / 2, H / 2); }

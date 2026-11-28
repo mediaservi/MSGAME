@@ -1,0 +1,6 @@
+<!doctype html><meta charset="utf-8"><body style="margin:0;background:#2a3d55"><canvas id="c" width="2100" height="700"></canvas>
+<script src="lib/vikingo3d.js"></script><script>
+const x=document.getElementById('c').getContext('2d'),V=VIKINGO3D.crea({px:900});let n=0;
+const e=[{dt:.05,mira:0},{dt:.05,habla:true,mira:1},{dt:.05,vx:1},{dt:.05,vx:-1},{dt:.05,hechizo:1,mira:-1},{dt:.05,mira:1.8},{dt:.05,mira:-1.8}];
+function go(){ if(!V.listo){setTimeout(go,200);return;} for(let k=0;k<7;k++){ for(let i=0;i<(k==2||k==3?31:24);i++){ x.clearRect(k*300,0,300,700); V.pinta(x,k*300+150,640,400,e[k]); } } window.OK=1; } go();
+</script>

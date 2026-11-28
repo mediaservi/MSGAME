@@ -30,6 +30,7 @@ También bajo **SIL Open Font License 1.1**, del mismo origen (subconjunto latin
 | `sedgwick-ave-display.woff2` | Sedgwick Ave Display |
 | `luckiest-guy.woff2` | Luckiest Guy |
 | `lilita-one.woff2` | Lilita One |
+| `uncial-antiqua.woff2`, `uncial-antiqua-ext.woff2` | Uncial Antiqua |
 
 ## Tipos del módulo de textos de VJSHOW (v10.0)
 
