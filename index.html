@@ -3896,7 +3896,7 @@ body.gm-modos #gmUI{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '18.80';
+    const APP_VERSION = '18.81';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -5865,7 +5865,7 @@ body.gm-modos #gmUI{display:none!important}
         g.fire = () => { const t0 = performance.now(); if (t0 - (g.golT || 0) < 200) return; g.golT = t0; SFX.play(mode === 'bat' ? 'swingbat' : 'swing', 0, 120); let best = null, bd = 1e9;
           g.objs.forEach(o => { if (o.sx === undefined || !(o.z < .34 && o.z > -.12)) return; const d = Math.hypot(o.sx - pad.x, o.sy - pad.y); if (d < o.r * 2.2 + H * .07 && d < bd) { bd = d; best = o; } });
           if (!best) return; g.objs.splice(g.objs.indexOf(best), 1); const sp0 = g.sp; g.sp = Math.max(g.sp || 0, mode === 'bat' ? 1.5 : 1.2); hitObj(best, .55); g.sp = sp0; };
-        g.reglas = () => ({ siT: mode === 'bat' ? 'GOLPEA' : 'CORTA', si: th.o.map(d => ({ d: (cx, cy, s) => { const im = hspr(d[0]), k = Math.min(s / im.width, s / im.height); x.drawImage(im, cx - im.width * k / 2, cy - im.height * k / 2, im.width * k, im.height * k); }, p: '+100' })), notas: ['Todo lo que viene hacia ti se ' + (mode === 'bat' ? 'golpea' : 'corta') + ': aquí no hay nada prohibido.', 'Si algo se te escapa, pierdes energía y la racha.'].concat(opt.ink ? ['Revienta el globo de tinta: si se escapa, te mancha la pantalla.'] : []) });
+        g.reglas = () => ({ siT: mode === 'bat' ? 'GOLPEA' : 'CORTA', si: th.o.flatMap(d => (HANI[d[0]] || [0]).map((q, vi) => ({ d: (cx, cy, s) => { const an = vi && HA[d[0]] && HA[d[0]][vi]; if (an) { const k = s / an.h; x.drawImage(an.im, 0, 0, an.w, an.h, cx - an.w * k / 2, cy - s / 2, an.w * k, s); return; } const im = hspr(d[0]), k = Math.min(s / im.width, s / im.height); x.drawImage(im, cx - im.width * k / 2, cy - im.height * k / 2, im.width * k, im.height * k); }, p: '+100' }))), notas: ['Todo lo que viene hacia ti se ' + (mode === 'bat' ? 'golpea' : 'corta') + ': aquí no hay nada prohibido.', 'Si algo se te escapa, pierdes energía y la racha.'].concat(opt.ink ? ['Revienta el globo de tinta: si se escapa, te mancha la pantalla.'] : []) });
         return g;
       }
 
@@ -7719,16 +7719,16 @@ body.gm-modos #gmUI{display:none!important}
           hud(g, TT(sc.n));
         };
         /* v18.64 · las reglas salen de la propia tabla de dianas: lo que se dispara con sus puntos y los amigos con lo que restan, con las mismas imágenes que se ven jugando */
-        function icoS(e0, cx, cy, s) { const pa = PKA[e0], q = (P3[e0] || [])[0], pi = PKS[e0], fit = (im, sx, sy, sw, sh) => { const k = Math.min(s / sw, s / sh); x.drawImage(im, sx, sy, sw, sh, cx - sw * k / 2, cy - sh * k / 2, sw * k, sh * k); };
+        function icoS(e0, cx, cy, s, vi) { const pa = vi ? null : PKA[e0], q = (P3[e0] || [])[vi || 0], pi = PKS[e0], fit = (im, sx, sy, sw, sh) => { const k = Math.min(s / sw, s / sh); x.drawImage(im, sx, sy, sw, sh, cx - sw * k / 2, cy - sh * k / 2, sw * k, sh * k); };
           if (pa && pa.im.complete && pa.im.naturalWidth) { const fw = pa.im.naturalWidth / pa.n, fh = pa.im.naturalHeight, fi = pa.stand[0] != null ? pa.stand[0] : pa.aim[0] != null ? pa.aim[0] : 0;   /* v18.78 · en el cartel, la figura entera: se mide el fotograma por su silueta (la caja de juego recorta piernas en los que salen del suelo) */
             if (!pa.ib) { pa.ib = [0, 0, fw, fh]; try { const c = document.createElement('canvas'), k2 = Math.min(1, 200 / fh), cw = Math.max(2, Math.round(fw * k2)), ch = Math.max(2, Math.round(fh * k2)); c.width = cw; c.height = ch; const c2 = c.getContext('2d', { willReadFrequently: true }); c2.drawImage(pa.im, fi * fw, 0, fw, fh, 0, 0, cw, ch); const d = c2.getImageData(0, 0, cw, ch).data; let x0 = cw, y0 = ch, x1 = 0, y1 = 0; for (let yy = 0; yy < ch; yy++) for (let xx = 0; xx < cw; xx++) if (d[(yy * cw + xx) * 4 + 3] > 40) { if (xx < x0) x0 = xx; if (xx > x1) x1 = xx; if (yy < y0) y0 = yy; if (yy > y1) y1 = yy; } if (x1 > x0 && y1 > y0) pa.ib = [x0 / k2, y0 / k2, (x1 - x0 + 1) / k2, (y1 - y0 + 1) / k2]; } catch (e) {} }
             fit(pa.im, fi * fw + pa.ib[0], pa.ib[1], pa.ib[2], pa.ib[3]); }
           else if (q && q.im) { if (q.v3) fit(q.im, 2 * q.w, 0, q.w, q.h); else if (q.n) { if (!q.ib) { q.ib = [0, 0, q.w, q.h]; try { const c = document.createElement('canvas'); c.width = q.w; c.height = q.h; const cx2 = c.getContext('2d', { willReadFrequently: true }); cx2.drawImage(q.im, 0, 0, q.w, q.h, 0, 0, q.w, q.h); const d = cx2.getImageData(0, 0, q.w, q.h).data; let x0 = q.w, y0 = q.h, x1 = 0, y1 = 0; for (let yy = 0; yy < q.h; yy += 2) for (let xx = 0; xx < q.w; xx += 2) if (d[(yy * q.w + xx) * 4 + 3] > 40) { if (xx < x0) x0 = xx; if (xx > x1) x1 = xx; if (yy < y0) y0 = yy; if (yy > y1) y1 = yy; } if (x1 > x0 && y1 > y0) q.ib = [x0, y0, x1 - x0 + 2, y1 - y0 + 2]; } catch (e) {} } fit(q.im, q.ib[0], q.ib[1], q.ib[2], q.ib[3]); } else fit(q.im, 0, 0, q.im.width, q.im.height); }
           else if (pi && pi.complete && pi.naturalWidth) fit(pi, 0, 0, pi.naturalWidth / 3, pi.naturalHeight);
           else x.drawImage(tspr(emo(e0, { '🪿': '🦢' }[e0] || '🎯'), ''), cx - s / 2, cy - s / 2, s, s); }
-        g.reglas = () => { const vis = new Set(), L = SP.filter(d => !vis.has(d[0]) && vis.add(d[0])), it = d => ({ d: (cx, cy, s) => icoS(d[0], cx, cy, s), p: (d[2] > 0 ? '+' : '−') + Math.abs(d[2]) }), no = L.filter(d => d[1] === 'f').map(it);
+        g.reglas = () => { const vis = new Set(), L = SP.filter(d => !vis.has(d[0]) && vis.add(d[0])), it1 = (d, vi) => ({ d: (cx, cy, s) => icoS(d[0], cx, cy, s, vi), p: (d[2] > 0 ? '+' : '−') + Math.abs(d[2]) }), it = d => (P3D[d[0]] || [0]).map((q, vi) => it1(d, vi)), no = L.filter(d => d[1] === 'f').flatMap(it);   /* v18.81 · cada personaje con su cara: los que comparten diana (la zombi del sombrero y Zombiella) salen los dos */
           if (sid === 'alpine') no.push({ d: (cx, cy, s) => { if (GJI.l) { const k = s / 200; x.drawImage(GJI.l, 1200, 0, 100, 200, cx - 50 * k, cy - s / 2, 100 * k, s); } }, p: opt.diff === 'easy' ? '−100' : '−500' });
-          return { siT: 'DISPARA A', noT: 'NO DISPARES A', si: L.filter(d => d[1] !== 'f').map(it), no, notas: [sid === 'zombieland' ? 'Si un zombi te alcanza, pierdes energía.' : sid === 'galaxy' ? 'Si te disparan o los marcianitos llegan abajo, pierdes energía.' : sid === 'alpine' ? 'Si un lobo o el oso se te escapan, pierdes energía.' : 'Si un enemigo llega a disparar, pierdes energía: dale antes.'].concat(vis.has('🐻') ? ['El oso aguanta tres disparos.'] : [], g.dur > 30 ? ['Al final llega el jefe: dispárale sin parar.'] : []) }; };
+          return { siT: 'DISPARA A', noT: 'NO DISPARES A', si: L.filter(d => d[1] !== 'f').flatMap(it), no, notas: [sid === 'zombieland' ? 'Si un zombi te alcanza, pierdes energía.' : sid === 'galaxy' ? 'Si te disparan o los marcianitos llegan abajo, pierdes energía.' : sid === 'alpine' ? 'Si un lobo o el oso se te escapan, pierdes energía.' : 'Si un enemigo llega a disparar, pierdes energía: dale antes.'].concat(vis.has('🐻') ? ['El oso aguanta tres disparos.'] : [], g.dur > 30 ? ['Al final llega el jefe: dispárale sin parar.'] : []) }; };
         return g;
       }
 

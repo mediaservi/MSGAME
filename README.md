@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.80**
+**Versión actual: v18.81**
 
 ## Cómo se juega
 
@@ -39,7 +39,10 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **MEVILAND** *(nuevo)*: el reino de fantasía de Mevi, en 3D y en primera persona; la gran plaza de la muralla al atardecer, cuatro mundos (Fantasía, Absurdo, Golosinas y Feria) con tres salas cada uno, doce pruebas, puertas trampa y cuatro finales, uno secreto.
 - **RUNAS** *(nuevo)*: dibuja runas en el aire con la mano delante de la cámara (o con el móvil o el ratón) para deshacer las sombras que van a por el cristal de Mevi; hasta 4 a la vez, jefe final y supermagia con los dos brazos arriba.
 
-## Cambios de la versión actual (v18.80)
+## Cambios de la versión actual (v18.81)
+- **Carteles de reglas:** Zombiella y el zombi del móvil salen también en el cartel de puntos de PALOTERAPIA · ZOMBIES y PUNTERÍA · ZOMBIELAND: cada personaje aparece con su cara, aunque comparta diana con otro.
+
+### v18.80
 - **PALOTERAPIA:** los personajes que andan (zombis, espantapájaros, esqueleto, marciano) llegan pisando el suelo, con su sombra; ya no vienen flotando. Lo que se lanza o vuela sigue por el aire.
 - **El zombi del móvil, rehecho:** camina con el móvil agarrado con las dos manos y la cabeza gacha, con la pantalla iluminándole la cara; el móvil es una pieza aparte que va sujeta a las manos. Sale en PUNTERÍA · ZOMBIELAND y ahora también en PALOTERAPIA · ZOMBIES.
 - **Zombiella, nueva:** la zombi rockera de la chaqueta roja ya tiene esqueleto y anda y cae como los demás; sale en PALOTERAPIA · ZOMBIES y en PUNTERÍA · ZOMBIELAND.
