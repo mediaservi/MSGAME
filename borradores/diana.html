@@ -52,7 +52,7 @@
   <div id="pie">DIANA · MSGAME · mediaservi.com</div>
 </div>
 <script src="../lib/idioma.js?v=18.60"></script>
-<script src="../lib/vikingo3d.js?v=18.86"></script>
+<script src="../lib/vikingo3d.js?v=18.89b"></script>
 <script>
 'use strict';
 var H3 = { st: 0 };   // el herrero del barreño (se carga al dibujar)
@@ -218,7 +218,7 @@ const PERRO = img('../juegos/hit3d/m-perro-anim.webp');
 function perroTick(dt) { if (E.fase !== 'juego') return; if (!E.perro) { E.perroT = (E.perroT == null ? R(5, 10) : E.perroT) - dt; if (E.perroT <= 0) { const d = Math.random() < .5 ? 1 : -1; E.perro = { u: d > 0 ? -.06 : 1.06, d, m: 0, td: 0, f: R(0, 9) }; } return; }
   const d = E.perro; if (d.m) { d.td += dt; if (d.td > 2) { E.perro = null; E.perroT = R(10, 18); } return; } d.u += d.d * .05 * dt; d.f += dt * 10; if (d.u < -.08 || d.u > 1.08) { E.perro = null; E.perroT = R(9, 17); } }
 function perroDibuja() { const d = E.perro; if (!d || !PERRO.complete || !PERRO.naturalWidth) return; const [X, Y] = P(d.u, .705), hh = PS(.075), ww = hh * 1.5, fi = d.m ? 12 + Math.min(11, Math.floor(d.td * 11)) : Math.floor(d.f) % 12;
-  x.save(); x.globalAlpha = d.m ? 1 - lim((d.td - 1.2) / .8, 0, 1) : 1; x.fillStyle = 'rgba(20,12,6,.35)'; x.beginPath(); x.ellipse(X, Y, ww * .32, hh * .07, 0, 0, TAU); x.fill(); x.translate(X, Y); x.scale(d.d, 1); x.filter = 'brightness(.9) sepia(.15)'; x.drawImage(PERRO, fi * 300, 0, 300, 200, -ww / 2, -hh * .93, ww, hh); x.restore(); }
+  x.save(); x.globalAlpha = d.m ? 1 - lim((d.td - 1.2) / .8, 0, 1) : 1; x.fillStyle = 'rgba(20,12,6,.35)'; x.beginPath(); x.ellipse(X, Y, ww * .32, hh * .07, 0, 0, TAU); x.fill(); x.translate(X, Y); x.scale(-d.d, 1); x.filter = 'brightness(.9) sepia(.15)'; x.drawImage(PERRO, fi * 300, 0, 300, 200, -ww / 2, -hh * .93, ww, hh); x.restore(); }
 /* la luz cegadora con la que vuelve el sabio, por encima de todo */
 function cegador() { const M = E.vikM; if (!M || M.t < 4 || M.t > 5) return; const k = M.t - 4, a = Math.sin(k * Math.PI), [X, Y] = P(.735, .55); x.save(); x.globalCompositeOperation = 'lighter'; const g = x.createRadialGradient(X, Y, 0, X, Y, PS(.1) + PS(.9) * k); g.addColorStop(0, `rgba(255,255,255,${a})`); g.addColorStop(.3, `rgba(200,255,235,${a * .8})`); g.addColorStop(1, 'rgba(120,255,210,0)'); x.fillStyle = g; x.fillRect(0, 0, W, H); x.fillStyle = `rgba(255,255,255,${a * .55})`; x.fillRect(0, 0, W, H); x.restore(); }
 function sway() { const k = NIV[E.niv] * PS(.012), t = E.t; return E.modo === 'bomberos' ? [0, 0] : [Math.sin(t * 1.7) * k + Math.sin(t * 3.1) * k * .4, Math.cos(t * 1.3) * k * .8 + Math.sin(t * 2.7) * k * .35]; }

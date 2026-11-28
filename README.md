@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.88**
+**Versión actual: v18.89**
 
 ## Cómo se juega
 
@@ -39,7 +39,14 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **MEVILAND** *(nuevo)*: el reino de fantasía de Mevi, en 3D y en primera persona; la gran plaza de la muralla al atardecer, cuatro mundos (Fantasía, Absurdo, Golosinas y Feria) con tres salas cada uno, doce pruebas, puertas trampa y cuatro finales, uno secreto.
 - **RUNAS** *(nuevo)*: dibuja runas en el aire con la mano delante de la cámara (o con el móvil o el ratón) para deshacer las runas que caen de la aurora boreal hacia el cristal que guarda un vikingo sabio, en un claro de bosque nórdico junto a un fiordo; hasta 4 a la vez, tormenta final y supermagia con los dos brazos arriba.
 
-## Cambios de la versión actual (v18.88)
+## Cambios de la versión actual (v18.89)
+- **Carátula de RUNAS sin título encima:** su cartel ya trae el título, como los de DIANA y EK CHUAH; cada juego conserva el suyo.
+- **RUNAS suena desde la pantalla de inicio:** el arranque tranquilo del tema celta, en bucle y bajito.
+- **RUNAS cierra con su música:** al acabar la partida suena entero el final del tema, con el marcador en pantalla, antes de pasar a la clasificación.
+- **El sabio, más sereno:** parado ya no gira la cabeza ni se va volviendo hacia cada runa; se queda de tres cuartos mirando al claro (RUNAS y DIANA).
+- **Los animales andan hacia delante:** el lobo y el oso de RUNAS y el perro de DIANA iban marcha atrás; en RUNAS cruzan ahora por las losas del claro, no por la orilla.
+
+### v18.88
 - **Versión nueva, copia limpia:** la primera vez que arranca una versión distinta, MSGAME vacía lo que tenía guardado en ese equipo y se recarga una vez; así las carátulas, sonidos y fondos nuevos se ven a la primera (antes hacía falta una segunda carga).
 
 ### v18.87
