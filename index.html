@@ -2432,7 +2432,18 @@ body.gm-modos #gmUI{display:none!important}
     function processAudio() {
       const now = Date.now();
 
-      if (isMicActive && analyser) {
+      /* v18.76 · sin micro ni fuente en vivo, lo que se analiza es la música del propio juego (antes, un pulso sintético que no iba con lo que sonaba) */
+      const GA = !(isMicActive && analyser) && window.__musAn && window.__musAn.an && window.__musAn.on() ? window.__musAn : null;
+      if (GA) { const d = GA.d; GA.an.getByteFrequencyData(d); const hz = GA.sr / GA.an.fftSize, P = GA.pk || (GA.pk = { b: .05, l: .05, m: .05, t: .05, s: .05 });
+        const raw = (lo, hi) => { const i0 = Math.max(1, Math.floor(lo / hz)), i1 = Math.min(d.length - 1, Math.ceil(hi / hz)); let t = 0; for (let i = i0; i <= i1; i++) t += d[i]; return t / ((i1 - i0 + 1) * 255); };
+        /* cada banda, medida contra su propio máximo reciente (así late igual con un tema fuerte que con uno suave) y estirada: solo cuenta lo que sobresale */
+        const AV = GA.avs || (GA.avs = {}), rel = (k, v, piso, ex) => { P[k] = Math.max(v, P[k] * .997, .02); AV[k] = (AV[k] === undefined ? v : AV[k]) * .95 + v * .05; const lo = AV[k] * piso, hi = Math.max(P[k], AV[k] * 1.3, lo + .01); return Math.pow(Math.max(0, Math.min(1, (v - lo) / (hi - lo))), ex); };
+        const b0 = raw(30, 150); GA.av = (GA.av === undefined ? b0 : GA.av) * .93 + b0 * .07;
+        audioMetrics.bass = Math.min(1, rel('b', b0, .85, 1.2) * params.gainBass); audioMetrics.lowMid = rel('l', raw(150, 500), .8, 1.1); audioMetrics.mid = rel('m', raw(500, 2000), .75, 1.1); audioMetrics.treble = rel('t', raw(2000, 8000), .7, 1);
+        audioMetrics.beatDetected = b0 > GA.av * 1.1 && b0 > (AV.b || 0) * 1.05;
+        const B0 = audioMetrics.bands; let mx = .05; const tmp = GA.tb || (GA.tb = new Float32Array(64)); for (let i = 0; i < 64; i++) { const lo = 40 * Math.pow(300, i / 64), hi = 40 * Math.pow(300, (i + 1) / 64), i0 = Math.max(1, Math.floor(lo / hz)), i1 = Math.max(i0, Math.min(d.length - 1, Math.ceil(hi / hz))); let t = 0; for (let j = i0; j <= i1; j++) t += d[j]; tmp[i] = t / ((i1 - i0 + 1) * 255); if (tmp[i] > mx) mx = tmp[i]; }
+        P.s = Math.max(mx, P.s * .997); for (let i = 0; i < 64; i++) B0[i] = Math.max(Math.pow(Math.max(0, Math.min(1, (tmp[i] / P.s - .3) / .7)), 1.3), B0[i] * .85);
+      } else if (isMicActive && analyser) {
         analyser.getByteFrequencyData(dataArray);
         const hz = audioCtx.sampleRate / analyser.fftSize;
         const band = (lo, hi) => { const i0 = Math.max(1, Math.floor(lo / hz)), i1 = Math.min(dataArray.length - 1, Math.ceil(hi / hz)); let t = 0; for (let i = i0; i <= i1; i++) t += dataArray[i]; return t / ((i1 - i0 + 1) * 255); };
@@ -2456,7 +2467,7 @@ body.gm-modos #gmUI{display:none!important}
       }
 
       const B = audioMetrics.bands;
-      if (isMicActive && analyser) {
+      if (GA) { /* ya calculadas arriba */ } else if (isMicActive && analyser) {
         const hz = audioCtx.sampleRate / analyser.fftSize;
         for (let i = 0; i < 64; i++) {
           const lo = 40 * Math.pow(300, i / 64), hi = 40 * Math.pow(300, (i + 1) / 64), i0 = Math.max(1, Math.floor(lo / hz)), i1 = Math.max(i0, Math.min(dataArray.length - 1, Math.ceil(hi / hz)));
@@ -3884,7 +3895,7 @@ body.gm-modos #gmUI{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '18.75';
+    const APP_VERSION = '18.76';
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;
     function initCredits() { try { document.getElementById('plateVer').textContent = APP_VERSION; } catch (e) {}
       pintaCreditos(); if (window.AVCREDITO) window.AVCREDITO.alCambiar(pintaCreditos);
@@ -5747,7 +5758,7 @@ body.gm-modos #gmUI{display:none!important}
       function hani(x, an, s, i) { const k = s * 1.3 / an.h, dw = an.w * k, dh = an.h * k; x.drawImage(an.im, i * an.w, 0, an.w, an.h, -dw / 2, -dh * .56, dw, dh); }
       function HitHero(opt) { hit3d(); hitAni();
         const th = THEMES[opt.theme] || THEMES.halloween, mode = opt.mode, df = { easy: [2, .45, 2, .34, 1.35, .6], normal: [1.15, .8, 5, .28, 1.1, .85], hard: [.9, .95, 8, .27, 1.05, .95] }[opt.diff] || [1.15, .8, 5, .28, 1.1, .85];   /* v18.64 · NORMA DE DIFICULTAD: además de [lo que tarda en llegar, cuántos salen, energía por fallo], [desde cuándo se puede golpear, cuánto mayor cuenta el objeto y qué velocidad de tajo basta] */   /* v13.0 · un fallo quita menos energía (antes 8 / 10 / 14): la partida da para unos 2 minutos */
-        const g = { id: 'hit', name: 'PALOTERAPIA', score: 0, combo: 0, maxc: 0, hits: 0, shots: 0, energy: 100, t: 0, dur: opt.dur, objs: [], fly: [], inks: [], beatT: 0, lastBeat: 0 };
+        const g = { id: 'hit', name: 'PALOTERAPIA', score: 0, combo: 0, maxc: 0, hits: 0, shots: 0, energy: 100, t: 0, dur: opt.dur, objs: [], fly: [], inks: [], gotas: [], beatT: 0, lastBeat: 0 };
         const bpm = () => clamp(params.bpm || 120, 70, 180), travel = () => clamp(2 * 60 / bpm(), .9, 2.2) * df[0], scene = HHBG(THEMES[opt.theme] ? opt.theme : 'halloween');
         const lane = (o, z) => { const p = 1 / (1 + 3.1 * Math.max(z, -0.3)); return [W / 2 + o.lx * W * .42 * p, H * (G.vp || .47) + o.ly * H * .42 * p, H * .085 * o.sz * p, p]; };
         function spawn() {
@@ -5781,7 +5792,7 @@ body.gm-modos #gmUI{display:none!important}
         function addScore(v, X, Y, label, col) { g.combo++; g.maxc = Math.max(g.maxc, g.combo); g.hits++; g.shots++; const mul = Math.min(8, 1 + Math.floor(g.combo / 8)); g.score += v * mul; g.energy = Math.min(100, g.energy + (opt.diff === 'hard' ? 1 : 2)); pop((label ? label + ' ' : '') + '+' + v * mul, X, Y, col || '#fff', label ? 20 : 16); send({ t: 'hit', s: Math.min(1, Math.max(pad.sp, g.sp || 0) / 3) }); }
         function hitObj(o, ht) {
           const sp = Math.max(pad.sp, g.sp || 0), col = o.col, prec = 1 - Math.abs(ht - .55) * 1.6;
-          if (o.k === 'ink') { SFX.play('balloon'); burst(o.sx, o.sy, o.inkCol, 40, H * .6); addScore(150, o.sx, o.sy, TT('¡SALVADO!'), o.inkCol); return; }
+          if (o.k === 'ink') { SFX.play('balloon'); burst(o.sx, o.sy, o.inkCol, 40, H * .6); inkPop(o); addScore(150, o.sx, o.sy, TT('¡SALVADO!'), o.inkCol); return; }
           if (mode !== 'bat') {   // sable láser y espada: corte en dos mitades
             const a = pad.ang + Math.PI / 2, nx = Math.cos(a), ny = Math.sin(a), v = H * (.6 + sp * .25);
             [1, -1].forEach(sg => g.fly.push({ half: sg, cut: pad.ang, e: o.e, av: o.av, x: o.sx, y: o.sy, r: o.r, vx: nx * v * sg + pad.vx * .25, vy: ny * v * sg + pad.vy * .25 - H * .3, va: sg * R(3, 7), a: 0, t: 0, z: 0, vz: 0, bo: .3 }));
@@ -5801,6 +5812,22 @@ body.gm-modos #gmUI{display:none!important}
           if (o.k === 'ink') { const n = 3 + Math.floor(Math.random() * 3); for (let i = 0; i < n; i++) g.inks.push(inkBlob(o.inkCol)); shakeT = .2; SFX.play('splat'); pop(TT('¡TINTA!'), W / 2, H * .3, o.inkCol, 26); send({ t: 'hit', s: 1 }); }
           else SFX.play('miss'), pop(TT('FALLO'), clamp(o.sx, 60, W - 60), clamp(o.sy, 80, H - 80), '#ff4a4a', 16);
         }
+        /* v18.76 · el globo reventado a tiempo estalla: las gotas caen y dejan su mancha en el suelo, y el arma queda teñida unos segundos */
+        function inkPop(o) { const n = 30, rr0 = Math.max(H * .012, (o.r || H * .05) * .16); for (let i = 0; i < n; i++) { const a = R(0, 6.283), v = R(.12, .62) * H; g.gotas.push({ x: o.sx + Math.cos(a) * rr0, y: o.sy + Math.sin(a) * rr0, vx: Math.cos(a) * v * .9, vy: Math.sin(a) * v - H * .25, r: rr0 * R(.45, 1.3), col: o.inkCol, ty: R(H * .7, H * .97), t: 0, s: 0 }); }
+          if (g.gotas.length > 140) g.gotas.splice(0, g.gotas.length - 140);
+          const bl = []; for (let i = 0; i < 7; i++) bl.push({ u: R(.38, .98), v: R(-.5, .5), r: R(.7, 1.5), d: R(.6, 2.2), w: R(.18, .4) }); g.mancha = { col: o.inkCol, t: 0, dur: 4.5, bl }; }
+        if (window.__dbg) { window.__g = g; g.inkPop = inkPop; }
+        function inkGotas(suelo) { const fdt = Math.min(.05, Math.max(0, g.t - (g.gT === undefined ? g.t : g.gT))); if (!suelo) g.gT = g.t; x.save();
+          g.gotas.forEach(k => { if (suelo) { if (!k.s) return; const a = k.t < 3.5 ? 1 : 1 - (k.t - 3.5) / 1.5, cr = Math.min(1, (k.t + .02) * 9), ps = .55 + .75 * (k.y - H * .7) / (H * .27); x.globalAlpha = clamp(a, 0, 1) * .9; x.fillStyle = k.col; x.beginPath(); x.ellipse(k.x, k.y, k.r * 3.1 * cr * ps, k.r * .95 * cr * ps, 0, 0, 6.283); x.fill(); x.beginPath(); x.ellipse(k.x + k.r * 2.6 * ps * k.sg, k.y + k.r * .3, k.r * .9 * cr * ps, k.r * .32 * cr * ps, 0, 0, 6.283); x.fill(); x.globalAlpha *= .4; x.fillStyle = '#fff'; x.beginPath(); x.ellipse(k.x - k.r * ps, k.y - k.r * .22 * ps, k.r * .7 * ps, k.r * .16 * ps, 0, 0, 6.283); x.fill(); return; }
+            if (k.s) { k.t += fdt; return; } k.vy += H * 2.2 * fdt; k.x += k.vx * fdt; k.y += k.vy * fdt; k.vx *= 1 - fdt * .8; if (k.y >= k.ty && k.vy > 0) { k.y = k.ty; k.s = 1; k.t = 0; k.sg = k.vx > 0 ? 1 : -1; return; }
+            const an = Math.atan2(k.vy, k.vx), st = 1 + Math.min(1.6, Math.hypot(k.vx, k.vy) / (H * .9)); x.globalAlpha = .95; x.fillStyle = k.col; x.beginPath(); x.ellipse(k.x, k.y, k.r * st, k.r / Math.sqrt(st), an, 0, 6.283); x.fill(); });
+          x.restore(); if (!suelo) g.gotas = g.gotas.filter(k => !k.s || k.t < 5); }
+        function inkArma() { const m = g.mancha; if (!m) return; const fdt = Math.min(.05, Math.max(0, g.t - (m.g0 === undefined ? g.t : m.g0))); m.g0 = g.t; m.t += fdt; if (m.t >= m.dur) { g.mancha = null; return; }
+          const [ax, ay, bx, by] = bladeSeg(mode), L = Math.hypot(bx - ax, by - ay), w = H * (mode === 'bat' ? .024 : .016), an = Math.atan2(by - ay, bx - ax), a = m.t > m.dur - 1.2 ? (m.dur - m.t) / 1.2 : 1, ca = Math.cos(an), sa = Math.sin(an);
+          x.save(); x.globalAlpha = clamp(a, 0, 1) * .94; x.fillStyle = m.col;
+          m.bl.forEach(b => { const px = ax + ca * L * b.u - sa * w * b.v, py = ay + sa * L * b.u + ca * w * b.v, r = w * b.r; x.save(); x.translate(px, py); x.rotate(an); x.beginPath(); x.ellipse(0, 0, r * 1.5, r * .8, 0, 0, 6.283); x.fill(); x.restore();
+            const dl = Math.min(1, m.t * 1.4) * b.d * w * 2.2, dw = Math.max(2, r * b.w); x.fillRect(px - dw / 2, py, dw, dl); x.beginPath(); x.arc(px, py + dl, dw * .78, 0, 6.283); x.fill(); });
+          x.globalAlpha *= .4; x.fillStyle = '#fff'; m.bl.forEach(b => { const px = ax + ca * L * b.u - sa * w * (b.v + .25), py = ay + sa * L * b.u + ca * w * (b.v + .25) - w * .25; x.beginPath(); x.arc(px, py, w * b.r * .2, 0, 6.283); x.fill(); }); x.restore(); }
         function inkBlob(col) { const cx = R(W * .1, W * .9), cy = R(H * .1, H * .75), r = R(H * .08, H * .2), pts = []; for (let i = 0; i < 18; i++) pts.push(r * R(.65, 1.25)); const dr = []; for (let i = 0; i < 6; i++) dr.push({ x: cx + R(-r * .8, r * .8), w: R(4, 14), sp: R(.15, .5) * H, max: R(.15, .5) * H }); return { x: cx, y: cy, r, pts, dr, col, t: 0 }; }
         g.draw = () => {
           scene.draw(g);
@@ -5813,6 +5840,7 @@ body.gm-modos #gmUI{display:none!important}
               x.beginPath(); for (let k = 0; k <= 24; k++) { const f = k / 24, bi = bands.length ? clamp(bands[Math.floor(f * 44) + 4] || 0, 0, 1) : 0, X = W / 2 - hw + f * hw * 2, Y = y - bi * H * .06 * p * (1 + mid); k ? x.lineTo(X, Y) : x.moveTo(X, Y); } x.stroke(); }
             if (g.pulse > 0) { const p = 1 / (1 + 3.1 * g.pulse), y = vp[1] + H * .53 * p; x.strokeStyle = '#ffffff'; x.globalAlpha = g.pulse * .55; x.lineWidth = 2 + g.pulse * 3; x.beginPath(); x.moveTo(W / 2 - W * .7 * p, y); x.lineTo(W / 2 + W * .7 * p, y); x.stroke(); }
             x.restore(); }
+          inkGotas(true);
           // objetos (de lejos a cerca)
           g.objs.sort((a, b) => b.z - a.z).forEach(o => { const [sx, sy, r, p] = lane(o, o.z), zb = isZomb(o.e), ap = 1 - o.z; x.save(); x.globalAlpha = (zb ? (ap < .07 ? 0 : 1) : clamp((1 - o.z) * 2.5, 0, 1)) * (o.z < -.05 ? clamp(1 + (o.z + .05) * 8, 0, 1) : 1);
             const gl = x.createRadialGradient(sx, sy, r * .3, sx, sy, r * 1.6); gl.addColorStop(0, o.col + 'aa'); gl.addColorStop(1, o.col + '00'); x.fillStyle = gl; x.beginPath(); x.arc(sx, sy, r * 1.6, 0, 6.283); x.fill();
@@ -5825,7 +5853,7 @@ body.gm-modos #gmUI{display:none!important}
           g.inks.forEach(k => { const a = k.t < 5 ? 1 : 1 - (k.t - 5) / 2; x.save(); x.globalAlpha = clamp(a, 0, 1) * .93; x.fillStyle = k.col; x.beginPath(); k.pts.forEach((r, i) => { const an = i / k.pts.length * 6.283, X = k.x + Math.cos(an) * r, Y = k.y + Math.sin(an) * r; i ? x.lineTo(X, Y) : x.moveTo(X, Y); }); x.closePath(); x.fill();
             k.dr.forEach(d => { const L = Math.min(d.max, k.t * d.sp); x.fillRect(d.x - d.w / 2, k.y, d.w, L + k.r * .4); x.beginPath(); x.arc(d.x, k.y + L + k.r * .4, d.w * .75, 0, 6.283); x.fill(); });
             x.globalAlpha *= .35; x.fillStyle = '#fff'; x.beginPath(); x.arc(k.x - k.r * .3, k.y - k.r * .3, k.r * .18, 0, 6.283); x.fill(); x.restore(); });
-          drawCursor(mode, G.match ? PLS[act].c : th.col[1]);
+          inkGotas(false); drawCursor(mode, G.match ? PLS[act].c : th.col[1]); inkArma();
           hud(g, TT(th.n));
         };
         g.click = () => {};
@@ -8746,6 +8774,13 @@ body.gm-modos #gmUI{display:none!important}
           catch (e) { SFX.mute(false); try { x.clearRect(0, 0, W, H); } catch (x2) {} done(null); } };
         const o2 = Object.assign(opts(), { hhTheme: { theme: it.v }, shScene: { scene: it.v }, rcVeh: { veh: it.v } }[it.sid] || {}), keys = it.cart === 'hit' ? ['hit_' + o2.theme] : it.cart === 'shoot' ? ['shoot_' + o2.scene] : it.cart === 'race' ? [o2.veh === 'dirty' ? 'racer_dirty' : 'racer_runner', 'racer'] : it.cart === 'hoop' ? [it.v] : [], t0 = performance.now();
         const wait = () => { if (keys.some(k => JBG.state(k) === 'loading') && performance.now() - t0 < 5000) { setTimeout(wait, 120); return; } if (it.cart === 'hoop') loadThree().then(go, go); else go(); }; wait(); }
+      /* v18.76 · toma de la música del juego para el análisis (suelos y luces que laten con lo que suena): en los temas de archivo, por captura del propio reproductor, sin tocar su salida; en la música dinámica, colgada de su control de volumen */
+      const MAN = window.__musAn = { an: null, d: null, sr: 44100, g: 1, on: () => false };
+      function musTap(a) { try { if (!a || !a.captureStream) return; const C = MAN.c || (MAN.c = new (window.AudioContext || window.webkitAudioContext)()); if (C.state === 'suspended') C.resume().catch(() => {});
+        const st = a.captureStream(), go = () => { try { if (MUS.a !== a) return; if (MAN.src) try { MAN.src.disconnect(); } catch (e) {} const an = MAN.ae || (MAN.ae = C.createAnalyser()); an.fftSize = 2048; an.smoothingTimeConstant = .5; an.minDecibels = -75; an.maxDecibels = -5; MAN.src = C.createMediaStreamSource(st); MAN.src.connect(an); MAN.an = an; MAN.d = new Uint8Array(an.frequencyBinCount); MAN.sr = C.sampleRate; MAN.g = 1; MAN.av = undefined; MAN.pk = null; MAN.avs = null; MAN.on = () => MUS.a === a && !a.paused; } catch (e) {} };
+        if (st.getAudioTracks().length) go(); else st.addEventListener('addtrack', go, { once: true }); } catch (e) {} }
+      function musTapDin() { try { const bm = window.MSAudio && MSAudio.bm; if (!bm) return; if (MAN.bm !== bm) { const an = bm.context.createAnalyser(); an.fftSize = 2048; an.smoothingTimeConstant = .5; an.minDecibels = -75; an.maxDecibels = -5; bm.connect(an); MAN.bm = bm; MAN.ad = an; MAN.dd = new Uint8Array(an.frequencyBinCount); }
+        MAN.an = MAN.ad; MAN.d = MAN.dd; MAN.sr = bm.context.sampleRate; MAN.g = 1 / Math.max(.08, bm.gain.value); MAN.av = undefined; MAN.pk = null; MAN.avs = null; MAN.on = () => !!(MUS.dm && MUS.dm.suena()); } catch (e) {} }
       const MUS = { a: null, cur: '', miss: new Set(), want: '', intro: { 'packs/zombieland/musica_bucle': 'packs/zombieland/musica_entrada' }, hold: false, on: () => !PADMODE && !window.APP_MUTED && gsVal(gsPlay(), 'm'),   // v9.1 · en el móvil que hace de mando no suena música: solo la réplica de los efectos
         cands(id, o) {   // sonidos/ingame_<nombre>.mp3: música propia de cada juego y variante (y alternativas si falta)
           const L = { hit: [{ halloween: 'halloween', zombies: 'zombies', aliens: 'aliens', sports: 'sports', disco: 'disco' }[o.theme] || 'sports'],
@@ -8758,7 +8793,7 @@ body.gm-modos #gmUI{display:none!important}
         dmC: {}, dinK(id, o) { o = o || {}; return id === 'hit' ? 'hit:' + o.theme : id === 'shoot' ? 'shoot:' + o.scene : id === 'race' ? 'race:' + (o.veh === 'dirty' ? 'dirty' : 'runner') : id; },
         dinPick(k) { const L = MUS.DIN[k]; if (!L) return; let c; do { c = L[(Math.random() * L.length) | 0]; } while (L.length > 1 && c === MUS.dmC[k]); MUS.dmC[k] = c; },   /* v13.6 · PATOPESCA con música dinámica */   // v12.22 · juegos con música dinámica (entrada, bucle del juego, tensión y final), con MSAudio
         dinPlay(id) { if (!window.MSAudio) return false; if (!MUS.DIN[id]) return false; if (!MUS.dmC[id]) MUS.dinPick(id); const c = MUS.dmC[id]; if (MUS.a) MUS.stop(); MUS.dmId = id; if (!MUS.dms[c]) MUS.dms[c] = MSAudio.musica(c); const m = MUS.dm = MUS.dms[c];
-          MSAudio.mudo = () => !!window.APP_MUTED; if (MSAudio.bm) MSAudio.bm.gain.value = .42 * +((($g('gmSfxVol') || {}).value) || .7); if (!m.suena()) m.empieza('juego'); return true; },
+          MSAudio.mudo = () => !!window.APP_MUTED; if (MSAudio.bm) MSAudio.bm.gain.value = .42 * +((($g('gmSfxVol') || {}).value) || .7); if (!m.suena()) m.empieza('juego'); musTapDin(); return true; },
         dms: {}, dm: null, dmId: '',
         parte(p) { const m = MUS.dm; if (m && m.suena() && m.parte !== 'final' && m.parte !== p && !(m.parte === 'entrada' && p === 'juego')) m.cambia(p); },   // el juego pide 'juego' o 'tension'
         fin() { const m = MUS.dm; if (m && m.suena()) { m.final(); return true; } return false; },   // cierre de la música al acabar la partida
@@ -8767,9 +8802,9 @@ body.gm-modos #gmUI{display:none!important}
           if (MUS.a && MUS.cur === list[0] && !MUS.a.paused) return; const old = MUS.a; MUS.a = null; MUS.cur = ''; if (old) MUS.fade(old, 0, () => { try { old.pause(); old.src = ''; } catch (e) {} }, true);
           const U = q => (q.indexOf('/') >= 0 ? q : 'sonidos/' + q) + '.mp3', n = list[0], ia = MUS.intro[n], TK = n === 'tronik' ? RADIO.temas().filter(f => f !== MUS.tkUlt) : null, tk = TK && TK.length ? TK[Math.floor(Math.random() * TK.length)] : null, a = new Audio(tk || U(ia || n)); a.loop = !ia && !tk;
           if (tk) { MUS.tkUlt = tk; a.addEventListener('ended', () => { if (MUS.a !== a) return; MUS.a = null; MUS.cur = ''; MUS.playList(L, lv); }, { once: true }); }
-          if (ia) a.addEventListener('ended', () => { if (MUS.a !== a) return; const b = new Audio(U(n)); b.loop = true; b.preload = 'auto'; b.volume = a.volume; MUS.a = b; b.play().catch(() => {}); }, { once: true });   /* v11.1 · la entrada suena una vez y enlaza con el bucle */ a.preload = 'auto'; a.volume = 0; MUS.a = a; MUS.cur = n;
+          if (ia) a.addEventListener('ended', () => { if (MUS.a !== a) return; const b = new Audio(U(n)); b.loop = true; b.preload = 'auto'; b.volume = a.volume; MUS.a = b; b.play().then(() => musTap(b)).catch(() => {}); }, { once: true });   /* v11.1 · la entrada suena una vez y enlaza con el bucle */ a.preload = 'auto'; a.volume = 0; MUS.a = a; MUS.cur = n;
           a.addEventListener('error', () => { if (MUS.a !== a) return; MUS.miss.add(n); MUS.a = null; MUS.cur = ''; MUS.playList(L, lv); }, { once: true });
-          a.play().then(() => MUS.fade(a, lv * +((($g('gmSfxVol') || {}).value) || .7))).catch(() => { if (MUS.a === a) { MUS.a = null; MUS.cur = ''; MUS.block = performance.now() + 4000; } }); },
+          a.play().then(() => { musTap(a); MUS.fade(a, lv * +((($g('gmSfxVol') || {}).value) || .7)); }).catch(() => { if (MUS.a === a) { MUS.a = null; MUS.cur = ''; MUS.block = performance.now() + 4000; } }); },
         fade(a, to, done, out) { const v0 = a.volume, t0 = performance.now(), d = 700; const st = () => { if (MUS.a !== a && !out && to > 0) return; const k = Math.min(1, (performance.now() - t0) / d); a.volume = Math.max(0, Math.min(1, v0 + (to - v0) * k)); if (k < 1) requestAnimationFrame(st); else if (done) done(); }; st(); },
         sink(a) { if (!a || !a.setSinkId) return; const k = window.UISND && UISND.routeMus() === 'cue' ? UISND.id() : ''; if (a.__sk === k) return; a.__sk = k; a.setSinkId(k).catch(() => {}); },   // la música de menú es sonido de interfaz
         stop(now) { if (MUS.dm) { if (MUS.dm.suena() && MUS.dm.parte !== 'final') MUS.dm.para(now ? .15 : .9); MUS.dm = null; } const a = MUS.a; MUS.a = null; MUS.cur = ''; if (!a) return; if (now) { try { a.pause(); } catch (e) {} return; } MUS.fade(a, 0, () => { try { a.pause(); a.src = ''; } catch (e) {} }); } };
