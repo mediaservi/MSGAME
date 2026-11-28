@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.89**
+**Versión actual: v18.90**
 
 ## Cómo se juega
 
@@ -13,7 +13,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **Tu móvil es el mando:**
   - pulsa MANDO en la consola y escanea el código con el móvil, sin instalar nada;
   - juegan hasta 4 personas, cada una con su nombre y su color;
-  - sin móvil se juega con el ratón, el teclado, la pantalla táctil o el mando de la tele;
+  - sin móvil se juega con el ratón, el teclado, la pantalla táctil o un mando a distancia;
   - antes de cada partida, cada jugador elige cómo juega: ratón (o dedo), móvil, mano o cuerpo (estos dos con la cámara).
 - **AJUSTES:**
   - formato de salida y cada pantalla en su monitor;
@@ -39,7 +39,22 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **MEVILAND** *(nuevo)*: el reino de fantasía de Mevi, en 3D y en primera persona; la gran plaza de la muralla al atardecer, cuatro mundos (Fantasía, Absurdo, Golosinas y Feria) con tres salas cada uno, doce pruebas, puertas trampa y cuatro finales, uno secreto.
 - **RUNAS** *(nuevo)*: dibuja runas en el aire con la mano delante de la cámara (o con el móvil o el ratón) para deshacer las runas que caen de la aurora boreal hacia el cristal que guarda un vikingo sabio, en un claro de bosque nórdico junto a un fiordo; hasta 4 a la vez, tormenta final y supermagia con los dos brazos arriba.
 
-## Cambios de la versión actual (v18.89)
+## Requisitos mínimos
+
+MSGAME es una sala de juegos en 3D que corre en el navegador. Para la pantalla grande:
+
+- **Ordenador, portátil o miniPC:** Windows 10/11, macOS o Linux con Chrome o Edge al día; procesador de 2019 o posterior (Intel Core i5 de 8.ª generación, AMD Ryzen 5 o Apple M1); 8 GB de RAM; gráfica con WebGL 2 (vale la integrada).
+- **Móvil o tableta como pantalla:** gama alta de 2021 o posterior (Snapdragon 8 Gen 1, Apple A15 o equivalente) con el navegador al día. Los menús y los juegos 2D van también en aparatos algo más antiguos.
+- **Como mando:** cualquier móvil con un navegador actual (Android 9 o iOS 15 en adelante).
+- **En una tele o un proyector:** conecta el ordenador por HDMI y usa la tele solo como pantalla. El navegador propio de las teles y proyectores (Google TV, Android TV, webOS, Tizen…) no tiene potencia para MSGAME; si se abre ahí, la app lo avisa con estos requisitos.
+
+## Cambios de la versión actual (v18.90)
+- **Silencio al apagar:** cuando la pantalla deja de verse (tele o proyector en reposo, pestaña en segundo plano, app de la tele cerrada) se calla toda la música y los sonidos al momento, en la consola y en todos los juegos; al volver, suena otra vez lo que sonaba.
+- **Aviso en las teles:** abierta en el navegador de una tele o un proyector con sistema propio, MSGAME explica que ahí no puede ir fluida, da los requisitos mínimos y cómo jugar (ordenador por HDMI y el móvil de mando). «Probar igualmente» la abre en su carga ligera. En español, inglés y catalán.
+- **Requisitos mínimos** en este README.
+- **Fuera las referencias a Google TV y webOS** en la ayuda: las teclas del mando se explican sin atarlas a un sistema de tele.
+
+### v18.89
 - **Carátula de RUNAS sin título encima:** su cartel ya trae el título, como los de DIANA y EK CHUAH; cada juego conserva el suyo.
 - **RUNAS suena desde la pantalla de inicio:** el arranque tranquilo del tema celta, en bucle y bajito.
 - **RUNAS cierra con su música:** al acabar la partida suena entero el final del tema, con el marcador en pantalla, antes de pasar a la clasificación.
