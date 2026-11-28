@@ -3941,7 +3941,7 @@ body.gm-modos #gmUI{display:none!important}
       if (pipOn) { isPipMinimized = false; document.getElementById('pipCanvasBox').style.display = 'block'; }
     }
 
-    const APP_VERSION = '18.94';
+    const APP_VERSION = '18.95';
     /* v18.88 · versión nueva = copia limpia: la primera vez que arranca una versión distinta de la última vista, se vacía lo guardado en este equipo y la página se recarga una sola vez, para que todo (carátulas, sonidos, fondos) sea lo nuevo */
     try { const K = 'msgame_ver', pv = localStorage.getItem(K); if (pv !== APP_VERSION) { localStorage.setItem(K, APP_VERSION); if (pv && window.caches && navigator.onLine && localStorage.getItem(K) === APP_VERSION) caches.keys().then(ks => Promise.all(ks.map(k => caches.delete(k)))).then(() => location.reload()).catch(() => {}); } } catch (e) {}
     const APP_HOME = ES_MSG ? URL_MSGAME : URL_VJSHOW;

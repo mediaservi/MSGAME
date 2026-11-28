@@ -96,7 +96,7 @@
 </div>
 <script src="../lib/idioma.js?v=18.60"></script>
 <script src="../lib/vikingo3d.js?v=18.89b"></script>
-<script src="../lib/perro3d.js?v=18.94"></script>
+<script src="../lib/perro3d.js?v=18.95"></script>
 <script>
 'use strict';
 var H3 = { st: 0 };   // el herrero del barreño (se carga al dibujar)
@@ -260,12 +260,14 @@ function hachasOtros(p, cx, cy, r) { const X = p.x1, Y = p.y1;
 /* v18.94 · el perro ya no pasea (parecía flotar sobre el banco y andaba hacia atrás): está en su esquina, en primera fila, abajo a la izquierda,
    con las patas en el suelo y su sombra. Mueve la cola a ratos, respira y mira a los lados. Si le das, gime, se esconde y vuelve al rato */
 const PERRO = img('../juegos/hit3d/m-perro-anim.webp'), P3 = window.PERRO3D ? PERRO3D.crea({ px: 360, luz: 0xffd9a0, luzI: 1.4, cielo: 0xffe6c4, suelo: 0x3a2a1e, amb: .95 }) : { listo: false };
+/* v18.95 · el perro y el herrero, con el color del atardecer de la escena: más cálidos, menos saturados y algo más oscuros, para que no parezcan pegados encima */
+const TONO = 'sepia(.42) saturate(.78) brightness(.8) contrast(1.05)';
 const PERRO_U = .118, PERRO_V = .978, PERRO_H = .086;   /* en primera fila, abajo a la izquierda (el hueco que marcó Josep) */
 function perroTick(dt) { if (E.fase !== 'juego') return; if (!E.perro) { E.perroT = (E.perroT == null ? 0 : E.perroT) - dt; if (E.perroT <= 0) E.perro = { u: PERRO_U, d: 1, m: 0, td: 0, f: 0, al: 0, ct: R(2, 5), co: 1 }; return; }
   const d = E.perro; d.f += dt; if (d.m) { d.td += dt; if (d.td > 1.2) { E.perro = null; E.perroT = R(8, 14); } return; } d.al = Math.min(1, (d.al || 0) + dt * 1.5);
   d.ct -= dt; if (d.ct <= 0) { d.co = d.co ? 0 : 1; d.ct = d.co ? R(3, 7) : R(2, 5); }   /* a ratos mueve la cola, a ratos se queda quieto mirando */ }
 function perroDibuja(dt) { const d = E.perro; if (!d) return; const [X, Y] = P(PERRO_U, PERRO_V), hh = PS(PERRO_H), al = d.m ? 1 - lim(d.td / .9, 0, 1) : (d.al == null ? 1 : d.al), bote = d.m ? -Math.sin(lim(d.td / .35, 0, 1) * Math.PI) * hh * .25 : 0;
-  x.save(); x.globalAlpha = al; x.fillStyle = 'rgba(20,12,6,.42)'; x.beginPath(); x.ellipse(X, Y + hh * .02, hh * .5, hh * .09, 0, 0, TAU); x.fill(); x.filter = 'brightness(.88) sepia(.16)';
+  x.save(); x.globalAlpha = al; x.fillStyle = 'rgba(20,12,6,.42)'; x.beginPath(); x.ellipse(X, Y + hh * .02, hh * .5, hh * .09, 0, 0, TAU); x.fill(); x.filter = TONO;
   if (P3.listo) P3.pinta(x, X, Y + bote, hh, { dt: E.pausa ? 0 : (dt || .016), cola: d.m ? 0 : d.co, mira: d.co ? 0 : Math.sin(d.f * .7) * .06 });
   else if (PERRO.complete && PERRO.naturalWidth) { const ww = hh * 1.5; x.translate(X, Y + bote); x.scale(-1, 1); x.drawImage(PERRO, 0, 0, 300, 200, -ww / 2, -hh * .93, ww, hh); }
   x.restore(); }
@@ -484,7 +486,7 @@ function herrTick(dt) { const h = E.herr; if (!h) return; h.t += dt; const B = E
 function herrDibuja() { const h = E.herr || { f: 'espera', t: 0 }, va = h.f !== 'espera', ida = va && h.t < 2.2, vuelta = va && h.t > 2.8, u = va ? (h.u || HU0) : HU0, [X, Yp] = P(u, HV), hH = H * HERR_H;
   (E.suelo || []).forEach((q, i) => { const [sx, sy] = P(HU0 - .075 - i * .04, HV - .012); armaTumbada(q, sx, sy, hH * .2, false); });   /* v18.25 · lo que ha dejado en el suelo, a su lado */
   const hm = E.herrM, hal = hm ? (hm.t < .6 ? 1 - hm.t / .6 : hm.t > 2.4 ? lim((hm.t - 2.4) / .6, 0, 1) : 0) : 1; x.save(); x.globalAlpha = hal; if (hm && hm.t < .6) { x.translate(X, Yp); x.rotate(hm.t / .6 * 1.2); x.translate(-X, -Yp); }   /* v18.87 · si le das, cae de lado y al rato vuelve a su sitio */
-  if (hal > 0) h3Pinta(X, Yp, hH, ida ? -Math.PI / 2 - .15 : vuelta ? Math.PI / 2 + .15 : -.5, ida || vuelta ? 'anda' : 'mira'); x.restore(); if (hal < 1) return;
+  if (hal > 0) { x.filter = TONO; h3Pinta(X, Yp, hH, ida ? -Math.PI / 2 - .15 : vuelta ? Math.PI / 2 + .15 : -.5, ida || vuelta ? 'anda' : 'mira'); } x.restore(); if (hal < 1) return;
   if (h.lleva && h.lleva.length && H3.mano) h.lleva.forEach((q, i) => { const [mx, my] = H3.mano, hs = hH * .3; x.save(); x.translate(mx + i * hs * .12, my); if (q === 'hacha') { x.rotate(Math.PI * .94); x.translate(0, -hs * .45); armaImg('hacha', hs) || proyectil('hacha', 0, 0, hs * .75, 0); } else { x.rotate(.25); armaImg('arco', hs * 1.05) || proyectil('flecha', 0, 0, hs * .7, 0); } x.restore(); });   /* v18.25 · el arma que recoge va en su mano */ }
 /* la diana se limpia sola: una ráfaga de viento con un halo mágico de los dioses tapa la vista y, al pasar, ya no queda nada clavado */
 function rafagaTick(dt) { const R0 = E.rafaga; if (!R0) return; const t0 = R0.t; R0.t += dt; if (t0 === 0) { if (!MUDO) { ruido(1.8, 300, 2600, .5, 'bandpass'); ruido(1.6, 2600, 700, .35, 'bandpass', .25); [1568, 2093, 2637, 3136].forEach((f, i) => tono(f, f, 1.4, 'sine', .09, .3 + i * .12)); } R0.p = []; }
@@ -523,32 +525,17 @@ function marcas(cx, cy, r) { (E.marcas || []).forEach(m => { const X = cx + m.X 
 /* v18.25 · un arma tumbada (en el banco o en el suelo), con su sombra */
 function armaTumbada(q, X, Y, s, brillo) { x.save(); x.fillStyle = 'rgba(25,14,6,.45)'; x.beginPath(); x.ellipse(X, Y + s * .1, s * .62, s * .07, 0, 0, TAU); x.fill(); if (brillo) { x.shadowColor = '#ffd23f'; x.shadowBlur = PS(.03); } x.translate(X, Y); if (q === 'hacha') { x.rotate(-Math.PI / 2 + .06); armaImg('hacha', s * .95) || proyectil('hacha', 0, 0, s, 0); } else { x.rotate(-Math.PI / 2 - .04); armaImg('arco', s * 1.05) || proyectil('flecha', 0, 0, s, 0); } x.restore(); }
 /* v18.25 · primera persona: lo que llevas en la mano asoma abajo, sigue un poco a la mira y al lanzar sale disparado; vuelve a subir para el siguiente */
-/* v18.94 · EL ARCO EN PRIMERA PERSONA: lo que ve el arquero, con ilustraciones pintadas (juegos/diana/armas/arco-mano y arco-tira).
-   La mano izquierda, con guante y brazal, empuña el arco, cuya pala entra y sale por arriba y por abajo; la mano derecha, pegada a la cara abajo a la derecha,
-   sujeta la flecha por el emplumado, y la flecha va en escorzo hasta la empuñadura, apuntando a la mira. La cuerda pasa por los dedos.
-   Sigue al puntero con un poco de retraso, respira, se tensa al mantener pulsado y, al soltar, la cuerda vibra, el arco da un respingo y se monta otra flecha */
-const ARCO_M = img('../juegos/diana/armas/arco-mano.webp'), ARCO_T = img('../juegos/diana/armas/arco-tira.webp');
-function arcoPov() { if (E.fase !== 'juego' || E.modo !== 'hachas' || E.armaSel !== 'arco') return; const M = MODOS.hachas; if (M && M.n && E.n >= M.n) return; if (!ARCO_M.complete || !ARCO_M.naturalWidth || !ARCO_T.complete || !ARCO_T.naturalWidth) return;
-  const [ax, ay] = pide(), S = Math.min(H, W * .9), pv = E.pv || (E.pv = { x: ax, y: ay, te: 0 }), q = E.pausa ? 0 : .22; pv.x += (ax - pv.x) * q; pv.y += (ay - pv.y) * q; pv.te += ((E.down ? 1 : 0) - pv.te) * (E.pausa ? 0 : .12);
-  const dt0 = E.t - (E.tiroT == null ? -9 : E.tiroT), suelta = dt0 < .6, vib = suelta ? Math.sin(dt0 * 70) * Math.exp(-dt0 * 7) : 0, resp = Math.sin(E.t * 1.3) * S * .004, kick = suelta ? Math.exp(-dt0 * 9) * S * .02 : 0, carga = suelta ? 0 : lim((dt0 - .6) / .3, 0, 1), ce = 1 - (1 - carga) * (1 - carga);
-  /* el arco y la mano izquierda: el reposaflechas (justo encima del puño) queda un poco por debajo y a la izquierda de la mira */
-  const hb = S * 1.12, wb = hb * ARCO_M.naturalWidth / ARCO_M.naturalHeight, px = pv.x - S * .15, py = pv.y + S * .17 + resp - kick, bx = px - wb * .585, by = py - hb * .43;
-  x.save(); x.lineCap = 'round';
-  const tramo = (x0, x1, y0, ex, ey, we) => { const g = x.createLinearGradient(x0, 0, x1, 0); g.addColorStop(0, '#8f6532'); g.addColorStop(.45, '#cda05c'); g.addColorStop(1, '#a67a42'); x.fillStyle = g; x.beginPath(); x.moveTo(x0, y0); x.lineTo(x1, y0); x.lineTo(ex + we, ey); x.lineTo(ex - we, ey); x.closePath(); x.fill(); };
-  if (by > -2) tramo(bx + wb * .376, bx + wb * .493, by + 3, bx + wb * .40, by - S * 1.1, wb * .03);   /* la pala sigue por arriba y por abajo si la ilustración no llega al borde */
-  if (by + hb < H + 2) tramo(bx + wb * .405, bx + wb * .525, by + hb - 2, bx + wb * .43, by + hb + S * 1.1, wb * .025);
-  x.shadowColor = 'rgba(0,0,0,.4)'; x.shadowBlur = S * .025; x.shadowOffsetX = S * .01; x.drawImage(ARCO_M, bx, by, wb, hb); x.shadowColor = 'transparent'; x.shadowBlur = 0; x.shadowOffsetX = 0;
-  /* la mano que tira: abajo a la derecha, pegada a la cara; entra al montar la flecha y se acerca un poco más al tensar */
-  const nx = px + S * (.52 + pv.te * .035) + (1 - ce) * S * .5, ny = Math.max(py + S * (.4 + pv.te * .035), H - S * .05) + (1 - ce) * S * .45, sz = Math.min(S * .5, Math.hypot(nx - px, ny - py) / 1.3), NK = [.884, .825], EX = [.004, .022];
-  const t1 = [bx + wb * .40, by - S * .9], t2 = [bx + wb * .47, by + hb + S * .9], cn = suelta ? [px + S * .05 + vib * S * .035, py + S * .1] : [nx, ny];
-  x.strokeStyle = 'rgba(240,228,198,.95)'; x.lineWidth = Math.max(1.5, S * .004); x.beginPath(); x.moveTo(t1[0], t1[1]); x.lineTo(cn[0], cn[1]); x.lineTo(t2[0], t2[1]); x.stroke();   /* la cuerda */
-  if (!suelta) { const vx = (EX[0] - NK[0]) * sz, vy = (EX[1] - NK[1]) * sz, rot = Math.atan2(py - ny, px - nx) - Math.atan2(vy, vx), c = Math.cos(rot), sn = Math.sin(rot), ex = nx + vx * c - vy * sn, ey = ny + vx * sn + vy * c;
-    const dx = px - ex, dy = py - ey, ln = Math.hypot(dx, dy) || 1, ox = -dy / ln, oy = dx / ln, wa = sz * .021, wb2 = S * .0045, hx = px + dx / ln * S * .045, hy = py + dy / ln * S * .045;
-    x.globalAlpha = ce; const g = x.createLinearGradient(ex + ox * wa, ey + oy * wa, ex - ox * wa, ey - oy * wa); g.addColorStop(0, '#8a5f33'); g.addColorStop(.45, '#d3a868'); g.addColorStop(1, '#9a6b3a'); x.fillStyle = g;
-    x.beginPath(); x.moveTo(ex + ox * wa, ey + oy * wa); x.lineTo(px + ox * wb2, py + oy * wb2); x.lineTo(px - ox * wb2, py - oy * wb2); x.lineTo(ex - ox * wa, ey - oy * wa); x.closePath(); x.fill();   /* el astil, en escorzo hasta la empuñadura */
-    x.fillStyle = '#aeb6bf'; x.strokeStyle = '#4b5158'; x.lineWidth = 1; x.beginPath(); x.moveTo(hx, hy); x.lineTo(px + ox * S * .013, py + oy * S * .013); x.lineTo(px - ox * S * .013, py - oy * S * .013); x.closePath(); x.fill(); x.stroke();   /* la punta de hierro, junto al arco */
-    x.translate(nx, ny); x.rotate(rot); x.shadowColor = 'rgba(0,0,0,.35)'; x.shadowBlur = S * .02; x.drawImage(ARCO_T, -NK[0] * sz, -NK[1] * sz, sz, sz); }
-  x.restore(); }
+/* v18.95 · EL ARCO EN PRIMERA PERSONA, visto por los ojos del arquero: una sola ilustración pintada (juegos/diana/armas/arco-vista), sin piezas sueltas.
+   El brazo izquierdo estirado hacia delante empuña el arco; la flecha, entera, se aleja en escorzo desde las plumas (grandes, junto a la cara) hasta la punta, que descansa
+   en el puño justo debajo de la diana; la mano derecha asoma abajo a la derecha tirando de la cuerda. Acompaña un poco a la mira, respira, se acerca al tensar
+   (mantener pulsado) y, al soltar, da un respingo, baja y vuelve a subir con otra flecha montada */
+const ARCO_V = img('../juegos/diana/armas/arco-vista.webp');
+function arcoPov() { if (E.fase !== 'juego' || E.modo !== 'hachas' || E.armaSel !== 'arco') return; const M = MODOS.hachas; if (M && M.n && E.n >= M.n) return; if (!ARCO_V.complete || !ARCO_V.naturalWidth) return;
+  const [ax, ay] = pide(), pv = E.pv || (E.pv = { x: ax, y: ay, te: 0 }), q = E.pausa ? 0 : .18; pv.x += (ax - pv.x) * q; pv.y += (ay - pv.y) * q; pv.te += ((E.down ? 1 : 0) - pv.te) * (E.pausa ? 0 : .12);
+  const dt0 = E.t - (E.tiroT == null ? -9 : E.tiroT), sale = dt0 < .12 ? dt0 / .12 : 0, baja = dt0 >= .12 && dt0 < .7 ? 1 - (dt0 - .12) / .58 : 0, caida = sale ? sale * sale : baja * baja, resp = Math.sin(E.t * 1.3) * H * .004;
+  const wo = Math.max(W * 1.18, H * 1.13) * (1 + pv.te * .03), w = wo / .8, h = w * ARCO_V.naturalHeight / ARCO_V.naturalWidth;
+  const tx = W * .33 + (pv.x - W / 2) * .07 - (sale ? sale * W * .01 : 0), ty = H * .53 + (pv.y - H / 2) * .07 + resp + caida * H * .75;
+  x.save(); x.shadowColor = 'rgba(0,0,0,.35)'; x.shadowBlur = H * .02; x.shadowOffsetX = H * .008; x.drawImage(ARCO_V, tx - w * .444, ty - h * .5417, w, h); x.restore(); }
 function povArma() { if (E.fase !== 'juego' || E.pausa) return; const md = E.modo; let tipo = null;
   if (md === 'hachas') tipo = E.armaSel === 'hacha' ? 'hacha-pov' : E.armaSel === 'arco' ? 'arco-pov' : null; else if (md === 'dardos') tipo = 'dardo'; else if (md === 'tartazos') tipo = E.mesa && E.mesa.sel; else if (md === 'barreno') tipo = 'bola';
   if (!tipo || (md === 'barreno' && E.dunk)) return; if (md === 'barreno' && ARD.m === 'roba') return; const M = MODOS[md]; if (M && M.n && E.n >= M.n) return;

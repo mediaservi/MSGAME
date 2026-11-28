@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.94**
+**Versión actual: v18.95**
 
 ## Cómo se juega
 
@@ -48,7 +48,11 @@ MSGAME es una sala de juegos en 3D que corre en el navegador. Para la pantalla g
 - **Como mando:** cualquier móvil con un navegador actual (Android 9 o iOS 15 en adelante).
 - **En una tele o un proyector:** conecta el ordenador por HDMI y usa la tele solo como pantalla. El navegador propio de las teles y proyectores (Google TV, Android TV, webOS, Tizen…) no tiene potencia para MSGAME; si se abre ahí, la app lo avisa con estos requisitos.
 
-## Cambios de la versión actual (v18.94)
+## Cambios de la versión actual (v18.95)
+- **DIANA · el arco, visto por los ojos del arquero:** una sola ilustración pintada, sin piezas sueltas: el brazo izquierdo estirado hacia delante empuña el arco y la flecha, entera, se aleja en escorzo desde las plumas (junto a la cara) hasta la punta, que queda debajo de la diana. Acompaña a la mira, respira, se acerca al tensar y, al soltar, baja y vuelve con otra flecha.
+- **El perro y el herrero, con el color de la escena:** más cálidos, menos saturados y algo más oscuros, como el atardecer del campamento.
+
+## Cambios de la v18.94
 - **DIANA · HACHAS Y ARCO · el arco en primera persona:** ahora se ve lo que ve el arquero, con ilustraciones pintadas: la mano izquierda con guante y brazal empuña el arco, cuya pala entra y sale por arriba y por abajo; la mano derecha sujeta la flecha por el emplumado abajo a la derecha, y la flecha va en escorzo hasta la empuñadura. Sigue a la mira con un poco de retraso, respira, se tensa al mantener pulsado y, al soltar, la cuerda vibra y se monta otra flecha.
 - **El perro ya no pasea:** está quieto en primera fila, abajo a la izquierda, con las patas en el suelo. Es el modelo 3D de la casa: mueve la cola a ratos y mira a los lados. Si le das, gime, se esconde y vuelve al rato.
 - **El herrero, en proporción:** al estar en primera fila es más grande que el sabio del fondo.
