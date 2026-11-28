@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.76**
+**Versión actual: v18.77**
 
 ## Cómo se juega
 
@@ -39,7 +39,10 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **MEVILAND** *(nuevo)*: el reino de fantasía de Mevi, en 3D y en primera persona; la gran plaza de la muralla al atardecer, cuatro mundos (Fantasía, Absurdo, Golosinas y Feria) con tres salas cada uno, doce pruebas, puertas trampa y cuatro finales, uno secreto.
 - **RUNAS** *(nuevo)*: dibuja runas en el aire con la mano delante de la cámara (o con el móvil o el ratón) para deshacer las sombras que van a por el cristal de Mevi; hasta 4 a la vez, jefe final y supermagia con los dos brazos arriba.
 
-## Cambios de la versión actual (v18.76)
+## Cambios de la versión actual (v18.77)
+- **DUSTY RUN · todoterreno nuevo, hecho en casa:** el coche se modela por código, sin modelos de fuera: carrocería de superficies lisas en naranja teja, techo, pilares y bajos negros, pilotos traseros en flecha que se encienden, lunas tintadas, alerón, barras de techo, retrovisores, pasos de rueda con aleta y llantas negras de doce radios que giran. Pesa 1 MB menos que el anterior.
+
+### v18.76
 - **PALOTERAPIA · globo de tinta:** si lo revientas a tiempo, estalla en gotas que caen y dejan su mancha en el suelo, y el arma queda teñida y goteando unos segundos.
 - **Suelos y luces que laten con la música de verdad:** sin micrófono ni fuente en vivo, el juego analiza su propia música (graves, medios, agudos y golpes) en vez de seguir un pulso fijo. Se nota en el suelo de malla de PALOTERAPIA y en todo lo que reacciona al ritmo. En navegadores que no dejan escuchar el reproductor, sigue el pulso de antes.
 

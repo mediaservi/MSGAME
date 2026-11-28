@@ -1,13 +1,87 @@
 /* MSGAME · BEAT RACER en 3D · RUNNER y DIRTY · GPL-3.0 · mediaservi.com
    RUNNER: la corredora (Universal Base Characters) corre con las animaciones de Universal Animation Library por una calle de Downtown City MegaKit
    (los tres, de Quaternius, CC0), al atardecer y con arcos de neón que laten con la música.
-   DIRTY: un todoterreno (Car Kit de Kenney, CC0) pintado del naranja del coche de 2D y con su matrícula, por un camino de tierra (textura de Downtown City MegaKit)
+   DIRTY: un todoterreno propio, modelado aquí a mano, naranja teja y con su matrícula, por un camino de tierra (textura de Downtown City MegaKit)
    en un pinar al atardecer, con polvo, fardos de paja, vallas de rally, conos y coches de policía.
    La partida es la misma de siempre (carriles, saltos, premios y obstáculos de index.html): este módulo solo la pinta en 3D.
    Se carga al jugar; mientras llegan los modelos, el juego se ve en 2D. */
 (function () {
   'use strict';
   const T = THREE, ESC = 3.1, FONDO = 34, Z0 = 14, LARGO = 210, ACERA = 4.6, FACH = 7.75;   // la calle: lx = ±1 son ±3,1 m; z = 1 son 34 m por delante
+  /* v18.77 · el todoterreno de la casa, modelado aquí a mano (sin modelos de fuera): carrocería de superficies lisas levantada por cortes en altura, pintura naranja teja con techo, pilares y bajos en negro,
+     pilotos, lunas, pasos de rueda con su aleta, alerón, barras de techo, retrovisores y cuatro ruedas de radios que giran. El morro mira a +z y el suelo es y = 0; medidas en metros. */
+  function todoterreno() {
+    const g = new T.Group(), cl = (v, a, b) => Math.max(a, Math.min(b, v)), mix = (a, b, t) => a + (b - a) * t, sm = (a, b, v) => { const t = cl((v - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
+    const PF = [[.25, .79, -1.96, 1.97, .3], [.32, .87, -2.09, 2.1, .33], [.44, .895, -2.16, 2.16, .34], [.6, .9, -2.18, 2.175, .34], [.78, .912, -2.175, 2.16, .33], [.92, .918, -2.15, 2.12, .32], [.985, .905, -2.125, 1.96, .31], [1.02, .892, -2.105, 1.56, .3], [1.055, .876, -2.085, 1.16, .29], [1.17, .838, -2.02, .95, .27], [1.3, .79, -1.95, .72, .25], [1.42, .74, -1.875, .5, .24], [1.5, .69, -1.8, .37, .23], [1.54, .63, -1.72, .27, .22]];
+    const Y0 = PF[0][0], Y1 = PF[PF.length - 1][0], perfil = y => { let k = 0; while (k < PF.length - 2 && y > PF[k + 1][0]) k++; const a = PF[k], b = PF[k + 1], f = cl((y - a[0]) / (b[0] - a[0]), 0, 1); return [mix(a[1], b[1], f), mix(a[2], b[2], f), mix(a[3], b[3], f), mix(a[4], b[4], f)]; };
+    const SEG = [.08, .05, .26, .05, .12, .05, .26, .05, .08], COL = [4, 6, 14, 6, 8, 6, 14, 6, 4];
+    const pt = (t, y) => { const [W, Zr, Zf, r] = perfil(y); let k = 0, a = t; while (k < 8 && a > SEG[k]) { a -= SEG[k]; k++; } const f = cl(a / SEG[k], 0, 1), q = f * Math.PI / 2; let x, z, c;
+      if (k === 0) { x = f * (W - r); z = Zr; c = 1; } else if (k === 1) { x = W - r + Math.sin(q) * r; z = Zr + r - Math.cos(q) * r; c = f < .5 ? 1 : 0; } else if (k === 2) { x = W; z = Zr + r + f * (Zf - Zr - 2 * r); c = 0; }
+      else if (k === 3) { x = W - r + Math.cos(q) * r; z = Zf - r + Math.sin(q) * r; c = f < .5 ? 0 : 2; } else if (k === 4) { x = (W - r) * (1 - 2 * f); z = Zf; c = 2; } else if (k === 5) { x = -(W - r) - Math.sin(q) * r; z = Zf - r + Math.cos(q) * r; c = f < .5 ? 2 : 0; }
+      else if (k === 6) { x = -W; z = Zf - r - f * (Zf - Zr - 2 * r); c = 0; } else if (k === 7) { x = -(W - r) - Math.cos(q) * r; z = Zr + r - Math.sin(q) * r; c = f < .5 ? 0 : 1; } else { x = -(W - r) * (1 - f); z = Zr; c = 1; }
+      const zc = (Zr + Zf) / 2, hl = (Zf - Zr) / 2, fz = (z - zc) / hl, fx = x / W; x *= 1 - .03 * fz * fz; z += Math.sign(fz) * .05 * (1 - fx * fx) * Math.pow(Math.abs(fz), 6); return [x, z, c]; };
+    /* la piel: filas por altura (más juntas donde el capó dobla) y columnas repartidas por tramos, para que las esquinas salgan redondas */
+    const ys = []; PF.forEach((p, i) => { if (!i) return; const a = PF[i - 1][0], n = p[0] - a > .1 ? 4 : 2; for (let k = 0; k < n; k++) ys.push(a + (p[0] - a) * k / n); }); ys.push(Y1);
+    const ts = []; { let t0 = 0; SEG.forEach((s, k) => { for (let i = 0; i < COL[k]; i++) ts.push(t0 + s * i / COL[k]); t0 += s; }); ts.push(1); }
+    const NA = ts.length, NR = ys.length, pos = [], uv = [], idx = [];
+    ys.forEach(y => ts.forEach(t => { const [x, z] = pt(Math.min(t, .99999), y); pos.push(x, y, z); uv.push(t, (y - Y0) / (Y1 - Y0)); }));
+    for (let j = 0; j < NR - 1; j++) for (let i = 0; i < NA - 1; i++) { const a = j * NA + i, b = a + 1, c = a + NA, d = c + 1; idx.push(a, c, b, b, c, d); }
+    const piel = new T.BufferGeometry(); piel.setAttribute('position', new T.Float32BufferAttribute(pos, 3)); piel.setAttribute('uv', new T.Float32BufferAttribute(uv, 2)); piel.setIndex(idx); piel.computeVertexNormals();
+    { const n = piel.attributes.normal, p = piel.attributes.position; let s = 0; for (let i = 0; i < p.count; i += 7) s += n.getX(i) * p.getX(i) + n.getZ(i) * p.getZ(i); if (s < 0) { for (let i = 0; i < idx.length; i += 3) { const t = idx[i + 1]; idx[i + 1] = idx[i + 2]; idx[i + 2] = t; } piel.setIndex(idx); piel.computeVertexNormals(); }
+      /* la costura (t = 0 y t = 1 son el mismo sitio): misma normal a los dos lados */ for (let j = 0; j < NR; j++) { const a = j * NA, b = a + NA - 1, x = n.getX(a) + n.getX(b), y = n.getY(a) + n.getY(b), z = n.getZ(a) + n.getZ(b), l = Math.hypot(x, y, z) || 1; n.setXYZ(a, x / l, y / l, z / l); n.setXYZ(b, x / l, y / l, z / l); } }
+    /* la pintura: cada punto de la textura se decide por dónde cae en el coche (altura, cara y distancia a las ruedas), así los despieces quedan donde tocan */
+    const ZW = 1.33, RW = .39, LIFT = .075, YW = RW - LIFT, TW = 2048, TH = 512, mk = () => { const c = document.createElement('canvas'); c.width = TW; c.height = TH; return c; }, cC = mk(), cE = mk(), cR = mk(), qC = cC.getContext('2d'), qE = cE.getContext('2d'), qR = cR.getContext('2d'), dC = qC.createImageData(TW, TH), dE = qE.createImageData(TW, TH), dR = qR.createImageData(TW, TH);
+    const NAR = [188, 78, 28], NEG = [15, 15, 17], regla = (x, y, z, c) => { const ax = Math.abs(x); let col = NAR, ro = .42, me = .12, em = 0;
+      const cristal = () => { const k = sm(1.08, 1.45, y); col = [12 + 16 * k, 17 + 22 * k, 24 + 30 * k]; ro = .2; me = .25; }, negro = (r2) => { col = NEG; ro = r2 || .6; me = .1; };
+      if (y > 1.065) { negro(.4); me = .2; if (y < 1.46) { if (c === 0 && z > -1.6 + (y - 1.1) * .55 && z < 1.02 - (y - 1.1) * 1.75 && y > 1.1 && !(z > -.07 && z < .03) && !(z > -1.03 && z < -.95)) cristal(); else if (c === 2 && ax < .78 - (y - 1.1) * .4 && y > 1.095) cristal(); else if (c === 1 && ax < .7 - (y - 1.12) * .42 && y > 1.13 && y < 1.44) cristal(); } }
+      else if (c === 1 || (c === 0 && z < -1.9)) {   // la trasera y su vuelta a los costados
+        if (y < .6) { negro(.7); if (ax < .56 && y > .33 && y < .42 && c === 1) { col = [150, 154, 160]; ro = .32; me = .85; } else if (ax > .6 && ax < .8 && y > .46 && y < .515) { col = [110, 16, 14]; ro = .25; } }
+        else if (y > .95 && y < 1.065 && (ax > .5 || c === 0)) { col = [58, 8, 8]; ro = .16; me = .2; if ((Math.abs(y - 1.008) < .016 && (ax > .6 || c === 0)) || (c === 1 && ax > .515 && ax <= .61 && Math.abs(Math.abs(y - 1.008) - (.61 - ax) * .46) < .013)) { col = [255, 44, 28]; em = 1; } }
+        else if (c === 1 && ax < .5 && y > .955 && y < 1.0) { negro(.2); me = .5; }
+        else if (c === 1 && ax < .35 && y > .655 && y < .87) { col = [NAR[0] * .78, NAR[1] * .78, NAR[2] * .78]; }
+        else if (c === 1 && ((Math.abs(y - .9) < .004) || (Math.abs(ax - .5) < .004 && y > .6 && y < .955))) { col = [NAR[0] * .5, NAR[1] * .5, NAR[2] * .5]; } }
+      else if (c === 2 || (c === 0 && z > 1.92)) {   // el morro
+        if (y < .5) { negro(.7); if (ax < .56 && y > .3 && y < .39 && c === 2) { col = [150, 154, 160]; ro = .32; me = .85; } }
+        else if (c === 2 && ax < .6 && y > .6 && y < .9) { negro(.45); if (Math.floor(y * 28) % 2) col = [34, 34, 38]; }
+        else if (ax > .5 && y > .8 && y < .915 && (c === 2 || z > 2.02)) { col = [226, 232, 238]; ro = .1; me = .6; em = .35; } }
+      else {   // los costados
+        const dw = Math.min(Math.hypot(z - ZW, y - YW), Math.hypot(z + ZW, y - YW));
+        if (dw < RW + .06) { col = [6, 6, 7]; ro = .95; me = 0; } else if (dw < RW + .16 && y < .98) negro(.8); else if (y < .45) negro(.8);
+        else if ((Math.abs(z - 1.02) < .008 || Math.abs(z + .02) < .008 || (Math.abs(z + 1.0) < .008 && y > .86))) { col = [NAR[0] * .45, NAR[1] * .45, NAR[2] * .45]; }
+        else if (Math.abs(y - .985) < .017 && ((z > -.2 && z < -.05) || (z > .82 && z < .97))) { negro(.3); }
+        else { const k = 1 + .12 * sm(.9, 1.0, y) - .1 * sm(.7, .52, y); col = [NAR[0] * k, NAR[1] * k, NAR[2] * k]; } }
+      const ao = mix(.72, 1, sm(.24, .62, y)); return [col[0] * ao, col[1] * ao, col[2] * ao, ro, me, em]; };
+    for (let j = 0; j < TH; j++) { const y = Y0 + (1 - (j + .5) / TH) * (Y1 - Y0); for (let i = 0; i < TW; i++) { const [x, z, c] = pt((i + .5) / TW, y), [r, g2, b, ro, me, em] = regla(x, y, z, c), o = (j * TW + i) * 4;
+        dC.data[o] = r; dC.data[o + 1] = g2; dC.data[o + 2] = b; dC.data[o + 3] = 255; dR.data[o] = 255; dR.data[o + 1] = ro * 255; dR.data[o + 2] = me * 255; dR.data[o + 3] = 255; dE.data[o] = em * r; dE.data[o + 1] = em * g2; dE.data[o + 2] = em * b; dE.data[o + 3] = 255; } }
+    qC.putImageData(dC, 0, 0); qE.putImageData(dE, 0, 0); qR.putImageData(dR, 0, 0);
+    const tex = (c, srgb) => { const t = new T.CanvasTexture(c); if (srgb) t.encoding = T.sRGBEncoding; t.anisotropy = 8; t.wrapS = T.RepeatWrapping; return t; }, tR = tex(cR);
+    const mPiel = new T.MeshStandardMaterial({ map: tex(cC, 1), roughnessMap: tR, metalnessMap: tR, roughness: 1, metalness: 1, emissive: 0xffffff, emissiveMap: tex(cE, 1), emissiveIntensity: 1.1, envMapIntensity: .8 });
+    const cj = new T.Group(); cj.position.y = LIFT; g.add(cj); const cuerpo = new T.Mesh(piel, mPiel); cuerpo.castShadow = true; cj.add(cuerpo);
+    const brillo = new T.MeshStandardMaterial({ color: 0x0b0b0d, roughness: .42, metalness: .2, envMapIntensity: .55 }), mate = new T.MeshStandardMaterial({ color: 0x0b0b0d, roughness: .85, metalness: 0, envMapIntensity: .25 }), goma = new T.MeshStandardMaterial({ color: 0x060607, roughness: .95, metalness: 0, envMapIntensity: .15 }), plata = new T.MeshStandardMaterial({ color: 0x5c6168, roughness: .36, metalness: .9, envMapIntensity: .7 });
+    /* techo: tapa abombada sobre el último corte, y bajos: tapa plana */
+    { const p2 = [], i2 = [], K = [1, .82, .58, .3, 0], [W, Zr, Zf] = perfil(Y1), zc = (Zr + Zf) / 2; K.forEach((k, r) => ts.forEach(t => { const [x, z] = pt(Math.min(t, .99999), Y1); p2.push(x * k, Y1 + .05 * (1 - k * k), zc + (z - zc) * k); }));
+      for (let r = 0; r < K.length - 1; r++) for (let i = 0; i < NA - 1; i++) { const a = r * NA + i, b = a + 1, c = a + NA, d = c + 1; i2.push(a, b, c, b, d, c); }
+      const tg = new T.BufferGeometry(); tg.setAttribute('position', new T.Float32BufferAttribute(p2, 3)); tg.setIndex(i2); tg.computeVertexNormals(); { const n = tg.attributes.normal; let s = 0; for (let i = 0; i < n.count; i++) s += n.getY(i); if (s < 0) { for (let i = 0; i < i2.length; i += 3) { const t = i2[i + 1]; i2[i + 1] = i2[i + 2]; i2[i + 2] = t; } tg.setIndex(i2); tg.computeVertexNormals(); } }
+      const techo = new T.Mesh(tg, brillo); techo.castShadow = true; cj.add(techo);
+      const sh = new T.Shape(); ts.forEach((t, i) => { const [x, z] = pt(Math.min(t, .99999), Y0); i ? sh.lineTo(x, z) : sh.moveTo(x, z); }); const bj = new T.Mesh(new T.ShapeGeometry(sh), mate); bj.rotation.x = Math.PI / 2; bj.position.y = Y0; cj.add(bj); }
+    const rcaja = (w, h, d, r) => { const s = new T.Shape(), a = w / 2 - r, b = h / 2 - r; s.absarc(a, b, r, 0, Math.PI / 2); s.absarc(-a, b, r, Math.PI / 2, Math.PI); s.absarc(-a, -b, r, Math.PI, Math.PI * 1.5); s.absarc(a, -b, r, Math.PI * 1.5, Math.PI * 2); const e = new T.ExtrudeGeometry(s, { depth: d - 2 * r, bevelEnabled: true, bevelSize: r, bevelThickness: r, bevelSegments: 4, curveSegments: 8 }); e.translate(0, 0, -(d - 2 * r) / 2); return e; };
+    const pon = (geo, m, x, y, z, rx, ry, rz) => { const o = new T.Mesh(geo, m); o.position.set(x, y, z); o.rotation.set(rx || 0, ry || 0, rz || 0); o.castShadow = true; cj.add(o); return o; };
+    pon(rcaja(1.22, .045, .26, .02), brillo, 0, 1.56, -1.78, -.16);                                   // alerón
+    [-1, 1].forEach(s => { pon(new T.CapsuleGeometry(.019, 1.36, 6, 12), brillo, s * .53, 1.612, -.78, Math.PI / 2); [-.14, -1.42].forEach(z => pon(rcaja(.045, .05, .1, .016), brillo, s * .53, 1.588, z));   // barras de techo
+      pon(rcaja(.1, .13, .2, .04), brillo, s * 1.0, 1.1, 1.0, 0, s * .25); pon(rcaja(.14, .035, .07, .015), brillo, s * .93, 1.06, 1.0);                                                                  // retrovisores
+      const al = new T.TorusGeometry(RW + .095, .05, 12, 30, Math.PI); [ZW, -ZW].forEach(z => { const o = pon(al, mate, s * .905, YW, z, 0, Math.PI / 2); o.scale.z = .7; });                                // aletas de los pasos de rueda
+      pon(new T.CylinderGeometry(.036, .036, .1, 16), plata, s * .46, .3, -2.17, Math.PI / 2); });                                                                                                         // escapes
+    pon(rcaja(.44, .012, .02, .005), mate, .1, 1.19, -2.03, .5, 0, .45);                                                                                                                                      // limpia trasero
+    { const a = pon(new T.ConeGeometry(.035, .13, 12), brillo, 0, 1.63, -1.35, -.9); a.scale.x = .5; }                                                                                                        // antena
+    /* ruedas: neumático de sección redonda, llanta negra de doce radios con su aro y el disco detrás */
+    const perf = []; for (let i = 0; i <= 14; i++) { const a = -Math.PI * .5 + i / 14 * Math.PI, sx = Math.sin(a), k = Math.pow(Math.abs(sx), .45) * Math.sign(sx); perf.push(new T.Vector2(RW - .15 + Math.pow(Math.cos(a), .55) * .15, k * .12)); }
+    const gNeu = new T.LatheGeometry(perf, 40); gNeu.rotateZ(Math.PI / 2); const gBar = new T.CylinderGeometry(.238, .238, .19, 36, 1, true); gBar.rotateZ(Math.PI / 2); const gDis = new T.CylinderGeometry(.17, .17, .02, 28); gDis.rotateZ(Math.PI / 2);
+    const gRad = new T.BoxGeometry(.016, .205, .03), gAro = new T.TorusGeometry(.232, .009, 8, 40); gAro.rotateY(Math.PI / 2); const gBuj = new T.CylinderGeometry(.05, .058, .04, 20); gBuj.rotateZ(Math.PI / 2);
+    const mLl = new T.MeshStandardMaterial({ color: 0x101013, roughness: .28, metalness: .7, envMapIntensity: 1.1, side: T.DoubleSide }), ruedas = [];
+    [[1, ZW], [-1, ZW], [1, -ZW], [-1, -ZW]].forEach(([s, z]) => { const w = new T.Group(); w.position.set(s * .795, RW, z); const m = (ge, ma, x) => { const o = new T.Mesh(ge, ma); o.position.x = x || 0; o.castShadow = true; w.add(o); return o; };
+      m(gNeu, goma); m(gBar, mLl); m(gDis, plata, s * .02); m(gAro, plata, s * .1); m(gBuj, mLl, s * .1); for (let i = 0; i < 12; i++) { const r = m(gRad, mLl, s * .085), a = i / 12 * Math.PI * 2; r.position.y = Math.cos(a) * .135; r.position.z = Math.sin(a) * .135; r.rotation.x = a; }
+      g.add(w); ruedas.push(w); });
+    g.userData.ruedas = ruedas; return g; }
   let M = null, P = null;
   function modelos(v) {
     if (M) return Promise.resolve(M); if (P) return P;
@@ -376,26 +450,16 @@
     let carro = null; const ruedas = []; suv.traverse(o => { if (!carro && /^body(_\d+)?$/.test(o.name)) carro = o; }); ['front-left', 'front-right', 'back-left', 'back-right'].forEach(n => { let w = null; suv.traverse(o => { if (!w && new RegExp('^wheel-' + n + '(_\\d+)?$').test(o.name)) w = o; }); if (w) ruedas.push(w); }); const y0c = carro ? carro.position.y : .2;
     ruedas.forEach(w => { w.rotation.order = 'YXZ'; }); suv.traverse(o => { if (/^wheel-back(_\d+)?$/.test(o.name)) o.visible = false; });   // como el de 2D: la matrícula en el portón
     let zTr = -1.2; if (carro && carro.geometry) { const p = carro.geometry.attributes.position; let m = 0; for (let i = 0; i < p.count; i++) { const x = p.getX(i), y = p.getY(i), z = p.getZ(i); if (Math.abs(x) < .3 && y > .35 && y < .62) { m = Math.min(m, z); } } if (m < 0) zTr = m; }
-    /* v18.67 · el todoterreno de la casa: el modelo propio, en polígonos planos y repintado en naranja teja, sustituye a la carrocería de serie (que queda de reserva mientras carga) */
+    /* v18.77 · el todoterreno de la casa: modelado en este mismo archivo (todoterreno()), sustituye a la carrocería de serie */
     const DU = { pl: null, fr: null, f: null };
-    if (carro && carro.geometry) { const pon = () => { const L = new T.GLTFLoader(); L.setMeshoptDecoder(window.MeshoptDecoder); L.load('packs/racer/duster.glb?v=' + C.v, gl => { try { if (!C.vivo()) return; const d = gl.scene, w = new T.Group(); d.rotation.y = Math.PI / 2; w.add(d);
-        d.traverse(o => { if (!o.isMesh) return; const mp = o.material.map; let tx = mp; try { const im = mp.image, cv = document.createElement('canvas'); cv.width = im.width; cv.height = im.height; const q = cv.getContext('2d'); q.drawImage(im, 0, 0); const D = q.getImageData(0, 0, cv.width, cv.height), p = D.data;
-            for (let i = 0; i < p.length; i += 4) { const r = p[i], g2 = p[i + 1], b2 = p[i + 2], mx = Math.max(r, g2, b2), mn = Math.min(r, g2, b2), v = mx / 255, sa = mx ? (mx - mn) / mx : 0; let c;
-              if (sa > .32 && r > g2 && g2 > b2 * .9 && r - b2 > 50) { const k = v > .78 ? 1.08 : v > .5 ? .94 : .74; c = [184 * k, 84 * k, 44 * k]; }   /* la chapa: naranja teja, en tres tonos planos */
-              else if (sa > .5 && r > 150 && g2 < 90) c = [215, 38, 30];   /* pilotos */
-              else if (v < .3) c = [26, 27, 30];   /* plásticos, neumáticos y bajos */
-              else if (v < .62) c = sa < .2 ? [52, 62, 72] : [70, 60, 52];   /* cristales */
-              else c = [214, 218, 222];   /* llantas, faros y molduras */
-              p[i] = Math.min(255, c[0]); p[i + 1] = Math.min(255, c[1]); p[i + 2] = Math.min(255, c[2]); }
-            q.putImageData(D, 0, 0); tx = new T.CanvasTexture(cv); tx.flipY = mp.flipY; tx.encoding = mp.encoding; tx.wrapS = mp.wrapS; tx.wrapT = mp.wrapT; } catch (e) {}
-          o.material = new T.MeshStandardMaterial({ map: tx, roughness: .5, metalness: .1, flatShading: true, envMapIntensity: .7 }); o.castShadow = true; });
+    if (carro && carro.geometry) { try { const d = todoterreno(), w = new T.Group(); w.add(d);
         w.updateMatrixWorld(true); let bb = new T.Box3().setFromObject(w); const s0 = bb.getSize(new T.Vector3()); carro.geometry.computeBoundingBox(); const kb = carro.geometry.boundingBox, ks = kb.getSize(new T.Vector3());
         w.scale.setScalar(ks.z / s0.z * 1.2); w.updateMatrixWorld(true); bb = new T.Box3().setFromObject(w); const ce = bb.getCenter(new T.Vector3()); w.position.set(-ce.x, -y0c / CS - bb.min.y, (kb.min.z + kb.max.z) / 2 - ce.z);
         /* la matrícula y los pilotos, a la medida de este coche: la placa ocupa lo que una de verdad (algo más de un cuarto del ancho) y va pegada al portón */
-        const an = bb.max.x - bb.min.x, al = bb.max.y - bb.min.y, toca = (yy, xx) => { const rc = new T.Raycaster(new T.Vector3(ce.x + xx, yy, bb.min.z - 1), new T.Vector3(0, 0, 1)), h = rc.intersectObject(w, true)[0]; return h ? h.point.z : bb.min.z; }, yP = bb.min.y + al * .37, yF = bb.min.y + al * .56, zP = toca(yP, 0), zF = toca(yF, an * .36), ox = w.position.x, oy = w.position.y, oz = w.position.z;
+        const an = bb.max.x - bb.min.x, al = bb.max.y - bb.min.y, toca = (yy, xx) => { const rc = new T.Raycaster(new T.Vector3(ce.x + xx, yy, bb.min.z - 1), new T.Vector3(0, 0, 1)), h = rc.intersectObject(w, true)[0]; return h ? h.point.z : bb.min.z; }, yP = bb.min.y + al * .485, yF = bb.min.y + al * .64, zP = toca(yP, 0), zF = toca(yF, an * .36), ox = w.position.x, oy = w.position.y, oz = w.position.z;
         DU.f = () => { if (DU.pl) { const k = an * .27 / .52; DU.pl.scale.setScalar(k); DU.pl.position.set(ox + ce.x, oy + yP, oz + zP - .008); } if (DU.fr) DU.fr.forEach((h, i) => { h.position.set(ox + ce.x + (i ? 1 : -1) * an * .36, oy + yF, oz + zF - .03); }); }; DU.f();
-        carro.add(w); carro.material = new T.MeshBasicMaterial({ visible: false }); suv.traverse(o => { if (/^wheel-/.test(o.name)) o.visible = false; }); } catch (e) { console.warn('duster', e); } }, undefined, () => {}); };
-      if (window.MeshoptDecoder) pon(); else { const e = document.createElement('script'); e.src = 'lib/meshopt.js'; e.onload = pon; document.head.appendChild(e); } }
+        carro.add(w); carro.material = new T.MeshBasicMaterial({ visible: false }); suv.traverse(o => { if (/^wheel-/.test(o.name)) o.visible = false; });
+        ruedas.length = 0; d.userData.ruedas.forEach(r => { r.rotation.order = 'YXZ'; ruedas.push(r); }); } catch (e) { console.warn('todoterreno', e); } }
     try { const pc = C.plate(), pt = new T.CanvasTexture(pc); pt.encoding = T.sRGBEncoding; pt.anisotropy = 8; const pw = .52, ph = pw * pc.height / pc.width, pl = new T.Mesh(new T.PlaneGeometry(pw, ph), new T.MeshStandardMaterial({ map: pt, roughness: .6, metalness: .2 }));
       pl.position.set(0, .49, zTr - .012); pl.rotation.y = Math.PI; if (carro) carro.add(pl); DU.pl = pl; } catch (e) {}
     const freno = [-1, 1].map(sd => { const h = halo(0xff2a1a, .55); h.position.set(sd * .55, .42, zTr - .05); if (carro) carro.add(h); return h; }); DU.fr = freno; if (DU.f) DU.f();
@@ -509,5 +573,5 @@
     const vigila = setInterval(() => { if (C.vivo()) return; clearInterval(vigila); try { sc.traverse(o => { if (o.geometry && !COMP.has(o.geometry)) o.geometry.dispose(); (Array.isArray(o.material) ? o.material : o.material ? [o.material] : []).forEach(m => { if (COMP.has(m)) return; ['map', 'emissiveMap', 'normalMap'].forEach(k => { if (m[k] && !COMP.has(m[k])) m[k].dispose(); }); m.dispose(); }); }); [tierra, relieve].forEach(t => t.dispose()); } catch (e) {} }, 2000);
     R3.draw = draw; R3.proj = proj; R3.sc = sc; R3.ok = true;
   }
-  window.MSG_RACER3D = { crea, modelos };
+  window.MSG_RACER3D = { crea, modelos, todoterreno };
 })();
