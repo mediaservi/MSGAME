@@ -908,7 +908,7 @@ SALAS.biblioteca = { dur: [50, 45, 40], crea(ctx) {
 
 /* ---------- FANTASÍA · La Cueva de los Cristales ---------- */
 SALAS.cristales = { dur: [50, 45, 42], crea(ctx) {
-  const g = ctx.g; ctx.meta = [12, 15, 18][ctx.modo]; MU.cam.m.set(0, 1.6, -6);
+  const g = ctx.g; ctx.meta = [8, 15, 18][ctx.modo]; MU.cam.m.set(0, 1.6, -6);   /* v18.79 · FÁCIL de verdad: menos cristales que acertar, se encienden de uno en uno cada dos pulsos, duran más del doble y tocar uno apagado no resta */
   const roca = mat('#3a2460', { roughness: .95, flatShading: true }); for (let i = 0; i < 12; i++) { const r = new T.Mesh(new T.DodecahedronGeometry(rnd(1.5, 3)), roca); const a = -1.4 + i / 11 * 2.8; r.position.set(Math.sin(a) * 14, rnd(-1, 3), -8 - Math.cos(a) * 9); r.scale.y = rnd(1, 2.4); g.add(r); }
   const escala = [62, 64, 67, 69, 71, 74, 76], cols = ['#ff5fc8', '#b07bff', '#5fa8ff', '#5ff2e6', '#7dff9a', '#ffd23f', '#ff8a3c'];
   const C = escala.map((n, i) => { const a = (i / 6 - .5) * 2.3, gr = new T.Group(); gr.position.set(Math.sin(a) * 4.6, 0, -2.6 - Math.cos(a) * 1.8); gr.scale.setScalar(1.35); g.add(gr);
@@ -918,9 +918,9 @@ SALAS.cristales = { dur: [50, 45, 42], crea(ctx) {
   let beat = 0, prox = 1.2;
   return {
     paso(dt) { const bp = 60 / (92 * ctx.vel); prox -= dt;
-      if (prox <= 0) { prox += bp; beat++; sint(nota(50 + (beat % 4 === 0 ? 0 : 7)), .2, 'sine', .12); const libres = C.filter(c => c.lit <= 0); const n = ctx.modo === 0 ? 1 : beat % 3 === 0 ? 2 : 1; baraja(libres).slice(0, n).forEach(c => { c.lit = bp * (ctx.modo === 0 ? 2.2 : 1.6); }); }
+      if (prox <= 0) { prox += bp; beat++; sint(nota(50 + (beat % 4 === 0 ? 0 : 7)), .2, 'sine', .12); const libres = C.filter(c => c.lit <= 0); const n = ctx.modo === 0 ? (beat % 2 === 0 && C.filter(c => c.lit > 0).length < 2 ? 1 : 0) : beat % 3 === 0 ? 2 : 1; baraja(libres).slice(0, n).forEach(c => { c.lit = bp * (ctx.modo === 0 ? 5.2 : 1.6); }); }
       C.forEach(c => { if (c.lit > 0) c.lit -= dt; c.ok = Math.max(0, c.ok - dt * 2); const on = c.lit > 0 ? 1 : 0; c.m.emissiveIntensity = lerp(c.m.emissiveIntensity, .15 + on * 1.9 + c.ok * 2, .25); c.b.material.opacity = lerp(c.b.material.opacity, on * .8 + c.ok, .25); c.gr.scale.setScalar(1.35 * (1 + c.ok * .15)); }); },
-    toca(h) { const o = h && deQuien(h.object, 'cr'); if (!o) return; const c = C[o.userData.cr]; if (c.lit > 0) { c.lit = 0; c.ok = 1; marimba(c.n + 12, .25); ctx.bien(o.getWorldPosition(new T.Vector3()).add(new T.Vector3(0, 1.4, 0)), 50); } else { sint(nota(c.n - 12), .3, 'triangle', .1); ctx.mal(o.getWorldPosition(new T.Vector3()).add(new T.Vector3(0, 1.4, 0))); } },
+    toca(h) { const o = h && deQuien(h.object, 'cr'); if (!o) return; const c = C[o.userData.cr]; if (c.lit > 0) { c.lit = 0; c.ok = 1; marimba(c.n + 12, .25); ctx.bien(o.getWorldPosition(new T.Vector3()).add(new T.Vector3(0, 1.4, 0)), 50); } else { sint(nota(c.n - 12), .3, 'triangle', .1); if (ctx.modo > 0) ctx.mal(o.getWorldPosition(new T.Vector3()).add(new T.Vector3(0, 1.4, 0))); } },
     bot() { const c = C.find(c => c.lit > .15); if (c) c.gr.userData.bAlto = 1.2; return c ? c.gr : null; }, botT: .2
   };
 } };
@@ -1187,7 +1187,7 @@ SALAS.carrusel = { dur: [60, 55, 50], crea(ctx) {
     gr.userData.cab = i; ctx.diana(gr, 'cab'); H.push({ gr, cab, regalo, f: i * 1.05, cubierto: 0 }); }
   const llave = pieza('llave', 1.55, { emis: '#ff9a00', emisI: .55 }); const lb = brillo('#ffd23f', 3.4, .5), lb2 = brillo('#fff3b0', 5.6, .3); llave.add(lb); llave.add(lb2); llave.position.y = 2.6; lb.position.z = lb2.position.z = -.45;
   const med = new T.Mesh(new T.CircleGeometry(1.02, 40), new T.MeshBasicMaterial({ color: '#2a1450', transparent: true, opacity: .82 })); med.position.set(0, .0, -.22); llave.add(med); const aroM = new T.Mesh(new T.RingGeometry(1.02, 1.12, 40), new T.MeshBasicMaterial({ color: '#ffd23f' })); aroM.position.copy(med.position); llave.add(aroM);   /* medallón oscuro detrás: la llave dorada se recorta contra cualquier fondo */   /* grande, con doble resplandor y latiendo: que se vea bien dónde está */
-  let w = .25, fase = 'espera', tf = 0, quien = 0, dir = 1;
+  let w = .25, fase = 'espera', tf = 0, quien = 0, dir = 1; const VZ = new T.Vector3();
   const ronda = () => { quien = ri(6); H[quien].gr.add(llave); llave.visible = true; H.forEach(h => { h.cubierto = 0; }); fase = 'mira'; tf = 2.8 / Math.max(1, ctx.vel * .9); di(t('mira'), 1800); anima(mc, 'Talk', true); w = .3; };
   return {
     empieza() { ronda(); },
@@ -1197,9 +1197,12 @@ SALAS.carrusel = { dur: [60, 55, 50], crea(ctx) {
       if (fase === 'tapa' && tf <= 0) { llave.visible = false; fase = 'gira'; tf = [3, 4, 5][ctx.modo]; dir = Math.random() < .5 ? 1 : -1; fx('sorpresa', .6); }
       if (fase === 'gira') { const k = 1 - tf / [3, 4, 5][ctx.modo]; w = lerp(w, dir * (1.4 + ctx.modo * .6) * ctx.vel * (k > .5 && ctx.modo === 2 ? -1 : 1), .03); if (tf <= 0) { fase = 'frena'; tf = 1.4; } }
       if (fase === 'frena') { w = lerp(w, ctx.modo === 2 ? .12 : 0, .06); if (tf <= 0) { fase = 'elige'; di(t('donde'), 1600); meviGesto('senala'); } }
-      if (fase === 'elige' && ctx.modo < 2) w = lerp(w, 0, .1);
+      /* v18.79 · al parar, el carrusel se queda siempre «al tresbolillo»: ningún caballo justo detrás de otro, para que la caja de la llave no quede tapada por la de delante */
+      if (fase === 'elige' && ctx.modo < 2) { w = lerp(w, 0, .1); const P12 = Math.PI / 12, obj = Math.round((C.rotation.y - P12) / (P12 * 2)) * (P12 * 2) + P12; C.rotation.y = lerp(C.rotation.y, obj, Math.min(1, dt * 3)); }
       C.rotation.y += w * dt;
-      H.forEach(h => { h.gr.position.y = Math.sin(tt * 2.4 + h.f) * .25; if (h.tapar) h.cubierto = Math.min(1, h.cubierto + dt * 3); else h.cubierto = Math.max(0, h.cubierto - dt * 3); h.regalo.scale.setScalar(Math.max(.01, suave(h.cubierto) * 1.3)); h.regalo.rotation.y += dt; });
+      H.forEach(h => { h.gr.position.y = Math.sin(tt * 2.4 + h.f) * .25; if (h.tapar) h.cubierto = Math.min(1, h.cubierto + dt * 3); else h.cubierto = Math.max(0, h.cubierto - dt * 3); h.regalo.scale.setScalar(Math.max(.01, suave(h.cubierto) * 1.3)); h.regalo.rotation.y += dt;
+        /* v18.79 · al parar, las cajas de los caballos del fondo suben por encima de las de delante: todas quedan a tiro */
+        const zr = h.gr.getWorldPosition(VZ).z - C.position.z, sube = fase === 'elige' && ctx.modo < 2 ? Math.max(0, Math.min(1, -zr / R)) * 1.25 : 0; h.regalo.position.y = lerp(h.regalo.position.y, 2.62 + sube, Math.min(1, dt * 4)); });
       llave.rotation.y = -(C.rotation.y + (llave.parent ? llave.parent.rotation.y : 0)) + Math.sin(tt * 2.6) * .55; const late = Math.sin(tt * 6); llave.scale.setScalar(fase === 'mira' || fase === 'revela' ? 1.08 + late * .12 : 1); lb2.material.opacity = .3 + late * .14; lb.material.opacity = .5 + late * .14;
     },
     toca(h) { if (fase !== 'elige') return; const o = h && deQuien(h.object, 'cab'); if (!o) return; const i = o.userData.cab; fase = 'revela'; H.forEach(x => { x.tapar = false; }); llave.visible = true; const p = H[quien].gr.getWorldPosition(new T.Vector3()).add(new T.Vector3(0, 3, 0));
