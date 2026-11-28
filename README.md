@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.82**
+**Versión actual: v18.83**
 
 ## Cómo se juega
 
@@ -39,7 +39,12 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **MEVILAND** *(nuevo)*: el reino de fantasía de Mevi, en 3D y en primera persona; la gran plaza de la muralla al atardecer, cuatro mundos (Fantasía, Absurdo, Golosinas y Feria) con tres salas cada uno, doce pruebas, puertas trampa y cuatro finales, uno secreto.
 - **RUNAS** *(nuevo)*: dibuja runas en el aire con la mano delante de la cámara (o con el móvil o el ratón) para deshacer las runas que caen de la aurora boreal hacia el cristal de Mevi, que guarda un vikingo sabio; hasta 4 a la vez, tormenta final y supermagia con los dos brazos arriba.
 
-## Cambios de la versión actual (v18.82)
+## Cambios de la versión actual (v18.83)
+- **PUNTERÍA · WARFRONT:** fuera la bandera blanca y la paloma; a quien no se dispara es al médico de la cruz roja y a la oca que se ha colado en el frente.
+- **PUNTERÍA · GALAXY:** fuera el cometa y la gema; el pulpo ahora está vivo, mueve los tentáculos y se encoge al caer.
+- **PUNTERÍA · ZOMBIELAND:** fuera el cerebro.
+
+### v18.82
 - **RUNAS, paisaje nuevo:** noche nórdica con cordilleras nevadas, fiordo, abetos y piedras rúnicas, bajo una aurora boreal viva que se mueve por todo el cielo y se refleja en el agua.
 - **RUNAS, sin fantasmas:** las runas ya no las trae nadie; caen de la aurora envueltas en su luz, con un reguero de polvo mágico que baja del cielo. El jefe final es ahora la TORMENTA DE RUNAS.
 - **El vikingo sabio, vivo:** modelo 3D con esqueleto en RUNAS y en DIANA · HACHAS Y ARCO. Respira, habla con las manos y, en RUNAS, camina hasta ponerse bajo la runa que más aprieta y alza el báculo con cada hechizo. El báculo es una pieza aparte sujeta a la mano.
