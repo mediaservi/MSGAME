@@ -5,7 +5,7 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 
 🔗 **Juega ahora:** [msgame.mediaservi.com](https://msgame.mediaservi.com)
 
-**Versión actual: v18.83**
+**Versión actual: v18.84**
 
 ## Cómo se juega
 
@@ -39,7 +39,11 @@ Sistema de juegos sencillos y clásicos jugables en una pantalla o en salas inme
 - **MEVILAND** *(nuevo)*: el reino de fantasía de Mevi, en 3D y en primera persona; la gran plaza de la muralla al atardecer, cuatro mundos (Fantasía, Absurdo, Golosinas y Feria) con tres salas cada uno, doce pruebas, puertas trampa y cuatro finales, uno secreto.
 - **RUNAS** *(nuevo)*: dibuja runas en el aire con la mano delante de la cámara (o con el móvil o el ratón) para deshacer las runas que caen de la aurora boreal hacia el cristal de Mevi, que guarda un vikingo sabio; hasta 4 a la vez, tormenta final y supermagia con los dos brazos arriba.
 
-## Cambios de la versión actual (v18.83)
+## Cambios de la versión actual (v18.84)
+- **PUNTERÍA · GALAXY:** el astronauta al que no hay que disparar es ahora el modelo 3D de la casa, con esqueleto: flota moviendo brazos y piernas y sale dando vueltas si le das. Va sin insignias en el traje.
+- **El vikingo sabio empuña el báculo:** antes el palo le atravesaba la muñeca; ahora lo agarra con el puño cerrado, antebrazo al frente, y lo levanta de verdad con cada hechizo (RUNAS y DIANA).
+
+### v18.83
 - **PUNTERÍA · WARFRONT:** fuera la bandera blanca y la paloma; a quien no se dispara es al médico de la cruz roja y a la oca que se ha colado en el frente.
 - **PUNTERÍA · GALAXY:** fuera el cometa y la gema; el pulpo ahora está vivo, mueve los tentáculos y se encoge al caer.
 - **PUNTERÍA · ZOMBIELAND:** fuera el cerebro.
